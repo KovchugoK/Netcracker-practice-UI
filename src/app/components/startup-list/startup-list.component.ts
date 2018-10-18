@@ -10,7 +10,7 @@ import {Startup} from '../../model/Startup';
 })
 export class StartupListComponent implements OnInit {
 
-  startups: Observable<Startup>;
+  startupList: Observable<Startup[]>;
 
   constructor(private startupService: StartupService) {
   }
@@ -20,6 +20,6 @@ export class StartupListComponent implements OnInit {
   }
 
   reloadDate() {
-    this.startups = this.startupService.getStartupList();
+    this.startupList = this.startupService.getStartupList();
   }
 }

@@ -1,2 +1,24 @@
 <app-header> </app-header>
-<h1> StartUp List! </h1>
+
+
+<body>
+<h1> Startup list</h1>
+
+<table class="table table-striped table-bordered">
+  <tr>
+    <td><b> Id </b></td>
+    <td><b> Startup Name </b></td>
+    <td><b> Idea </b></td>
+    <td><b> About Project </b></td>
+    <td><b> Business Plan </b></td>
+  </tr>
+  <tr *ngFor="let startup of startupList | async">
+    <td>{{startup.id }}</td>
+    <td>{{startup.startupName}}</td>
+    <td>{{startup.idea}}</td>
+    <td>{{startup.aboutProject}}</td>
+    <td>{{startup.businessPlan}}</td>
+  </tr>
+
+</table>
+</body>
