@@ -1,4 +1,37 @@
 body {
   margin-left: 6%;
-  margin-right: 3%;
+}
+
+.example-card {
+  width: 25%;
+}
+
+mat-card {
+
+  float: left;
+  margin-left: 3%;
+  margin-bottom: 2%;
+  margin-top: 2%;
+  overflow-x:hidden;
+  height: 300px;
+
+
+}
+.cut-long-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.full-size {
+  height: 60%;
+  width: 100%;
+  background-color: white;
+}
+
+.box {
+  -webkit-column-width: 150px;
+  -moz-column-width: 150px;
+  column-width: 150px;
+  height: 100%;
 }

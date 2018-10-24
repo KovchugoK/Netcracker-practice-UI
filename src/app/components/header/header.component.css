@@ -1,7 +1,7 @@
-header{
-  background-color: #b4bbb7;
-  color: white;
-  font-size: 1.3em;
+.fill-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
 }
 
 .pointer {
