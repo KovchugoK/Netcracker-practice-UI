@@ -1,0 +1,24 @@
+<mat-sidenav-container class="example-container">
+  <mat-sidenav #sidenav mode="side">
+    <p></p>
+    <p><a> Личный кабинет </a></p>
+    <p><a> Сообщения </a></p>
+    <p><a> Проекты </a></p>
+    <p><a> Контакты </a></p>
+    <p><a> Избранное </a></p>
+    <mat-divider></mat-divider>
+    <p>
+      <button mat-button (click)="onClick()"> Скрыть</button>
+    </p>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <p>
+      <button mat-button (click)="onClick()" *ngIf="!opened">...</button>
+      <ng-content>
+
+      </ng-content>
+    </p>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

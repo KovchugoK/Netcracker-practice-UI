@@ -11,7 +11,6 @@ import {Startup} from '../../model/Startup';
 export class StartupListComponent implements OnInit {
 
   startupList: Observable<Startup[]>;
-  opened: false;
 
   constructor(private startupService: StartupService) {
   }
@@ -23,4 +22,6 @@ export class StartupListComponent implements OnInit {
   reloadDate() {
     this.startupList = this.startupService.getStartupList();
   }
+
+
 }
