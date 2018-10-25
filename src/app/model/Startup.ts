@@ -4,4 +4,6 @@ export class Startup {
   idea: string;
   aboutProject: string;
   businessPlan: string;
+  sumOfInvestment: number;
+
 }

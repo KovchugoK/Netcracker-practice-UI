@@ -1,9 +1,37 @@
-header{
-  background-color: #b4bbb7;
-  color: white;
-  font-size: 1.3em;
+.fill-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 1 1 auto;
 }
 
 .pointer {
   cursor: pointer;
 }
+
+mat-toolbar{
+  background-color: #eaebe6;
+}
+
+.first-header{
+  padding-left: 25%;
+
+}
+a {
+ color: black;
+  padding: 20px 40px;
+}
+
+a:hover {
+  color: yellow;
+}
+
+a:visited {
+  color: black;
+}
+
+img {
+  height: 50px;
+  width: 80px;
+}
+
+
