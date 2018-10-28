@@ -1,4 +1,22 @@
-
 <body>
-<h1> Investor list </h1>
+<h1> Investor list</h1>
+
+<table class="table table-striped table-bordered">
+  <tr>
+    <td><b> Id </b></td>
+    <td><b> Login </b></td>
+    <td><b> Email </b></td>
+    <td><b> Role </b></td>
+  </tr>
+
+  <tr *ngFor="let user of userList | async">
+    <td>{{user.id }}</td>
+    <td>{{user.login}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.role}}</td>
+  </tr>
+
+</table>
+
 </body>
+
