@@ -4,18 +4,15 @@
 <table class="table table-striped table-bordered">
   <tr>
     <td><b> Id </b></td>
-    <td><b> Login </b></td>
-    <td><b> Email </b></td>
-    <td><b> Role </b></td>
+    <td><b> First Name </b></td>
+    <td><b> Second Name </b></td>
   </tr>
 
-  <tr *ngFor="let user of userList | async">
-    <td>{{user.id }}</td>
-    <td>{{user.login}}</td>
-    <td>{{user.email}}</td>
-    <td>{{user.role}}</td>
+  <tr *ngFor="let account of accountList | async">
+    <td>{{account.id}}</td>
+    <td>{{account.firstName}}</td>
+    <td>{{account.secondName}}</td>
   </tr>
-
 </table>
 
 </body>

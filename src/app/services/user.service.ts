@@ -6,13 +6,10 @@ import {HttpClient} from "@angular/common/http";
   providedIn: 'root'
 })
 export class UserService {
-  investorListUrl = '/api/investor-list';
 
-  constructor(private http: HttpClient) {
+
+  constructor() {
   }
 
-  getUserList(): Observable<any> {
-    return this.http.get(`${this.investorListUrl}`);
-  }
 
 }
