@@ -39,15 +39,15 @@
   <!--</mat-sidenav-content>-->
 <!--</mat-sidenav-container>-->
 
-
-<div class="container" *ngFor="let startup of startupList | async">
+<main>
+<div *ngFor="let startup of startupList | async">
   <mat-card class="example-card">
     <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
     <mat-card-content>
-      <p align="center">
-        <b>
+      <p align="center" >
+        <a routerLink="/startup/{{startup.id}}">
           {{startup.startupName}}
-        </b>
+        </a>
       </p>
       <p class="box">
         {{startup.aboutProject}}
@@ -58,6 +58,6 @@
     </mat-card-content>
   </mat-card>
 </div>
-
+</main>
 
 

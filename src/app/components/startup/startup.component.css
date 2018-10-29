@@ -1,0 +1,50 @@
+main {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  width: 80%;
+  padding: 40px;
+  margin: auto;
+}
+
+.imageBlock {
+  padding-top: 30px;
+}
+.rightFromImageBlock {
+
+  padding-top: 30px;
+  padding-left: 5%;
+  width: 450px;
+  height: 350px;
+}
+
+.imgParametrs{
+  height: 350px;
+  width: 550px;
+}
+
+
+.buttonInBlock{
+  width: 150px;
+}
+
+.block{
+  margin-top: 30px;
+  width: 90%;
+}
+
+
+.blockStartupMembers{
+  flex-wrap: wrap;
+  margin: 15px;
+  width: 25%;
+}
+.blockText {
+  width: 90%;
+  height: 30px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}

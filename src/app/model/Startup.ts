@@ -1,3 +1,6 @@
+import {StartupResume} from './StartupResume';
+import {Account} from './Account';
+
 export class Startup {
   id: number;
   startupName: string;
@@ -5,5 +8,6 @@ export class Startup {
   aboutProject: string;
   businessPlan: string;
   sumOfInvestment: number;
-
+  account: Account;
+  startupResumes: StartupResume;
 }

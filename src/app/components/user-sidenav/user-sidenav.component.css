@@ -8,3 +8,7 @@ mat-sidenav{
 .side-nav-text{
 
 }
+
+.absolutPositionButton{
+  position: absolute;
+}

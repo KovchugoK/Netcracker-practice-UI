@@ -23,5 +23,4 @@ export class StartupListComponent implements OnInit {
     this.startupList = this.startupService.getStartupList();
   }
 
-
 }

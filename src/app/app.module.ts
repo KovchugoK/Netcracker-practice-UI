@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule} from './material';
 import { FooterComponent } from './components/footer/footer.component';
 import { UserSidenavComponent } from './components/user-sidenav/user-sidenav.component';
+import { StartupComponent } from './components/startup/startup.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { UserSidenavComponent } from './components/user-sidenav/user-sidenav.com
     MainPageComponent,
     HeaderComponent,
     FooterComponent,
-    UserSidenavComponent
+    UserSidenavComponent,
+    StartupComponent
   ],
   imports: [
     BrowserModule,
