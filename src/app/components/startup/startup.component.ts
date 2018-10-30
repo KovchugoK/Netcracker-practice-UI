@@ -1,9 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
 import {Startup} from '../../model/Startup';
 import {StartupService} from '../../services/startup.service';
 import {ActivatedRoute} from '@angular/router';
-import {Resume} from '../../model/Resume';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-startup',
@@ -13,21 +12,28 @@ import {Resume} from '../../model/Resume';
 export class StartupComponent implements OnInit {
 
   startup: Startup;
-  // resumes: Resume[];
+  id: number;
 
-  constructor(private startupService: StartupService, private route: ActivatedRoute) {
+  constructor(private startupService: StartupService, private route: ActivatedRoute, private location: Location) {
 
   }
 
   ngOnInit() {
+    this.id = +this.route.snapshot.paramMap.get('id');
     this.reloadDate();
   }
 
   reloadDate() {
-    const id = +this.route.snapshot.paramMap.get('id');
-    this.startupService.getStartupById(id).subscribe(startup => this.startup = startup);
-    // this.resumes = this.startup.startupResumes.resume;
+    this.startupService.getStartupById(this.id).subscribe(startup => this.startup = startup);
   }
 
+  deleteStartup() {
+    this.startupService.deleteStartup(this.id).subscribe();
+    this.goBack();
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
 
 }

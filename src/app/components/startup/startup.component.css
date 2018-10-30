@@ -26,6 +26,7 @@ main {
 
 .buttonInBlock{
   width: 150px;
+  height: 50px;
 }
 
 .block{
@@ -47,4 +48,10 @@ main {
 .example-header-image {
   background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
   background-size: cover;
+}
+
+.btnControl{
+  width: 125px;
+  height: 50px;
+  margin: 15px 15px 0 0;
 }
