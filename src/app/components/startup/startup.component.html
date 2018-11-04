@@ -10,8 +10,8 @@
     <h3> {{startup.startupName}} </h3>
     <p style="text-align: justify"><br/> {{startup.idea}} </p>
 
-    <p class="textBottomInBlock ">
-      Необходимо инвестиций:
+    <p>
+      Need investment:
       <br/>
       <b>{{startup.sumOfInvestment}}$</b>
     </p>
@@ -19,19 +19,19 @@
   </div>
 
   <div class="block">
-    <h3><b> О проекте:</b></h3>
+    <h3><b> About project:</b></h3>
     <p> {{startup.aboutProject}}</p>
     <mat-divider></mat-divider>
   </div>
 
   <div class="block">
-    <h3><b> Бизнес план:</b></h3>
+    <h3><b> Business plan:</b></h3>
     <p> {{startup.businessPlan}}</p>
     <mat-divider></mat-divider>
   </div>
 
   <div class="blockText">
-    <h3><b> Участники:</b></h3>
+    <h3><b> Members:</b></h3>
   </div>
 
 
@@ -39,7 +39,8 @@
     <mat-card>
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title> {{startup.account.firstName}} <br/> {{startup.account.secondName}}</mat-card-title>
+        <mat-card-title *ngIf="startup.account!==null"> {{startup.account.firstName}} <br/> {{startup.account.secondName}}</mat-card-title>
+        <mat-card-title *ngIf="startup.account===null"> UNKNOWN </mat-card-title>
         <mat-card-subtitle> LEADER</mat-card-subtitle>
       </mat-card-header>
     </mat-card>
@@ -51,7 +52,7 @@
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title> {{res.resume.account.firstName}}<br/> {{res.resume.account.secondName}}</mat-card-title>
-        <mat-card-subtitle> {{res.resume.businessRole}}</mat-card-subtitle>
+        <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}}</mat-card-subtitle>
       </mat-card-header>
     </mat-card>
   </div>
@@ -59,8 +60,8 @@
   <mat-divider style="width: 90%"> </mat-divider>
 
   <div>
-    <button mat-raised-button="" class="btnControl" > Редактировать </button>
-    <button mat-raised-button="" class="btnControl" (click)="deleteStartup()"> Удалить </button>
+    <button mat-raised-button="" class="btnControl" routerLink="/startup-edit/{{id}}" > Edit </button>
+    <button mat-raised-button="" class="btnControl" (click)="deleteStartup()"> Delete </button>
   </div>
 
 </main>

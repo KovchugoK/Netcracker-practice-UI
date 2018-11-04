@@ -1,10 +1,11 @@
 import {ResumeSkill} from './ResumeSkill';
 import {Account} from './Account';
+import {BusinessRole} from './BusinessRole';
 
-export class Resume {
-  info: string;
+export interface Resume {
+  id: string;
   resumeSkills: ResumeSkill[];
-  businessRole: string;
+  businessRole: BusinessRole;
   account: Account;
 }
 

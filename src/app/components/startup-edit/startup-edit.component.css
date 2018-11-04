@@ -11,11 +11,22 @@ main {
   padding-top: 30px;
 }
 .rightFromImageBlock {
-
   padding-top: 30px;
   padding-left: 5%;
   width: 550px;
   height: 350px;
+}
+mat-form-field{
+  width: 100%;
+
+}
+table{
+  width: 100%;
+}
+form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .imgParametrs{

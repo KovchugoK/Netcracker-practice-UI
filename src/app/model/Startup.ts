@@ -1,8 +1,8 @@
 import {StartupResume} from './StartupResume';
 import {Account} from './Account';
 
-export class Startup {
-  id: number;
+export interface Startup {
+  id: string;
   startupName: string;
   idea: string;
   aboutProject: string;
@@ -11,3 +11,16 @@ export class Startup {
   account: Account;
   startupResumes: StartupResume;
 }
+
+
+export const defaultStartup: Startup = {
+  id: null,
+  startupName: '',
+  idea: '',
+  aboutProject: '',
+  businessPlan: '',
+  sumOfInvestment: 0,
+  account: null,
+  startupResumes: null
+}
+;

@@ -1,0 +1,103 @@
+<main *ngIf="startup">
+  <form [formGroup]="startupForm">
+    <div class="imageBlock">
+      <mat-card>
+        <img class="imgParametrs" src="/src/assets/images/Logo.png" alt="startupLogo">
+      </mat-card>
+    </div>
+
+    <div class="rightFromImageBlock">
+      <table>
+        <tr>
+
+          <mat-form-field>
+            <input matInput placeholder="Startup name" [formControlName]="'startupName'">
+          </mat-form-field>
+
+        </tr>
+        <tr>
+          <mat-form-field>
+      <textarea matInput mat-autosize="" placeholder="Idea" [formControlName]="'idea'">
+      </textarea>
+          </mat-form-field>
+        </tr>
+
+        <tr>
+          <mat-form-field>
+            <input matInput placeholder="Sum of investment" [formControlName]="'sumOfInvestment'">
+            <span matPrefix>$</span>
+          </mat-form-field>
+        </tr>
+      </table>
+      <button mat-raised-button=""> Load image</button>
+
+    </div>
+
+    <div class="block">
+      <mat-form-field style="width: 100%">
+      <textarea matInput mat-autosize="" placeholder="About project" [formControlName]="'aboutProject'">
+      </textarea>
+      </mat-form-field>
+    </div>
+
+    <div class="block">
+      <mat-form-field style="width: 100%">
+      <textarea matInput mat-autosize="" placeholder="Business plan" [formControlName]="'businessPlan'">
+      </textarea>
+      </mat-form-field>
+    </div>
+
+
+    <div class="blockText">
+      <h3><b> Members:</b></h3>
+    </div>
+
+
+    <div class="blockStartupMembers">
+      <mat-card>
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title *ngIf="startup.account!==null"> {{startup.account.firstName}} <br/>
+            {{startup.account.secondName}}
+          </mat-card-title>
+          <mat-card-title *ngIf="startup.account===null"> UNKNOWN</mat-card-title>
+          <mat-card-subtitle> LEADER</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+
+
+    <div class="blockStartupMembers" *ngFor="let res of startup.startupResumes">
+      <mat-card>
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title> {{res.resume.account.firstName}}<br/> {{res.resume.account.secondName}}</mat-card-title>
+          <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}}</mat-card-subtitle>
+          <mat-card-content>
+            <i class="material-icons" style="cursor: pointer">
+              delete
+            </i>
+          </mat-card-content>
+        </mat-card-header>
+      </mat-card>
+    </div>
+
+    <mat-divider style="width: 90%"></mat-divider>
+
+    <div *ngIf="id!==null">
+      <button mat-raised-button="" class="btnControl" (click)="updateStartup()" [disabled]="startupForm.invalid"> Save
+      </button>
+      <button mat-raised-button="" class="btnControl" (click)="goBack()"> Cancel</button>
+    </div>
+
+    <div *ngIf="id===null">
+      <button mat-raised-button="" class="btnControl" [disabled]="startupForm.invalid" (click)="createStartup()"
+              routerLink="/startup-list"> Create
+      </button>
+      <button mat-raised-button="" class="btnControl" (click)="goBack()"> Cancel</button>
+    </div>
+
+  </form>
+
+
+</main>

@@ -12,14 +12,14 @@ import {Location} from '@angular/common';
 export class StartupComponent implements OnInit {
 
   startup: Startup;
-  id: number;
+  id: string;
 
   constructor(private startupService: StartupService, private route: ActivatedRoute, private location: Location) {
 
   }
 
   ngOnInit() {
-    this.id = +this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id');
     this.reloadDate();
   }
 
@@ -28,8 +28,7 @@ export class StartupComponent implements OnInit {
   }
 
   deleteStartup() {
-    this.startupService.deleteStartup(this.id).subscribe();
-    this.goBack();
+    this.startupService.deleteStartup(this.id).subscribe(() => this.goBack());
   }
 
   goBack(): void {

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { StartupListComponent } from './components/startup-list/startup-list.component';
@@ -14,6 +14,7 @@ import { MaterialModule} from './material';
 import { FooterComponent } from './components/footer/footer.component';
 import { UserSidenavComponent } from './components/user-sidenav/user-sidenav.component';
 import { StartupComponent } from './components/startup/startup.component';
+import { StartupEditComponent } from './components/startup-edit/startup-edit.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { StartupComponent } from './components/startup/startup.component';
     HeaderComponent,
     FooterComponent,
     UserSidenavComponent,
-    StartupComponent
+    StartupComponent,
+    StartupEditComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,7 @@ import { StartupComponent } from './components/startup/startup.component';
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ReactiveFormsModule,
     MaterialModule
   ],
   providers: [],

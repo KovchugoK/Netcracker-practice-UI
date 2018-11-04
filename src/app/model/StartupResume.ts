@@ -1,8 +1,8 @@
 import {Resume} from './Resume';
 
 
-export class StartupResume {
-  id: number;
+export interface StartupResume {
+  id: string;
   status: string;
   resume: Resume;
 }

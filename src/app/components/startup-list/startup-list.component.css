@@ -23,14 +23,52 @@ mat-card {
   background-color: white;
 }
 
-.box {
-  -webkit-column-width: 150px;
-  -moz-column-width: 150px;
-  column-width: 150px;
-  height: 100%;
-}
+/*.box {*/
+  /*-webkit-column-width: 150px;*/
+  /*-moz-column-width: 150px;*/
+  /*column-width: 150px;*/
+  /*height: 100%;*/
+/*}*/
+
 
 main {
   width: 100%;
   padding-left: 40px;
+}
+
+
+.box {
+  overflow: hidden;
+  height: 50px;
+  width: 300px;
+  line-height: 25px;
+}
+
+
+.box:before {
+  content: "";
+  float: left;
+  width: 5px;
+  height: 200px;
+}
+
+.box > *:first-child {
+  float: right;
+  width: 100%;
+  margin-left: -5px;
+}
+
+.box:after {
+  content: "\02026";
+  box-sizing: content-box;
+  float: right;
+  position: relative;
+  top: -25px;
+  left: 100%;
+  width: 3em;
+  margin-left: -3em;
+  padding-right: 5px;
+  text-align: right;
+  background-size: 100% 100%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
 }

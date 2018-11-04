@@ -1,3 +1,3 @@
-export class ResumeSkill {
- id: number;
+export interface ResumeSkill {
+  id: string;
 }
