@@ -1,4 +1,18 @@
-
-<body>
-<h1> Investor list </h1>
-</body>
+<div class="container" *ngFor="let account of accountList | async">
+  <mat-card class="example-card">
+    <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+    <mat-card-content>
+      <p align="center">
+        <b>
+          {{account.id}}
+        </b>
+      </p>
+      <p class="box">
+        {{account.firstName}}
+      </p>
+      <p>
+        {{account.secondName}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -22,5 +22,4 @@ export const defaultStartup: Startup = {
   sumOfInvestment: 0,
   account: null,
   startupResumes: null
-}
-;
+};

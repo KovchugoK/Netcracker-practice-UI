@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from "rxjs/index";
+import {Account} from "../../model/Account";
+import {InvestorService} from "../../services/investor.service";
 
 @Component({
   selector: 'app-investor-list',
@@ -7,9 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InvestorListComponent implements OnInit {
 
-  constructor() { }
+  accountList: Observable<Account[]>;
+  opened: false;
 
-  ngOnInit() {
+  constructor(private investorService: InvestorService) {
   }
 
+  ngOnInit() {
+    this.reloadData();
+  }
+
+  reloadData() {
+    this.accountList = this.investorService.getInvestorList();
+  }
 }
+
