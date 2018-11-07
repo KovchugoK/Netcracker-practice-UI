@@ -1,0 +1,68 @@
+<main *ngIf="startup">
+  <div class="imageBlock">
+    <mat-card>
+      <img class="imgParametrs" src="/src/assets/images/Logo.png" alt="startupLogo">
+    </mat-card>
+  </div>
+
+
+  <div class="rightFromImageBlock">
+    <h3> {{startup.startupName}} </h3>
+    <p style="text-align: justify"><br/> {{startup.idea}} </p>
+
+    <p>
+      Need investment:
+      <br/>
+      <b>{{startup.sumOfInvestment}}$</b>
+    </p>
+    <button mat-raised-button="" class="buttonInBlock">Написать</button>
+  </div>
+
+  <div class="block">
+    <h3><b> About project:</b></h3>
+    <p> {{startup.aboutProject}}</p>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="block">
+    <h3><b> Business plan:</b></h3>
+    <p> {{startup.businessPlan}}</p>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="blockText">
+    <h3><b> Members:</b></h3>
+  </div>
+
+
+  <div class="blockStartupMembers">
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title *ngIf="startup.account!==null"> {{startup.account.firstName}} <br/> {{startup.account.secondName}}</mat-card-title>
+        <mat-card-title *ngIf="startup.account===null"> UNKNOWN </mat-card-title>
+        <mat-card-subtitle> LEADER</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+
+  <div class="blockStartupMembers" *ngFor="let res of startup.startupResumes">
+    <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title> {{res.resume.account.firstName}}<br/> {{res.resume.account.secondName}}</mat-card-title>
+        <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <mat-divider style="width: 90%"> </mat-divider>
+
+  <div>
+    <button mat-raised-button="" class="btnControl" routerLink="/startup-edit/{{id}}" > Edit </button>
+    <button mat-raised-button="" class="btnControl" (click)="deleteStartup()"> Delete </button>
+  </div>
+
+</main>
+
