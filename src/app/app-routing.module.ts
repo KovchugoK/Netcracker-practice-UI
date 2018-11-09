@@ -6,6 +6,7 @@ import {SpecialistListComponent} from './components/specialist-list/specialist-l
 import {StartupListComponent} from './components/startup-list/startup-list.component';
 import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
+import {ResumeListComponent} from './components/resume-list/resume-list.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'specialist-list', component: SpecialistListComponent},
   {path: 'startup/:id', component: StartupComponent},
   {path: 'startup-edit/:id', component: StartupEditComponent},
-  {path: 'startup-edit', component: StartupEditComponent}
+  {path: 'startup-edit', component: StartupEditComponent},
+  {path: 'resume/list', component: ResumeListComponent}
 ];
 
 @NgModule({
