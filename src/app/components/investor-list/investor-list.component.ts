@@ -11,9 +11,14 @@ import {InvestorService} from "../../services/investor.service";
 export class InvestorListComponent implements OnInit {
 
   accountList: Observable<Account[]>;
+  clickedList: Account[];
   opened: false;
 
   constructor(private investorService: InvestorService) {
+  }
+
+  onClick(a: Account) {
+
   }
 
   ngOnInit() {

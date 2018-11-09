@@ -15,4 +15,8 @@ export class InvestorService {
     return this.http.get(`${this.investorListUrl}`);
   }
 
+  /*post(): Observable<any> {
+
+  }*/
+
 }
