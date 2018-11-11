@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs/index";
 import {FavoriteService} from "../../services/favorite.service";
+import {Favorite} from "../../model/Favorite";
 
 
 @Component({
@@ -9,7 +10,7 @@ import {FavoriteService} from "../../services/favorite.service";
   styleUrls: ['./favorite.component.css']
 })
 export class FavoriteComponent implements OnInit {
-  favoriteList: Observable<Account[]>;
+  favoriteList: Observable<Favorite[]>;
   opened: false;
 
   constructor(private favoriteService: FavoriteService) {

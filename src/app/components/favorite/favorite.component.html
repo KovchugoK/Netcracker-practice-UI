@@ -8,10 +8,10 @@
     <td><b> Second Name </b></td>
   </tr>
 
-  <tr *ngFor="let account of accountList | async">
-    <td>{{account.id}}</td>
-    <td>{{account.firstName}}</td>
-    <td>{{account.secondName}}</td>
+  <tr *ngFor="let favorite of favoriteList | async">
+    <td>{{favorite.id}}</td>
+    <td>{{favorite.account.firstName}}</td>
+    <td>{{favorite.account.secondName}}</td>
   </tr>
 </table>
 
