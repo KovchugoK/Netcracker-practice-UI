@@ -3,15 +3,19 @@
     <mat-card>
 
       <mat-card-header>
+        <div mat-card-avatar class="header-image"></div>
+
         <mat-card-title>
           {{resume.businessRole.businessRoleName}}
-          <font size="-1" color="#a9a9a9">
-            <a>
+
+          <font size="-0.5" color="#a9a9a9">
+            <p>
               {{resume.account.firstName}}
               {{resume.account.secondName}}
-            </a>
+            </p>
           </font>
         </mat-card-title>
+
         <mat-card-subtitle>
           <mat-chip-list>
 
@@ -21,8 +25,6 @@
 
           </mat-chip-list>
         </mat-card-subtitle>
-        <mat-card-content>
-        </mat-card-content>
       </mat-card-header>
 
     </mat-card>
