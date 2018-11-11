@@ -17,7 +17,15 @@ export class InvestorListComponent implements OnInit {
   }
 
   onClick(account: Account) {
-    this.investorService.post(account as Account);
+    this.investorService.post(account as Account).subscribe(
+      value => {
+        console.log('[POST] create Fav successfully', value);
+      }, error => {
+        console.log('FAIL to create');
+      },
+      () => {
+        console.log('POST Fav - now completed.');
+      });;
   }
 
   ngOnInit() {

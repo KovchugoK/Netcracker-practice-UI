@@ -12,6 +12,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule} from './material';
 import { FooterComponent } from './components/footer/footer.component';
+import {FavoriteComponent} from "./components/favorite/favorite.component";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { FooterComponent } from './components/footer/footer.component';
     InvestorListComponent,
     MainPageComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    FavoriteComponent
   ],
   imports: [
     BrowserModule,
