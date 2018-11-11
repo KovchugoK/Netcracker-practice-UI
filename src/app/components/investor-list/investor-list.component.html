@@ -9,7 +9,7 @@
       </p>
       <p class="box">
         {{account.firstName}} {{account.secondName}}
-        <img mat-card-lg-image="" class="fav" src="/src/assets/images/favorite.png" (click)="onClick(account)">
+        <button (click)="onClick(account)" class="fav"><img mat-card-lg-image="" class="img" src="/src/assets/images/favorite.png" ></button>
       </p>
     </mat-card-content>
   </mat-card>
