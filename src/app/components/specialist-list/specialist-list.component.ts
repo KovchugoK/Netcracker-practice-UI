@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs/index";
 import {SpecialistService} from "../../services/specialist.service";
+import {AccountDTO} from "../../model/AccountDTO";
 
 @Component({
   selector: 'app-specialist-list',
@@ -9,7 +10,7 @@ import {SpecialistService} from "../../services/specialist.service";
 })
 export class SpecialistListComponent implements OnInit {
 
-  accountList: Observable<Account[]>;
+  accountList: Observable<AccountDTO[]>;
   opened: false;
 
   constructor(private specialisService: SpecialistService) {

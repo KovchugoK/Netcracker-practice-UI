@@ -13,15 +13,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material';
 import {FooterComponent} from './components/footer/footer.component';
 import {FavoriteComponent} from "./components/favorite/favorite.component";
-import {UserSidenavComponent} from './components/user-sidenav/user-sidenav.component';
-import {StartupComponent} from './components/startup/startup.component';
-import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
-import {UserSidenavComponent} from './components/user-sidenav/user-sidenav.component';
-import {StartupComponent} from './components/startup/startup.component';
-import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
-import {ResumeDetailComponent} from './components/resume-detail/resume-detail.component';
-import {ResumeListComponent} from './components/resume-list/resume-list.component';
-import {MatChip, MatChipList, MatChipsModule} from '@angular/material';
+
+import {
+  MatButtonModule, MatCardModule, MatChip, MatChipList, MatChipsModule, MatIconModule,
+  MatMenuModule
+} from '@angular/material';
+
+import {UserSidenavComponent} from "./components/user-sidenav/user-sidenav.component";
+import {StartupComponent} from "./components/startup/startup.component";
+import {StartupEditComponent} from "./components/startup-edit/startup-edit.component";
+import {ResumeListComponent} from "./components/resume-list/resume-list.component";
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +38,8 @@ import {MatChip, MatChipList, MatChipsModule} from '@angular/material';
     UserSidenavComponent,
     StartupComponent,
     StartupEditComponent,
-    ResumeDetailComponent,
-    ResumeListComponent
+    ResumeListComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,11 @@ import {MatChip, MatChipList, MatChipsModule} from '@angular/material';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MaterialModule,
-    MatChipsModule
+    MatChipsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

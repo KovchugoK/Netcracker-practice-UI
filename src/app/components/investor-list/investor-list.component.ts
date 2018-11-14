@@ -34,6 +34,7 @@ export class InvestorListComponent implements OnInit {
 
   reloadData() {
     this.accountList = this.investorService.getInvestorList();
+
   }
 }
 
