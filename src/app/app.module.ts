@@ -16,7 +16,12 @@ import {FavoriteComponent} from "./components/favorite/favorite.component";
 import {UserSidenavComponent} from './components/user-sidenav/user-sidenav.component';
 import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
-
+import {UserSidenavComponent} from './components/user-sidenav/user-sidenav.component';
+import {StartupComponent} from './components/startup/startup.component';
+import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
+import {ResumeDetailComponent} from './components/resume-detail/resume-detail.component';
+import {ResumeListComponent} from './components/resume-list/resume-list.component';
+import {MatChip, MatChipList, MatChipsModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -29,7 +34,10 @@ import {StartupEditComponent} from './components/startup-edit/startup-edit.compo
     FooterComponent,
     FavoriteComponent,
     UserSidenavComponent,
-    StartupComponent
+    StartupComponent,
+    StartupEditComponent,
+    ResumeDetailComponent,
+    ResumeListComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +46,8 @@ import {StartupEditComponent} from './components/startup-edit/startup-edit.compo
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
