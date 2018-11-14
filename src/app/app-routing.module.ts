@@ -4,7 +4,12 @@ import {InvestorListComponent} from './components/investor-list/investor-list.co
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {SpecialistListComponent} from './components/specialist-list/specialist-list.component';
 import {StartupListComponent} from './components/startup-list/startup-list.component';
+
 import {FavoriteComponent} from "./components/favorite/favorite.component";
+
+import {StartupComponent} from './components/startup/startup.component';
+import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
+
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -12,7 +17,10 @@ const routes: Routes = [
   {path: 'startup-list', component: StartupListComponent},
   {path: 'investor-list', component: InvestorListComponent},
   {path: 'specialist-list', component: SpecialistListComponent},
-  {path: 'favorite', component: FavoriteComponent}
+  {path: 'startup/:id', component: StartupComponent},
+  {path: 'favorite', component: FavoriteComponent},
+  {path: 'startup-edit/:id', component: StartupEditComponent},
+  {path: 'startup-edit', component: StartupEditComponent}
 ];
 
 @NgModule({
