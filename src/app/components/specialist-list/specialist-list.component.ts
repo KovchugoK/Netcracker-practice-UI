@@ -23,4 +23,16 @@ export class SpecialistListComponent implements OnInit {
     this.accountList = this.specialisService.getSpecialistList();
   }
 
+  onClick(account: Account) {
+    this.specialisService.post(account as Account).subscribe(
+      value => {
+        console.log('[POST] create Fav successfully', value);
+      }, error => {
+        console.log('FAIL to create');
+      },
+      () => {
+        console.log('POST Fav - now completed.');
+      });;
+  }
+
 }
