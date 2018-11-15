@@ -7,6 +7,7 @@ import {StartupListComponent} from './components/startup-list/startup-list.compo
 import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
+import {ResumeDetailComponent} from './components/resume-detail/resume-detail.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'startup/:id', component: StartupComponent},
   {path: 'startup-edit/:id', component: StartupEditComponent},
   {path: 'startup-edit', component: StartupEditComponent},
-  {path: 'resume/list', component: ResumeListComponent}
+  {path: 'resume/list', component: ResumeListComponent},
+  {path: 'resume/:id', component: ResumeDetailComponent}
 ];
 
 @NgModule({

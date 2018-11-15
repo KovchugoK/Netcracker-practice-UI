@@ -17,7 +17,7 @@ import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
 import {ResumeDetailComponent} from './components/resume-detail/resume-detail.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
-import {MatChip, MatChipList, MatChipsModule} from '@angular/material';
+import {MatChip, MatChipList, MatChipsModule, MatDialogModule, MatListModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -43,6 +43,11 @@ import {MatChip, MatChipList, MatChipsModule} from '@angular/material';
     ReactiveFormsModule,
     MaterialModule,
     MatChipsModule,
+    MatDialogModule,
+    MatListModule
+  ],
+  entryComponents: [
+    ResumeDetailComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
