@@ -1,6 +1,6 @@
 <button mat-button [matMenuTriggerFor]="menu">Menu</button>
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>Developers</button>
-  <button mat-menu-item>Designers</button>
-  <button mat-menu-item>TE</button>
+  <button mat-menu-item (click)="isSelected('DEVELOPER')">Developers</button>
+  <button mat-menu-item (click)="isSelected('DESIGNER')">Designers</button>
+  <button mat-menu-item (click)="isSelected('TE')">TE</button>
 </mat-menu>

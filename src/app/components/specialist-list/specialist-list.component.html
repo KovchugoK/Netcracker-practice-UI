@@ -2,20 +2,21 @@
   <app-menu></app-menu>
 </div>
 <div class="container" *ngFor="let accountDto of accountList | async">
-  <mat-card class="example-card">
-    <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
-    <mat-card-content>
-      <p align="center">
-        <b>
-          <a href="investor-list/{{accountDto.account.id}}"> {{accountDto.businessRole.businessRoleName}} </a>
-        </b>
-      </p>
-      <p class="box">
-        {{accountDto.account.firstName}} {{accountDto.account.secondName}}
-        <button (click)="onClick(accountDto.account)" class="fav"><img mat-card-lg-image="" class="img"
-                                                                       src="/src/assets/images/favorite.png"></button>
-      </p>
-    </mat-card-content>
-  </mat-card>
-</div>
+    <mat-card class="example-card">
+      <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+      <mat-card-content>
+        <p align="center">
+          <b>
+            <a href="investor-list/{{accountDto.account.id}}"> {{accountDto.businessRole.businessRoleName}} </a>
+          </b>
+        </p>
+        <p class="box">
+          {{accountDto.account.firstName}} {{accountDto.account.secondName}}
+          <button (click)="onClick(accountDto.account)" class="fav"><img mat-card-lg-image="" class="img"
+                                                                         src="/src/assets/images/favorite.png"></button>
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
 

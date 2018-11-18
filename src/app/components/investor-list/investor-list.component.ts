@@ -25,7 +25,7 @@ export class InvestorListComponent implements OnInit {
       },
       () => {
         console.log('POST Fav - now completed.');
-      });;
+      });
   }
 
   ngOnInit() {

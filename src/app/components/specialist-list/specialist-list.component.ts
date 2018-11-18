@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {Observable} from "rxjs/index";
 import {SpecialistService} from "../../services/specialist.service";
 import {AccountDTO} from "../../model/AccountDTO";
@@ -8,16 +8,24 @@ import {AccountDTO} from "../../model/AccountDTO";
   templateUrl: './specialist-list.component.html',
   styleUrls: ['./specialist-list.component.css']
 })
-export class SpecialistListComponent implements OnInit {
+export class SpecialistListComponent implements OnInit, DoCheck {
 
   accountList: Observable<AccountDTO[]>;
-  opened: false;
 
   constructor(private specialisService: SpecialistService) {
   }
 
   ngOnInit() {
+    console.log("onInit");
     this.reloadData();
+  }
+
+  ngDoCheck() {
+    console.log("doCheck");
+    if (this.specialisService.businessRole != '') {
+      this.accountList = this.specialisService.getSpecialistList();
+    }
+    this.specialisService.businessRole = '';
   }
 
   reloadData() {
@@ -33,7 +41,8 @@ export class SpecialistListComponent implements OnInit {
       },
       () => {
         console.log('POST Fav - now completed.');
-      });;
+      });
+    ;
   }
 
 }
