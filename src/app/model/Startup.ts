@@ -9,7 +9,7 @@ export interface Startup {
   businessPlan: string;
   sumOfInvestment: number;
   account: Account;
-  startupResumes: StartupResume;
+  startupResumes: StartupResume[];
 }
 
 

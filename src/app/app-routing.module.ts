@@ -6,6 +6,7 @@ import {SpecialistListComponent} from './components/specialist-list/specialist-l
 import {StartupListComponent} from './components/startup-list/startup-list.component';
 import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
+import {AuthGuard} from './guards/auth.guard';
 
 const routes: Routes = [
   {path: '', redirectTo: '/main-page', pathMatch: 'full'},
@@ -14,8 +15,9 @@ const routes: Routes = [
   {path: 'investor-list', component: InvestorListComponent},
   {path: 'specialist-list', component: SpecialistListComponent},
   {path: 'startup/:id', component: StartupComponent},
-  {path: 'startup-edit/:id', component: StartupEditComponent},
-  {path: 'startup-edit', component: StartupEditComponent}
+  {path: 'startup-edit/:id', component: StartupEditComponent, canActivate: [AuthGuard]},
+  {path: 'startup-edit', component: StartupEditComponent, canActivate: [AuthGuard]},
+  {path: '**', redirectTo: '/main-page'}
 ];
 
 @NgModule({

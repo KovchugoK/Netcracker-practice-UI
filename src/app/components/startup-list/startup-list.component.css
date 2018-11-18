@@ -9,7 +9,7 @@ mat-card {
   margin-bottom: 2%;
   margin-top: 2%;
   overflow-x:hidden;
-  height: 300px;
+  height: 350px;
 }
 .cut-long-text {
   white-space: nowrap;
@@ -22,14 +22,18 @@ mat-card {
   width: 100%;
   background-color: white;
 }
+.spinner{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
 
-/*.box {*/
-  /*-webkit-column-width: 150px;*/
-  /*-moz-column-width: 150px;*/
-  /*column-width: 150px;*/
-  /*height: 100%;*/
-/*}*/
-
+mat-spinner{
+  margin: auto;
+}
 
 main {
   width: 100%;

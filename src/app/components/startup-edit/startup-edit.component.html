@@ -1,5 +1,11 @@
-<main *ngIf="startup">
-  <form [formGroup]="startupForm">
+<main>
+  <div class="spinner">
+  <mat-spinner *ngIf="isSelected | async; else sForm" mode="indeterminate" color="primary">
+  </mat-spinner>
+</div>
+
+  <ng-template #sForm>
+  <form [formGroup]="startupForm" >
     <div class="imageBlock">
       <mat-card>
         <img class="imgParametrs" src="/src/assets/images/Logo.png" alt="startupLogo">
@@ -57,17 +63,17 @@
       <mat-card>
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title *ngIf="startup.account!==null"> {{startup.account.firstName}} <br/>
-            {{startup.account.secondName}}
+          <mat-card-title *ngIf="getAccount()!==null"> {{ getAccount().firstName }} <br/>
+            {{getAccount().secondName}}
           </mat-card-title>
-          <mat-card-title *ngIf="startup.account===null"> UNKNOWN</mat-card-title>
+          <mat-card-title *ngIf="getAccount()===null"> UNKNOWN</mat-card-title>
           <mat-card-subtitle> LEADER</mat-card-subtitle>
         </mat-card-header>
       </mat-card>
     </div>
 
 
-    <div class="blockStartupMembers" *ngFor="let res of startup.startupResumes">
+    <div class="blockStartupMembers" *ngFor="let res of startupForm.get('startupResumes').value">
       <mat-card>
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
@@ -91,13 +97,12 @@
     </div>
 
     <div *ngIf="id===null">
-      <button mat-raised-button="" class="btnControl" [disabled]="startupForm.invalid" (click)="createStartup()"
-              routerLink="/startup-list"> Create
+      <button mat-raised-button="" class="btnControl" [disabled]="startupForm.invalid" (click)="createStartup()"> Create
       </button>
       <button mat-raised-button="" class="btnControl" (click)="goBack()"> Cancel</button>
     </div>
 
   </form>
-
+  </ng-template>
 
 </main>

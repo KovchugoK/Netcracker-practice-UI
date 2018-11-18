@@ -1,9 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {StartupService} from '../../services/startup.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
-import {defaultStartup, Startup} from '../../model/Startup';
+import {Startup} from '../../model/Startup';
+import {Account} from '../../model/Account';
 import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
+import {NgRedux, select} from '@angular-redux/store';
+import {AppState} from '../../store';
+import { skipWhile, take} from 'rxjs/internal/operators';
+import {isLoading, selectStartupForEdit, isSelected} from '../../store/selectors/startups.selector';
+import {createStartupAction, updateStartupAction} from '../../store/actions/startups.actions';
+import {Observable} from 'rxjs';
+import {selectStartup} from '../../store/actions/startup-state.actions';
 
 @Component({
   selector: 'app-startup-edit',
@@ -13,11 +21,18 @@ import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 export class StartupEditComponent implements OnInit {
 
   startupForm: FormGroup;
-  startup: Startup;
   id: string;
 
-  constructor(private startupService: StartupService,
+  @select(isLoading)
+  isLoading: Observable<boolean>;
+
+  @select(isSelected)
+  isSelected: Observable<boolean>;
+
+  constructor(private ngRedux: NgRedux<AppState>,
+              private startupService: StartupService,
               private route: ActivatedRoute,
+              private router: Router,
               private location: Location,
               private fb: FormBuilder
   ) {
@@ -25,20 +40,25 @@ export class StartupEditComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.reloadDate();
+    console.log(this.id);
+    this.ngRedux.dispatch(selectStartup(this.id));
+    this.isSelected.pipe(skipWhile(result => result), take(1))
+      .subscribe(() => this.ngRedux.select(state => selectStartupForEdit(state))
+        .subscribe(startup => {
+          this.initializeForm(startup);
+        }));
   }
 
   private initializeForm(startup: Startup) {
     this.startupForm = this.fb.group({
-      //    id: [this.startup.id],
       startupName: [startup.startupName, Validators.required],
       idea: [startup.idea],
       sumOfInvestment: [startup.sumOfInvestment, Validators.pattern('[1-9][0-9]*')],
       aboutProject: [startup.aboutProject],
       businessPlan: [startup.businessPlan],
-      //   account: [this.startup.account]
+      account: [this.ngRedux.getState().userState.currentUser.account],
+      startupResumes: [startup.startupResumes]
     });
-    // console.log(this.startupForm);
   }
 
 
@@ -62,16 +82,8 @@ export class StartupEditComponent implements OnInit {
     return this.startupForm.get('businessPlan') as FormControl;
   }
 
-  reloadDate() {
-    if (this.id !== null) {
-      this.startupService.getStartupById(this.id).subscribe(startup => {
-        this.startup = startup;
-        this.initializeForm(startup);
-      });
-    } else {
-      this.startup = defaultStartup;
-      this.initializeForm(defaultStartup);
-    }
+  getAccount(): Account {
+    return this.startupForm.get('account').value as Account;
   }
 
   goBack(): void {
@@ -79,11 +91,15 @@ export class StartupEditComponent implements OnInit {
   }
 
   updateStartup() {
-    this.startupService.updateStartup(this.id, this.startupForm.value as Startup).subscribe(() => this.goBack());
+    this.ngRedux.dispatch(updateStartupAction({...this.startupForm.value, id: this.id}));
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() => this.router.navigate(['/startup/' + this.id]));
   }
 
   createStartup() {
-    this.startupService.createStartup(this.startupForm.value as Startup).subscribe(() => this.location.go('startup-list'));
+    this.ngRedux.dispatch(createStartupAction({...this.startupForm.value, id: this.id}));
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() => this.router.navigate(['/startup-list']));
   }
 
 }

@@ -1,5 +1,9 @@
 <main>
-<div *ngFor="let startup of startupList | async">
+  <div class="spinner">
+    <mat-spinner *ngIf="isLoading | async;else userTable" mode="indeterminate" color="primary">
+    </mat-spinner>
+  </div>
+<div *ngFor="let startup of startupList | async" #userTable>
   <mat-card class="example-card">
     <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
     <mat-card-content>
