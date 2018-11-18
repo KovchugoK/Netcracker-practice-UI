@@ -1,0 +1,15 @@
+mat-chip {
+  max-width: 200px;
+}
+
+mat-card {
+  margin-bottom: 25px;
+  margin-top: 25px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}

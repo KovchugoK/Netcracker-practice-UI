@@ -1,5 +1,5 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
@@ -28,6 +28,11 @@ import {NgReduxRouter, NgReduxRouterModule} from '@angular-redux/router';
 import {ErrorInterceptor} from './interceptors/error.interceptor';
 import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import {DialogsModule} from './components/dialogs/dialogs.module';
+import {HttpClientModule} from '@angular/common/http';
+import {FavoriteComponent} from "./components/favorite/favorite.component";
+import {ResumeDetailComponent} from './components/resume-detail/resume-detail.component';
+import {ResumeListComponent} from './components/resume-list/resume-list.component';
+import {MatChip, MatChipList, MatChipsModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -38,9 +43,12 @@ import {DialogsModule} from './components/dialogs/dialogs.module';
     MainPageComponent,
     HeaderComponent,
     FooterComponent,
+    FavoriteComponent,
     UserSidenavComponent,
     StartupComponent,
-    StartupEditComponent
+    StartupEditComponent,
+    ResumeDetailComponent,
+    ResumeListComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +62,8 @@ import {DialogsModule} from './components/dialogs/dialogs.module';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MaterialModule,
-    DialogsModule
+    DialogsModule,
+    MatChipsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
@@ -85,3 +94,4 @@ export class AppModule {
 
 
 }
+
