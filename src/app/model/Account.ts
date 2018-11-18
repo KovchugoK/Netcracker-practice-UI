@@ -4,7 +4,7 @@ import {WorkExperience} from './WorkExperience';
 export interface Account {
   id: string;
   firstName: string;
-  secondName: string;
+  lastName: string;
   birthday: string;
   aboutMe: string;
   educations: Education[];

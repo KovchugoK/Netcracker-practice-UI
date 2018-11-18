@@ -11,7 +11,7 @@
   <tr *ngFor="let account of accountList | async">
     <td>{{account.id}}</td>
     <td>{{account.firstName}}</td>
-    <td>{{account.secondName}}</td>
+    <td>{{account.lastName}}</td>
   </tr>
 </table>
 
@@ -31,7 +31,7 @@
         {{account.firstName}}
       </p>
       <p>
-        {{account.secondName}}
+        {{account.lastName}}
       </p>
     </mat-card-content>
   </mat-card>
