@@ -10,6 +10,7 @@ import {FavoriteComponent} from "./components/favorite/favorite.component";
 import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
+import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,8 @@ const routes: Routes = [
   {path: 'favorite', component: FavoriteComponent},
   {path: 'startup-edit/:id', component: StartupEditComponent},
   {path: 'startup-edit', component: StartupEditComponent},
-  {path: 'resume/list', component: ResumeListComponent}
+  {path: 'resume/list', component: ResumeListComponent},
+  {path: 'resume/:id', component: ResumeDetailDialogComponent}
 ];
 
 @NgModule({

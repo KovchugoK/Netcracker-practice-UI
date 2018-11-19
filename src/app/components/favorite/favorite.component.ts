@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs/index";
-import {FavoriteService} from "../../services/favorite.service";
-import {Favorite} from "../../model/Favorite";
+import {Observable} from 'rxjs';
+import {FavoriteService} from '../../services/favorite.service';
+import {Favorite} from '../../model/Favorite';
 
 
 @Component({

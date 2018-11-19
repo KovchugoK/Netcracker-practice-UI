@@ -1,0 +1,54 @@
+<mat-dialog-content>
+  <div class="header">
+    <img class="header-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Account avatar">
+
+    <div class="brief-info">
+      <h4>{{data.resume.businessRole.businessRoleName}}</h4>
+
+      <a>{{data.resume.account.firstName}} {{data.resume.account.lastName}}</a><br>
+
+      <br><h5>Ключевые навыки</h5>
+      <mat-chip-list>
+        <div *ngFor="let resumeSkill of data.resume.resumeSkills">
+          <mat-chip>{{resumeSkill.skill.skillName}}</mat-chip>
+        </div>
+      </mat-chip-list>
+    </div>
+  </div>
+
+  <div class="about">
+    <div class="info-edu">
+      <div class="about_info">
+        <h5>Информация</h5>
+        <p>
+          {{data.resume.info}}
+        </p>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="about_edu">
+        <br><h5>Образование</h5>
+        <mat-list *ngFor="let education of data.resume.account.educations">
+          {{education.completionYear}} <b>{{education.institution}}</b>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </div>
+    </div>
+
+    <div class="about_work">
+      <h5>Опыт работы</h5>
+      <mat-list *ngFor="let workExp of data.resume.account.workExperiences">
+        <b>{{workExp.position}}</b><br>
+        {{workExp.workPlace}}<br>
+
+        {{formatDate(workExp.start)}} -
+        <div *ngIf="workExp.finish; then endDate else presentDay"></div>
+        <ng-template #endDate>{{formatDate(workExp.finish)}}</ng-template>
+        <ng-template #presentDay>настоящее время</ng-template>
+
+        <mat-divider></mat-divider>
+      </mat-list>
+    </div>
+  </div>
+</mat-dialog-content>
