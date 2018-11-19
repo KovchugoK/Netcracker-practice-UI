@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs/index";
-import {SpecialistService} from "../../services/specialist.service";
+import {Observable} from 'rxjs';
+import {SpecialistService} from '../../services/specialist.service';
+import {Account} from '../../model/Account';
 
 @Component({
   selector: 'app-specialist-list',
@@ -12,7 +13,7 @@ export class SpecialistListComponent implements OnInit {
   accountList: Observable<Account[]>;
   opened: false;
 
-  constructor(private specialisService: SpecialistService) {
+  constructor(private specialistService: SpecialistService) {
   }
 
   ngOnInit() {
@@ -20,7 +21,7 @@ export class SpecialistListComponent implements OnInit {
   }
 
   reloadData() {
-    this.accountList = this.specialisService.getSpecialistList();
+    this.accountList = this.specialistService.getSpecialistList();
   }
 
 }
