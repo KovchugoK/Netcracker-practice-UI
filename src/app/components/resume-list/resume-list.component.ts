@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Resume} from '../../model/Resume';
 import {ResumeService} from '../../services/resume.service';
 import {MatDialog} from '@angular/material';
-import {ResumeDetailComponent} from '../resume-detail/resume-detail.component';
+import {ResumeDetailDialogComponent} from '../resume-detail-dialog/resume-detail-dialog.component';
 
 @Component({
   selector: 'app-resume-list',
@@ -27,8 +27,8 @@ export class ResumeListComponent implements OnInit {
       .subscribe(resumes => this.resumes = resumes);
   }
 
-  openDialog(resume: Resume) {
-    this.dialog.open(ResumeDetailComponent, {
+  openDetailDialog(resume: Resume) {
+    this.dialog.open(ResumeDetailDialogComponent, {
       width: 'auto',
       height: 'auto',
       data: {resume: resume}

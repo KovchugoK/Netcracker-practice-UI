@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResumeDetailComponent } from './resume-detail.component';
+import { ResumeDetailDialogComponent } from './resume-detail-dialog.component';
 
-describe('ResumeDetailComponent', () => {
-  let component: ResumeDetailComponent;
-  let fixture: ComponentFixture<ResumeDetailComponent>;
+describe('ResumeDetailDialogComponent', () => {
+  let component: ResumeDetailDialogComponent;
+  let fixture: ComponentFixture<ResumeDetailDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ResumeDetailComponent ]
+      declarations: [ ResumeDetailDialogComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ResumeDetailComponent);
+    fixture = TestBed.createComponent(ResumeDetailDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

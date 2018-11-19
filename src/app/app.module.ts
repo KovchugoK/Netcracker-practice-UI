@@ -15,9 +15,9 @@ import {FooterComponent} from './components/footer/footer.component';
 import {UserSidenavComponent} from './components/user-sidenav/user-sidenav.component';
 import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
-import {ResumeDetailComponent} from './components/resume-detail/resume-detail.component';
+import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
-import {MatChip, MatChipList, MatChipsModule, MatDialogModule, MatListModule} from '@angular/material';
+import {MatChipsModule, MatDialogModule, MatListModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import {MatChip, MatChipList, MatChipsModule, MatDialogModule, MatListModule} fr
     UserSidenavComponent,
     StartupComponent,
     StartupEditComponent,
-    ResumeDetailComponent,
+    ResumeDetailDialogComponent,
     ResumeListComponent
   ],
   imports: [
@@ -47,7 +47,7 @@ import {MatChip, MatChipList, MatChipsModule, MatDialogModule, MatListModule} fr
     MatListModule
   ],
   entryComponents: [
-    ResumeDetailComponent
+    ResumeDetailDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
