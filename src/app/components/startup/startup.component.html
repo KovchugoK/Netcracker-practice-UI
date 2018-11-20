@@ -46,7 +46,7 @@
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
           <mat-card-title *ngIf="(startup | async)?.account!==null"> {{(startup | async)?.account.firstName}} <br/>
-            {{(startup | async)?.account.secondName}}
+            {{(startup | async)?.account.lastName}}
           </mat-card-title>
           <mat-card-title *ngIf="(startup | async)?.account===null"> UNKNOWN</mat-card-title>
           <mat-card-subtitle> LEADER</mat-card-subtitle>
@@ -59,7 +59,7 @@
       <mat-card>
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title> {{res.resume.account.firstName}}<br/> {{res.resume.account?.secondName}}</mat-card-title>
+          <mat-card-title> {{res.resume.account.firstName}}<br/> {{res.resume.account?.lastName}}</mat-card-title>
           <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}}</mat-card-subtitle>
         </mat-card-header>
       </mat-card>

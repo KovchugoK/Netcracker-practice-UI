@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {StartupListComponent} from './components/startup-list/startup-list.component';
 import {SpecialistListComponent} from './components/specialist-list/specialist-list.component';
@@ -29,8 +29,6 @@ import {NgReduxRouter, NgReduxRouterModule} from '@angular-redux/router';
 import {ErrorInterceptor} from './interceptors/error.interceptor';
 import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import {DialogsModule} from './components/dialogs/dialogs.module';
-import {FavoriteComponent} from './components/favorite/favorite.component';
-// import {ResumeDetailComponent} from './components/resume-detail/resume-detail.component';
 import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
 import {MatChipsModule, MatDialogModule, MatListModule} from '@angular/material';
@@ -70,7 +68,6 @@ import {MatChipsModule, MatDialogModule, MatListModule} from '@angular/material'
   ],
   entryComponents: [
     ResumeDetailDialogComponent
-
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

@@ -64,7 +64,7 @@
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
           <mat-card-title *ngIf="getAccount()!==null"> {{ getAccount().firstName }} <br/>
-            {{getAccount().secondName}}
+            {{getAccount().lastName}}
           </mat-card-title>
           <mat-card-title *ngIf="getAccount()===null"> UNKNOWN</mat-card-title>
           <mat-card-subtitle> LEADER</mat-card-subtitle>
