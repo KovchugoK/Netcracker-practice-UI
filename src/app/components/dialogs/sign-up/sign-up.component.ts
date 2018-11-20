@@ -1,7 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Router} from '@angular/router';
 import {UserService} from '../../../services/user.service';
 import {first} from 'rxjs/internal/operators';
 import {DialogResult} from '../../../model/dialog-result';
@@ -30,7 +29,7 @@ export class SignUpComponent implements OnInit {
 
   private initializeForm() {
     this.registerForm = this.fb.group({
-      login: ['', Validators.required],
+      login: ['', Validators.required, Validators.minLength(3)],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
