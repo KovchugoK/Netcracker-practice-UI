@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Startup} from '../../model/Startup';
 import {StartupService} from '../../services/startup.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Location} from '@angular/common';
 import {NgRedux, select} from '@angular-redux/store';
 import {
@@ -39,7 +39,7 @@ export class StartupComponent implements OnInit {
   constructor(private ngRedux: NgRedux<AppState>,
               private startupService: StartupService,
               private route: ActivatedRoute,
-              private location: Location) {
+              ) {
 
   }
 
@@ -57,16 +57,11 @@ export class StartupComponent implements OnInit {
 
   }
 
-  // reloadDate() {
-  //   this.startupService.getStartupById(this.id).subscribe(startup => this.startup = startup);
-  // }
-
   deleteStartup() {
     // this.isLoading.pipe(skipWhile(result => result === true), take(1))
     //   .subscribe(() => this.ngRedux.dispatch(deleteStartupAction(this.id)));
     this.ngRedux.dispatch(deleteStartupAction(this.id));
-    console.log('Success');
-    this.location.back();
+    // this.router.navigate(['/startup-list']);
     // this.location.back();
     // this.isLoading.pipe(skipWhile(result => result === true), take(1))
     //   .subscribe(() => this.location.back());
@@ -81,6 +76,8 @@ export class StartupComponent implements OnInit {
   }
 
   get currentUserAccountId(): string {
-    return this.ngRedux.getState().userState.currentUser.id;
+    return this.ngRedux.getState().userState.currentUser.account.id;
   }
+
+
 }

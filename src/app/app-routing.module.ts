@@ -4,11 +4,12 @@ import {InvestorListComponent} from './components/investor-list/investor-list.co
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {SpecialistListComponent} from './components/specialist-list/specialist-list.component';
 import {StartupListComponent} from './components/startup-list/startup-list.component';
-import {FavoriteComponent} from "./components/favorite/favorite.component";
+// import {FavoriteComponent} from "./components/favorite/favorite.component";
 import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
 import {AuthGuard} from './guards/auth.guard';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
+import {FavoriteComponent} from './components/favorite/favorite.component';
 
 
 const routes: Routes = [

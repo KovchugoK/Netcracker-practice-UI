@@ -28,9 +28,8 @@ import {NgReduxRouter, NgReduxRouterModule} from '@angular-redux/router';
 import {ErrorInterceptor} from './interceptors/error.interceptor';
 import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import {DialogsModule} from './components/dialogs/dialogs.module';
-import {HttpClientModule} from '@angular/common/http';
-import {FavoriteComponent} from "./components/favorite/favorite.component";
-import {ResumeDetailComponent} from './components/resume-detail/resume-detail.component';
+import {FavoriteComponent} from './components/favorite/favorite.component';
+// import {ResumeDetailComponent} from './components/resume-detail/resume-detail.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
 import {MatChip, MatChipList, MatChipsModule} from '@angular/material';
 
@@ -47,7 +46,7 @@ import {MatChip, MatChipList, MatChipsModule} from '@angular/material';
     UserSidenavComponent,
     StartupComponent,
     StartupEditComponent,
-    ResumeDetailComponent,
+    // ResumeDetailComponent,
     ResumeListComponent
   ],
   imports: [

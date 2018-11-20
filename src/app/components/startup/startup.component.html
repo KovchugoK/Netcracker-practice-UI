@@ -1,9 +1,10 @@
 <main>
-  <div class="spinner">
-    <mat-spinner *ngIf="isSelected | async; else startupView" mode="indeterminate" color="primary">
-    </mat-spinner>
-  </div>
+  <div>
+  <mat-spinner *ngIf="isSelected | async; else startupView" mode="indeterminate" color="primary">
+  </mat-spinner>
+</div>
   <ng-template #startupView>
+    <div class="template">
     <div class="imageBlock">
       <mat-card>
         <img class="imgParametrs" src="/src/assets/images/Logo.png" alt="startupLogo">
@@ -20,7 +21,7 @@
         <br/>
         <b>{{(startup | async)?.sumOfInvestment}}$</b>
       </p>
-      <button mat-raised-button="" class="buttonInBlock">Написать</button>
+      <button mat-raised-button="" class="buttonInBlock"> Write </button>
     </div>
 
     <div class="block">
@@ -65,11 +66,12 @@
     </div>
 
     <mat-divider style="width: 90%"></mat-divider>
-
-    <div>
+      
+      <div style="width: 90%">
       <button mat-raised-button="" class="btnControl" *ngIf="!currentUser || (currentUser && currentUserAccountId !== (startup | async)?.account.id)"> Join </button>
       <button mat-raised-button="" class="btnControl" routerLink="/startup-edit/{{id}}" *ngIf="currentUser && (currentUserAccountId === (startup | async)?.account.id)"> Edit</button>
       <button mat-raised-button="" class="btnControl" (click)="deleteStartup()" *ngIf="currentUser && (currentUserAccountId === (startup | async)?.account.id)"> Delete</button>
+    </div>
     </div>
     </ng-template>
 

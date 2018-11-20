@@ -15,6 +15,7 @@ import {NgRedux} from '@angular-redux/store';
 import {AppState} from '../index';
 import {selectStartupById} from '../selectors/startups.selector';
 
+
 @Injectable()
 export class StartupEpic {
   constructor(private startupService: StartupService, private ngRedux: NgRedux<AppState>) {
@@ -36,21 +37,15 @@ export class StartupEpic {
   fetchStartups$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(FETCH_STARTUPS).pipe(
       switchMap(({}) => {
-        return this.ngRedux.getState().startupsState.startups.size === 0
-        || this.ngRedux.getState().startupsState.startups.size === 1 ?
-          this.startupService
+        return this.startupService
             .getStartupList()
             .pipe(
               map(startups => fetchStartupsSuccessAction(TransformService.transformToMap(startups))),
               catchError(error => of(fetchStartupsFailedAction(error.message)))
-            ) : of(this.ngRedux.getState().startupsState.startups)
-            .pipe(
-              map(startups => fetchStartupsSuccessAction(startups)),
-              catchError(error => of(fetchStartupsFailedAction(error.message)))
             );
       })
     );
-  }
+  };
 
   createStartup$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(CREATE_STARTUP).pipe(
@@ -62,7 +57,7 @@ export class StartupEpic {
           );
       })
     );
-  }
+  };
 
   updateStartup$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(UPDATE_STARTUP).pipe(
@@ -74,7 +69,7 @@ export class StartupEpic {
           );
       })
     );
-  }
+  };
 
   deleteStartup$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(DELETE_STARTUP).pipe(
@@ -86,7 +81,7 @@ export class StartupEpic {
           );
       })
     );
-  }
+  };
 
   selectStartup$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(SELECT_STARTUP).pipe(

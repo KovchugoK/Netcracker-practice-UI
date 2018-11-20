@@ -1,3 +1,5 @@
+import {Account} from './Account';
+
 export interface User {
   id: string;
   login: string;
@@ -5,4 +7,5 @@ export interface User {
   email?: string;
   token?: Token;
   role?: string;
+  account: Account;
 }

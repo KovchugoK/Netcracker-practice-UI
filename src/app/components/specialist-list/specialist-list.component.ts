@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs/index";
-import {SpecialistService} from "../../services/specialist.service";
+import {Observable} from 'rxjs/index';
+import {SpecialistService} from '../../services/specialist.service';
 
 @Component({
   selector: 'app-specialist-list',
@@ -32,7 +32,7 @@ export class SpecialistListComponent implements OnInit {
       },
       () => {
         console.log('POST Fav - now completed.');
-      });;
+      });
   }
 
 }
