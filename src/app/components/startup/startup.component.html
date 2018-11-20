@@ -66,7 +66,7 @@
     </div>
 
     <mat-divider style="width: 90%"></mat-divider>
-      
+
       <div style="width: 90%">
       <button mat-raised-button="" class="btnControl" *ngIf="!currentUser || (currentUser && currentUserAccountId !== (startup | async)?.account.id)"> Join </button>
       <button mat-raised-button="" class="btnControl" routerLink="/startup-edit/{{id}}" *ngIf="currentUser && (currentUserAccountId === (startup | async)?.account.id)"> Edit</button>

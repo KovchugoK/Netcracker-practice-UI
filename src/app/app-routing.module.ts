@@ -4,12 +4,13 @@ import {InvestorListComponent} from './components/investor-list/investor-list.co
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {SpecialistListComponent} from './components/specialist-list/specialist-list.component';
 import {StartupListComponent} from './components/startup-list/startup-list.component';
-// import {FavoriteComponent} from "./components/favorite/favorite.component";
+import {FavoriteComponent} from "./components/favorite/favorite.component";
 import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
 import {AuthGuard} from './guards/auth.guard';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
 import {FavoriteComponent} from './components/favorite/favorite.component';
+import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 
 
 const routes: Routes = [
@@ -23,7 +24,8 @@ const routes: Routes = [
   {path: 'startup-edit', component: StartupEditComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: '/main-page'},
   {path: 'favorite', component: FavoriteComponent},
-  {path: 'resume/list', component: ResumeListComponent}
+  {path: 'resume/list', component: ResumeListComponent},
+  {path: 'resume/:id', component: ResumeDetailDialogComponent}
 ];
 
 @NgModule({

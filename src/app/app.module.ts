@@ -1,7 +1,7 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {StartupListComponent} from './components/startup-list/startup-list.component';
 import {SpecialistListComponent} from './components/specialist-list/specialist-list.component';
@@ -12,6 +12,7 @@ import {HeaderComponent} from './components/header/header.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MaterialModule} from './material';
 import {FooterComponent} from './components/footer/footer.component';
+import {FavoriteComponent} from './components/favorite/favorite.component';
 import {UserSidenavComponent} from './components/user-sidenav/user-sidenav.component';
 import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
@@ -30,8 +31,9 @@ import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import {DialogsModule} from './components/dialogs/dialogs.module';
 import {FavoriteComponent} from './components/favorite/favorite.component';
 // import {ResumeDetailComponent} from './components/resume-detail/resume-detail.component';
+import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
-import {MatChip, MatChipList, MatChipsModule} from '@angular/material';
+import {MatChipsModule, MatDialogModule, MatListModule} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,7 @@ import {MatChip, MatChipList, MatChipsModule} from '@angular/material';
     UserSidenavComponent,
     StartupComponent,
     StartupEditComponent,
-    // ResumeDetailComponent,
+    ResumeDetailDialogComponent,
     ResumeListComponent
   ],
   imports: [
@@ -62,7 +64,13 @@ import {MatChip, MatChipList, MatChipsModule} from '@angular/material';
     ReactiveFormsModule,
     MaterialModule,
     DialogsModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDialogModule,
+    MatListModule
+  ],
+  entryComponents: [
+    ResumeDetailDialogComponent
+
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
