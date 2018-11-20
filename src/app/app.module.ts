@@ -51,7 +51,9 @@ import { AccountEditComponent } from './components/account-edit/account-edit.com
     MaterialModule,
     MatChipsModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    FlexLayoutModule,
+    MomentModule
   ],
   entryComponents: [
     ResumeDetailDialogComponent

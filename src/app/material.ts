@@ -7,10 +7,14 @@ import {
   MatDividerModule,
   MatFormFieldModule, MatInputModule, MatProgressSpinnerModule
 } from '@angular/material';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatListModule} from '@angular/material/list';
 import {NgModule} from '@angular/core';
 
 @NgModule({
   imports: [
+    MatListModule,
+    MatChipsModule,
     MatButtonModule,
     MatCheckboxModule,
     MatToolbarModule,
@@ -22,6 +26,8 @@ import {NgModule} from '@angular/core';
     MatProgressSpinnerModule
   ],
   exports: [
+    MatListModule,
+    MatChipsModule,
     MatButtonModule,
     MatCheckboxModule,
     MatToolbarModule,

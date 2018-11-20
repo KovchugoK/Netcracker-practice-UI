@@ -6,7 +6,6 @@ import {SpecialistListComponent} from './components/specialist-list/specialist-l
 import {StartupListComponent} from './components/startup-list/startup-list.component';
 import {AccountComponent} from "./components/account/account.component";
 import {FavoriteComponent} from "./components/favorite/favorite.component";
-
 import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
@@ -18,6 +17,7 @@ const routes: Routes = [
   {path: 'main-page', component: MainPageComponent},
   {path: 'startup-list', component: StartupListComponent},
   {path: 'investor-list', component: InvestorListComponent},
+  {path: 'specialist-list/:id', component: AccountComponent},
   {path: 'specialist-list', component: SpecialistListComponent},
   {path: 'startup/:id', component: StartupComponent},
   {path: 'favorite', component: FavoriteComponent},
@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'startup-edit', component: StartupEditComponent},
   {path: 'resume/list', component: ResumeListComponent},
   {path: 'resume/:id', component: ResumeDetailDialogComponent}
-];
+  ];
 
 @NgModule({
   imports: [
