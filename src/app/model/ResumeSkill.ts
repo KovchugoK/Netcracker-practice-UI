@@ -1,6 +1,6 @@
-import {Skill} from './Skill';
+import {Skill} from "./Skill";
 
-export interface ResumeSkill {
+export class ResumeSkill{
   id: string;
   skill: Skill;
 }

@@ -1,12 +1,12 @@
-import {ResumeSkill} from './ResumeSkill';
-import {Account} from './Account';
-import {BusinessRole} from './BusinessRole';
+import {StartupResume} from "./StartupResume";
+import {BusinessRole} from "./BusinessRole";
+import {Skill} from "./Skill";
 
-export interface Resume {
+export class Resume {
   id: string;
   info: string;
-  resumeSkills: ResumeSkill[];
-  businessRole: BusinessRole;
-  account: Account;
-}
+  businessRole:BusinessRole;
+  resumeSkills: Skill[];
+  startupResumes: StartupResume[];
 
+}
