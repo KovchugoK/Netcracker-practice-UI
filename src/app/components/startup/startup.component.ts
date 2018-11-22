@@ -1,21 +1,17 @@
 import {Component, OnInit} from '@angular/core';
 import {Startup} from '../../model/Startup';
 import {StartupService} from '../../services/startup.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Location} from '@angular/common';
+import {ActivatedRoute} from '@angular/router';
 import {NgRedux, select} from '@angular-redux/store';
 import {
-  isLoading,
   isSelected,
-  selectStartupById,
-  selectStartupForEdit,
   selectStartupFromState
 } from '../../store/selectors/startups.selector';
 import {Observable} from 'rxjs';
-import {skipWhile, take} from 'rxjs/internal/operators';
 import {AppState} from '../../store';
-import {createStartupAction, deleteStartupAction, fetchStartupsAction} from '../../store/actions/startups.actions';
 import {selectStartup} from '../../store/actions/startup-state.actions';
+import {showDialogAction} from '../../store/actions/dialogs.actions';
+import {DeleteStartupComponent} from '../dialogs/delete-startup/delete-startup.component';
 
 
 @Component({
@@ -26,9 +22,6 @@ import {selectStartup} from '../../store/actions/startup-state.actions';
 export class StartupComponent implements OnInit {
 
   id: string;
-
-  @select(isLoading)
-  isLoading: Observable<boolean>;
 
   @select(isSelected)
   isSelected: Observable<boolean>;
@@ -45,27 +38,15 @@ export class StartupComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    // this.ngRedux.dispatch(selectStartup(this.id));
-    // this.isSelected.pipe(skipWhile(result => result === true), take(1))
-    //   .subscribe(() => this.ngRedux.select(state => selectStartupFromState(state)));
-
-    this.isLoading.pipe(skipWhile(result => result === true), take(1))
-      .subscribe(() => this.ngRedux.dispatch(selectStartup(this.id))
-      );
-    this.isSelected.pipe(skipWhile(result => result), take(1))
-      .subscribe(() => this.ngRedux.select(state => selectStartupFromState(state)));
-
+    this.ngRedux.dispatch(selectStartup(this.id));
   }
 
   deleteStartup() {
-    // this.isLoading.pipe(skipWhile(result => result === true), take(1))
-    //   .subscribe(() => this.ngRedux.dispatch(deleteStartupAction(this.id)));
-    this.ngRedux.dispatch(deleteStartupAction(this.id));
-    // this.router.navigate(['/startup-list']);
-    // this.location.back();
-    // this.isLoading.pipe(skipWhile(result => result === true), take(1))
-    //   .subscribe(() => this.location.back());
-    //   this.isLoading.pipe(skipWhile(result => result), take(1)).subscribe(() => this.location.go('/startup-list'));
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: DeleteStartupComponent,
+      width: '200px',
+      data: {startupId: this.id}
+  }));
   }
 
   get currentUser(): boolean {

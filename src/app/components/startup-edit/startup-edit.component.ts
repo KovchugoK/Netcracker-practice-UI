@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StartupService} from '../../services/startup.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {Location} from '@angular/common';
 import {Startup} from '../../model/Startup';
 import {Account} from '../../model/Account';
@@ -12,6 +12,7 @@ import {isLoading, selectStartupForEdit, isSelected} from '../../store/selectors
 import {createStartupAction, updateStartupAction} from '../../store/actions/startups.actions';
 import {Observable} from 'rxjs';
 import {selectStartup} from '../../store/actions/startup-state.actions';
+import {updateRouterState} from '../../store/actions/router.actions';
 
 @Component({
   selector: 'app-startup-edit',
@@ -32,7 +33,6 @@ export class StartupEditComponent implements OnInit {
   constructor(private ngRedux: NgRedux<AppState>,
               private startupService: StartupService,
               private route: ActivatedRoute,
-              private router: Router,
               private location: Location,
               private fb: FormBuilder
   ) {
@@ -40,7 +40,6 @@ export class StartupEditComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
     this.ngRedux.dispatch(selectStartup(this.id));
     this.isSelected.pipe(skipWhile(result => result), take(1))
       .subscribe(() => this.ngRedux.select(state => selectStartupForEdit(state))
@@ -93,13 +92,14 @@ export class StartupEditComponent implements OnInit {
   updateStartup() {
     this.ngRedux.dispatch(updateStartupAction({...this.startupForm.value, id: this.id}));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
-      .subscribe(() => this.router.navigate(['/startup/' + this.id]));
+      .subscribe(() => this.ngRedux.dispatch(updateRouterState('/startup/' + this.id)));
   }
 
   createStartup() {
     this.ngRedux.dispatch(createStartupAction({...this.startupForm.value, id: this.id}));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
-      .subscribe(() => this.router.navigate(['/startup-list']));
+      .subscribe(() => this.ngRedux.dispatch(updateRouterState('/startup-list')));
+
   }
 
 }

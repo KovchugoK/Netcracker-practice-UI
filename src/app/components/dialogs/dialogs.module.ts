@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import {SignInComponent} from './sign-in/sign-in.component';
 import {MaterialModule} from '../../material';
+import {DeleteStartupComponent} from './delete-startup/delete-startup.component';
 
 @NgModule({
   imports: [
@@ -13,8 +14,8 @@ import {MaterialModule} from '../../material';
     ReactiveFormsModule,
     MaterialModule
   ],
-  declarations: [DialogsComponent, SignUpComponent, SignInComponent],
-  exports: [DialogsComponent, SignUpComponent, SignInComponent],
-  entryComponents: [SignUpComponent, SignInComponent]
+  declarations: [DialogsComponent, SignUpComponent, SignInComponent, DeleteStartupComponent],
+  exports: [DialogsComponent, SignUpComponent, SignInComponent, DeleteStartupComponent],
+  entryComponents: [SignUpComponent, SignInComponent, DeleteStartupComponent ]
 })
 export class DialogsModule { }

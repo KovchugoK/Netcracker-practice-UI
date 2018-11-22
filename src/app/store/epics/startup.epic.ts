@@ -13,7 +13,7 @@ import {SELECT_STARTUP, selectStartupSuccess} from '../actions/startup-state.act
 import {defaultStartup} from '../../model/Startup';
 import {NgRedux} from '@angular-redux/store';
 import {AppState} from '../index';
-import {selectStartupById} from '../selectors/startups.selector';
+
 
 
 @Injectable()
@@ -21,28 +21,15 @@ export class StartupEpic {
   constructor(private startupService: StartupService, private ngRedux: NgRedux<AppState>) {
   }
 
-  // fetchStartups$ = (action$: ActionsObservable<AnyAction>) => {
-  //   return action$.ofType(FETCH_STARTUPS).pipe(
-  //     switchMap(({}) => {
-  //       return this.startupService
-  //         .getStartupList()
-  //         .pipe(
-  //           map(startups => fetchStartupsSuccessAction(TransformService.transformToMap(startups))),
-  //           catchError(error => of(fetchStartupsFailedAction(error.message)))
-  //         );
-  //     })
-  //   );
-  // };
-
   fetchStartups$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(FETCH_STARTUPS).pipe(
       switchMap(({}) => {
         return this.startupService
-            .getStartupList()
-            .pipe(
-              map(startups => fetchStartupsSuccessAction(TransformService.transformToMap(startups))),
-              catchError(error => of(fetchStartupsFailedAction(error.message)))
-            );
+          .getStartupList()
+          .pipe(
+            map(startups => fetchStartupsSuccessAction(TransformService.transformToMap(startups))),
+            catchError(error => of(fetchStartupsFailedAction(error.message)))
+          );
       })
     );
   };
@@ -87,18 +74,12 @@ export class StartupEpic {
     return action$.ofType(SELECT_STARTUP).pipe(
       switchMap(({payload}) => {
         return payload.startupId !== null ?
-          (this.ngRedux.getState().startupsState.startups.has(payload.startupId) ?
-            this.ngRedux.select(state => selectStartupById(state, payload.startupId))
-              .pipe(
-                map(startup => selectStartupSuccess(startup)),
-                catchError(error => of(fetchStartupsFailedAction(error.message)))
-              ) :
-            this.startupService
-              .getStartupById(payload.startupId)
-              .pipe(
-                map(startup => selectStartupSuccess(startup)),
-                catchError(error => of(fetchStartupsFailedAction(error.message)))
-              ))
+          this.startupService
+            .getStartupById(payload.startupId)
+            .pipe(
+              map(startup => selectStartupSuccess(startup)),
+              catchError(error => of(fetchStartupsFailedAction(error.message)))
+            )
           : of(defaultStartup)
             .pipe(
               map(startup => selectStartupSuccess(startup)),
@@ -106,7 +87,7 @@ export class StartupEpic {
             );
       })
     );
-  }
+  };
 
 }
 

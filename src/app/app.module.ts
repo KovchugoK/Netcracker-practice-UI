@@ -92,7 +92,7 @@ export class AppModule {
     }
     ngRedux.configureStore(reducers, {} as AppState, [middleware, thunkMiddlware, createLogger()], enhancers);
     middleware.run(epics as any);
-    ngReduxRouter.initialize(state => state.route);
+    ngReduxRouter.initialize(state => state.router);
 
   }
 

@@ -29,6 +29,8 @@ export class StartupListComponent implements OnInit {
 
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.select(selectStartups));
+
+
   }
 
 

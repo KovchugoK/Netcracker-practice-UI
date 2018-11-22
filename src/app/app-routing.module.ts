@@ -13,7 +13,7 @@ import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/res
 
 
 const routes: Routes = [
-  {path: '', redirectTo: '/main-page', pathMatch: 'full'},
+  {path: '', redirectTo: 'main-page', pathMatch: 'full'},
   {path: 'main-page', component: MainPageComponent},
   {path: 'startup-list', component: StartupListComponent},
   {path: 'investor-list', component: InvestorListComponent},
@@ -24,7 +24,7 @@ const routes: Routes = [
   {path: 'favorite', component: FavoriteComponent},
   {path: 'resume/list', component: ResumeListComponent},
   {path: 'resume/:id', component: ResumeDetailDialogComponent},
-  {path: '**', redirectTo: '/main-page'}
+  {path: '**', redirectTo: 'main-page'}
 ];
 
 @NgModule({
