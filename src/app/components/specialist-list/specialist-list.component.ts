@@ -2,6 +2,7 @@ import {Component, DoCheck, OnInit} from '@angular/core';
 import {Observable} from "rxjs/index";
 import {SpecialistService} from "../../services/specialist.service";
 import {AccountDTO} from "../../model/AccountDTO";
+import {Account} from "../../model/Account";
 
 @Component({
   selector: 'app-specialist-list',

@@ -31,7 +31,7 @@ import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import {DialogsModule} from './components/dialogs/dialogs.module';
 import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
-import {MatChipsModule, MatDialogModule, MatListModule} from '@angular/material';
+import {MatDialogModule, MatListModule} from '@angular/material';
 import {
   MatButtonModule, MatCardModule, MatChip, MatChipList, MatChipsModule, MatIconModule,
   MatMenuModule
@@ -72,7 +72,6 @@ import {MenuComponent} from "./components/menu/menu.component";
     MatDialogModule,
     MatListModule,
     MaterialModule,
-    MatChipsModule,
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
