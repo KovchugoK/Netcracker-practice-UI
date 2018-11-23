@@ -1,7 +1,11 @@
-export class User {
-  id: number;
+import {Account} from './Account';
+
+export interface User {
+  id: string;
   login: string;
-  password: string;
-  email: string;
-  role: string;
+  password?: string;
+  email?: string;
+  token?: Token;
+  role?: string;
+  account: Account;
 }

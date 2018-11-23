@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Resume} from '../../model/Resume';
 import {ResumeService} from '../../services/resume.service';
+import {MatDialog} from '@angular/material';
+import {ResumeDetailDialogComponent} from '../resume-detail-dialog/resume-detail-dialog.component';
 
 @Component({
   selector: 'app-resume-list',
@@ -10,7 +12,9 @@ import {ResumeService} from '../../services/resume.service';
 export class ResumeListComponent implements OnInit {
   resumes: Resume[];
 
-  constructor(private resumeService: ResumeService) {
+  constructor(
+    private resumeService: ResumeService,
+    public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -21,5 +25,13 @@ export class ResumeListComponent implements OnInit {
     this.resumeService
       .gerResumeList()
       .subscribe(resumes => this.resumes = resumes);
+  }
+
+  openDetailDialog(resume: Resume) {
+    this.dialog.open(ResumeDetailDialogComponent, {
+      width: 'auto',
+      height: 'auto',
+      data: {resume: resume}
+    });
   }
 }

@@ -9,7 +9,6 @@ import {MatSidenav} from '@angular/material';
 export class UserSidenavComponent implements OnInit {
 
   opened = false;
-
   @ViewChild('sidenav')
   nav: MatSidenav;
 

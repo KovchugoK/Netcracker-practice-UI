@@ -4,6 +4,12 @@
     <a class="first-header" routerLink="/main-page"> Main </a>
     <a routerLink="/startup-list"> Startups </a>
     <a routerLink="/specialist-list"> Specialists </a>
-    <a routerLink="/investor-list"> Investors </a>
+    <a class="fill-space" routerLink="/investor-list"> Investors </a>
+
+    <a class="pointer" (click)="openSingIn()" *ngIf="!ls.getItem('currentUser')"> Sing in /</a>
+
+    <a class="pointer" (click)="openSingUp()" *ngIf="!ls.getItem('currentUser')">Sign up</a>
+    <span *ngIf="ls.getItem('currentUser')" > {{currentLogin}} </span>
+    <a class="pointer" (click)="logout()" *ngIf="ls.getItem('currentUser')"> Logout</a>
   </mat-toolbar>
 </header>

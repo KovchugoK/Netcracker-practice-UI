@@ -1,10 +1,15 @@
 <header>
   <app-header></app-header>
 </header>
+<app-dialogs> </app-dialogs>
 
-<app-user-sidenav>
+<app-user-sidenav *ngIf="currentUser | async; else Unauthorized">
   <router-outlet></router-outlet>
 </app-user-sidenav>
+<ng-template #Unauthorized>
+  <router-outlet> </router-outlet>
+</ng-template>
+
 
 <footer>
   <app-footer></app-footer>
