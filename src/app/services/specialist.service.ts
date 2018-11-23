@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Account} from '../model/Account';
 
@@ -7,15 +7,17 @@ import {Account} from '../model/Account';
   providedIn: 'root'
 })
 export class SpecialistService {
-
+  _businessRole = '';
   specialistListUrl = '/api/specialist-list';
-  private headers = new HttpHeaders({'Content-Type': 'application/json'});
-
+  headers = new HttpHeaders({'Content-Type': 'application/json'});
+  params: HttpParams;
   constructor(private http: HttpClient) {
   }
 
-  getSpecialistList(): Observable<any> {
-    return this.http.get(`${this.specialistListUrl}`);
+
+  getSpecialistList(bussinesRole: string): Observable<any> {
+    this.params = new HttpParams().set("businessRole", bussinesRole);
+    return this.http.get(`${this.specialistListUrl}`, {headers: this.headers, params: this.params});
   }
 
   post(account: Account): Observable<any> {

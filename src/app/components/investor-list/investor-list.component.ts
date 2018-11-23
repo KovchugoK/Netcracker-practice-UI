@@ -25,7 +25,7 @@ export class InvestorListComponent implements OnInit {
       },
       () => {
         console.log('POST Fav - now completed.');
-      });;
+      });
   }
 
   ngOnInit() {
@@ -34,6 +34,7 @@ export class InvestorListComponent implements OnInit {
 
   reloadData() {
     this.accountList = this.investorService.getInvestorList();
+
   }
 }
 

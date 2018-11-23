@@ -32,6 +32,11 @@ import {DialogsModule} from './components/dialogs/dialogs.module';
 import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
 import {MatChipsModule, MatDialogModule, MatListModule} from '@angular/material';
+import {
+  MatButtonModule, MatCardModule, MatChip, MatChipList, MatChipsModule, MatIconModule,
+  MatMenuModule
+} from '@angular/material';
+import {MenuComponent} from "./components/menu/menu.component";
 
 @NgModule({
   declarations: [
@@ -47,7 +52,8 @@ import {MatChipsModule, MatDialogModule, MatListModule} from '@angular/material'
     StartupComponent,
     StartupEditComponent,
     ResumeDetailDialogComponent,
-    ResumeListComponent
+    ResumeListComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +70,13 @@ import {MatChipsModule, MatDialogModule, MatListModule} from '@angular/material'
     DialogsModule,
     MatChipsModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    MaterialModule,
+    MatChipsModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule
   ],
   entryComponents: [
     ResumeDetailDialogComponent
@@ -98,4 +110,3 @@ export class AppModule {
 
 
 }
-

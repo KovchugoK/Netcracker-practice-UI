@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/index';
-import {SpecialistService} from '../../services/specialist.service';
-import {Account} from '../../model/Account';
+import {Component, DoCheck, OnInit} from '@angular/core';
+import {Observable} from "rxjs/index";
+import {SpecialistService} from "../../services/specialist.service";
+import {AccountDTO} from "../../model/AccountDTO";
 
 @Component({
   selector: 'app-specialist-list',
@@ -10,22 +10,25 @@ import {Account} from '../../model/Account';
 })
 export class SpecialistListComponent implements OnInit {
 
-  accountList: Observable<Account[]>;
-  opened: false;
+  accountList: Observable<AccountDTO[]>;
 
-  constructor(private specialistService: SpecialistService) {
+  constructor(private specialisService: SpecialistService) {
   }
 
   ngOnInit() {
     this.reloadData();
   }
 
-  reloadData() {
-    this.accountList = this.specialistService.getSpecialistList();
+  selectBussinesRole(bussinesRole: string) {
+    this.reloadData(bussinesRole);
+  }
+
+  reloadData(bussinesRole: string = '') {
+    this.accountList = this.specialisService.getSpecialistList(bussinesRole);
   }
 
   onClick(account: Account) {
-    this.specialistService.post(account).subscribe(
+    this.specialisService.post(account as Account).subscribe(
       value => {
         console.log('[POST] create Fav successfully', value);
       }, error => {
@@ -34,6 +37,7 @@ export class SpecialistListComponent implements OnInit {
       () => {
         console.log('POST Fav - now completed.');
       });
+    ;
   }
 
 }
