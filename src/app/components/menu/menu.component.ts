@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 import {SpecialistService} from "../../services/specialist.service";
 import {AccountDTO} from "../../model/AccountDTO";
 import {Observable} from "rxjs/index";
+import {BusinessRole} from "../../model/BusinessRole";
+
 
 @Component({
   selector: 'app-menu',
@@ -11,15 +13,17 @@ import {Observable} from "rxjs/index";
 })
 export class MenuComponent implements OnInit {
 
-  accountList: Observable<AccountDTO[]>;
+
+  @Output()
+  onBussinesRoleSelect = new EventEmitter<string>();
+
 
   constructor(private specialisService: SpecialistService) {
 
   }
 
-  isSelected(businessRoleName: string): void {
-    this.specialisService.businessRole = businessRoleName;
-    console.log(businessRoleName);
+  _onBussinesRoleSelect(bussinesRoleName: string) {
+    this.onBussinesRoleSelect.emit(bussinesRoleName);
   }
 
 
@@ -28,6 +32,5 @@ export class MenuComponent implements OnInit {
   }
 
   reloadData() {
-    //console.log(this.selected);
   }
 }

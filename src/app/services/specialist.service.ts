@@ -13,16 +13,9 @@ export class SpecialistService {
   constructor(private http: HttpClient) {
   }
 
-  set businessRole(businessRole: string) {
-    this._businessRole = businessRole;
-  }
 
-  get businessRole(): string {
-    return this._businessRole;
-  }
-
-  getSpecialistList(): Observable<any> {
-    this.params = new HttpParams().set("businessRole", this.businessRole);
+  getSpecialistList(bussinesRole: string): Observable<any> {
+    this.params = new HttpParams().set("businessRole", bussinesRole);
     return this.http.get(`${this.specialistListUrl}`, {headers: this.headers, params: this.params});
   }
 

@@ -1,5 +1,5 @@
 <div align="right">
-  <app-menu></app-menu>
+  <app-menu (onBussinesRoleSelect)="selectBussinesRole($event)"></app-menu>
 </div>
 <div class="container" *ngFor="let accountDto of accountList | async">
     <mat-card class="example-card">

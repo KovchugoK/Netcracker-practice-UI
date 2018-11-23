@@ -8,7 +8,7 @@ import {AccountDTO} from "../../model/AccountDTO";
   templateUrl: './specialist-list.component.html',
   styleUrls: ['./specialist-list.component.css']
 })
-export class SpecialistListComponent implements OnInit, DoCheck {
+export class SpecialistListComponent implements OnInit {
 
   accountList: Observable<AccountDTO[]>;
 
@@ -16,20 +16,15 @@ export class SpecialistListComponent implements OnInit, DoCheck {
   }
 
   ngOnInit() {
-    console.log("onInit");
     this.reloadData();
   }
 
-  ngDoCheck() {
-    console.log("doCheck");
-    if (this.specialisService.businessRole != '') {
-      this.accountList = this.specialisService.getSpecialistList();
-    }
-    this.specialisService.businessRole = '';
+  selectBussinesRole(bussinesRole: string) {
+    this.reloadData(bussinesRole);
   }
 
-  reloadData() {
-    this.accountList = this.specialisService.getSpecialistList();
+  reloadData(bussinesRole: string = '') {
+    this.accountList = this.specialisService.getSpecialistList(bussinesRole);
   }
 
   onClick(account: Account) {
