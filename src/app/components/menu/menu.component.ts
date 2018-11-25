@@ -4,6 +4,7 @@ import {SpecialistService} from "../../services/specialist.service";
 import {AccountDTO} from "../../model/AccountDTO";
 import {Observable} from "rxjs/index";
 import {BusinessRole} from "../../model/BusinessRole";
+import {FormControl} from "@angular/forms";
 
 
 @Component({
@@ -13,6 +14,8 @@ import {BusinessRole} from "../../model/BusinessRole";
 })
 export class MenuComponent implements OnInit {
 
+  toppings = new FormControl();
+  toppingList: string[] = ['Developer', 'Designer', 'TE'];
 
   @Output()
   onBussinesRoleSelect = new EventEmitter<string>();

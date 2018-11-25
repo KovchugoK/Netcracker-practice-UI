@@ -1,4 +1,4 @@
-<button mat-button [matMenuTriggerFor]="menu">Menu</button>
+<!--button mat-button [matMenuTriggerFor]="menu">Menu</button>
 <mat-menu #menu="matMenu">
 
   <ng-container *ngFor="let role of allRoles">
@@ -8,4 +8,10 @@
   <button mat-menu-item (click)="_onBussinesRoleSelect('DEVELOPER')">Developers</button>
   <button mat-menu-item (click)="_onBussinesRoleSelect('DESIGNER')">Designers</button>
   <button mat-menu-item (click)="_onBussinesRoleSelect('TE')">TE</button>
-</mat-menu>
+</mat-menu-->
+
+<mat-form-field>
+  <mat-select placeholder="Select role" [formControl]="toppings" multiple>
+    <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+  </mat-select>
+</mat-form-field>

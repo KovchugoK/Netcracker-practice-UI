@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {SpecialistService} from "../../services/specialist.service";
 
 @Component({
   selector: 'app-toolbar',
@@ -7,7 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ToolbarComponent implements OnInit {
 
-  constructor() { }
+
+  @Output()
+  onBussinesRoleSelect = new EventEmitter<string>();
+
+
+  constructor(private specialisService: SpecialistService) {
+
+  }
+
+  _onBussinesRoleSelect(bussinesRoleName: string) {
+    this.onBussinesRoleSelect.emit(bussinesRoleName);
+  }
+
 
   ngOnInit() {
   }

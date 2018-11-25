@@ -38,6 +38,7 @@ import {
 } from '@angular/material';
 import {MenuComponent} from "./components/menu/menu.component";
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { SkillMenuComponent } from './components/skill-menu/skill-menu.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     ResumeDetailDialogComponent,
     ResumeListComponent,
     MenuComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    SkillMenuComponent
   ],
   imports: [
     BrowserModule,

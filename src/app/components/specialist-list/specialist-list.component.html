@@ -1,5 +1,5 @@
-<div align="right">
-  <app-menu (onBussinesRoleSelect)="selectBussinesRole($event)"></app-menu>
+<div>
+  <app-toolbar></app-toolbar>
 </div>
 <div class="container" *ngFor="let accountDto of accountList | async">
   <mat-card class="example-card">
@@ -12,12 +12,13 @@
       </p>
       <p class="box">
         {{accountDto.account.firstName}} {{accountDto.account.lastName}}
-        <button (click)="onClick(accountDto.account)" class="fav"><img mat-card-lg-image="" class="img"
-                                                                       src="/src/assets/images/favorite.png"></button>
+        <button (click)="onClick(account)" class="fav"><img mat-card-lg-image="" class="img"
+                                                            src="/src/assets/images/favorite.png"></button>
       <h5>Skills: </h5>
       <div *ngFor="let setOfSkill of accountDto.resumeSkillSet">
         {{setOfSkill.skill.skillName}}
       </div>
+
 
     </mat-card-content>
   </mat-card>

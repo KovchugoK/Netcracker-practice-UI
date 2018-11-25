@@ -1,3 +1,16 @@
-<p>
-  toolbar works!
-</p>
+<mat-toolbar>
+  <div class="form-group">
+    <div class="sercharea">
+      <input type="text" class="form-control" id="name" required size="40">
+    </div>
+    <div>
+      <app-menu (onBussinesRoleSelect)="selectBussinesRole($event)"></app-menu>
+    </div>
+    <div>
+      <app-skill-menu></app-skill-menu>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-success">Search</button>
+    </div>
+  </div>
+</mat-toolbar>
