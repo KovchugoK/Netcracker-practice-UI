@@ -19,7 +19,10 @@ import {StartupEditComponent} from './components/startup-edit/startup-edit.compo
 import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
 import {MatChipsModule, MatDialogModule, MatListModule} from '@angular/material';
-
+import { AccountComponent } from './components/account/account.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MomentModule} from 'angular2-moment/moment.module';
+import { AccountEditComponent } from './components/account-edit/account-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +37,9 @@ import {MatChipsModule, MatDialogModule, MatListModule} from '@angular/material'
     StartupComponent,
     StartupEditComponent,
     ResumeDetailDialogComponent,
-    ResumeListComponent
+    ResumeListComponent,
+    AccountComponent,
+    AccountEditComponent
   ],
   imports: [
     BrowserModule,

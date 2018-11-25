@@ -4,7 +4,7 @@ import {InvestorListComponent} from './components/investor-list/investor-list.co
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {SpecialistListComponent} from './components/specialist-list/specialist-list.component';
 import {StartupListComponent} from './components/startup-list/startup-list.component';
-
+import {AccountComponent} from "./components/account/account.component";
 import {FavoriteComponent} from "./components/favorite/favorite.component";
 
 import {StartupComponent} from './components/startup/startup.component';
