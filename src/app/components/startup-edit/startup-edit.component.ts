@@ -96,7 +96,7 @@ export class StartupEditComponent implements OnInit {
   }
 
   createStartup() {
-    this.ngRedux.dispatch(createStartupAction({...this.startupForm.value, id: this.id}));
+    this.ngRedux.dispatch(createStartupAction({...this.startupForm.value, id: this.id, dateOfCreation: Date.now()}));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/startup-list')));
 

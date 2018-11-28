@@ -1,7 +1,16 @@
 import {Injectable} from '@angular/core';
 import {
-  FETCH_STARTUPS, fetchStartupsSuccessAction, fetchStartupsFailedAction, CREATE_STARTUP,
-  createStartupSuccessAction, updateStartupSuccessAction, DELETE_STARTUP, deleteStartupSuccessAction, UPDATE_STARTUP
+  FETCH_STARTUPS,
+  fetchStartupsSuccessAction,
+  fetchStartupsFailedAction,
+  CREATE_STARTUP,
+  createStartupSuccessAction,
+  updateStartupSuccessAction,
+  DELETE_STARTUP,
+  deleteStartupSuccessAction,
+  UPDATE_STARTUP,
+  SEARCH_STARTUPS,
+  searchStartupsSuccessAction, fetchMyStartupsSuccessAction, FETCH_MY_STARTUPS
 } from '../actions/startups.actions';
 import {catchError, switchMap, map} from 'rxjs/operators';
 import {of} from 'rxjs';
@@ -11,14 +20,12 @@ import {TransformService} from '../../utils/transform.service';
 import {StartupService} from '../../services/startup.service';
 import {SELECT_STARTUP, selectStartupSuccess} from '../actions/startup-state.actions';
 import {defaultStartup} from '../../model/Startup';
-import {NgRedux} from '@angular-redux/store';
-import {AppState} from '../index';
 
 
 
 @Injectable()
 export class StartupEpic {
-  constructor(private startupService: StartupService, private ngRedux: NgRedux<AppState>) {
+  constructor(private startupService: StartupService) {
   }
 
   fetchStartups$ = (action$: ActionsObservable<AnyAction>) => {
@@ -85,6 +92,32 @@ export class StartupEpic {
               map(startup => selectStartupSuccess(startup)),
               catchError(error => of(fetchStartupsFailedAction(error.message)))
             );
+      })
+    );
+  };
+
+  searchStartups$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(SEARCH_STARTUPS).pipe(
+      switchMap(({payload}) => {
+        return this.startupService
+          .searchStartup(payload.startupNameContains, payload.sortType)
+          .pipe(
+            map(startups => searchStartupsSuccessAction(TransformService.transformToMap(startups))),
+            catchError(error => of(fetchStartupsFailedAction(error.message)))
+          );
+      })
+    );
+  };
+
+  fetchMyStartups$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(FETCH_MY_STARTUPS).pipe(
+      switchMap(({payload}) => {
+        return this.startupService
+          .getMyStartupList(payload.accountId)
+          .pipe(
+            map(startups => fetchMyStartupsSuccessAction(TransformService.transformToMap(startups))),
+            catchError(error => of(fetchStartupsFailedAction(error.message)))
+          );
       })
     );
   };

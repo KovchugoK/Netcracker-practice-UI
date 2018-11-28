@@ -11,6 +11,10 @@ export const CREATE_STARTUP = '[Startups] Create startup';
 export const CREATE_STARTUP_SUCCESS = '[Startups] Create startup success';
 export const DELETE_STARTUP = '[Startup State] Delete startup';
 export const DELETE_STARTUP_SUCCESS = '[Startup State] Delete startup success';
+export const SEARCH_STARTUPS =  '[Startups] Search startups';
+export const SEARCH_STARTUPS_SUCCESS =  '[Startups] Search startups success';
+export const FETCH_MY_STARTUPS =  '[Startups] Fetch my startups';
+export const FETCH_MY_STARTUPS_SUCCESS =  '[Startups] Fetch my startups success';
 
 export function fetchStartupsAction() {
   return {
@@ -71,6 +75,34 @@ export function deleteStartupSuccessAction(startupId: string) {
   return {
     type: DELETE_STARTUP_SUCCESS,
     payload: {startupId}
+  };
+}
+
+export function searchStartupsAction(startupNameContains: string, sortType: string) {
+  return {
+    type: SEARCH_STARTUPS,
+    payload: {startupNameContains, sortType}
+  };
+}
+
+export function searchStartupsSuccessAction(startups: Map<string, Startup>) {
+  return {
+    type: SEARCH_STARTUPS_SUCCESS,
+    payload: {startups}
+  };
+}
+
+export function fetchMyStartupsAction(accountId: string) {
+  return {
+    type: FETCH_MY_STARTUPS,
+    payload: {accountId}
+  };
+}
+
+export function fetchMyStartupsSuccessAction(startups: Map<string, Startup>) {
+  return {
+    type: FETCH_MY_STARTUPS_SUCCESS,
+    payload: {startups}
   };
 }
 

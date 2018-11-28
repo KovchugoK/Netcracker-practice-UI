@@ -1,4 +1,25 @@
 <main>
+
+  <mat-toolbar class="startup-toolbar">
+    <form [formGroup]="searchForm">
+      <mat-toolbar-row>
+        <mat-label style="margin-right: 30px; margin-left: 40px;"> Startup name: </mat-label>
+        <mat-form-field style="margin-right: 40px">
+          <input matInput=""  [formControlName]="'startupName'">
+        </mat-form-field>
+        <mat-label style="margin-right: 30px"> Sort by:</mat-label>
+        <mat-form-field style="width: 340px; margin-right: 100px">
+          <select matNativeControl class="sortTypeSelect" [formControlName]="'sortType'">
+            <option *ngFor="let sortType of sortTypes" [value]="sortType.value">
+              {{sortType.viewValue}}
+            </option>
+          </select>
+        </mat-form-field>
+        <button mat-raised-button="" class="buttonSearch" (click)="search()"> Search</button>
+      </mat-toolbar-row>
+
+    </form>
+  </mat-toolbar>
   <div class="spinner">
     <mat-spinner *ngIf="isLoading | async;else userTable" mode="indeterminate" color="primary">
     </mat-spinner>

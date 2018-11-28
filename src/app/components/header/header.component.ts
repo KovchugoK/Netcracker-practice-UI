@@ -8,6 +8,7 @@ import {clearCurrentUserSuccessAction} from '../../store/actions/user.actions';
 import {Observable} from 'rxjs';
 import {User} from '../../model/User';
 import {currentUser} from '../../store/selectors/user.selector';
+import {updateRouterState} from '../../store/actions/router.actions';
 
 @Component({
   selector: 'app-header',
@@ -50,6 +51,7 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.ls.clear();
     this.ngRedux.dispatch(clearCurrentUserSuccessAction());
+    this.ngRedux.dispatch(updateRouterState('/main'));
   }
 
 }

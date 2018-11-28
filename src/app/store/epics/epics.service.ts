@@ -14,7 +14,9 @@ export class EpicService {
       this.startupEpic.createStartup$,
       this.startupEpic.updateStartup$,
       this.startupEpic.deleteStartup$,
-      this.startupEpic.selectStartup$
+      this.startupEpic.selectStartup$,
+      this.startupEpic.searchStartups$,
+      this.startupEpic.fetchMyStartups$
     );
   }
 

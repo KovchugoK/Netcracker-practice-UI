@@ -33,10 +33,11 @@ import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/res
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
 import {MatDialogModule, MatListModule} from '@angular/material';
 import {
-  MatButtonModule, MatCardModule, MatChip, MatChipList, MatChipsModule, MatIconModule,
+  MatButtonModule, MatCardModule, MatChipsModule, MatIconModule,
   MatMenuModule
 } from '@angular/material';
-import {MenuComponent} from "./components/menu/menu.component";
+import {MenuComponent} from './components/menu/menu.component';
+import { MyStartupsComponent } from './components/my-startups/my-startups.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {MenuComponent} from "./components/menu/menu.component";
     StartupEditComponent,
     ResumeDetailDialogComponent,
     ResumeListComponent,
-    MenuComponent
+    MenuComponent,
+    MyStartupsComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +105,7 @@ export class AppModule {
     }
     ngRedux.configureStore(reducers, {} as AppState, [middleware, thunkMiddlware, createLogger()], enhancers);
     middleware.run(epics as any);
-    ngReduxRouter.initialize(state => state.router);
+    ngReduxRouter.initialize((state: AppState) => state.router);
 
   }
 
