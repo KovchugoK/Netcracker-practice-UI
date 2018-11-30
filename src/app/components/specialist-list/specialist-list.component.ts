@@ -3,6 +3,7 @@ import {Observable} from "rxjs/index";
 import {SpecialistService} from "../../services/specialist.service";
 import {AccountDTO} from "../../model/AccountDTO";
 import {Account} from "../../model/Account";
+import {SearchObject} from "../../model/SearchObject";
 
 @Component({
   selector: 'app-specialist-list',
@@ -20,12 +21,12 @@ export class SpecialistListComponent implements OnInit {
     this.reloadData();
   }
 
-  selectBussinesRole(bussinesRole: string) {
-    this.reloadData(bussinesRole);
+  selectSearchObj(searchObj: SearchObject) {
+    this.reloadData(searchObj);
   }
 
-  reloadData(bussinesRole: string = '') {
-    this.accountList = this.specialisService.getSpecialistList(bussinesRole);
+  reloadData(searchObj: SearchObject = null) {
+    this.accountList = this.specialisService.getSpecialistList(searchObj);
   }
 
   onClick(account: Account) {

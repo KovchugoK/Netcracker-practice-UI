@@ -1,5 +1,5 @@
 <div>
-  <app-toolbar></app-toolbar>
+  <app-toolbar (onSearchSelected)="selectSearchObj($event)"></app-toolbar>
 </div>
 <div class="container" *ngFor="let accountDto of accountList | async">
   <mat-card class="example-card">

@@ -36,9 +36,7 @@ import {
   MatButtonModule, MatCardModule, MatChip, MatChipList, MatChipsModule, MatIconModule,
   MatMenuModule
 } from '@angular/material';
-import {MenuComponent} from "./components/menu/menu.component";
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { SkillMenuComponent } from './components/skill-menu/skill-menu.component';
 
 @NgModule({
   declarations: [
@@ -55,9 +53,7 @@ import { SkillMenuComponent } from './components/skill-menu/skill-menu.component
     StartupEditComponent,
     ResumeDetailDialogComponent,
     ResumeListComponent,
-    MenuComponent,
     ToolbarComponent,
-    SkillMenuComponent
   ],
   imports: [
     BrowserModule,
