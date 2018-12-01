@@ -1,15 +1,17 @@
 <mat-dialog-content>
   <div class="header">
     <img class="header-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Account avatar">
-
+    <div align="right">
+      <button mat-raised-button="" class="btnControl" routerLink="/resume-edit/{{resume?.id}}"> Edit</button>
+      <button mat-raised-button="" class="btnControl" (click)="onDeleteResume(resume?.id)"> Delete</button>
+    </div>
     <div class="brief-info">
-      <h4>{{data.resume.businessRole.businessRoleName}}</h4>
+      <h4>{{resume?.businessRole.businessRoleName}}</h4>
+      <a>{{resume?.account.firstName}} {{resume?.account.lastName}}</a><br>
 
-      <a>{{data.resume.account.firstName}} {{data.resume.account.lastName}}</a><br>
-
-      <br><h5>Ключевые навыки</h5>
+      <br><h5>Skills</h5>
       <mat-chip-list>
-        <div *ngFor="let resumeSkill of data.resume.resumeSkills">
+        <div *ngFor="let resumeSkill of resume?.resumeSkills">
           <mat-chip>{{resumeSkill.skill.skillName}}</mat-chip>
         </div>
       </mat-chip-list>
@@ -19,17 +21,17 @@
   <div class="about">
     <div class="info-edu">
       <div class="about_info">
-        <h5>Информация</h5>
+        <h5>Information</h5>
         <p>
-          {{data.resume.info}}
+          {{resume?.info}}
         </p>
       </div>
 
       <mat-divider></mat-divider>
 
       <div class="about_edu">
-        <br><h5>Образование</h5>
-        <mat-list *ngFor="let education of data.resume.account.educations">
+        <br><h5>Education</h5>
+        <mat-list *ngFor="let education of resume?.account.educations">
           {{education.completionYear}} <b>{{education.institution}}</b>
           <mat-divider></mat-divider>
         </mat-list>
@@ -37,8 +39,8 @@
     </div>
 
     <div class="about_work">
-      <h5>Опыт работы</h5>
-      <mat-list *ngFor="let workExp of data.resume.account.workExperiences">
+      <h5>Work Experience</h5>
+      <mat-list *ngFor="let workExp of resume?.account.workExperiences">
         <b>{{workExp.position}}</b><br>
         {{workExp.workPlace}}<br>
 

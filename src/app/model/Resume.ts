@@ -10,3 +10,10 @@ export interface Resume {
   account: Account;
 }
 
+export const defaultResume: Resume = {
+  id: null,
+  info: '',
+  resumeSkills: null,
+  businessRole: null,
+  account: null
+}

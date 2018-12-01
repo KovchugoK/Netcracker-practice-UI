@@ -4,11 +4,11 @@
     <mat-card-content>
       <p align="center">
         <b>
-          <a href="investor-list/{{account.id}}"> Investor </a>
+          Investor
         </b>
       </p>
       <p class="box">
-        {{account.firstName}} {{account.lastName}}
+        <a href="investor-list/{{account.id}}"> {{account.firstName}} {{account.lastName}}</a>
         <button (click)="onClick(account)" class="fav"><img mat-card-lg-image="" class="img"
                                                             src="/src/assets/images/favorite.png"></button>
       </p>

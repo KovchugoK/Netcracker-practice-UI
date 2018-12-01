@@ -27,11 +27,4 @@ export class ResumeListComponent implements OnInit {
       .subscribe(resumes => this.resumes = resumes);
   }
 
-  openDetailDialog(resume: Resume) {
-    this.dialog.open(ResumeDetailDialogComponent, {
-      width: 'auto',
-      height: 'auto',
-      data: {resume: resume}
-    });
-  }
 }

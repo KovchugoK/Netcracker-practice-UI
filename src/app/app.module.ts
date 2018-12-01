@@ -37,6 +37,7 @@ import {
   MatMenuModule
 } from '@angular/material';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ResumeEditComponent } from './components/resume-edit/resume-edit.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     ResumeDetailDialogComponent,
     ResumeListComponent,
     ToolbarComponent,
+    ResumeEditComponent,
   ],
   imports: [
     BrowserModule,
