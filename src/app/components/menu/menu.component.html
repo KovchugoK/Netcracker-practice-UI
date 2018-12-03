@@ -1,0 +1,11 @@
+<button mat-button [matMenuTriggerFor]="menu">Menu</button>
+<mat-menu #menu="matMenu">
+
+  <ng-container *ngFor="let role of allRoles">
+    <button mat-menu-item (click)="_onBussinesRoleSelect(role.businessRoleName.toLocaleUpperCase())">{{role.lable}}</button>
+  </ng-container>
+
+  <button mat-menu-item (click)="_onBussinesRoleSelect('DEVELOPER')">Developers</button>
+  <button mat-menu-item (click)="_onBussinesRoleSelect('DESIGNER')">Designers</button>
+  <button mat-menu-item (click)="_onBussinesRoleSelect('TE')">TE</button>
+</mat-menu>

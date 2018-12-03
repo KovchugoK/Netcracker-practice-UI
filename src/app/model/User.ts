@@ -1,10 +1,11 @@
-import {Role} from "./Role";
+import {Account} from './Account';
 
-export class User {
-  id: number;
+export interface User {
+  id: string;
   login: string;
-  password: string;
-  email: string;
-  salt: {};
-  role: Role;
+  password?: string;
+  email?: string;
+  token?: Token;
+  role?: string;
+  account: Account;
 }

@@ -66,3 +66,15 @@ form {
   height: 50px;
   margin: 15px 15px 0 0;
 }
+
+.spinner{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+mat-spinner{
+  margin: auto;
+}

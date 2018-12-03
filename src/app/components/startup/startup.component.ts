@@ -2,7 +2,17 @@ import {Component, OnInit} from '@angular/core';
 import {Startup} from '../../model/Startup';
 import {StartupService} from '../../services/startup.service';
 import {ActivatedRoute} from '@angular/router';
-import {Location} from '@angular/common';
+import {NgRedux, select} from '@angular-redux/store';
+import {
+  isSelected,
+  selectStartupFromState
+} from '../../store/selectors/startups.selector';
+import {Observable} from 'rxjs';
+import {AppState} from '../../store';
+import {selectStartup} from '../../store/actions/startup-state.actions';
+import {showDialogAction} from '../../store/actions/dialogs.actions';
+import {DeleteStartupComponent} from '../dialogs/delete-startup/delete-startup.component';
+
 
 @Component({
   selector: 'app-startup',
@@ -11,28 +21,44 @@ import {Location} from '@angular/common';
 })
 export class StartupComponent implements OnInit {
 
-  startup: Startup;
   id: string;
 
-  constructor(private startupService: StartupService, private route: ActivatedRoute, private location: Location) {
+  @select(isSelected)
+  isSelected: Observable<boolean>;
+
+  @select(selectStartupFromState)
+  startup: Observable<Startup>;
+
+  constructor(private ngRedux: NgRedux<AppState>,
+              private startupService: StartupService,
+              private route: ActivatedRoute,
+              ) {
 
   }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.reloadDate();
-  }
-
-  reloadDate() {
-    this.startupService.getStartupById(this.id).subscribe(startup => this.startup = startup);
+    this.ngRedux.dispatch(selectStartup(this.id));
   }
 
   deleteStartup() {
-    this.startupService.deleteStartup(this.id).subscribe(() => this.goBack());
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: DeleteStartupComponent,
+      width: '200px',
+      data: {startupId: this.id}
+  }));
   }
 
-  goBack(): void {
-    this.location.back();
+  get currentUser(): boolean {
+    if (this.ngRedux.getState().userState.currentUser) {
+      return true;
+    }
+    return false;
   }
+
+  get currentUserAccountId(): string {
+    return this.ngRedux.getState().userState.currentUser.account.id;
+  }
+
 
 }

@@ -6,6 +6,15 @@ main {
   padding: 40px;
   margin: auto;
 }
+.template{
+
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: auto;
+
+}
 
 .imageBlock {
   padding-top: 30px;

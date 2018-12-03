@@ -5,7 +5,7 @@ import {
   MatCardModule,
   MatSidenavModule,
   MatDividerModule,
-  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule
+  MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MatDialogModule, MatRadioModule
 } from '@angular/material';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatListModule} from '@angular/material/list';
@@ -23,7 +23,9 @@ import {NgModule} from '@angular/core';
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatRadioModule
   ],
   exports: [
     MatListModule,
@@ -36,7 +38,9 @@ import {NgModule} from '@angular/core';
     MatDividerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule,
+    MatRadioModule
   ],
 })
 export class MaterialModule {

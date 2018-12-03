@@ -1,22 +1,31 @@
 <main>
-<div *ngFor="let startup of startupList | async">
-  <mat-card class="example-card">
-    <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
-    <mat-card-content>
-      <p align="center" >
-        <a routerLink="/startup/{{startup.id}}">
-          {{startup.startupName}}
-        </a>
-      </p>
-      <p class="box">
-        {{startup.idea}}
-      </p>
-      <p>
-        {{startup.sumOfInvestment}}$
-      </p>
-    </mat-card-content>
-  </mat-card>
-</div>
+  <div class="spinner">
+    <mat-spinner *ngIf="isLoading | async;else userTable" mode="indeterminate" color="primary">
+    </mat-spinner>
+  </div>
+  <ng-template #userTable>
+    <div style="width: 100%; height:100%">
+      <div *ngFor="let startup of startupList | async">
+        <mat-card class="example-card">
+          <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+          <mat-card-content>
+            <p align="center">
+              <a routerLink="/startup/{{startup.id}}">
+                {{startup.startupName}}
+              </a>
+            </p>
+            <p class="box">
+              {{startup.idea}}
+            </p>
+            <p>
+              {{startup.sumOfInvestment}}$
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+  </ng-template>
 </main>
 
 
