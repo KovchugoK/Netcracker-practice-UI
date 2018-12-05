@@ -1,0 +1,24 @@
+<mat-toolbar>
+  <div class="form-group">
+    <div class="sercharea">
+      <input type="text" class="form-control" id="name" required size="40">
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-select placeholder="Select skill" [formControl]="skills" multiple>
+          <mat-option *ngFor="let skill of skillsList" [value]="skill">{{skill}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-select placeholder="Select role" [formControl]="roles" multiple>
+          <mat-option *ngFor="let role of rolesList" [value]="role">{{role}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+      <button (click)="onClick()" type="submit" class="btn btn-success">Search</button>
+    </div>
+  </div>
+</mat-toolbar>

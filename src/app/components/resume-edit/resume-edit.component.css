@@ -1,0 +1,30 @@
+mat-dialog-content {
+  padding: 30px 50px;
+}
+
+.header-image {
+  float: left;
+  width: 200px;
+  height: 200px;
+  margin-right: 25px;
+}
+
+.header {
+  overflow: hidden;
+}
+
+.about {
+  margin-top: 30px;
+}
+
+.info-edu {
+  float: left;
+  width: 500px;
+  margin-right: 50px;
+}
+
+
+
+.about_work {
+  float: right;
+}

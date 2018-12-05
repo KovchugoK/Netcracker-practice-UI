@@ -6,6 +6,7 @@ import {SignUpComponent} from './sign-up/sign-up.component';
 import {SignInComponent} from './sign-in/sign-in.component';
 import {MaterialModule} from '../../material';
 import {DeleteStartupComponent} from './delete-startup/delete-startup.component';
+import {DeleteResumeComponent} from "./delete-resume/delete-resume.component";
 
 @NgModule({
   imports: [
@@ -14,8 +15,8 @@ import {DeleteStartupComponent} from './delete-startup/delete-startup.component'
     ReactiveFormsModule,
     MaterialModule
   ],
-  declarations: [DialogsComponent, SignUpComponent, SignInComponent, DeleteStartupComponent],
-  exports: [DialogsComponent, SignUpComponent, SignInComponent, DeleteStartupComponent],
-  entryComponents: [SignUpComponent, SignInComponent, DeleteStartupComponent ]
+  declarations: [DialogsComponent, SignUpComponent, SignInComponent, DeleteStartupComponent, DeleteResumeComponent],
+  exports: [DialogsComponent, SignUpComponent, SignInComponent, DeleteStartupComponent, DeleteResumeComponent],
+  entryComponents: [SignUpComponent, SignInComponent, DeleteStartupComponent, DeleteResumeComponent ]
 })
 export class DialogsModule { }

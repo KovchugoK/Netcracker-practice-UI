@@ -1,22 +1,30 @@
-<div align="right">
-  <app-menu (onBussinesRoleSelect)="selectBussinesRole($event)"></app-menu>
+<div>
+  <app-toolbar (onSearchSelected)="selectSearchObj($event)"></app-toolbar>
 </div>
 <div class="container" *ngFor="let accountDto of accountList | async">
-    <mat-card class="example-card">
-      <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
-      <mat-card-content>
-        <p align="center">
-          <b>
-            <a href="investor-list/{{accountDto.account.id}}"> {{accountDto.businessRole.businessRoleName}} </a>
-          </b>
-        </p>
-        <p class="box">
-          {{accountDto.account.firstName}} {{accountDto.account.lastName}}
-          <button (click)="onClick(accountDto.account)" class="fav"><img mat-card-lg-image="" class="img"
-                                                                         src="/src/assets/images/favorite.png"></button>
-        </p>
-      </mat-card-content>
-    </mat-card>
-  </div>
+  <mat-card class="example-card">
+    <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+    <mat-card-content>
+      <p align="center">
+        <b>
+          {{accountDto.businessRole.businessRoleName}}
+        </b>
+      </p>
+      <p class="box">
+        <a href="specialist-list/{{accountDto.account.id}}">{{accountDto.account.firstName}}
+          {{accountDto.account.lastName}}</a>
+        <button (click)="onClick(account)" class="fav"><img mat-card-lg-image="" class="img"
+                                                            src="/src/assets/images/favorite.png"></button>
+      <h6>Skills: </h6>
+      <mat-card-subtitle>
+        <mat-chip-list>
+          <div *ngFor="let setOfSkill of accountDto.resumeSkillSet">
+            <mat-chip> {{setOfSkill.skill.skillName}}</mat-chip>
+          </div>
+        </mat-chip-list>
+      </mat-card-subtitle>
+    </mat-card-content>
+  </mat-card>
+</div>
 
 

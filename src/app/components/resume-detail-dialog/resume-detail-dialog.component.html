@@ -1,54 +1,64 @@
-<mat-dialog-content>
-  <div class="header">
-    <img class="header-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Account avatar">
-
-    <div class="brief-info">
-      <h4>{{data.resume.businessRole.businessRoleName}}</h4>
-
-      <a>{{data.resume.account.firstName}} {{data.resume.account.lastName}}</a><br>
-
-      <br><h5>Ключевые навыки</h5>
-      <mat-chip-list>
-        <div *ngFor="let resumeSkill of data.resume.resumeSkills">
-          <mat-chip>{{resumeSkill.skill.skillName}}</mat-chip>
+<main>
+  <div>
+    <mat-spinner *ngIf="isSelected | async; else resumeView" mode="indeterminate" color="primary">
+    </mat-spinner>
+  </div>
+  <ng-template #resumeView>
+    <mat-dialog-content>
+      <div class="header">
+        <img class="header-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Account avatar">
+        <div align="right">
+          <button mat-raised-button="" class="btnControl" routerLink="/resume-edit/{{id}}" *ngIf="currentUser && (currentUserAccountId === (resume | async)?.account.id)"> Edit</button>
+          <button mat-raised-button="" class="btnControl" (click)="onDeleteResume()" *ngIf="currentUser && (currentUserAccountId === (resume | async)?.account.id)"> Delete</button>
         </div>
-      </mat-chip-list>
-    </div>
-  </div>
+        <div class="brief-info">
+          <h4>{{(resume | async)?.businessRole.businessRoleName}}</h4>
+          <a>{{(resume | async)?.account.firstName}} {{(resume | async)?.account.lastName}}</a><br>
 
-  <div class="about">
-    <div class="info-edu">
-      <div class="about_info">
-        <h5>Информация</h5>
-        <p>
-          {{data.resume.info}}
-        </p>
+          <br><h5>Skills</h5>
+          <mat-chip-list>
+            <div *ngFor="let resumeSkill of (resume | async)?.resumeSkills">
+              <mat-chip>{{resumeSkill.skill.skillName}}</mat-chip>
+            </div>
+          </mat-chip-list>
+        </div>
       </div>
 
-      <mat-divider></mat-divider>
+      <div class="about">
+        <div class="info-edu">
+          <div class="about_info">
+            <h5>Information</h5>
+            <p>
+              {{(resume | async)?.info}}
+            </p>
+          </div>
 
-      <div class="about_edu">
-        <br><h5>Образование</h5>
-        <mat-list *ngFor="let education of data.resume.account.educations">
-          {{education.completionYear}} <b>{{education.institution}}</b>
           <mat-divider></mat-divider>
-        </mat-list>
+
+          <div class="about_edu">
+            <br><h5>Education</h5>
+            <mat-list *ngFor="let education of (resume | async)?.account.educations">
+              {{education.completionYear}} <b>{{education.institution}}</b>
+              <mat-divider></mat-divider>
+            </mat-list>
+          </div>
+        </div>
+
+        <div class="about_work">
+          <h5>Work Experience</h5>
+          <mat-list *ngFor="let workExp of (resume | async)?.account.workExperiences">
+            <b>{{workExp.position}}</b><br>
+            {{workExp.workPlace}}<br>
+
+            {{formatDate(workExp.start)}} -
+            <div *ngIf="workExp.finish; then endDate else presentDay"></div>
+            <ng-template #endDate>{{formatDate(workExp.finish)}}</ng-template>
+            <ng-template #presentDay>настоящее время</ng-template>
+
+            <mat-divider></mat-divider>
+          </mat-list>
+        </div>
       </div>
-    </div>
-
-    <div class="about_work">
-      <h5>Опыт работы</h5>
-      <mat-list *ngFor="let workExp of data.resume.account.workExperiences">
-        <b>{{workExp.position}}</b><br>
-        {{workExp.workPlace}}<br>
-
-        {{formatDate(workExp.start)}} -
-        <div *ngIf="workExp.finish; then endDate else presentDay"></div>
-        <ng-template #endDate>{{formatDate(workExp.finish)}}</ng-template>
-        <ng-template #presentDay>настоящее время</ng-template>
-
-        <mat-divider></mat-divider>
-      </mat-list>
-    </div>
-  </div>
-</mat-dialog-content>
+    </mat-dialog-content>
+  </ng-template>
+</main>

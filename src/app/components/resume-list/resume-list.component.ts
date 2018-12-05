@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Resume} from '../../model/Resume';
-import {ResumeService} from '../../services/resume.service';
-import {MatDialog} from '@angular/material';
-import {ResumeDetailDialogComponent} from '../resume-detail-dialog/resume-detail-dialog.component';
+import {selectResumes, isLoading} from "../../store/selectors/resume.selector";
+import {NgRedux, select} from "@angular-redux/store";
+import {Observable} from "rxjs/index";
+import {AppState} from "../../store/index";
+import {fetchResumesAction} from "../../store/actions/resume.actions";
+import {skipWhile, take} from "rxjs/internal/operators";
 
 @Component({
   selector: 'app-resume-list',
@@ -10,28 +13,24 @@ import {ResumeDetailDialogComponent} from '../resume-detail-dialog/resume-detail
   styleUrls: ['./resume-list.component.css']
 })
 export class ResumeListComponent implements OnInit {
-  resumes: Resume[];
 
-  constructor(
-    private resumeService: ResumeService,
-    public dialog: MatDialog) {
+  @select(isLoading)
+  isLoading: Observable<boolean>;
+
+  @select(selectResumes)
+  resumeList: Observable<Resume[]>;
+
+
+  constructor(private ngRedux: NgRedux<AppState>) {
   }
 
   ngOnInit() {
-    this.getResumes();
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() => this.ngRedux.dispatch(fetchResumesAction()));
+
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() => this.ngRedux.select(selectResumes));
   }
 
-  getResumes(): void {
-    this.resumeService
-      .gerResumeList()
-      .subscribe(resumes => this.resumes = resumes);
-  }
 
-  openDetailDialog(resume: Resume) {
-    this.dialog.open(ResumeDetailDialogComponent, {
-      width: 'auto',
-      height: 'auto',
-      data: {resume: resume}
-    });
-  }
 }
