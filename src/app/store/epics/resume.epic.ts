@@ -16,7 +16,7 @@ import {ResumeService} from "../../services/resume.service";
 import {
   CREATE_RESUME, createResumeSuccessAction, DELETE_RESUME, deleteResumeSuccessAction, FETCH_RESUMES,
   fetchResumesFailedAction,
-  fetchResumesSuccessAction
+  fetchResumesSuccessAction, UPDATE_RESUME, updateResumeSuccessAction
 } from "../actions/resume.actions";
 import {SELECT_RESUME, selectResumeSuccess} from "../actions/resume-state.actions";
 import {defaultResume} from "../../model/Resume";
@@ -51,17 +51,16 @@ export class ResumeEpic {
      );
    };
 
-   /*updateStartup$ = (action$: ActionsObservable<AnyAction>) => {
-     return action$.ofType(UPDATE_STARTUP).pipe(
+   updateResume$ = (action$: ActionsObservable<AnyAction>) => {
+     return action$.ofType(UPDATE_RESUME).pipe(
        switchMap(({payload}) => {
-         return this.startupService
-           .updateStartup(payload.startup)
+         return this.resumeService.updateResume(payload.resume)
            .pipe(
-             map(startup => updateStartupSuccessAction(startup))
+             map(resume => updateResumeSuccessAction(resume))
            );
        })
      );
-   };*/
+   };
 
    deleteResume$ = (action$: ActionsObservable<AnyAction>) => {
      return action$.ofType(DELETE_RESUME).pipe(

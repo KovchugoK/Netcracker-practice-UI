@@ -33,7 +33,7 @@ export class ResumeService {
       .pipe(catchError((error: any) => throwError(error.error)));
   }
 
-  deleteResumeSkill(id: string, skill: Skill) {
+  deleteResumeSkill(skill: Skill) {
     let params = new HttpParams();
     for (const key in skill) {
       const val = skill[key];
@@ -41,13 +41,12 @@ export class ResumeService {
         params = params.set(key, val);
       }
     }
-    return this.http.delete('/api/resume/' + id + '/delete/skill', {params: params});
+    return this.http.delete('/api/resume/' + skill.id + '/delete/skill', {params: params});
   }
 
-  updateResume(id: string, resume: Resume): Observable<any> {
-    return this.http.put<Resume>('/api/resume/update/' + id, resume)
+  updateResume(resume: Resume): Observable<any> {
+    return this.http.put<Resume>('/api/resume/update/' + resume.id, resume)
       .pipe(catchError((error: any) => throwError(error.error)));
-    ;
   }
 
   createResume(resume: Resume): Observable<any> {

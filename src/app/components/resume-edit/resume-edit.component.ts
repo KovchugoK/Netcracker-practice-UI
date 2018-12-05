@@ -13,7 +13,7 @@ import {isLoading, isSelected, selectResumeForEdit, selectResumes} from '../../s
 import {selectResume} from "../../store/actions/resume-state.actions";
 import {skipWhile, take} from "rxjs/internal/operators";
 import {AppState} from "../../store/index";
-import {createResumeAction} from "../../store/actions/resume.actions";
+import {createResumeAction, updateResumeAction} from "../../store/actions/resume.actions";
 import {updateRouterState} from "../../store/actions/router.actions";
 
 
@@ -24,11 +24,13 @@ import {updateRouterState} from "../../store/actions/router.actions";
 })
 export class ResumeEditComponent implements OnInit {
 
-  resume: Resume;
   resumeForm: FormGroup;
 
   skillsList: Skill[];
   rolesList: BusinessRole[];
+  resumeSkillsList: ResumeSkill[];
+
+  items: ResumeSkill[];
 
   id: string;
 
@@ -65,18 +67,17 @@ export class ResumeEditComponent implements OnInit {
       resumeSkills: [resume.resumeSkills],
       account: [this.ngRedux.getState().userState.currentUser.account],
       businessRole: [resume.businessRole],
-    })
-    ;
+    });
+    this.resumeSkillsList = resume.resumeSkills;
   }
 
   get info(): FormControl {
     return this.resumeForm.get('info') as FormControl;
   }
 
- /* get resumeSkills(): FormControl {
-    console.log(this.resumeForm.get('resumeSkills'));
+  get resumeSkills(): FormControl {
     return this.resumeForm.get('resumeSkills') as FormControl;
-  }*/
+  }
 
   get businessRole(): FormControl {
     return this.resumeForm.get('businessRole') as FormControl;
@@ -90,18 +91,27 @@ export class ResumeEditComponent implements OnInit {
     this.location.back();
   }
 
-  /* onDeleteSkill(skill: Skill) {
-     this.resumeService.deleteResumeSkill(this.id, skill).subscribe(() => this.reloadDate());
-   }*/
-
-  updateResume() {
-    console.log(this.resumeForm.value.resumeSkills);
-    this.resumeService.updateResume(this.id, this.resumeForm.value as Resume).subscribe(() => this.goBack());
+  formResumeSkill(skill: Skill): ResumeSkill {
+    return new ResumeSkill(null, skill);
   }
 
-  /* createResume() {
-     this.resumeService.createResume(this.resumeForm.value as Resume).subscribe(() => this.location.go('/resume/list'));
-   }*/
+  onDeleteSkill(skill: Skill) {
+    /* this.resumeService.deleteResumeSkill(this.id, skill).subscribe(() => this.isSelected.pipe(skipWhile(result => result), take(1))
+       .subscribe(() => this.ngRedux.select(state => selectResumeForEdit(state))
+         .subscribe(resume => {
+           this.initializeForm(resume);
+         })));
+     this.isLoading.pipe(skipWhile(result => result === true), take(1))
+       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/resume-edit/' + this.id)));*/
+  }
+
+
+  updateResume() {
+    this.ngRedux.dispatch(updateResumeAction({...this.resumeForm.value, id: this.id}));
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() => this.ngRedux.dispatch(updateRouterState('/resume/' + this.id)));
+  }
+
 
   createResume() {
     this.ngRedux.dispatch(createResumeAction({...this.resumeForm.value, id: this.id}));

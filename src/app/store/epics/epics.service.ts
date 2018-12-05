@@ -19,7 +19,8 @@ export class EpicService {
       this.resumeEpic.fetchResumes$,
       this.resumeEpic.selectResume$,
       this.resumeEpic.createResume$,
-      this.resumeEpic.deleteResume$
+      this.resumeEpic.deleteResume$,
+      this.resumeEpic.updateResume$
     );
   }
 
