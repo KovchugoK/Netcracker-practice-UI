@@ -2,10 +2,16 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {SignUpComponent} from '../sign-up/sign-up.component';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {AuthenticationService} from '../../../services/authentication.service';
-import {first} from 'rxjs/internal/operators';
+import {ActivatedRoute} from '@angular/router';
+import {skipWhile, take} from 'rxjs/internal/operators';
 import {DialogResult} from '../../../model/dialog-result';
+import {Credential} from '../../../model/Credential';
+import {NgRedux, select} from '@angular-redux/store';
+import {AppState} from '../../../store';
+import {loginUserAction} from '../../../store/actions/current-user.actions';
+import {isLoading, selectErrorMessage} from '../../../store/selectors/current-user.selector';
+import {Observable} from 'rxjs';
+
 
 @Component({
   selector: 'app-sign-in',
@@ -13,16 +19,20 @@ import {DialogResult} from '../../../model/dialog-result';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-  loginForm: FormGroup;
-  loading = false;
-  submitted = false;
+
+  @select(isLoading)
+  isLoading: Observable<boolean>;
+
+
+  credentialForm: FormGroup;
   returnUrl: string;
-  error = '';
+  @select(selectErrorMessage)
+  error: Observable<string>;
+
   constructor(
     private formBuilder: FormBuilder,
+    private ngRedux: NgRedux<AppState>,
     private route: ActivatedRoute,
-    private router: Router,
-    private authenticationService: AuthenticationService,
     public dialogRef: MatDialogRef<SignUpComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -30,24 +40,24 @@ export class SignInComponent implements OnInit {
 
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
+    this.credentialForm = this.formBuilder.group({
       login: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]]
     });
-    this.authenticationService.logout();
+
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   get login(): FormControl {
-    return this.loginForm.get('login') as FormControl;
+    return this.credentialForm.get('login') as FormControl;
   }
 
   get password(): FormControl {
-    return this.loginForm.get('password') as FormControl;
+    return this.credentialForm.get('password') as FormControl;
   }
 
   getErrorText(controlName: string): string {
-    const control = this.loginForm.get(controlName) as FormControl;
+    const control = this.credentialForm.get(controlName) as FormControl;
     return this.getErrorMessage(control);
   }
 
@@ -69,24 +79,15 @@ export class SignInComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-
-    // stop here if form is invalid
-    if (this.loginForm.invalid) {
+    if (this.credentialForm.invalid) {
       return;
     }
 
-    this.loading = true;
-    this.authenticationService.login(this.loginForm.controls.login.value, this.loginForm.controls.password.value)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.onCancelClick();
-        },
-        error => {
-          this.error = error;
-          this.loading = false;
-        });
+    this.ngRedux.dispatch(loginUserAction(this.credentialForm.value as Credential));
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() =>
+        this.error.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));
+
   }
 
 }

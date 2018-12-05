@@ -1,9 +1,10 @@
+
 <mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav mode="side" >
+  <mat-sidenav #sidenav mode="side" *ngIf="currentUser|async">
     <p></p>
     <p><a> Personal cabinet </a></p>
     <p><a> Messages </a></p>
-    <p><a> Startups </a></p>
+    <p><a routerLink="/my-startups"> My Startups </a></p>
     <p><a> Contacts </a></p>
     <p><a> Favorites </a></p>
     <p><a routerLink="/startup-edit"> Create startup </a></p>
@@ -15,10 +16,11 @@
 
   <mat-sidenav-content>
 
-      <button class = "absolutPositionButton" mat-button (click)="onClick()" *ngIf="!opened">...</button>
+      <button class = "absolutPositionButton" mat-button (click)="onClick()" *ngIf="!opened && currentUser | async">...</button>
       <ng-content>
 
       </ng-content>
 
   </mat-sidenav-content>
 </mat-sidenav-container>
+

@@ -3,7 +3,7 @@ import {Observable} from 'rxjs';
 import {Startup} from '../../model/Startup';
 import {NgRedux, select} from '@angular-redux/store';
 import {AppState} from '../../store';
-import {fetchStartupsAction} from '../../store/actions/startups.actions';
+import {searchStartupsAction} from '../../store/actions/startups.actions';
 import {selectStartups, isLoading} from '../../store/selectors/startups.selector';
 import {skipWhile, take} from 'rxjs/internal/operators';
 
@@ -14,22 +14,21 @@ import {skipWhile, take} from 'rxjs/internal/operators';
 })
 export class StartupListComponent implements OnInit {
 
+  constructor(private ngRedux: NgRedux<AppState>) {
+  }
+
   @select(isLoading)
   isLoading: Observable<boolean>;
 
   @select(selectStartups)
   startupList: Observable<Startup[]>;
 
-  constructor(private ngRedux: NgRedux<AppState>) {
-  }
-
   ngOnInit() {
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
-      .subscribe(() => this.ngRedux.dispatch(fetchStartupsAction()));
+      .subscribe(() => this.ngRedux.dispatch(searchStartupsAction(this.ngRedux.getState().startupSearchToolbarState.startupSearchParams)));
 
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.select(selectStartups));
-
 
   }
 
