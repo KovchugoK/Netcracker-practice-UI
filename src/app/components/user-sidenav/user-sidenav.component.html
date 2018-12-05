@@ -1,6 +1,6 @@
 
 <mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav mode="side" >
+  <mat-sidenav #sidenav mode="side" *ngIf="currentUser|async">
     <p></p>
     <p><a> Personal cabinet </a></p>
     <p><a> Messages </a></p>
@@ -16,7 +16,7 @@
 
   <mat-sidenav-content>
 
-      <button class = "absolutPositionButton" mat-button (click)="onClick()" *ngIf="!opened">...</button>
+      <button class = "absolutPositionButton" mat-button (click)="onClick()" *ngIf="!opened && currentUser | async">...</button>
       <ng-content>
 
       </ng-content>

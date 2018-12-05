@@ -4,11 +4,12 @@ import {SignUpComponent} from '../dialogs/sign-up/sign-up.component';
 import {NgRedux, select} from '@angular-redux/store';
 import {AppState} from '../../store';
 import {showDialogAction} from '../../store/actions/dialogs.actions';
-import {clearCurrentUserSuccessAction} from '../../store/actions/user.actions';
+import {logoutUserAction} from '../../store/actions/current-user.actions';
 import {Observable} from 'rxjs';
 import {User} from '../../model/User';
-import {currentUser} from '../../store/selectors/user.selector';
+
 import {updateRouterState} from '../../store/actions/router.actions';
+import {selectCurrentUser} from '../../store/selectors/current-user.selector';
 
 @Component({
   selector: 'app-header',
@@ -17,7 +18,8 @@ import {updateRouterState} from '../../store/actions/router.actions';
 })
 export class HeaderComponent implements OnInit {
   ls = localStorage;
-  @select(currentUser)
+
+  @select(selectCurrentUser)
   currentUser: Observable<User>;
 
   constructor(
@@ -44,13 +46,9 @@ export class HeaderComponent implements OnInit {
     }));
   }
 
-  get currentLogin(): string {
-    return this.ngRedux.getState().userState.currentUser.login;
-  }
-
   logout() {
     this.ls.clear();
-    this.ngRedux.dispatch(clearCurrentUserSuccessAction());
+    this.ngRedux.dispatch(logoutUserAction());
     this.ngRedux.dispatch(updateRouterState('/main'));
   }
 
