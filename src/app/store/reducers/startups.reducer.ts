@@ -10,7 +10,7 @@ import {
   DELETE_STARTUP,
   DELETE_STARTUP_SUCCESS,
   SEARCH_STARTUPS,
-  SEARCH_STARTUPS_SUCCESS, FETCH_MY_STARTUPS, FETCH_MY_STARTUPS_SUCCESS
+  SEARCH_STARTUPS_SUCCESS
 } from '../actions/startups.actions';
 
 export interface StartupsState {
@@ -25,12 +25,10 @@ const INITIAL_STATE = {
 
 export const startupsReducer: Reducer<StartupsState> = (state: StartupsState = INITIAL_STATE, action): StartupsState => {
   switch (action.type) {
-    case FETCH_MY_STARTUPS:
     case SEARCH_STARTUPS:
     case FETCH_STARTUPS: {
       return {...state, isLoading: true};
     }
-    case FETCH_MY_STARTUPS_SUCCESS:
     case SEARCH_STARTUPS_SUCCESS:
     case FETCH_STARTUPS_SUCCESS: {
       return {...state, ...action.payload, isLoading: false};

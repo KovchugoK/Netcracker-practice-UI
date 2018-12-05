@@ -1,4 +1,9 @@
 export interface SortStartupType {
-  value: string;
+  value: Sort;
   viewValue: string;
+}
+
+export interface  Sort {
+  sortBy: string;
+  sortDirection: string;
 }

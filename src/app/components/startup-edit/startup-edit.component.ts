@@ -55,7 +55,7 @@ export class StartupEditComponent implements OnInit {
       sumOfInvestment: [startup.sumOfInvestment, Validators.pattern('[1-9][0-9]*')],
       aboutProject: [startup.aboutProject],
       businessPlan: [startup.businessPlan],
-      account: [this.ngRedux.getState().userState.currentUser.account],
+      account: [this.ngRedux.getState().currentUserState.currentUser.account],
       startupResumes: [startup.startupResumes]
     });
   }
@@ -99,7 +99,6 @@ export class StartupEditComponent implements OnInit {
     this.ngRedux.dispatch(createStartupAction({...this.startupForm.value, id: this.id, dateOfCreation: Date.now()}));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/startup-list')));
-
   }
 
 }

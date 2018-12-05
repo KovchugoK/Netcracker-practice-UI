@@ -1,4 +1,5 @@
 import {Startup} from '../../model/Startup';
+import {StartupSearchParams} from '../reducers/startup-search-toolbar.reducer';
 
 
 
@@ -13,8 +14,6 @@ export const DELETE_STARTUP = '[Startup State] Delete startup';
 export const DELETE_STARTUP_SUCCESS = '[Startup State] Delete startup success';
 export const SEARCH_STARTUPS =  '[Startups] Search startups';
 export const SEARCH_STARTUPS_SUCCESS =  '[Startups] Search startups success';
-export const FETCH_MY_STARTUPS =  '[Startups] Fetch my startups';
-export const FETCH_MY_STARTUPS_SUCCESS =  '[Startups] Fetch my startups success';
 
 export function fetchStartupsAction() {
   return {
@@ -78,10 +77,17 @@ export function deleteStartupSuccessAction(startupId: string) {
   };
 }
 
-export function searchStartupsAction(startupNameContains: string, sortType: string) {
+// export function searchStartupsAction(startupNameContains: string, sortDirection: string) {
+//   return {
+//     type: SEARCH_STARTUPS,
+//     payload: {startupNameContains, sortDirection}
+//   };
+// }
+
+export function searchStartupsAction(startupSearchParams: StartupSearchParams) {
   return {
     type: SEARCH_STARTUPS,
-    payload: {startupNameContains, sortType}
+    payload: {startupSearchParams}
   };
 }
 
@@ -92,17 +98,17 @@ export function searchStartupsSuccessAction(startups: Map<string, Startup>) {
   };
 }
 
-export function fetchMyStartupsAction(accountId: string) {
-  return {
-    type: FETCH_MY_STARTUPS,
-    payload: {accountId}
-  };
-}
+// export function fetchMyStartupsAction(accountId: string) {
+//   return {
+//     type: FETCH_MY_STARTUPS,
+//     payload: {accountId}
+//   };
+// }
 
-export function fetchMyStartupsSuccessAction(startups: Map<string, Startup>) {
-  return {
-    type: FETCH_MY_STARTUPS_SUCCESS,
-    payload: {startups}
-  };
-}
+// export function fetchMyStartupsSuccessAction(startups: Map<string, Startup>) {
+//   return {
+//     type: FETCH_MY_STARTUPS_SUCCESS,
+//     payload: {startups}
+//   };
+// }
 

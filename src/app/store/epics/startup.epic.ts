@@ -10,7 +10,7 @@ import {
   deleteStartupSuccessAction,
   UPDATE_STARTUP,
   SEARCH_STARTUPS,
-  searchStartupsSuccessAction, fetchMyStartupsSuccessAction, FETCH_MY_STARTUPS
+  searchStartupsSuccessAction
 } from '../actions/startups.actions';
 import {catchError, switchMap, map} from 'rxjs/operators';
 import {of} from 'rxjs';
@@ -100,22 +100,9 @@ export class StartupEpic {
     return action$.ofType(SEARCH_STARTUPS).pipe(
       switchMap(({payload}) => {
         return this.startupService
-          .searchStartup(payload.startupNameContains, payload.sortType)
+          .searchStartup(payload.startupSearchParams)
           .pipe(
-            map(startups => searchStartupsSuccessAction(TransformService.transformToMap(startups))),
-            catchError(error => of(fetchStartupsFailedAction(error.message)))
-          );
-      })
-    );
-  };
-
-  fetchMyStartups$ = (action$: ActionsObservable<AnyAction>) => {
-    return action$.ofType(FETCH_MY_STARTUPS).pipe(
-      switchMap(({payload}) => {
-        return this.startupService
-          .getMyStartupList(payload.accountId)
-          .pipe(
-            map(startups => fetchMyStartupsSuccessAction(TransformService.transformToMap(startups))),
+            map(startups => searchStartupsSuccessAction(TransformService.transformToMap(startups))  ),
             catchError(error => of(fetchStartupsFailedAction(error.message)))
           );
       })

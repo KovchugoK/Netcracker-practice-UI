@@ -1,16 +1,16 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {Startup} from '../model/Startup';
 import {catchError} from 'rxjs/internal/operators';
+import {StartupSearchParams} from '../store/reducers/startup-search-toolbar.reducer';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StartupService {
   startupListUrl = '/api/startup/startup-list';
-  headers = new HttpHeaders({'Content-Type': 'application/json'});
-  params: HttpParams;
+
   constructor(private http: HttpClient) {
   }
 
@@ -39,16 +39,18 @@ export class StartupService {
       .pipe(catchError((error: any) => throwError(error.error)));
   }
 
-  searchStartup(startupNameContains: string, sortType: string): Observable<Startup[]> {
-    this.params = new HttpParams().set('startupNameContains', startupNameContains)
-      .append('sortBy', sortType.split(' ')[0]).append('sortType', sortType.split(' ')[1]);
-    return this.http.get<Startup[]>('/api/startup/search-startups/', {headers: this.headers, params: this.params})
+  searchStartup(startupSearchParams: StartupSearchParams): Observable<Startup[]> {
+    return this.http.get<Startup[]>('/api/startup/search-startups/',
+      {
+        params: {
+          startupNameContains: startupSearchParams.startupNameContains,
+          creator: startupSearchParams.creatorNameContains,
+          sortBy: startupSearchParams.sortType.value.sortBy,
+          sortDirection: startupSearchParams.sortType.value.sortDirection,
+          accountID: startupSearchParams.accountID
+        }
+      })
       .pipe(catchError((error: any) => throwError(error.error)));
   }
 
-  getMyStartupList(id: string): Observable<Startup[]> {
-    this.params = new HttpParams().set('id', id);
-    return this.http.get<Startup[]>('/api/startup/my-startups', {headers: this.headers, params: this.params})
-      .pipe(catchError((error: any) => throwError(error.error)));
-  }
 }
