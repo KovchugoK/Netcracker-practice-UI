@@ -38,6 +38,7 @@ import {
 } from '@angular/material';
 import {MenuComponent} from './components/menu/menu.component';
 import { MyStartupsComponent } from './components/my-startups/my-startups.component';
+import { StartupSearchToolbarComponent } from './components/startup-search-toolbar/startup-search-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { MyStartupsComponent } from './components/my-startups/my-startups.compon
     ResumeDetailDialogComponent,
     ResumeListComponent,
     MenuComponent,
-    MyStartupsComponent
+    MyStartupsComponent,
+    StartupSearchToolbarComponent
   ],
   imports: [
     BrowserModule,

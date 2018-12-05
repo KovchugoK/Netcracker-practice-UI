@@ -1,11 +1,12 @@
 import {StartupEpic} from './startup.epic';
 import {Injectable} from '@angular/core';
 import {combineEpics} from 'redux-observable';
+import {CurrentUserEpic} from './current-user.epic';
 
 @Injectable()
 export class EpicService {
 
-  constructor(private startupEpic: StartupEpic) {
+  constructor(private startupEpic: StartupEpic, private currentUserEpic: CurrentUserEpic) {
   }
 
   getEpics() {
@@ -16,7 +17,8 @@ export class EpicService {
       this.startupEpic.deleteStartup$,
       this.startupEpic.selectStartup$,
       this.startupEpic.searchStartups$,
-      this.startupEpic.fetchMyStartups$
+      this.currentUserEpic.loginUser$,
+      this.currentUserEpic.logout$
     );
   }
 

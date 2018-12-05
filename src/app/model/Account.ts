@@ -1,5 +1,6 @@
 import {Education} from './Education';
 import {WorkExperience} from './WorkExperience';
+import {User} from './User';
 
 export interface Account {
   id: string;
@@ -7,6 +8,7 @@ export interface Account {
   lastName: string;
   birthday: string;
   aboutMe: string;
+  user: User;
   educations: Education[];
   workExperiences: WorkExperience[];
 }

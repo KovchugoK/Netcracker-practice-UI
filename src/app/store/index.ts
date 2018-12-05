@@ -1,7 +1,9 @@
 import { StartupsState } from './reducers/startups.reducer';
 import {StartupPageState} from './reducers/startup-page.reducer';
 import {DialogState} from './reducers/dialogs.reducer';
-import {UserState} from './reducers/user.reducer';
+import {CurrentUserState} from './reducers/current-user.reducer';
+import {StartupSearchToolbarState} from './reducers/startup-search-toolbar.reducer';
+
 
 
 export interface AppState {
@@ -9,5 +11,6 @@ export interface AppState {
   readonly startupPageState?: StartupPageState;
   readonly router?: string;
   readonly dialogsState?: DialogState;
-  readonly userState?: UserState;
+  readonly currentUserState?: CurrentUserState;
+  readonly startupSearchToolbarState?: StartupSearchToolbarState;
 }
