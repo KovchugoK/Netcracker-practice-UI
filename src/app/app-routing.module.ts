@@ -26,6 +26,7 @@ const routes: Routes = [
   {path: 'resume/list', component: ResumeListComponent},
   {path: 'resume/:id', component: ResumeDetailDialogComponent},
   {path: 'resume-edit/:id', component: ResumeEditComponent},
+  {path: 'resume-edit', component: ResumeEditComponent},
   {path: '**', redirectTo: 'main-page'}
 ];
 

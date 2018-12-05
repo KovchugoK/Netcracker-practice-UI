@@ -4,6 +4,17 @@ import {ActivatedRoute} from "@angular/router";
 import {defaultResume, Resume} from "../../model/Resume";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {Location} from '@angular/common';
+import {Skill} from "../../model/Skill";
+import {BusinessRole} from "../../model/BusinessRole";
+import {ResumeSkill} from "../../model/ResumeSkill";
+import {Observable} from "rxjs/index";
+import {NgRedux, select} from "@angular-redux/store";
+import {isLoading, isSelected, selectResumeForEdit, selectResumes} from '../../store/selectors/resume.selector';
+import {selectResume} from "../../store/actions/resume-state.actions";
+import {skipWhile, take} from "rxjs/internal/operators";
+import {AppState} from "../../store/index";
+import {createResumeAction} from "../../store/actions/resume.actions";
+import {updateRouterState} from "../../store/actions/router.actions";
 
 
 @Component({
@@ -15,14 +26,21 @@ export class ResumeEditComponent implements OnInit {
 
   resume: Resume;
   resumeForm: FormGroup;
+
+  skillsList: Skill[];
+  rolesList: BusinessRole[];
+
   id: string;
 
-  skillsList: string[] = ['Java', 'Python', 'C', 'SQL', 'TypeScript', 'JavaScript', 'Angular',
-    'Spring', 'HTML', 'CSS', 'Paint', 'JUnit'];
+  @select(isLoading)
+  isLoading: Observable<boolean>;
 
-  rolesList: string[] = ['Developer', 'Designer', 'TE'];
+  @select(isSelected)
+  isSelected: Observable<boolean>;
 
-  constructor(private resumeService: ResumeService,
+
+  constructor(private ngRedux: NgRedux<AppState>,
+              private resumeService: ResumeService,
               private route: ActivatedRoute,
               private location: Location,
               private fb: FormBuilder) {
@@ -30,20 +48,14 @@ export class ResumeEditComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.reloadDate();
-  }
-
-  reloadDate() {
-    if (this.id !== null) {
-      this.resumeService.getResumeById(this.id).subscribe(resume => {
-        this.resume = resume;
-        this.initializeForm(resume);
-        console.log(resume);
-      });
-    } else {
-      this.resume = defaultResume;
-      this.initializeForm(defaultResume);
-    }
+    this.resumeService.getAllSkills().subscribe(skillsList => this.skillsList = skillsList);
+    this.resumeService.getAllBusinessRole().subscribe(businessRole => this.rolesList = businessRole);
+    this.ngRedux.dispatch(selectResume(this.id));
+    this.isSelected.pipe(skipWhile(result => result), take(1))
+      .subscribe(() => this.ngRedux.select(state => selectResumeForEdit(state))
+        .subscribe(resume => {
+          this.initializeForm(resume);
+        }));
   }
 
 
@@ -51,6 +63,7 @@ export class ResumeEditComponent implements OnInit {
     this.resumeForm = this.fb.group({
       info: [resume.info],
       resumeSkills: [resume.resumeSkills],
+      account: [this.ngRedux.getState().userState.currentUser.account],
       businessRole: [resume.businessRole],
     })
     ;
@@ -60,25 +73,40 @@ export class ResumeEditComponent implements OnInit {
     return this.resumeForm.get('info') as FormControl;
   }
 
-  get resumeSkills(): FormControl {
+ /* get resumeSkills(): FormControl {
+    console.log(this.resumeForm.get('resumeSkills'));
     return this.resumeForm.get('resumeSkills') as FormControl;
-  }
+  }*/
 
   get businessRole(): FormControl {
     return this.resumeForm.get('businessRole') as FormControl;
   }
 
+  getAccount(): Account {
+    return this.resumeForm.get('account').value as Account;
+  }
 
   goBack(): void {
     this.location.back();
   }
 
+  /* onDeleteSkill(skill: Skill) {
+     this.resumeService.deleteResumeSkill(this.id, skill).subscribe(() => this.reloadDate());
+   }*/
+
   updateResume() {
+    console.log(this.resumeForm.value.resumeSkills);
     this.resumeService.updateResume(this.id, this.resumeForm.value as Resume).subscribe(() => this.goBack());
   }
 
+  /* createResume() {
+     this.resumeService.createResume(this.resumeForm.value as Resume).subscribe(() => this.location.go('/resume/list'));
+   }*/
+
   createResume() {
-    this.resumeService.createResume(this.resumeForm.value as Resume).subscribe(() => this.location.go('resume/list'));
+    this.ngRedux.dispatch(createResumeAction({...this.resumeForm.value, id: this.id}));
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() => this.ngRedux.dispatch(updateRouterState('/resume/list')));
   }
 
 

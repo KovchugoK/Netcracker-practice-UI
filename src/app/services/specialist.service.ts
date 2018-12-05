@@ -27,8 +27,6 @@ export class SpecialistService {
       }
     }
     return this.http.get(`${this.specialistListUrl}`, {params: params});
-    /* this.params = new HttpParams().set("searchObj", searchObj);
-      return this.http.get(`${this.specialistListUrl}`, {headers: this.headers, params: searchObj});*/
   }
 
   post(account: Account): Observable<any> {

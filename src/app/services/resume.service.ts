@@ -1,8 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Resume} from '../model/Resume';
-import {HttpClient} from '@angular/common/http';
+import {Skill} from "../model/Skill"
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from "rxjs/internal/operators";
+import {BusinessRole} from "../model/BusinessRole";
+import {ResumeSkill} from "../model/ResumeSkill";
 
 @Injectable({
   providedIn: 'root'
@@ -15,24 +18,49 @@ export class ResumeService {
 
   gerResumeList(): Observable<Resume[]> {
     const url = `${this.resumeUrl}/list`;
-    return this.http.get<Resume[]>(url);
+    return this.http.get<Resume[]>(url)
+      .pipe(catchError((error: any) => throwError(error.error)));
+    ;
   }
 
   getResumeById(id: string): Observable<any> {
     return this.http.get('/api/resume/' + id);
   }
 
+
   deleteResume(id: string): Observable<any> {
-    return this.http.delete(`${this.resumeUrl}/delete/${id}`)
+    return this.http.delete('/api/resume/delete/' + id)
       .pipe(catchError((error: any) => throwError(error.error)));
   }
 
+  deleteResumeSkill(id: string, skill: Skill) {
+    let params = new HttpParams();
+    for (const key in skill) {
+      const val = skill[key];
+      if (val) {
+        params = params.set(key, val);
+      }
+    }
+    return this.http.delete('/api/resume/' + id + '/delete/skill', {params: params});
+  }
+
   updateResume(id: string, resume: Resume): Observable<any> {
-    return this.http.put('/api/resume/update/' + id, resume);
+    return this.http.put<Resume>('/api/resume/update/' + id, resume)
+      .pipe(catchError((error: any) => throwError(error.error)));
+    ;
   }
 
   createResume(resume: Resume): Observable<any> {
     return this.http.post<Resume>('/api/resume/create/', resume)
       .pipe(catchError((error: any) => throwError(error.error)));
   }
+
+  getAllSkills(): Observable<Skill[]> {
+    return this.http.get<Skill[]>('/api/resume/skills');
+  }
+
+  getAllBusinessRole(): Observable<BusinessRole[]> {
+    return this.http.get<BusinessRole[]>('/api/resume/businessRole');
+  }
+
 }

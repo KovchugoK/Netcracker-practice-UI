@@ -1,53 +1,63 @@
-<main *ngIf="resume">
-  <form [formGroup]="resumeForm">
-    <mat-dialog-content>
+<main>
+  <div class="spinner">
+    <mat-spinner *ngIf="isSelected | async; else sForm" mode="indeterminate" color="primary">
+    </mat-spinner>
+  </div>
+  <ng-template #sForm>
+    <form [formGroup]="resumeForm">
+
       <div class="header">
-        <img class="header-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Account avatar">
+        <img class="header-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg"
+             alt="Account avatar">
         <div align="right">
-          <!--div *ngIf="id!==null"-->
+          <div *ngIf="id!==null">
             <button mat-raised-button="" (click)="updateResume()" [disabled]="resumeForm?.invalid">
               Save
             </button>
             <button mat-raised-button="" class="btnControl" (click)="goBack()"> Cancel</button>
           </div>
-          <!--div *ngIf="id===null">
+          <div *ngIf="id===null">
             <button mat-raised-button="" class="btnControl" [disabled]="resumeForm?.invalid" (click)="createResume()"
-                    routerLink="/startup-list"> Create
+                    routerLink="/resume/list"> Create
             </button>
             <button mat-raised-button="" class="btnControl" (click)="goBack()"> Cancel</button>
           </div>
-        </div-->
+        </div>
 
-        <div class="brief-info">
-          <h4>{{resume?.businessRole.businessRoleName}}</h4>
+        <div classng="brief-info">
+          <div>
+            <a>{{getAccount().firstName}} {{getAccount().lastName}}</a><br>
+          </div>
+          <div *ngIf="id!==null">
+            <h4>{{resume?.businessRole?.businessRoleName}}</h4>
+          </div>
           <mat-form-field>
-            <mat-select placeholder="Business Role">
-              <mat-option *ngFor="let role of rolesList" [value]="'businessRole'">
-                {{role}}
+            <mat-select placeholder="Business Role" [formControlName]="'businessRole'">
+              <mat-option *ngFor="let role of rolesList" [value]="role">
+                {{role.businessRoleName}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-
-          <div>
-            <a>{{resume?.account.firstName}} {{resume?.account.lastName}}</a><br>
+          <br>
+          <div *ngIf="id!==null">
+            <br><h5>Skills</h5>
+            <mat-chip-list>
+              <div *ngFor="let resumeSkill of resume?.resumeSkills">
+                <mat-chip>{{resumeSkill.skill?.skillName}}</mat-chip>
+                <i (click)="onDeleteSkill(resumeSkill.skill)" class="material-icons">
+                  delete
+                </i>
+              </div>
+            </mat-chip-list>
           </div>
 
-          <br><h5>Skills</h5>
-          <mat-chip-list>
-            <div *ngFor="let resumeSkill of resume?.resumeSkills">
-              <mat-chip>{{resumeSkill.skill.skillName}}</mat-chip>
-            </div>
-          </mat-chip-list>
           <mat-form-field>
             <mat-select placeholder="Select skill" [formControlName]="'resumeSkills'" multiple>
-              <mat-option *ngFor="let skill of skillsList" [value]="skill">{{skill}}</mat-option>
+              <mat-option *ngFor="let skill of skillsList" [value]="skill">{{skill.skillName}}</mat-option>
             </mat-select>
           </mat-form-field>
-        </div>
-      </div>
 
-      <div class="about">
-        <div class="info-edu">
+
           <div class="about_info">
             <h5>Information</h5>
             <p>
@@ -56,33 +66,38 @@
               </mat-form-field>
             </p>
           </div>
-
-          <mat-divider></mat-divider>
-
-          <div class="about_edu">
-            <br><h5>Education</h5>
-            <mat-list *ngFor="let education of resume?.account.educations">
-              {{education.completionYear}} <b>{{education.institution}}</b>
+          <div class="about">
+            <div *ngIf="id!==null">
               <mat-divider></mat-divider>
-            </mat-list>
+
+              <div class="about_edu">
+                <br><h5>Education</h5>
+                <mat-list *ngFor="let education of resume?.account?.educations">
+                  {{education.completionYear}} <b>{{education.institution}}</b>
+                  <mat-divider></mat-divider>
+                </mat-list>
+              </div>
+
+
+              <div class="about_work">
+                <h5>Work Experience</h5>
+                <mat-list *ngFor="let workExp of resume?.account?.workExperiences">
+                  <b>{{workExp.position}}</b><br>
+                  {{workExp.workPlace}}<br>
+
+                  {{formatDate(workExp.start)}} -
+                  <div *ngIf="workExp.finish; then endDate else presentDay"></div>
+                  <ng-template #endDate>{{formatDate(workExp.finish)}}</ng-template>
+                  <ng-template #presentDay>настоящее время</ng-template>
+
+                  <mat-divider></mat-divider>
+                </mat-list>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div class="about_work">
-          <h5>Work Experience</h5>
-          <mat-list *ngFor="let workExp of resume?.account.workExperiences">
-            <b>{{workExp.position}}</b><br>
-            {{workExp.workPlace}}<br>
-
-            {{formatDate(workExp.start)}} -
-            <div *ngIf="workExp.finish; then endDate else presentDay"></div>
-            <ng-template #endDate>{{formatDate(workExp.finish)}}</ng-template>
-            <ng-template #presentDay>настоящее время</ng-template>
-
-            <mat-divider></mat-divider>
-          </mat-list>
-        </div>
       </div>
-    </mat-dialog-content>
-  </form>
+
+    </form>
+  </ng-template>
 </main>
