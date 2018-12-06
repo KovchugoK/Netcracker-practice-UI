@@ -38,6 +38,7 @@ import {
 } from '@angular/material';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ResumeEditComponent } from './components/resume-edit/resume-edit.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { ResumeEditComponent } from './components/resume-edit/resume-edit.compon
     ResumeListComponent,
     ToolbarComponent,
     ResumeEditComponent,
+    ContactsComponent,
   ],
   imports: [
     BrowserModule,
