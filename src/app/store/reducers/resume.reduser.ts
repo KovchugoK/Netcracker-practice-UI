@@ -1,7 +1,9 @@
 import {Resume} from "../../model/Resume";
 import {Reducer} from "redux";
 import {
-  CREATE_RESUME, CREATE_RESUME_SUCCESS, DELETE_RESUME, DELETE_RESUME_SUCCESS, FETCH_RESUMES, FETCH_RESUMES_SUCCESS,
+  CREATE_RESUME, CREATE_RESUME_SUCCESS, DELETE_RESUME, DELETE_RESUME_SUCCESS, FETCH_RESUMES, FETCH_RESUMES_SPECIALISTS,
+  FETCH_RESUMES_SPECIALISTS_SUCCESS,
+  FETCH_RESUMES_SUCCESS,
   UPDATE_RESUME, UPDATE_RESUME_SUCCESS
 } from "../actions/resume.actions";
 
@@ -17,9 +19,14 @@ const INITIAL_STATE = {
 
 export const resumeReducer: Reducer<ResumeState> = (state: ResumeState = INITIAL_STATE, action): ResumeState => {
   switch (action.type) {
+    case FETCH_RESUMES_SPECIALISTS: {
+      const {searchObj} = action.payload;
+      return {...state, isLoading: true};
+    }
     case FETCH_RESUMES: {
       return {...state, isLoading: true};
     }
+    case FETCH_RESUMES_SPECIALISTS_SUCCESS:
     case FETCH_RESUMES_SUCCESS: {
       return {...state, ...action.payload, isLoading: false};
     }

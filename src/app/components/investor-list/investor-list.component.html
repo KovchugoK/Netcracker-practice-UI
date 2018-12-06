@@ -1,17 +1,26 @@
-<div class="container" *ngFor="let account of accountList | async">
-  <mat-card class="example-card">
-    <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
-    <mat-card-content>
-      <p align="center">
-        <b>
-          Investor
-        </b>
-      </p>
-      <p class="box">
-        <a href="investor-list/{{account.id}}"> {{account.firstName}} {{account.lastName}}</a>
-        <button (click)="onClick(account)" class="fav"><img mat-card-lg-image="" class="img"
-                                                            src="/src/assets/images/favorite.png"></button>
-      </p>
-    </mat-card-content>
-  </mat-card>
-</div>
+<main>
+  <div class="spinner">
+    <mat-spinner *ngIf="isLoading | async ;else  resumeTable" mode="indeterminate" color="primary">
+    </mat-spinner>
+  </div>
+  <ng-template #resumeTable>
+    <div class="container" *ngFor="let resume of resumeList | async">
+      <mat-card class="example-card">
+        <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+        <mat-card-content>
+          <p align="center">
+            <b>
+              Investor
+            </b>
+          </p>
+          <p class="box">
+            <a routerLink="investor-list/{{resume.account.id}}"> {{resume.account.firstName}}
+              {{resume.account.lastName}}</a>
+            <button (click)="onClick(account)" class="fav"><img mat-card-lg-image="" class="img"
+                                                                src="/src/assets/images/favorite.png"></button>
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </ng-template>
+</main>

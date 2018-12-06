@@ -2,6 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs/index";
 import {Account} from "../../model/Account";
 import {InvestorService} from "../../services/investor.service";
+import {Resume} from "../../model/Resume";
+import {selectResumes, isLoading} from "../../store/selectors/resume.selector";
+import {NgRedux, select} from "@angular-redux/store";
+import {AppState} from "../../store/index";
+import {skipWhile, take} from "rxjs/internal/operators";
+import {fetchResumesAction, fetchResumesSpecialistsAction} from "../../store/actions/resume.actions";
 
 @Component({
   selector: 'app-investor-list',
@@ -10,8 +16,18 @@ import {InvestorService} from "../../services/investor.service";
 })
 export class InvestorListComponent implements OnInit {
 
-  accountList: Observable<Account[]>;
-  opened: false;
+  @select(isLoading)
+  isLoading: Observable<boolean>;
+
+  @select(selectResumes)
+  resumeList: Observable<Resume[]>;
+
+  constructor(private ngRedux: NgRedux<AppState>) {
+
+  }
+
+
+  /*resumeList: Observable<Resume[]>;
 
   constructor(private investorService: InvestorService) {
   }
@@ -33,8 +49,16 @@ export class InvestorListComponent implements OnInit {
   }
 
   reloadData() {
-    this.accountList = this.investorService.getInvestorList();
+    this.resumeList = this.investorService.getInvestorList();
+  }*/
 
+  ngOnInit() {
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() => this.ngRedux.dispatch(fetchResumesSpecialistsAction()));
+
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() => this.ngRedux.select(selectResumes));
   }
+
 }
 

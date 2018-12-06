@@ -1,9 +1,13 @@
 import {Resume} from "../../model/Resume";
+import {SearchObject} from "../../model/SearchObject";
 
 
-export const FETCH_RESUMES = '[Resume] Fetch resumes';
-export const FETCH_RESUMES_SUCCESS = '[Resume] Fetch resumes success';
-export const FETCH_RESUMES_FAILED = '[Resumes] Fetch resumes failed';
+export const FETCH_RESUMES = '[Resume] Fetch resumes specialist';
+export const FETCH_RESUMES_SUCCESS = '[Resume] Fetch resumes specialist success';
+export const FETCH_RESUMES_FAILED = '[Resumes] Fetch resumes specialist failed';
+export const FETCH_RESUMES_SPECIALISTS = '[Resume] Fetch resumes spesialists';
+export const FETCH_RESUMES_SPECIALISTS_SUCCESS = '[Resume] Fetch resumes success';
+export const FETCH_RESUMES_SPECIALISTS_FAILED = '[Resumes] Fetch resumes failed';
 export const UPDATE_RESUME = '[Resume] Update resume';
 export const UPDATE_RESUME_SUCCESS = '[Resume] Update resume success';
 export const CREATE_RESUME = '[Resumes] Create resume';
@@ -27,6 +31,27 @@ export function fetchResumesSuccessAction(resumes: Map<string, Resume>) {
 export function fetchResumesFailedAction(errorMessage: string) {
   return {
     type: FETCH_RESUMES_FAILED,
+    payload: {errorMessage}
+  };
+}
+
+export function fetchResumesSpecialistsAction(searchObj: SearchObject) {
+  return {
+    type: FETCH_RESUMES_SPECIALISTS,
+    payload: {searchObj}
+  };
+}
+
+export function fetchResumesSpecialistsSuccessAction(resumes: Map<string, Resume>) {
+  return {
+    type: FETCH_RESUMES_SPECIALISTS_SUCCESS,
+    payload: {resumes}
+  };
+}
+
+export function fetchResumesSpecialistsFaildAction(errorMessage: string) {
+  return {
+    type: FETCH_RESUMES_SPECIALISTS_FAILED,
     payload: {errorMessage}
   };
 }
