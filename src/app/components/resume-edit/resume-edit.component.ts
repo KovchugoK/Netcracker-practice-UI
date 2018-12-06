@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
-import {ResumeService} from "../../services/resume.service";
-import {ActivatedRoute} from "@angular/router";
-import {defaultResume, Resume} from "../../model/Resume";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {ResumeService} from '../../services/resume.service';
+import {ActivatedRoute} from '@angular/router';
+import {defaultResume, Resume} from '../../model/Resume';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Location} from '@angular/common';
-import {Skill} from "../../model/Skill";
-import {BusinessRole} from "../../model/BusinessRole";
-import {ResumeSkill} from "../../model/ResumeSkill";
-import {Observable} from "rxjs/index";
-import {NgRedux, select} from "@angular-redux/store";
+import {Skill} from '../../model/Skill';
+import {BusinessRole} from '../../model/BusinessRole';
+import {ResumeSkill} from '../../model/ResumeSkill';
+import {Observable} from 'rxjs/index';
+import {NgRedux, select} from '@angular-redux/store';
 import {isLoading, isSelected, selectResumeForEdit, selectResumes} from '../../store/selectors/resume.selector';
-import {selectResume} from "../../store/actions/resume-state.actions";
-import {skipWhile, take} from "rxjs/internal/operators";
-import {AppState} from "../../store/index";
-import {createResumeAction, updateResumeAction} from "../../store/actions/resume.actions";
-import {updateRouterState} from "../../store/actions/router.actions";
+import {selectResume} from '../../store/actions/resume-state.actions';
+import {skipWhile, take} from 'rxjs/internal/operators';
+import {AppState} from '../../store/index';
+import {createResumeAction, updateResumeAction} from '../../store/actions/resume.actions';
+import {updateRouterState} from '../../store/actions/router.actions';
 
 
 @Component({
@@ -65,7 +65,7 @@ export class ResumeEditComponent implements OnInit {
     this.resumeForm = this.fb.group({
       info: [resume.info],
       resumeSkills: [resume.resumeSkills],
-      account: [this.ngRedux.getState().userState.currentUser.account],
+      account: [this.ngRedux.getState().currentUserState.currentUser.account],
       businessRole: [resume.businessRole],
     });
     this.resumeSkillsList = resume.resumeSkills;

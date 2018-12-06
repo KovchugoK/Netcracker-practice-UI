@@ -1,0 +1,23 @@
+<mat-toolbar class="startup-toolbar">
+  <form [formGroup]="searchForm">
+    <mat-toolbar-row>
+      <mat-label style="margin-right: 20px; margin-left: 20px;"> Startup name: </mat-label>
+      <mat-form-field style="margin-right: 20px">
+        <input matInput=""  [formControlName]="'startupNameContains'">
+      </mat-form-field>
+      <mat-label style="margin-left: 20px;" *ngIf="creatorSearchView"> Creator name: </mat-label>
+      <mat-form-field style="margin-right: 20px" *ngIf="creatorSearchView">
+        <input matInput=""  [formControlName]="'creatorNameContains'">
+      </mat-form-field>
+      <mat-label style="margin-right: 20px"> Sort by:</mat-label>
+      <mat-form-field style="width: 320px; margin-right: 20px">
+        <select matNativeControl class="sortTypeSelect" [formControlName]="'sortType'">
+          <option *ngFor="let sortT of sortTypes" [ngValue]="sortT">
+            {{sortT.viewValue}}
+          </option>
+        </select>
+      </mat-form-field>
+      <button mat-raised-button="" class="buttonSearch" (click)="search()"> Search</button>
+    </mat-toolbar-row>
+  </form>
+</mat-toolbar>

@@ -1,11 +1,11 @@
-import {Resume} from "../../model/Resume";
-import {Reducer} from "redux";
+import {Resume} from '../../model/Resume';
+import {Reducer} from 'redux';
 import {
   CREATE_RESUME, CREATE_RESUME_SUCCESS, DELETE_RESUME, DELETE_RESUME_SUCCESS, FETCH_RESUMES, FETCH_RESUMES_SPECIALISTS,
   FETCH_RESUMES_SPECIALISTS_SUCCESS,
   FETCH_RESUMES_SUCCESS,
   UPDATE_RESUME, UPDATE_RESUME_SUCCESS
-} from "../actions/resume.actions";
+} from '../actions/resume.actions';
 
 export interface ResumeState {
   readonly resumes: Map<string, Resume>;

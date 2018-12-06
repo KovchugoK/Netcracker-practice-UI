@@ -5,7 +5,7 @@ import {
   MatCardModule,
   MatSidenavModule,
   MatDividerModule,
-  MatFormFieldModule, MatProgressSpinnerModule, MatDialogModule, MatRadioModule,
+  MatProgressSpinnerModule, MatDialogModule, MatRadioModule,
   MatAutocompleteModule,
   MatBadgeModule,
   MatBottomSheetModule,
@@ -15,23 +15,24 @@ import {
   MatExpansionModule,
   MatGridListModule,
   MatIconModule,
-  MatInputModule,
   MatListModule,
   MatMenuModule,
   MatNativeDateModule,
   MatPaginatorModule,
   MatProgressBarModule,
   MatRippleModule,
-  MatSelectModule,
   MatSliderModule,
   MatSlideToggleModule,
   MatSnackBarModule,
-  MatSortModule,
   MatStepperModule,
   MatTableModule,
   MatTabsModule,
   MatTooltipModule,
   MatTreeModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSortModule,
+  MatSelectModule
 } from '@angular/material';
 import {NgModule} from '@angular/core';
 
@@ -47,7 +48,9 @@ import {NgModule} from '@angular/core';
     MatInputModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSortModule,
+    MatSelectModule
   ],
   exports: [
     MatButtonModule,
@@ -60,7 +63,6 @@ import {NgModule} from '@angular/core';
     MatInputModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    MatRadioModule,
     MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,
@@ -77,18 +79,17 @@ import {NgModule} from '@angular/core';
     MatNativeDateModule,
     MatPaginatorModule,
     MatProgressBarModule,
-    MatRadioModule,
     MatRippleModule,
-    MatSelectModule,
     MatSliderModule,
     MatSlideToggleModule,
     MatSnackBarModule,
-    MatSortModule,
     MatTableModule,
     MatTabsModule,
     MatTooltipModule,
     MatTreeModule,
-
+    MatRadioModule,
+    MatSortModule,
+    MatSelectModule
   ],
 })
 export class MaterialModule {

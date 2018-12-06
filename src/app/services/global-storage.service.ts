@@ -1,16 +1,36 @@
-import {Subject} from 'rxjs';
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
+import { fromEvent } from 'rxjs';
+import {User} from '../model/User';
 
 
-@Injectable()
-export class GlobalStorageService {
+@Injectable({
+  providedIn: 'root'
+})
+export class GlobalUserStorageService {
+  private USER_KEY = 'currentUser';
 
-  private storageSubject = new Subject<any>();
+  set currentUser(user: User) {
+    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+  }
 
+  get currentUser() {
+    return JSON.parse(localStorage.getItem(this.USER_KEY));
+  }
 
+  getInitialState() {
+    return {
+      currentUserState: {
+        currentUser: this.currentUser,
+        isLoading: false,
+        errorMessage: null
+      }
+    };
+  }
 
-  public asObservable() {
-    return this.storageSubject;
-}
+  constructor() { }
+
+  asObservable() {
+    return fromEvent(window, 'storage');
+  }
 
 }
