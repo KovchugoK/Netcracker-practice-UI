@@ -6,55 +6,49 @@
   </div>
   <ng-template #startupsTable>
     <h3> Startup leader </h3>
-    <mat-divider style="width: 95%">   </mat-divider>
-    <div style="width: 100%; height:100%">
-      <div *ngFor="let startup of startupList | async">
-        <mat-card class="example-card" *ngIf="startup.account.id == (currentUser|async)?.account.id">
-          <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
-          <mat-card-content>
-            <p align="center">
-              <a routerLink="/startup/{{startup.id}}">
-                {{startup.startupName}}
-              </a>
-            </p>
-            <p class="box">
-              {{startup.idea}}
-            </p>
-            <p>
-              {{startup.sumOfInvestment}}$ Created by: {{startup.account.user.login}}
-            </p>
-          </mat-card-content>
-        </mat-card>
+    <mat-divider style="width: 95%"></mat-divider>
+    <div style="width: 90%">
+      <div style="width: 90%" *ngIf="(startupListLeader | async).length !==  0;else empty">
+        <div *ngFor="let startup of startupListLeader | async">
+          <ng-container *ngTemplateOutlet="startupCard; context: {'startup': startup}"></ng-container>
+        </div>
       </div>
     </div>
 
-
-
     <h3> Startup member</h3>
-    <mat-divider style="width: 95%">   </mat-divider>
+    <mat-divider style="width: 95%"></mat-divider>
 
-    <div style="width: 100%; height:100%">
-      <div *ngFor="let startup of startupList | async">
-        <mat-card class="example-card" *ngIf="startup.account.id != (currentUser|async)?.account.id">
-          <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
-          <mat-card-content>
-            <p align="center">
-              <a routerLink="/startup/{{startup.id}}">
-                {{startup.startupName}}
-              </a>
-            </p>
-            <p class="box">
-              {{startup.idea}}
-            </p>
-            <p>
-              {{startup.sumOfInvestment}}$ Created by: {{startup.account.user.login}}
-            </p>
-          </mat-card-content>
-        </mat-card>
+    <div style="width: 90%">
+      <div style="width: 90%" *ngIf="(startupListMember | async).length !== 0;else empty">
+        <div *ngFor="let startup of startupListMember | async">
+          <ng-container *ngTemplateOutlet="startupCard; context: {'startup': startup}"></ng-container>
+        </div>
       </div>
     </div>
 
   </ng-template>
 </main>
 
+<ng-template #startupCard let-startup="startup">
+  <mat-card class="example-card">
+    <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+    <mat-card-content>
+      <p align="center">
+        <a routerLink="/startup/{{startup.id}}">
+          {{startup.startupName}}
+        </a>
+      </p>
+      <p class="box">
+        {{startup.idea}}
+      </p>
+      <p>
+        {{startup.sumOfInvestment}}$ Created by: {{startup.account.user.login}}
+      </p>
+    </mat-card-content>
+  </mat-card>
+</ng-template>
+
+<ng-template #empty>
+<h5> Such startups were not found </h5>
+</ng-template>
 

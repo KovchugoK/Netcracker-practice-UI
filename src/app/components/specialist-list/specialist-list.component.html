@@ -11,7 +11,7 @@
         </b>
       </p>
       <p class="box">
-        <a href="specialist-list/{{accountDto.account.id}}">{{accountDto.account.firstName}}
+        <a routerLink="specialist-list/{{accountDto.account.id}}">{{accountDto.account.firstName}}
           {{accountDto.account.lastName}}</a>
         <button (click)="onClick(account)" class="fav"><img mat-card-lg-image="" class="img"
                                                             src="/src/assets/images/favorite.png"></button>

@@ -40,6 +40,7 @@ import { MyStartupsComponent } from './components/my-startups/my-startups.compon
 import { StartupSearchToolbarComponent } from './components/startup-search-toolbar/startup-search-toolbar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ResumeEditComponent } from './components/resume-edit/resume-edit.component';
+import {GlobalUserStorageService} from './services/global-storage.service';
 
 @NgModule({
   declarations: [
@@ -100,14 +101,15 @@ export class AppModule {
   constructor(private ngRedux: NgRedux<AppState>,
               private ngReduxRouter: NgReduxRouter,
               private epicService: EpicService,
-              private devTools: DevToolsExtension) {
+              private devTools: DevToolsExtension,
+              private storageService: GlobalUserStorageService) {
     const epics = this.epicService.getEpics();
     const middleware = createEpicMiddleware();
     let enhancers = [];
     if (devTools.isEnabled()) {
       enhancers = [devTools.enhancer()];
     }
-    ngRedux.configureStore(reducers, {} as AppState, [middleware, thunkMiddlware, createLogger()], enhancers);
+    ngRedux.configureStore(reducers, this.storageService.getInitialState(), [middleware, thunkMiddlware, createLogger()], enhancers);
     middleware.run(epics as any);
     ngReduxRouter.initialize((state: AppState) => state.router);
 

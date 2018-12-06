@@ -17,6 +17,16 @@ export class GlobalUserStorageService {
     return JSON.parse(localStorage.getItem(this.USER_KEY));
   }
 
+  getInitialState() {
+    return {
+      currentUserState: {
+        currentUser: this.currentUser,
+        isLoading: false,
+        errorMessage: null
+      }
+    };
+  }
+
   constructor() { }
 
   asObservable() {

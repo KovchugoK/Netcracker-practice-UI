@@ -10,6 +10,7 @@ import {User} from '../../model/User';
 
 import {updateRouterState} from '../../store/actions/router.actions';
 import {selectCurrentUser} from '../../store/selectors/current-user.selector';
+import {hideUserSideNavAction} from '../../store/actions/user-side-nav.actions';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +22,16 @@ export class HeaderComponent implements OnInit {
 
   @select(selectCurrentUser)
   currentUser: Observable<User>;
+
+  navLinks = [{
+    path: '/main-page',
+    label: 'Main',
+    isActive: true
+  }, {
+    path: '/startup-list',
+    label: 'Startups',
+    isActive: true
+  }];
 
   constructor(
     private ngRedux: NgRedux<AppState>) {
@@ -48,6 +59,7 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.ls.clear();
+    this.ngRedux.dispatch(hideUserSideNavAction());
     this.ngRedux.dispatch(logoutUserAction());
     this.ngRedux.dispatch(updateRouterState('/main'));
   }

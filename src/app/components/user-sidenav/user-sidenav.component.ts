@@ -5,6 +5,8 @@ import {selectCurrentUser} from '../../store/selectors/current-user.selector';
 import {Observable} from 'rxjs';
 import {AppState} from '../../store';
 import {User} from '../../model/User';
+import {isOpened} from '../../store/selectors/user-side-nav.selector';
+import {hideUserSideNavAction, showUserSideNavAction} from '../../store/actions/user-side-nav.actions';
 
 @Component({
   selector: 'app-user-sidenav',
@@ -13,7 +15,7 @@ import {User} from '../../model/User';
 })
 export class UserSidenavComponent implements OnInit {
 
-  opened = false;
+  // opened = false;
   @ViewChild('sidenav')
   nav: MatSidenav;
 
@@ -21,6 +23,8 @@ export class UserSidenavComponent implements OnInit {
   @select(selectCurrentUser)
   currentUser: Observable<User>;
 
+  @select(isOpened)
+  opened: Observable<boolean>;
 
   constructor(private ngRedux: NgRedux<AppState>) {
   }
@@ -28,9 +32,13 @@ export class UserSidenavComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClick() {
+  open() {
     this.nav.toggle();
-    this.opened = !this.opened;
+    this.ngRedux.dispatch(showUserSideNavAction());
   }
 
+  close() {
+    this.nav.toggle();
+    this.ngRedux.dispatch(hideUserSideNavAction());
+  }
 }

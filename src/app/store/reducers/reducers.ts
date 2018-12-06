@@ -3,10 +3,11 @@ import { startupsReducer} from './startups.reducer';
 import {startupPageReducer} from './startup-page.reducer';
 import {routerReducer} from '@angular-redux/router';
 import {dialogStateReducer} from './dialogs.reducer';
-import {resumeReducer} from "./resume.reduser";
-import {resumePageReducer} from "./resume-page.reducer";
+import {resumeReducer} from './resume.reduser';
+import {resumePageReducer} from './resume-page.reducer';
 import {currentUserReducer} from './current-user.reducer';
 import {startupSearchToolbarReducer} from './startup-search-toolbar.reducer';
+import {userSideNavReducer} from './user-side-nav.reducer';
 
 
 
@@ -18,5 +19,6 @@ export const reducers: Reducer = combineReducers({
   resumeState: resumeReducer,
   resumePageState: resumePageReducer,
   currentUserState: currentUserReducer,
-  startupSearchToolbarState: startupSearchToolbarReducer
+  startupSearchToolbarState: startupSearchToolbarReducer,
+  userSideNavState: userSideNavReducer
 });

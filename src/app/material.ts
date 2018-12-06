@@ -31,9 +31,6 @@ import {
   MatTreeModule,
   MatFormFieldModule,
   MatInputModule,
-  MatProgressSpinnerModule,
-  MatDialogModule,
-  MatRadioModule,
   MatSortModule,
   MatSelectModule
 } from '@angular/material';

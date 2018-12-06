@@ -3,8 +3,9 @@ import {StartupPageState} from './reducers/startup-page.reducer';
 import {DialogState} from './reducers/dialogs.reducer';
 import {CurrentUserState} from './reducers/current-user.reducer';
 import {StartupSearchToolbarState} from './reducers/startup-search-toolbar.reducer';
-import {ResumeState} from "./reducers/resume.reduser";
-import {ResumePageState} from "./reducers/resume-page.reducer";
+import {ResumeState} from './reducers/resume.reduser';
+import {ResumePageState} from './reducers/resume-page.reducer';
+import {UserSideNavState} from './reducers/user-side-nav.reducer';
 
 
 export interface AppState {
@@ -16,4 +17,7 @@ export interface AppState {
   readonly startupSearchToolbarState?: StartupSearchToolbarState;
   readonly resumeState?: ResumeState;
   readonly resumePageState?: ResumePageState;
+  readonly userSideNavState?: UserSideNavState;
 }
+
+
