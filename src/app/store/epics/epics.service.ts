@@ -1,11 +1,12 @@
 import {StartupEpic} from './startup.epic';
 import {Injectable} from '@angular/core';
 import {combineEpics} from 'redux-observable';
+import {AccountEpic} from "./account.epic";
 
 @Injectable()
 export class EpicService {
 
-  constructor(private startupEpic: StartupEpic) {
+  constructor(private startupEpic: StartupEpic, private  accountEpic: AccountEpic) {
   }
 
   getEpics() {
@@ -14,7 +15,8 @@ export class EpicService {
       this.startupEpic.createStartup$,
       this.startupEpic.updateStartup$,
       this.startupEpic.deleteStartup$,
-      this.startupEpic.selectStartup$
+      this.startupEpic.selectStartup$,
+      this.accountEpic.selectAccount$,
     );
   }
 
