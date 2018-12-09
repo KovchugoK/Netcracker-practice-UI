@@ -1,0 +1,38 @@
+form{
+  margin: 0 6% 0 6%;
+  padding: 1% 2% 0 2%;
+}
+.form-group{
+  margin-bottom: 2%
+}
+.form-control{
+  width: 70%;
+}
+
+.skill-button{
+  width: 10%;
+}
+mat-divider{
+  margin: 2% 0 2% 0;
+}
+
+.project{
+  width: available;
+}
+.project-item{
+
+  text-align: center;
+  width: min-content;
+}
+mat-form-field{
+  margin-right: 3%;
+}
+.button-edit{
+  text-align: center;
+}
+button{
+  margin-right: 2%;
+}
+span{
+  margin-right: 2%;
+}
