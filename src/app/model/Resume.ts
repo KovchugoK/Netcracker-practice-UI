@@ -1,12 +1,12 @@
 import {StartupResume} from "./StartupResume";
 import {BusinessRole} from "./BusinessRole";
-import {Skill} from "./Skill";
+import {ResumeSkill} from "./ResumeSkill";
 
 export class Resume {
   id: string;
   info: string;
   businessRole:BusinessRole;
-  resumeSkills: Skill[];
+  resumeSkills: ResumeSkill[];
   startupResumes: StartupResume[];
 
 }

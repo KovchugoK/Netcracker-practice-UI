@@ -4,6 +4,10 @@ import {Account} from '../../model/Account';
 import {  ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
 import {Subscription} from "rxjs/internal/Subscription";
+import {NgRedux} from "@angular-redux/store";
+import {AppState} from "../../store";
+import {FormBuilder} from "@angular/forms";
+
 
 @Component({
   selector: 'app-account',
@@ -12,25 +16,29 @@ import {Subscription} from "rxjs/internal/Subscription";
 })
 export class AccountComponent implements OnInit {
 
+  id: string ;
   account: Account;
   age: number;
   resumeSkills: string[];
   projects: any[];
   sub: Subscription;
-  constructor(private accountService: AccountService, private route: ActivatedRoute) { };
+
+    constructor(private ngRedux: NgRedux<AppState>,
+                private accountService: AccountService,
+                private route: ActivatedRoute) { };
 
   ngOnInit() {
-     this.sub = this.route.params.subscribe(params => {
-      let id = params['id'];
-      this.accountService.findAccountById(id).subscribe(account =>{
+    this.id = this.route.snapshot.paramMap.get('id');
+
+    this.accountService.findAccountById(this.id).subscribe(account =>{
         this.account = account;
         if (this.account) {
           console.log("We are here");
           this.resumeSkills = this.account.resumes.reduce((resultArr, currResume) => {
-            resultArr.push(...currResume.resumeSkills.map(value => value.skillName));
+            resultArr.push(...currResume.resumeSkills.map(value => value.skill.skillName));
             return resultArr;
           }, []);
-          this.resumeSkills = removeDuplicateUsingFilter(this.resumeSkills);
+          this.resumeSkills = AccountComponent.removeDuplicateUsingFilter(this.resumeSkills);
           this.projects = this.account.resumes.reduce((resultArr, currResume) => {
             currResume.startupResumes.map(result => {
               if (result.status == "apply") {
@@ -50,21 +58,39 @@ export class AccountComponent implements OnInit {
               startupName:res.startupName
             })});
           this.age = moment().diff(this.account.birthday, 'years');
+          if(this.account.compressedImageId) {
+            this.account.compressedImageId = 'https://drive.google.com/thumbnail?id=' + this.account.compressedImageId;
+          }
+          else this.account.compressedImageId="/src/assets/images/default-image.png";
+
         }
-
       });
-
-    });
-
   }
+
+  get currentUser(): boolean {
+    if (this.ngRedux.getState().userState.currentUser) {
+      return true;
+    }
+    return false;
+  }
+
+  get currentUserAccountId(): string {
+    return this.ngRedux.getState().userState.currentUser.account.id;
+  }
+
   ngOnDestroy() {
-    this.sub.unsubscribe();
+    if(this.sub) {
+      this.sub.unsubscribe();
+    }
   }
-}
+  static removeDuplicateUsingFilter(arr: any) {
+    let unique_array = arr.filter(function(elem, index, self) {
+      return index == self.indexOf(elem);
+    });
+    return unique_array
+  }
+ }
 
-function removeDuplicateUsingFilter(arr: any) {
-  let unique_array = arr.filter(function(elem, index, self) {
-    return index == self.indexOf(elem);
-  });
-  return unique_array
-}
+
+
+

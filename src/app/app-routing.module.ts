@@ -10,8 +10,8 @@ import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
 import {AuthGuard} from './guards/auth.guard';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
-import {FavoriteComponent} from './components/favorite/favorite.component';
 import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
+import {AccountEditComponent} from "./components/account-edit/account-edit.component";
 
 
 const routes: Routes = [
@@ -27,6 +27,7 @@ const routes: Routes = [
   {path: 'favorite', component: FavoriteComponent},
   {path: 'resume/list', component: ResumeListComponent},
   {path: 'resume/:id', component: ResumeDetailDialogComponent},
+  {path: 'account-edit/:id', component: AccountEditComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: 'main-page'}
 ];
 

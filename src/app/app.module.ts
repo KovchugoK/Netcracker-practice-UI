@@ -31,17 +31,14 @@ import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import {DialogsModule} from './components/dialogs/dialogs.module';
 import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
-import {MatChipsModule, MatDialogModule, MatListModule} from '@angular/material';
+import {MatChipsModule, MatDialogModule, MatListModule, MatButtonModule, MatCardModule,
+  MatIconModule,  MatMenuModule, MatProgressBarModule, MatDatepickerModule,
+  MatNativeDateModule, MatInputModule} from '@angular/material';
 import { AccountComponent } from './components/account/account.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import {MomentModule} from 'angular2-moment/moment.module';
 import { AccountEditComponent } from './components/account-edit/account-edit.component';
-import {MatDialogModule, MatListModule} from '@angular/material';
-import {
-  MatButtonModule, MatCardModule, MatChip, MatChipList, MatChipsModule, MatIconModule,
-  MatMenuModule
-} from '@angular/material';
 import {MenuComponent} from "./components/menu/menu.component";
+import {ImageUploadComponent} from "./components/image-upload/image-upload.component";
 
 @NgModule({
   declarations: [
@@ -59,9 +56,10 @@ import {MenuComponent} from "./components/menu/menu.component";
     ResumeDetailDialogComponent,
     ResumeListComponent,
     AccountComponent,
-    AccountEditComponent
+    AccountEditComponent,
     ResumeListComponent,
-    MenuComponent
+    MenuComponent,
+    ImageUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -80,13 +78,22 @@ import {MenuComponent} from "./components/menu/menu.component";
     MatDialogModule,
     MatListModule,
     FlexLayoutModule,
-    MomentModule
     MatListModule,
     MaterialModule,
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MaterialModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    FlexLayoutModule
   ],
   entryComponents: [
     ResumeDetailDialogComponent

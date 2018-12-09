@@ -2,6 +2,7 @@ import {Resume} from "./Resume";
 import {Education} from "./Education";
 import {Startup} from "./Startup";
 import {WorkExperience} from "./WorkExperience";
+import {User} from "./User";
 
 export class Account {
   id: string;
@@ -18,4 +19,27 @@ export class Account {
   favorites: {};
   workExperiences: WorkExperience[];
   educations: Education[];
+  imageId: string;
+  compressedImageId: string;
+  user: User;
 }
+
+export const defaultAccount: Account = {
+  id: null,
+  birthday: null,
+  firstName: '',
+  lastName: '',
+  email: '',
+  aboutMe: '',
+  resumes: null,
+  yourContact: '',
+  otherContact: null,
+  startups: null,
+  startupRoles: null,
+  favorites: null,
+  workExperiences:null,
+  educations: null,
+  imageId: '',
+  compressedImageId: '',
+  user: null
+};
