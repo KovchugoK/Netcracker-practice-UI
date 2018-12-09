@@ -8,7 +8,10 @@ import {selectResumes, isLoading} from "../../store/selectors/resume.selector";
 import {NgRedux, select} from "@angular-redux/store";
 import {AppState} from "../../store/index";
 import {skipWhile, take} from "rxjs/internal/operators";
-import {fetchResumesAction, fetchResumesSpecialistsAction} from "../../store/actions/resume.actions";
+import {
+  fetchResumesAction, fetchResumesSpecialistsAction,
+  searchResumesAction
+} from "../../store/actions/resume.actions";
 
 @Component({
   selector: 'app-specialist-list',
@@ -17,19 +20,21 @@ import {fetchResumesAction, fetchResumesSpecialistsAction} from "../../store/act
 })
 export class SpecialistListComponent implements OnInit {
 
-  /*resumeList: Observable<Resume[]>;
 
-  constructor(private specialisService: SpecialistService) {
+
+  @select(isLoading)
+  isLoading: Observable<boolean>;
+
+  @select(selectResumes)
+  resumeList: Observable<Resume[]>;
+
+
+  constructor(private ngRedux: NgRedux<AppState>, private specialisService: SpecialistService ) {
   }
 
   ngOnInit() {
-    this.reloadData();
-  }
-
-
-
-  reloadData(searchObj: SearchObject = null) {
-    this.resumeList = this.specialisService.getSpecialistList(searchObj);
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() => this.ngRedux.dispatch(searchResumesAction(this.ngRedux.getState().specialistsSearchState.searchObj)));
   }
 
   onClick(account: Account) {
@@ -43,26 +48,6 @@ export class SpecialistListComponent implements OnInit {
         console.log('POST Fav - now completed.');
       });
     ;
-  }*/
-
-  @select(isLoading)
-  isLoading: Observable<boolean>;
-
-  @select(selectResumes)
-  resumeList: Observable<Resume[]>;
-
-
-  constructor(private ngRedux: NgRedux<AppState>) {
-  }
-
-  ngOnInit() {
-    this.isLoading.pipe(skipWhile(result => result === true), take(1))
-      .subscribe(() => this.ngRedux.dispatch(fetchResumesSpecialistsAction(null)));
-  }
-
-  selectSearchObj(searchObj: SearchObject) {
-    this.isLoading.pipe(skipWhile(result => result === true), take(1))
-      .subscribe(() => this.ngRedux.dispatch(fetchResumesSpecialistsAction(searchObj)));
   }
 
 }

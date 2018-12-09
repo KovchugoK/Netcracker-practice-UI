@@ -7,6 +7,8 @@ import {ResumeState} from './reducers/resume.reduser';
 import {ResumePageState} from './reducers/resume-page.reducer';
 import {UserSideNavState} from './reducers/user-side-nav.reducer';
 import { AccountPageState} from './reducers/account-page.reducer';
+import {SpecialistsSearchToolbarState} from "./reducers/specialists-search-toolbar.reducer";
+
 
 export interface AppState {
   readonly startupsState?: StartupsState;
@@ -19,6 +21,7 @@ export interface AppState {
   readonly resumePageState?: ResumePageState;
   readonly userSideNavState?: UserSideNavState;
   readonly accountPageState?: AccountPageState;
+  readonly specialistsSearchState?: SpecialistsSearchToolbarState;
 }
 
 

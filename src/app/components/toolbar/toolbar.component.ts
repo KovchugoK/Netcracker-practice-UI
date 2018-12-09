@@ -1,7 +1,15 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {SpecialistService} from "../../services/specialist.service";
-import {FormControl} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {SearchObject} from "../../model/SearchObject";
+import {NgRedux} from "@angular-redux/store";
+import {AppState} from "../../store/index";
+import {selectStartupSearchObj} from "../../store/selectors/sprcialists-search-toolbar.selector";
+import {BusinessRole} from "../../model/BusinessRole";
+import {Skill} from "../../model/Skill";
+import {searchResumesAction} from "../../store/actions/resume.actions";
+import {updateSpecialistsSearchToolbarAction} from "../../store/actions/specialists-search-toolbar.actions";
+import {ResumeService} from "../../services/resume.service";
+import {map} from 'rxjs/internal/operators';
 
 @Component({
   selector: 'app-toolbar',
@@ -10,32 +18,43 @@ import {SearchObject} from "../../model/SearchObject";
 })
 export class ToolbarComponent implements OnInit {
 
-  skills = new FormControl();
-  skillsList: string[] =  ['Java', 'Python', 'C', 'SQL', 'TypeScript', 'JavaScript', 'Angular',
-    'Spring', 'HTML', 'CSS', 'Paint', 'JUnit'];
+  searchForm: FormGroup;
+  skillsList: Skill[];
+  rolesList: BusinessRole[];
+  creatorSearchView = false;
 
-  roles = new FormControl();
-  rolesList: string[] = ['Developer', 'Designer', 'TE'];
-
-  searchObj: SearchObject = new SearchObject();
-
-
-  @Output()
-  onSearchSelected = new EventEmitter<SearchObject>();
-
-
-  constructor(private specialisService: SpecialistService) {
-  }
-
-  onClick(){
-    this.searchObj.searchString = (<HTMLInputElement>document.getElementById("name")).value;
-    this.searchObj.roles = this.roles.value;
-    console.log(this.roles.value);
-    this.searchObj.skills = this.skills.value;
-    this.onSearchSelected.emit(this.searchObj);
+  constructor(private ngRedux: NgRedux<AppState>,
+              private fb: FormBuilder,
+              private resumeService: ResumeService) {
   }
 
   ngOnInit() {
+    this.resumeService.getAllSkills().subscribe(skillsList => this.skillsList = skillsList);
+    this.resumeService.getSpecialistsBusinessRole().subscribe(businessRole => this.rolesList = businessRole);
+    this.ngRedux.select(selectStartupSearchObj).pipe(map(value => this.transformResumeSearchParams(value)))
+      .subscribe(specialistsSearchObj => this.initializeForm(specialistsSearchObj));
   }
+
+  private initializeForm(searchObj: SearchObject) {
+    this.searchForm = this.fb.group({
+      roles: [searchObj.roles],
+      skills: [searchObj.skills],
+      searchString: [searchObj.searchString],
+    });
+  }
+
+
+  search() {
+    this.ngRedux.dispatch(searchResumesAction(this.searchForm.value as SearchObject));
+    this.ngRedux.dispatch(updateSpecialistsSearchToolbarAction(this.searchForm.value as SearchObject));
+  }
+
+  private transformResumeSearchParams(searchObj: SearchObject) {
+    this.creatorSearchView = true;
+    return searchObj;
+  }
+
+
+
 
 }

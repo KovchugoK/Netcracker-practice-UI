@@ -1,24 +1,30 @@
-<mat-toolbar>
-  <div class="form-group">
-    <div class="sercharea">
-      <input type="text" class="form-control" id="name" required size="40">
-    </div>
-    <div>
-      <mat-form-field>
-        <mat-select placeholder="Select skill" [formControl]="skills" multiple>
-          <mat-option *ngFor="let skill of skillsList" [value]="skill">{{skill}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div>
-      <mat-form-field>
-        <mat-select placeholder="Select role" [formControl]="roles" multiple>
-          <mat-option *ngFor="let role of rolesList" [value]="role">{{role}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </div>
-    <div>
-      <button (click)="onClick()" type="submit" class="btn btn-success">Search</button>
-    </div>
-  </div>
+<mat-toolbar class="specialists-toolbar">
+  <form [formGroup]="searchForm">
+    <mat-toolbar-row>
+        <div class="sercharea">
+          <mat-form-field style="margin-left: 40px">
+            <input matInput="" [formControlName]="'searchString'">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field style="margin-left: 40px">
+            <mat-select placeholder="Select skill" [formControlName]="'skills'" multiple>
+              <mat-option *ngFor="let skill of skillsList" [value]="skill.skillName">{{skill.skillName}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field style="margin-left: 40px">
+            <mat-select placeholder="Select role" [formControlName]="'roles'" multiple>
+              <mat-option *ngFor="let role of rolesList" [value]="role.businessRoleName">
+                {{role.businessRoleName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <button style="margin-left: 40px" mat-raised-button="" class="buttonSearch" (click)="search()"> Search</button>
+        </div>
+    </mat-toolbar-row>
+  </form>
 </mat-toolbar>

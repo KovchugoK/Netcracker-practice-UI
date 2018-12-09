@@ -1,37 +1,37 @@
 <main>
+  <div>
+    <app-toolbar></app-toolbar>
+  </div>
   <div class="spinner">
-    <mat-spinner *ngIf="isLoading | async ;else  resumeTable" mode="indeterminate" color="primary">
+    <mat-spinner *ngIf="(isLoading | async) ;else  resumeTable" mode="indeterminate" color="primary">
     </mat-spinner>
   </div>
   <ng-template #resumeTable>
-    <div>
-      <app-toolbar (onSearchSelected)="selectSearchObj($event)"></app-toolbar>
-    </div>
-    <div class="container" *ngFor="let resume of resumeList | async">
-      <mat-card class="example-card">
-        <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
-        <mat-card-content>
-          <p align="center">
-            <b>
-              {{resume?.businessRole.businessRoleName}}
-            </b>
-          </p>
-          <p class="box">
-            <a routerLink="specialist-list/{{resume?.account.id}}">{{resume?.account.firstName}}
-              {{resume?.account.lastName}}</a>
-            <button (click)="onClick(account)" class="fav"><img mat-card-lg-image="" class="img"
-                                                                src="/src/assets/images/favorite.png"></button>
-          <h6>Skills: </h6>
-          <mat-card-subtitle>
-            <mat-chip-list>
-              <div *ngFor="let resumeSkill of resume.resumeSkills">
-                <mat-chip>{{resumeSkill.skill.skillName}}</mat-chip>
-              </div>
-            </mat-chip-list>
-          </mat-card-subtitle>
-        </mat-card-content>
-      </mat-card>
-    </div>
+      <div class="container" *ngFor="let resume of resumeList | async">
+        <mat-card class="example-card">
+          <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+          <mat-card-content>
+            <p align="center">
+              <b>
+                {{resume?.businessRole.businessRoleName}}
+              </b>
+            </p>
+            <p class="box">
+              <a routerLink="specialist-list/{{resume?.account.id}}">{{resume?.account.firstName}}
+                {{resume?.account.lastName}}</a>
+              <button (click)="onClick(account)" class="fav"><img mat-card-lg-image="" class="img"
+                                                                  src="/src/assets/images/favorite.png"></button>
+            <h6>Skills: </h6>
+            <mat-card-subtitle>
+              <mat-chip-list>
+                <div *ngFor="let resumeSkill of resume.resumeSkills">
+                  <mat-chip>{{resumeSkill.skill.skillName}}</mat-chip>
+                </div>
+              </mat-chip-list>
+            </mat-card-subtitle>
+          </mat-card-content>
+        </mat-card>
+      </div>
   </ng-template>
 </main>
 

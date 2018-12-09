@@ -12,6 +12,8 @@ export class SpecialistService {
   headers = new HttpHeaders({'Content-Type': 'application/json'});
   params: HttpParams;
 
+  investorListUrl = '/api/investor-list';
+
   constructor(private http: HttpClient) {
   }
 
@@ -32,4 +34,12 @@ export class SpecialistService {
   post(account: Account): Observable<any> {
     return this.http.post(`${this.specialistListUrl}`, account, {headers: this.headers});
   }
+
+  getInvestorList(): Observable<any> {
+    return this.http.get(`${this.investorListUrl}`);
+  }
+
+ /* post(account: Account): Observable<any> {
+    return this.http.post(`${this.investorListUrl}`, account, {headers: this.headers});
+  }*/
 }

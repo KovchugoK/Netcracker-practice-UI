@@ -8,6 +8,7 @@ import {resumePageReducer} from './resume-page.reducer';
 import {currentUserReducer} from './current-user.reducer';
 import {startupSearchToolbarReducer} from './startup-search-toolbar.reducer';
 import {userSideNavReducer} from './user-side-nav.reducer';
+import {specialistsSearchToolbarReducer} from "./specialists-search-toolbar.reducer";
 
 
 
@@ -20,5 +21,6 @@ export const reducers: Reducer = combineReducers({
   resumePageState: resumePageReducer,
   currentUserState: currentUserReducer,
   startupSearchToolbarState: startupSearchToolbarReducer,
-  userSideNavState: userSideNavReducer
+  userSideNavState: userSideNavReducer,
+  specialistsSearchState: specialistsSearchToolbarReducer
 });
