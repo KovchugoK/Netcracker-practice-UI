@@ -13,8 +13,8 @@ main {
 .rightFromImageBlock {
   padding-top: 30px;
   padding-left: 5%;
-  width: 550px;
-  height: 350px;
+  width: 470px;
+  height: 370px;
 }
 mat-form-field{
   width: 100%;
@@ -30,8 +30,8 @@ form {
 }
 
 .imgParametrs{
-  height: 350px;
-  width: 650px;
+  height: 250px;
+  width: 450px;
 }
 
 

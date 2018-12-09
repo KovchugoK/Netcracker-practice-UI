@@ -9,7 +9,7 @@ mat-card {
   margin-bottom: 2%;
   margin-top: 2%;
   overflow-x:hidden;
-  height: 300px;
+  height: 320px;
 }
 .cut-long-text {
   white-space: nowrap;
@@ -18,7 +18,7 @@ mat-card {
 }
 
 .full-size {
-  height: 60%;
+  height: 50%;
   width: 100%;
   background-color: white;
 }
