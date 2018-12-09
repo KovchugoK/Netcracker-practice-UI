@@ -3,11 +3,15 @@ import {Injectable} from '@angular/core';
 import {combineEpics} from 'redux-observable';
 import {CurrentUserEpic} from './current-user.epic';
 import {ResumeEpic} from "./resume.epic";
+import {AccountEpic} from "./account.epic";
 
 @Injectable()
 export class EpicService {
 
-  constructor(private startupEpic: StartupEpic, private resumeEpic: ResumeEpic, private currentUserEpic: CurrentUserEpic) {
+  constructor(private startupEpic: StartupEpic,
+              private resumeEpic: ResumeEpic,
+              private currentUserEpic: CurrentUserEpic,
+              private  accountEpic: AccountEpic) {
   }
 
   getEpics() {

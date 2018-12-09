@@ -1,0 +1,25 @@
+body{
+  margin: 0 6% 0 6%;
+  padding: 1% 2% 0 2%;
+}
+
+img {
+  height: 100px;
+  width: 100px;
+}
+
+.skill-button{
+  width: 10%;
+}
+mat-divider{
+  margin: 2% 0 2% 0;
+}
+
+.project{
+  width: available;
+}
+.project-item{
+
+  text-align: center;
+  width: min-content;
+}

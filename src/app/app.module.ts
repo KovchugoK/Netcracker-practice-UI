@@ -41,6 +41,14 @@ import { StartupSearchToolbarComponent } from './components/startup-search-toolb
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ResumeEditComponent } from './components/resume-edit/resume-edit.component';
 import {GlobalUserStorageService} from './services/global-storage.service';
+import {MatChipsModule, MatDialogModule, MatListModule, MatButtonModule, MatCardModule,
+  MatIconModule,  MatMenuModule, MatProgressBarModule, MatDatepickerModule,
+  MatNativeDateModule, MatInputModule} from '@angular/material';
+import { AccountComponent } from './components/account/account.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { AccountEditComponent } from './components/account-edit/account-edit.component';
+import {MenuComponent} from "./components/menu/menu.component";
+import {ImageUploadComponent} from "./components/image-upload/image-upload.component";
 
 @NgModule({
   declarations: [
@@ -61,6 +69,11 @@ import {GlobalUserStorageService} from './services/global-storage.service';
     ResumeEditComponent,
     MyStartupsComponent,
     StartupSearchToolbarComponent
+    AccountComponent,
+    AccountEditComponent,
+    ResumeListComponent,
+    MenuComponent,
+    ImageUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -78,11 +91,23 @@ import {GlobalUserStorageService} from './services/global-storage.service';
     MatChipsModule,
     MatDialogModule,
     MatListModule,
+    FlexLayoutModule,
+    MatListModule,
     MaterialModule,
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MaterialModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    FlexLayoutModule
   ],
   entryComponents: [
     ResumeDetailDialogComponent

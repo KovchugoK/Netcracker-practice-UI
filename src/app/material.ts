@@ -34,10 +34,14 @@ import {
   MatSortModule,
   MatSelectModule
 } from '@angular/material';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatListModule} from '@angular/material/list';
 import {NgModule} from '@angular/core';
 
 @NgModule({
   imports: [
+    MatListModule,
+    MatChipsModule,
     MatButtonModule,
     MatCheckboxModule,
     MatToolbarModule,
@@ -53,6 +57,8 @@ import {NgModule} from '@angular/core';
     MatSelectModule
   ],
   exports: [
+    MatListModule,
+    MatChipsModule,
     MatButtonModule,
     MatCheckboxModule,
     MatToolbarModule,

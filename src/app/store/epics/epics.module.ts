@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { StartupEpic } from './startup.epic';
+import {AccountEpic} from "./account.epic";
 import {ResumeEpic} from "./resume.epic";
 import {CurrentUserEpic} from './current-user.epic';
 
@@ -8,7 +9,9 @@ import {CurrentUserEpic} from './current-user.epic';
   providers: [
     StartupEpic,
     ResumeEpic,
-    CurrentUserEpic
+    CurrentUserEpic,
+    StartupEpic,
+    AccountEpic
   ],
 })
 export class EpicsModule {}
