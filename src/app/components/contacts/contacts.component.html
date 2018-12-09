@@ -1,3 +1,18 @@
-<p>
-  contacts works!
-</p>
+<div *ngFor="let contact of contacts">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <img mat-card-avatar class="full-size" src="/src/assets/images/Person.jpg">
+      <mat-card-title>
+        <a routerLink="/{{contact.id}}">
+          {{contact.firstName + " " +contact.lastName}}
+        </a>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <a>
+          Write message
+        </a>
+      </mat-card-subtitle>
+      <button mat-raised-button class="delete-button" (click)="deleteContact(contact.id)">Delete</button>
+    </mat-card-header>
+  </mat-card>
+</div>

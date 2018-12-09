@@ -12,6 +12,8 @@ export class UserSidenavComponent implements OnInit {
   @ViewChild('sidenav')
   nav: MatSidenav;
 
+  id: string;
+
   constructor() {
   }
 
