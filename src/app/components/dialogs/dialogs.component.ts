@@ -4,6 +4,7 @@ import {AppState} from '../../store';
 import {MatDialog} from '@angular/material';
 import {Observable} from 'rxjs';
 import {closeDialogAction} from '../../store/actions/dialogs.actions';
+import {clearUserErrorMessage} from '../../store/actions/current-user.actions';
 
 @Component({
   selector: 'app-dialogs',
@@ -29,6 +30,7 @@ export class DialogsComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(() => {
           this.ngRedux.dispatch(closeDialogAction());
+          this.ngRedux.dispatch(clearUserErrorMessage());
         });
       }
     });

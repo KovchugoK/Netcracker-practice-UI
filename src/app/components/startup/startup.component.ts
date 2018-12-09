@@ -50,14 +50,14 @@ export class StartupComponent implements OnInit {
   }
 
   get currentUser(): boolean {
-    if (this.ngRedux.getState().userState.currentUser) {
+    if (this.ngRedux.getState().currentUserState.currentUser) {
       return true;
     }
     return false;
   }
 
   get currentUserAccountId(): string {
-    return this.ngRedux.getState().userState.currentUser.account.id;
+    return this.ngRedux.getState().currentUserState.currentUser.account.id;
   }
 
 

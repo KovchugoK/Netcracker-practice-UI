@@ -1,15 +1,14 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {ResumeService} from "../../services/resume.service";
-import {Resume} from "../../model/Resume";
-import {ActivatedRoute} from "@angular/router";
-import {Location} from '@angular/common';
-import {Observable} from "rxjs/index";
-import {NgRedux, select} from "@angular-redux/store";
-import {AppState} from "../../store/index";
+import {ResumeService} from '../../services/resume.service';
+import {Resume} from '../../model/Resume';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs/index';
+import {NgRedux, select} from '@angular-redux/store';
+import {AppState} from '../../store/index';
 import {selectResumeFromState, isSelected} from '../../store/selectors/resume.selector';
-import {selectResume} from "../../store/actions/resume-state.actions";
-import {DeleteResumeComponent} from "../dialogs/delete-resume/delete-resume.component";
-import {showDialogAction} from "../../store/actions/dialogs.actions";
+import {selectResume} from '../../store/actions/resume-state.actions';
+import {DeleteResumeComponent} from '../dialogs/delete-resume/delete-resume.component';
+import {showDialogAction} from '../../store/actions/dialogs.actions';
 
 
 @Component({
@@ -49,14 +48,15 @@ export class ResumeDetailDialogComponent implements OnInit {
 
 
   get currentUser(): boolean {
-    if (this.ngRedux.getState().userState.currentUser) {
+    if (this.ngRedux.getState().currentUserState.currentUser) {
       return true;
     }
     return false;
   }
 
   get currentUserAccountId(): string {
-    return this.ngRedux.getState().userState.currentUser.account.id;
+    return this.ngRedux.getState().currentUserState.currentUser.account.id;
   }
+
 
 }

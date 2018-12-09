@@ -4,6 +4,9 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user.service';
 import {first} from 'rxjs/internal/operators';
 import {DialogResult} from '../../../model/dialog-result';
+import {NgRedux} from '@angular-redux/store';
+import {AppState} from '../../../store';
+import {loginUserAction} from '../../../store/actions/current-user.actions';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,6 +23,7 @@ export class SignUpComponent implements OnInit {
   constructor(private fb: FormBuilder,
               public dialogRef: MatDialogRef<SignUpComponent>,
               private userService: UserService,
+              private ngRedux: NgRedux<AppState>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
@@ -92,7 +96,11 @@ export class SignUpComponent implements OnInit {
     this.userService.register(this.registerForm.value)
       .pipe(first())
       .subscribe(
-        data => {
+        () => {
+          this.ngRedux.dispatch(loginUserAction(
+            {login: this.registerForm.controls['login'].value,
+              password: this.registerForm.controls['password'].value}
+              ));
           this.onCancelClick();
         },
         error => {

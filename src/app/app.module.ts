@@ -33,12 +33,15 @@ import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/res
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
 import {MatDialogModule, MatListModule} from '@angular/material';
 import {
-  MatButtonModule, MatCardModule, MatChip, MatChipList, MatChipsModule, MatIconModule,
+  MatButtonModule, MatCardModule, MatChipsModule, MatIconModule,
   MatMenuModule
 } from '@angular/material';
+import { MyStartupsComponent } from './components/my-startups/my-startups.component';
+import { StartupSearchToolbarComponent } from './components/startup-search-toolbar/startup-search-toolbar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ResumeEditComponent } from './components/resume-edit/resume-edit.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
+import {GlobalUserStorageService} from './services/global-storage.service';
 
 @NgModule({
   declarations: [
@@ -58,6 +61,8 @@ import { ContactsComponent } from './components/contacts/contacts.component';
     ToolbarComponent,
     ResumeEditComponent,
     ContactsComponent,
+    MyStartupsComponent,
+    StartupSearchToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -98,16 +103,17 @@ export class AppModule {
   constructor(private ngRedux: NgRedux<AppState>,
               private ngReduxRouter: NgReduxRouter,
               private epicService: EpicService,
-              private devTools: DevToolsExtension) {
+              private devTools: DevToolsExtension,
+              private storageService: GlobalUserStorageService) {
     const epics = this.epicService.getEpics();
     const middleware = createEpicMiddleware();
     let enhancers = [];
     if (devTools.isEnabled()) {
       enhancers = [devTools.enhancer()];
     }
-    ngRedux.configureStore(reducers, {} as AppState, [middleware, thunkMiddlware, createLogger()], enhancers);
+    ngRedux.configureStore(reducers, this.storageService.getInitialState(), [middleware, thunkMiddlware, createLogger()], enhancers);
     middleware.run(epics as any);
-    ngReduxRouter.initialize(state => state.router);
+    ngReduxRouter.initialize((state: AppState) => state.router);
 
   }
 

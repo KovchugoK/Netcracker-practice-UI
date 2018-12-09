@@ -1,22 +1,26 @@
+
 <mat-sidenav-container class="example-container">
-  <mat-sidenav #sidenav mode="side">
-    <p></p>
-    <p><a> Personal cabinet </a></p>
-    <p><a> Messages </a></p>
-    <p><a> Startups </a></p>
-    <p><a routerLink="/contacts/{{(currentUser|async)?.id}}"> Contacts </a></p>
-    <p><a> Favorites </a></p>
-    <p><a routerLink="/startup-edit"> Create startup </a></p>
-    <mat-divider></mat-divider>
-    <p>
-      <button mat-button (click)="onClick()"> Hide</button>
-    </p>
+  <!--<mat-sidenav #sidenav mode="side" *ngIf="currentUser|async" [(opened)]="opened">-->
+  <mat-sidenav #sidenav mode="side" *ngIf="(currentUser|async)">
+    <ng-template [ngIf]="(opened|async)">
+      <p></p>
+      <p><a> Personal cabinet </a></p>
+      <p><a> Messages </a></p>
+      <p><a routerLink="/my-startups"> My Startups </a></p>
+      <p><a> Contacts </a></p>
+      <p><a> Favorites </a></p>
+      <p><a routerLink="/startup-edit"> Create startup </a></p>
+      <mat-divider></mat-divider>
+      <p>
+        <button mat-button (click)="close()"> Hide </button>
+      </p>
+    </ng-template>
   </mat-sidenav>
 
   <mat-sidenav-content>
 
-    <button class="absolutPositionButton" mat-button (click)="onClick()" *ngIf="!opened">...</button>
-    <ng-content>
+      <button class = "absolutPositionButton" mat-button (click)="open()" *ngIf="!(opened|async) &&(currentUser | async)">...</button>
+      <ng-content>
 
     </ng-content>
 

@@ -10,6 +10,7 @@ export interface Startup {
   sumOfInvestment: number;
   account: Account;
   startupResumes: StartupResume[];
+  dateOfCreation: Date;
 }
 
 
@@ -21,5 +22,6 @@ export const defaultStartup: Startup = {
   businessPlan: '',
   sumOfInvestment: 0,
   account: null,
-  startupResumes: null
+  startupResumes: null,
+  dateOfCreation: null
 };
