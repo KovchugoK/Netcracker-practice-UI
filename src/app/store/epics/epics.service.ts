@@ -7,7 +7,9 @@ import {ResumeEpic} from "./resume.epic";
 @Injectable()
 export class EpicService {
 
-  constructor(private startupEpic: StartupEpic, private resumeEpic: ResumeEpic, private currentUserEpic: CurrentUserEpic) {
+  constructor(private startupEpic: StartupEpic,
+              private resumeEpic: ResumeEpic,
+              private currentUserEpic: CurrentUserEpic) {
   }
 
   getEpics() {
@@ -25,7 +27,9 @@ export class EpicService {
       this.resumeEpic.createResume$,
       this.resumeEpic.deleteResume$,
       this.resumeEpic.updateResume$,
-      this.resumeEpic.fetchResumesSpecialists$
+      this.resumeEpic.fetchResumesSpecialists$,
+      this.resumeEpic.fetchResumesInvestors$,
+      this.resumeEpic.searchResumes$
     );
   }
 

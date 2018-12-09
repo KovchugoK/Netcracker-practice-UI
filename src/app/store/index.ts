@@ -6,6 +6,7 @@ import {StartupSearchToolbarState} from './reducers/startup-search-toolbar.reduc
 import {ResumeState} from './reducers/resume.reduser';
 import {ResumePageState} from './reducers/resume-page.reducer';
 import {UserSideNavState} from './reducers/user-side-nav.reducer';
+import {SpecialistsSearchToolbarState} from "./reducers/specialists-search-toolbar.reducer";
 
 
 export interface AppState {
@@ -18,6 +19,7 @@ export interface AppState {
   readonly resumeState?: ResumeState;
   readonly resumePageState?: ResumePageState;
   readonly userSideNavState?: UserSideNavState;
+  readonly specialistsSearchState?: SpecialistsSearchToolbarState;
 }
 
 

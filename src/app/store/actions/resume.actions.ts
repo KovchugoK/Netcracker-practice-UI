@@ -8,12 +8,18 @@ export const FETCH_RESUMES_FAILED = '[Resumes] Fetch resumes specialist failed';
 export const FETCH_RESUMES_SPECIALISTS = '[Resume] Fetch resumes spesialists';
 export const FETCH_RESUMES_SPECIALISTS_SUCCESS = '[Resume] Fetch resumes success';
 export const FETCH_RESUMES_SPECIALISTS_FAILED = '[Resumes] Fetch resumes failed';
+export const FETCH_RESUMES_INVESTORS = '[Resume] Fetch resumes investors';
+export const FETCH_RESUMES_INVESTORS_SUCCESS = '[Resume] Fetch resumes investors success';
+export const FETCH_RESUMES_INVESTORS_FAILED = '[Resumes] Fetch resumes failed';
 export const UPDATE_RESUME = '[Resume] Update resume';
 export const UPDATE_RESUME_SUCCESS = '[Resume] Update resume success';
 export const CREATE_RESUME = '[Resumes] Create resume';
 export const CREATE_RESUME_SUCCESS = '[Resumes] Create resume success';
 export const DELETE_RESUME = '[Resume State] Delete resume';
 export const DELETE_RESUME_SUCCESS = '[Resume State] Delete resume success';
+
+export const SEARCH_RESUMES = '[Resumes] Search resumes';
+export const SEARCH_RESUMES_SUCCESS = '[Resumes] Search resumes success';
 
 export function fetchResumesAction() {
   return {
@@ -56,6 +62,27 @@ export function fetchResumesSpecialistsFaildAction(errorMessage: string) {
   };
 }
 
+export function fetchResumesInvestorstsAction() {
+  return {
+    type: FETCH_RESUMES_INVESTORS,
+  };
+}
+
+export function fetchResumesInvestorsSuccessAction(resumes: Map<string, Resume>) {
+  return {
+    type: FETCH_RESUMES_INVESTORS_SUCCESS,
+    payload: {resumes}
+  };
+}
+
+export function fetchResumesInvestorsFaildAction(errorMessage: string) {
+  return {
+    type: FETCH_RESUMES_INVESTORS_FAILED,
+    payload: {errorMessage}
+  };
+}
+
+
 export function updateResumeAction(resume: Resume) {
   return {
     type: UPDATE_RESUME,
@@ -95,6 +122,21 @@ export function deleteResumeSuccessAction(resumeId: string) {
   return {
     type: DELETE_RESUME_SUCCESS,
     payload: {resumeId}
+  };
+}
+
+
+export function searchResumesAction(searchObj: SearchObject) {
+  return {
+    type: SEARCH_RESUMES,
+    payload: {searchObj}
+  };
+}
+
+export function searchResumesSuccessAction(resumes: Map<string, Resume>) {
+  return {
+    type: SEARCH_RESUMES_SUCCESS,
+    payload: {resumes}
   };
 }
 

@@ -15,9 +15,12 @@ import {AppState} from '../index';
 import {ResumeService} from "../../services/resume.service";
 import {
   CREATE_RESUME, createResumeSuccessAction, DELETE_RESUME, deleteResumeSuccessAction, FETCH_RESUMES,
+  FETCH_RESUMES_INVESTORS,
   FETCH_RESUMES_SPECIALISTS,
-  fetchResumesFailedAction, fetchResumesSpecialistsFaildAction, fetchResumesSpecialistsSuccessAction,
-  fetchResumesSuccessAction, UPDATE_RESUME, updateResumeSuccessAction
+  fetchResumesFailedAction, fetchResumesInvestorsFaildAction, fetchResumesInvestorsSuccessAction,
+  fetchResumesSpecialistsFaildAction,
+  fetchResumesSpecialistsSuccessAction,
+  fetchResumesSuccessAction, SEARCH_RESUMES, searchResumesSuccessAction, UPDATE_RESUME, updateResumeSuccessAction
 } from "../actions/resume.actions";
 import {SELECT_RESUME, selectResumeSuccess} from "../actions/resume-state.actions";
 import {defaultResume} from "../../model/Resume";
@@ -28,7 +31,8 @@ import {SpecialistService} from "../../services/specialist.service";
 export class ResumeEpic {
   constructor(private resumeService: ResumeService,
               private ngRedux: NgRedux<AppState>,
-              private specialistService: SpecialistService) {
+              private specialistService: SpecialistService,
+             ) {
   }
 
   fetchResumes$ = (action$: ActionsObservable<AnyAction>) => {
@@ -112,6 +116,32 @@ export class ResumeEpic {
               catchError(error => of(fetchResumesFailedAction(error.message)))
             );
 
+      })
+    );
+  };
+
+  fetchResumesInvestors$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(FETCH_RESUMES_INVESTORS).pipe(
+      switchMap(({}) => {
+        return this.specialistService.
+        getInvestorList()
+          .pipe(
+            map(resumes => fetchResumesInvestorsSuccessAction(TransformService.transformToMap(resumes))),
+            catchError(error => of(fetchResumesInvestorsFaildAction(error.message)))
+          );
+      })
+    );
+  };
+
+  searchResumes$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(SEARCH_RESUMES).pipe(
+      switchMap(({payload}) => {
+        return this.specialistService
+          .getSpecialistList(payload.searchObj)
+          .pipe(
+            map(resumes => searchResumesSuccessAction(TransformService.transformToMap(resumes))  ),
+            catchError(error => of(fetchResumesFailedAction(error.message)))
+          );
       })
     );
   };
