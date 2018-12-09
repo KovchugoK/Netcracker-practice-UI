@@ -4,14 +4,16 @@ import {InvestorListComponent} from './components/investor-list/investor-list.co
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {SpecialistListComponent} from './components/specialist-list/specialist-list.component';
 import {StartupListComponent} from './components/startup-list/startup-list.component';
+import {AccountComponent} from "./components/account/account.component";
+import {FavoriteComponent} from "./components/favorite/favorite.component";
 import {StartupComponent} from './components/startup/startup.component';
 import {StartupEditComponent} from './components/startup-edit/startup-edit.component';
 import {AuthGuard} from './guards/auth.guard';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
-import {FavoriteComponent} from './components/favorite/favorite.component';
 import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 import {MyStartupsComponent} from './components/my-startups/my-startups.component';
 import {ResumeEditComponent} from "./components/resume-edit/resume-edit.component";
+import {AccountEditComponent} from "./components/account-edit/account-edit.component";
 
 
 const routes: Routes = [
@@ -19,6 +21,7 @@ const routes: Routes = [
   {path: 'main-page', component: MainPageComponent},
   {path: 'startup-list', component: StartupListComponent},
   {path: 'investor-list', component: InvestorListComponent},
+  {path: 'specialist-list/:id', component: AccountComponent},
   {path: 'specialist-list', component: SpecialistListComponent},
   {path: 'startup/:id', component: StartupComponent},
   {path: 'startup-edit/:id', component: StartupEditComponent, canActivate: [AuthGuard]},
@@ -29,6 +32,7 @@ const routes: Routes = [
   {path: 'resume-edit/:id', component: ResumeEditComponent},
   {path: 'resume-edit', component: ResumeEditComponent},
   {path: 'my-startups', component: MyStartupsComponent},
+  {path: 'account-edit/:id', component: AccountEditComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: 'main-page'}
 ];
 

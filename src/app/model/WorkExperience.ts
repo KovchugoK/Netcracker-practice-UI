@@ -1,7 +1,7 @@
 export class WorkExperience {
   id: string;
   workPlace: string;
-  start: string;
-  finish: string;
+  start: Date;
+  finish: Date;
   position: string;
 }
