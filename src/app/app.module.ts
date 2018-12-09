@@ -31,23 +31,19 @@ import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import {DialogsModule} from './components/dialogs/dialogs.module';
 import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
-import {MatDialogModule, MatListModule} from '@angular/material';
 import {
-  MatButtonModule, MatCardModule, MatChipsModule, MatIconModule,
-  MatMenuModule
+  MatDialogModule, MatListModule, MatButtonModule, MatCardModule, MatChipsModule, MatIconModule,
+  MatMenuModule, MatProgressBarModule, MatDatepickerModule,
+  MatNativeDateModule, MatInputModule
 } from '@angular/material';
 import { MyStartupsComponent } from './components/my-startups/my-startups.component';
 import { StartupSearchToolbarComponent } from './components/startup-search-toolbar/startup-search-toolbar.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ResumeEditComponent } from './components/resume-edit/resume-edit.component';
 import {GlobalUserStorageService} from './services/global-storage.service';
-import {MatChipsModule, MatDialogModule, MatListModule, MatButtonModule, MatCardModule,
-  MatIconModule,  MatMenuModule, MatProgressBarModule, MatDatepickerModule,
-  MatNativeDateModule, MatInputModule} from '@angular/material';
 import { AccountComponent } from './components/account/account.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountEditComponent } from './components/account-edit/account-edit.component';
-import {MenuComponent} from "./components/menu/menu.component";
 import {ImageUploadComponent} from "./components/image-upload/image-upload.component";
 
 @NgModule({
@@ -68,11 +64,10 @@ import {ImageUploadComponent} from "./components/image-upload/image-upload.compo
     ToolbarComponent,
     ResumeEditComponent,
     MyStartupsComponent,
-    StartupSearchToolbarComponent
+    StartupSearchToolbarComponent,
     AccountComponent,
     AccountEditComponent,
     ResumeListComponent,
-    MenuComponent,
     ImageUploadComponent
   ],
   imports: [
@@ -92,7 +87,6 @@ import {ImageUploadComponent} from "./components/image-upload/image-upload.compo
     MatDialogModule,
     MatListModule,
     FlexLayoutModule,
-    MatListModule,
     MaterialModule,
     MatMenuModule,
     MatButtonModule,

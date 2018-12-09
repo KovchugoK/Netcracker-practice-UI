@@ -67,18 +67,7 @@ export class AccountComponent implements OnInit {
       });
   }
 
-  get currentUser(): boolean {
-    if (this.ngRedux.getState().userState.currentUser) {
-      return true;
-    }
-    return false;
-  }
-
-  get currentUserAccountId(): string {
-    return this.ngRedux.getState().userState.currentUser.account.id;
-  }
-
-  ngOnDestroy() {
+   ngOnDestroy() {
     if(this.sub) {
       this.sub.unsubscribe();
     }

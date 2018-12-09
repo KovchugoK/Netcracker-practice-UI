@@ -18,7 +18,7 @@
   <mat-card-title>Resume</mat-card-title>
   <mat-card-actions>
    <button mat-raised-button class="resume-button" *ngFor="let item of (account)?.resumes">{{item.businessRole.businessRoleName}}</button>
-    <button mat-raised-button class="resume-button" routerLink=".">+</button>
+    <button mat-raised-button class="resume-button" routerLink="." routerLink="/resume-edit">+</button>
   </mat-card-actions>
 <mat-divider></mat-divider>
   <mat-card-title>Skills</mat-card-title>
