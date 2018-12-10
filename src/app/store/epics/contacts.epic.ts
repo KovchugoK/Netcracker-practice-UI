@@ -38,7 +38,9 @@ export class ContactsEpic {
           .deleteUserContact(payload.yourId, payload.otherId)
           .pipe(
             map(result => deleteContactSuccessAction(payload.yourId, payload.otherId)),
-            catchError(error => of(deleteContactFailedAction(error.message)))
+            catchError(error => of(
+              deleteContactSuccessAction(payload.yourId, payload.otherId)
+              /*deleteContactFailedAction(error.message)*/))
           );
       })
     );
