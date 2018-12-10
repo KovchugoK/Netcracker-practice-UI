@@ -2,12 +2,14 @@ import {StartupEpic} from './startup.epic';
 import {Injectable} from '@angular/core';
 import {combineEpics} from 'redux-observable';
 import {CurrentUserEpic} from './current-user.epic';
-import {ResumeEpic} from "./resume.epic";
+import {ResumeEpic} from './resume.epic';
+import {ContactsEpic} from './contacts.epic';
 
 @Injectable()
 export class EpicService {
 
-  constructor(private startupEpic: StartupEpic, private resumeEpic: ResumeEpic, private currentUserEpic: CurrentUserEpic) {
+  constructor(private startupEpic: StartupEpic, private resumeEpic: ResumeEpic,
+              private currentUserEpic: CurrentUserEpic, private contactsEpic: ContactsEpic) {
   }
 
   getEpics() {
@@ -24,7 +26,9 @@ export class EpicService {
       this.resumeEpic.selectResume$,
       this.resumeEpic.createResume$,
       this.resumeEpic.deleteResume$,
-      this.resumeEpic.updateResume$
+      this.resumeEpic.updateResume$,
+      this.contactsEpic.fetchContacts$,
+      this.contactsEpic.deleteContact$
     );
   }
 
