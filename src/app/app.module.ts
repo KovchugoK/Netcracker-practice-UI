@@ -31,10 +31,10 @@ import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import {DialogsModule} from './components/dialogs/dialogs.module';
 import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
-import {MatDialogModule, MatListModule} from '@angular/material';
 import {
-  MatButtonModule, MatCardModule, MatChipsModule, MatIconModule,
-  MatMenuModule
+  MatDialogModule, MatListModule, MatButtonModule, MatCardModule, MatChipsModule, MatIconModule,
+  MatMenuModule, MatProgressBarModule, MatDatepickerModule,
+  MatNativeDateModule, MatInputModule
 } from '@angular/material';
 import { MyStartupsComponent } from './components/my-startups/my-startups.component';
 import { StartupSearchToolbarComponent } from './components/startup-search-toolbar/startup-search-toolbar.component';
@@ -42,6 +42,10 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ResumeEditComponent } from './components/resume-edit/resume-edit.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import {GlobalUserStorageService} from './services/global-storage.service';
+import { AccountComponent } from './components/account/account.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { AccountEditComponent } from './components/account-edit/account-edit.component';
+import {ImageUploadComponent} from "./components/image-upload/image-upload.component";
 
 @NgModule({
   declarations: [
@@ -62,7 +66,11 @@ import {GlobalUserStorageService} from './services/global-storage.service';
     ResumeEditComponent,
     ContactsComponent,
     MyStartupsComponent,
-    StartupSearchToolbarComponent
+    StartupSearchToolbarComponent,
+    AccountComponent,
+    AccountEditComponent,
+    ResumeListComponent,
+    ImageUploadComponent
   ],
   imports: [
     BrowserModule,
@@ -80,11 +88,22 @@ import {GlobalUserStorageService} from './services/global-storage.service';
     MatChipsModule,
     MatDialogModule,
     MatListModule,
+    FlexLayoutModule,
     MaterialModule,
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MaterialModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    FlexLayoutModule
   ],
   entryComponents: [
     ResumeDetailDialogComponent

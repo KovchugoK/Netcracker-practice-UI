@@ -17,12 +17,8 @@ mat-toolbar{
 
 }
 a {
- color: black;
+  color: black;
   padding: 20px 40px;
-}
-
-a:hover {
-  color: yellow;
 }
 
 a:visited {
@@ -34,4 +30,6 @@ img {
   width: 80px;
 }
 
-
+button:active, button:focus {
+  outline: none;
+}

@@ -1,26 +1,28 @@
 
   <mat-toolbar style="height: 8vh">
     <img class="pointer" src="/src/assets/images/Logo.png" routerLink="/main-page">
-    <a class="first-header" routerLink="/main-page"> Main </a>
-    <a routerLink="/startup-list"> Startups </a>
-    <a routerLink="/specialist-list"> Specialists </a>
-    <a class="fill-space" routerLink="/investor-list"> Investors </a>
+    <!--<a class="first-header" routerLink="/main-page"> Main </a>-->
+    <!--<a routerLink="/startup-list"> Startups </a>-->
+    <!--<a routerLink="/specialist-list"> Specialists </a>-->
+    <!--<a class="fill-space" routerLink="/investor-list"> Investors </a>-->
 
 
-    <!--<nav mat-tab-nav-bar>-->
-      <!--<a mat-tab-link-->
-         <!--*ngFor="let link of navLinks"-->
-         <!--[routerLink]="link.path"-->
-         <!--routerLinkActive #rla="routerLinkActive"-->
-         <!--[active]="rla.isActive">-->
-        <!--{{link.label}}-->
-      <!--</a>-->
-    <!--</nav>-->
+    <nav mat-tab-nav-bar style="margin-left: auto; margin-right: auto">
+      <a mat-tab-link style="height: 60px; width: 200px"
+         *ngFor="let link of navLinks"
+         [routerLink]="link.path"
+         routerLinkActive #rla="routerLinkActive"
+         [active]="rla.isActive">
+        {{link.label}}
+      </a>
+    </nav>
+<div *ngIf="!(currentUser | async)">
+  <button mat-button (click)="openSingIn()" *ngIf="!(currentUser | async)"> Sing in </button>
+  /
+  <button mat-button (click)="openSingUp()" >Sign up</button>
+</div>
 
-    <a class="pointer" (click)="openSingIn()" *ngIf="!(currentUser | async)"> Sing in /</a>
-
-    <a class="pointer" (click)="openSingUp()" *ngIf="!(currentUser | async)">Sign up</a>
-    <span *ngIf="ls.getItem('currentUser')" > {{(currentUser | async)?.login}} </span>
-    <a class="pointer" (click)="logout()" *ngIf="(currentUser | async)"> Logout</a>
+    <span *ngIf="ls.getItem('currentUser')"  style="font-size: 16px "> {{(currentUser | async)?.login}} </span>
+    <button mat-button (click)="logout()" *ngIf="(currentUser | async)"> Logout </button>
   </mat-toolbar>
 

@@ -1,7 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs/index";
-import {Account} from "../../model/Account";
-import {InvestorService} from "../../services/investor.service";
+import {Resume} from "../../model/Resume";
+import {selectResumes, isLoading} from "../../store/selectors/resume.selector";
+import {NgRedux, select} from "@angular-redux/store";
+import {AppState} from "../../store/index";
+import {skipWhile, take} from "rxjs/internal/operators";
+import {
+  fetchResumesInvestorstsAction
+} from "../../store/actions/resume.actions";
 
 @Component({
   selector: 'app-investor-list',
@@ -10,31 +16,20 @@ import {InvestorService} from "../../services/investor.service";
 })
 export class InvestorListComponent implements OnInit {
 
-  accountList: Observable<Account[]>;
-  opened: false;
+  @select(isLoading)
+  isLoading: Observable<boolean>;
 
-  constructor(private investorService: InvestorService) {
-  }
+  @select(selectResumes)
+  resumeList: Observable<Resume[]>;
 
-  onClick(account: Account) {
-    this.investorService.post(account as Account).subscribe(
-      value => {
-        console.log('[POST] create Fav successfully', value);
-      }, error => {
-        console.log('FAIL to create');
-      },
-      () => {
-        console.log('POST Fav - now completed.');
-      });
+  constructor(private ngRedux: NgRedux<AppState>) {
+
   }
 
   ngOnInit() {
-    this.reloadData();
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() => this.ngRedux.dispatch(fetchResumesInvestorstsAction()));
   }
 
-  reloadData() {
-    this.accountList = this.investorService.getInvestorList();
-
-  }
 }
 

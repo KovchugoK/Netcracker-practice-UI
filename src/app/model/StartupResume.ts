@@ -1,8 +1,9 @@
-import {Resume} from './Resume';
+import {Startup} from "./Startup";
 
-
-export interface StartupResume {
+export class StartupResume {
   id: string;
   status: string;
-  resume: Resume;
+  startupName: string;
+  startupId: string;
+  startup:Startup;
 }
