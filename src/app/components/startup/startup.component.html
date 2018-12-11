@@ -9,6 +9,8 @@
       <mat-card>
         <img class="imgParametrs" src="/src/assets/images/Logo.png" alt="startupLogo">
       </mat-card>
+      <ng-template ngxPermissionsOnly="ADMIN">   <button (click)="blockStartup()" > Block Startup  </button></ng-template>
+      <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="unBlockStartup()"> Unblock Startup  </button></ng-template>
     </div>
 
 
