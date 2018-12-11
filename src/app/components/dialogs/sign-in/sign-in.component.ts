@@ -11,6 +11,8 @@ import {AppState} from '../../../store';
 import {loginUserAction} from '../../../store/actions/current-user.actions';
 import {isLoading, selectErrorMessage} from '../../../store/selectors/current-user.selector';
 import {Observable} from 'rxjs';
+import {Role} from '../../../model/Role';
+import {NgxPermissionsService} from 'ngx-permissions';
 
 
 @Component({
@@ -28,12 +30,13 @@ export class SignInComponent implements OnInit {
   returnUrl: string;
   @select(selectErrorMessage)
   error: Observable<string>;
-
+  roleNames: string[] = [];
   constructor(
     private formBuilder: FormBuilder,
     private ngRedux: NgRedux<AppState>,
     private route: ActivatedRoute,
     public dialogRef: MatDialogRef<SignUpComponent>,
+    private permissionsServise: NgxPermissionsService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
   }
@@ -63,6 +66,7 @@ export class SignInComponent implements OnInit {
 
   onCancelClick() {
     this.dialogRef.close(DialogResult.CLOSE);
+    this.addRole(this.ngRedux.getState().currentUserState.currentUser.roles);
   }
 
   private getErrorMessage(control: FormControl): string {
@@ -88,6 +92,11 @@ export class SignInComponent implements OnInit {
       .subscribe(() =>
         this.error.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));
 
+  }
+  addRole(roles: Role[]) {
+    roles.forEach(role => this.roleNames.push(role.roleName));
+    this.permissionsServise.loadPermissions(this.roleNames);
+    this.permissionsServise.addPermission('USER');
   }
 
 }
