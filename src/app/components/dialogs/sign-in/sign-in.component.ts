@@ -96,7 +96,6 @@ export class SignInComponent implements OnInit {
   addRole(roles: Role[]) {
     roles.forEach(role => this.roleNames.push(role.roleName));
     this.permissionsServise.loadPermissions(this.roleNames);
-    this.permissionsServise.addPermission('USER');
   }
 
 }
