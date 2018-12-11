@@ -6,6 +6,8 @@ import {AppState} from '../../store';
 import {searchStartupsAction} from '../../store/actions/startups.actions';
 import {selectStartups, isLoading} from '../../store/selectors/startups.selector';
 import {skipWhile, take} from 'rxjs/internal/operators';
+import {AdminService} from '../../services/admin.service';
+
 
 @Component({
   selector: 'app-startup-list',
@@ -13,9 +15,10 @@ import {skipWhile, take} from 'rxjs/internal/operators';
   styleUrls: ['./startup-list.component.css']
 })
 export class StartupListComponent implements OnInit {
-
-  constructor(private ngRedux: NgRedux<AppState>) {
-  }
+  id: string;
+  constructor(private ngRedux: NgRedux<AppState>,
+             private adminService: AdminService,
+              ) {}
 
   @select(isLoading)
   isLoading: Observable<boolean>;
@@ -30,6 +33,14 @@ export class StartupListComponent implements OnInit {
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.select(selectStartups));
 
+  }
+  blockStartup(id: string) {
+    this.adminService.blockStartup(id).subscribe();
+    console.log('Стартап заблокирован');
+  }
+  unBlockStartup(id: string) {
+    this.adminService.unBlockStartup(id).subscribe();
+    console.log('Стартап разблокирован');
   }
 
 

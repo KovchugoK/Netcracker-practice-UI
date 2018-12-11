@@ -47,6 +47,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountEditComponent } from './components/account-edit/account-edit.component';
 import {ImageUploadComponent} from "./components/image-upload/image-upload.component";
 import {NgxPermissionsModule} from 'ngx-permissions';
+import {BlockUserComponent} from './components/block-user/block-user.component';
 
 @NgModule({
   declarations: [

@@ -21,6 +21,9 @@
             <p>
               {{startup.sumOfInvestment}}$              Created by: {{startup.account.user.login}}
             </p>
+            <div *ngIf="!startup.nonBlock"> ЗАБЛОКИРОВАН НО ВСЕ РАБОТАЕТ</div>
+            <ng-template ngxPermissionsOnly="ADMIN">   <button (click)="blockStartup(startup.id)" > Block Startup  </button></ng-template>
+            <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="unBlockStartup(startup.id)"> Unblock Startup  </button></ng-template>
           </mat-card-content>
         </mat-card>
       </div>
