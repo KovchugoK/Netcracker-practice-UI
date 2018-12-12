@@ -28,7 +28,7 @@ export class ResumeEditComponent implements OnInit {
 
   skillsList: Skill[];
   rolesList: BusinessRole[];
-  resumeSkillsList: ResumeSkill[];
+  //resumeSkillsList: Skill[];
 
   items: ResumeSkill[];
 
@@ -68,7 +68,13 @@ export class ResumeEditComponent implements OnInit {
       account: [this.ngRedux.getState().currentUserState.currentUser.account],
       businessRole: [resume.businessRole],
     });
-    this.resumeSkillsList = resume.resumeSkills;
+   /* this.resumeSkillsList = new Array(resume.resumeSkills.length);
+    console.log(resume.resumeSkills);
+    for (let i in resume.resumeSkills) {
+      this.resumeSkillsList[i] = resume.resumeSkills[i].skill;
+    }
+    console.log(this.resumeSkillsList);*/
+
   }
 
   get info(): FormControl {
@@ -95,15 +101,11 @@ export class ResumeEditComponent implements OnInit {
     return new ResumeSkill(null, skill);
   }
 
-  onDeleteSkill(skill: Skill) {
-    /* this.resumeService.deleteResumeSkill(this.id, skill).subscribe(() => this.isSelected.pipe(skipWhile(result => result), take(1))
-       .subscribe(() => this.ngRedux.select(state => selectResumeForEdit(state))
-         .subscribe(resume => {
-           this.initializeForm(resume);
-         })));
-     this.isLoading.pipe(skipWhile(result => result === true), take(1))
-       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/resume-edit/' + this.id)));*/
+  private compareSkills(sk1: ResumeSkill, sk2: ResumeSkill): boolean {
+    return sk1 && sk2 ? sk1.skill.id === sk2.skill.id : sk1 === sk2;
   }
+
+
 
 
   updateResume() {

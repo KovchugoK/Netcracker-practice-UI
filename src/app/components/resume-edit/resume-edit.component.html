@@ -41,18 +41,15 @@
           <div *ngIf="id!==null">
             <br><h5>Skills</h5>
             <mat-chip-list>
-              <div *ngFor="let resumeSkill of resumeSkillsList">
+              <div *ngFor="let resumeSkill of resumeForm?.get('resumeSkills').value">
                 <mat-chip>{{resumeSkill.skill?.skillName}}</mat-chip>
-                <i (click)="onDeleteSkill(resumeSkill.skill)" class="material-icons">
-                  delete
-                </i>
               </div>
             </mat-chip-list>
           </div>
 
           <mat-form-field>
-            <mat-select placeholder="Select skill" [formControlName]="'resumeSkills'" multiple>
-              <mat-option *ngFor="let skill of skillsList" [value]="formResumeSkill(skill)">{{skill.skillName}}</mat-option>
+            <mat-select placeholder="Select skill" [compareWith]="compareSkills" [formControlName]="'resumeSkills'" multiple>
+              <mat-option *ngFor="let skill of skillsList"  [value]="formResumeSkill(skill)">{{skill.skillName}}</mat-option>
             </mat-select>
           </mat-form-field>
 
