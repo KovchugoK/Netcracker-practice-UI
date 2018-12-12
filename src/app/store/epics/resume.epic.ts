@@ -15,16 +15,24 @@ import {AppState} from '../index';
 import {ResumeService} from "../../services/resume.service";
 import {
   CREATE_RESUME, createResumeSuccessAction, DELETE_RESUME, deleteResumeSuccessAction, FETCH_RESUMES,
-  fetchResumesFailedAction,
-  fetchResumesSuccessAction, UPDATE_RESUME, updateResumeSuccessAction
+  FETCH_RESUMES_INVESTORS,
+  FETCH_RESUMES_SPECIALISTS,
+  fetchResumesFailedAction, fetchResumesInvestorsFaildAction, fetchResumesInvestorsSuccessAction,
+  fetchResumesSpecialistsFaildAction,
+  fetchResumesSpecialistsSuccessAction,
+  fetchResumesSuccessAction, SEARCH_RESUMES, searchResumesSuccessAction, UPDATE_RESUME, updateResumeSuccessAction
 } from "../actions/resume.actions";
 import {SELECT_RESUME, selectResumeSuccess} from "../actions/resume-state.actions";
 import {defaultResume} from "../../model/Resume";
+import {SpecialistService} from "../../services/specialist.service";
 
 
 @Injectable()
 export class ResumeEpic {
-  constructor(private resumeService: ResumeService, private ngRedux: NgRedux<AppState>) {
+  constructor(private resumeService: ResumeService,
+              private ngRedux: NgRedux<AppState>,
+              private specialistService: SpecialistService,
+             ) {
   }
 
   fetchResumes$ = (action$: ActionsObservable<AnyAction>) => {
@@ -40,38 +48,38 @@ export class ResumeEpic {
     );
   };
 
-   createResume$ = (action$: ActionsObservable<AnyAction>) => {
-     return action$.ofType(CREATE_RESUME).pipe(
-       switchMap(({payload}) => {
-         return this.resumeService.createResume(payload.resume)
-           .pipe(
-             map(resume => createResumeSuccessAction(resume))
-           );
-       })
-     );
-   };
+  createResume$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(CREATE_RESUME).pipe(
+      switchMap(({payload}) => {
+        return this.resumeService.createResume(payload.resume)
+          .pipe(
+            map(resume => createResumeSuccessAction(resume))
+          );
+      })
+    );
+  };
 
-   updateResume$ = (action$: ActionsObservable<AnyAction>) => {
-     return action$.ofType(UPDATE_RESUME).pipe(
-       switchMap(({payload}) => {
-         return this.resumeService.updateResume(payload.resume)
-           .pipe(
-             map(resume => updateResumeSuccessAction(resume))
-           );
-       })
-     );
-   };
+  updateResume$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(UPDATE_RESUME).pipe(
+      switchMap(({payload}) => {
+        return this.resumeService.updateResume(payload.resume)
+          .pipe(
+            map(resume => updateResumeSuccessAction(resume))
+          );
+      })
+    );
+  };
 
-   deleteResume$ = (action$: ActionsObservable<AnyAction>) => {
-     return action$.ofType(DELETE_RESUME).pipe(
-       switchMap(({payload}) => {
-         return this.resumeService.deleteResume(payload.resumeId)
-           .pipe(
-             map(() => deleteResumeSuccessAction(payload.resumeId))
-           );
-       })
-     );
-   };
+  deleteResume$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(DELETE_RESUME).pipe(
+      switchMap(({payload}) => {
+        return this.resumeService.deleteResume(payload.resumeId)
+          .pipe(
+            map(() => deleteResumeSuccessAction(payload.resumeId))
+          );
+      })
+    );
+  };
 
   selectResume$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(SELECT_RESUME).pipe(
@@ -88,6 +96,52 @@ export class ResumeEpic {
               map(resume => selectResumeSuccess(resume)),
               catchError(error => of(fetchResumesFailedAction(error.message)))
             );
+      })
+    );
+  };
+
+  fetchResumesSpecialists$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(FETCH_RESUMES_SPECIALISTS).pipe(
+      switchMap(({payload}) => {
+        return payload.searchObj !== null ?
+          this.specialistService
+            .getSpecialistList(payload.searchObj)
+            .pipe(
+              map(resumes => fetchResumesSpecialistsSuccessAction(TransformService.transformToMap(resumes))),
+              catchError(error => of(fetchResumesSpecialistsFaildAction(error.message)))
+            ) : this.specialistService
+            .getSpecialistList(null)
+            .pipe(
+              map(resumes => fetchResumesSpecialistsSuccessAction(TransformService.transformToMap(resumes))),
+              catchError(error => of(fetchResumesFailedAction(error.message)))
+            );
+
+      })
+    );
+  };
+
+  fetchResumesInvestors$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(FETCH_RESUMES_INVESTORS).pipe(
+      switchMap(({}) => {
+        return this.specialistService.
+        getInvestorList()
+          .pipe(
+            map(resumes => fetchResumesInvestorsSuccessAction(TransformService.transformToMap(resumes))),
+            catchError(error => of(fetchResumesInvestorsFaildAction(error.message)))
+          );
+      })
+    );
+  };
+
+  searchResumes$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(SEARCH_RESUMES).pipe(
+      switchMap(({payload}) => {
+        return this.specialistService
+          .getSpecialistList(payload.searchObj)
+          .pipe(
+            map(resumes => searchResumesSuccessAction(TransformService.transformToMap(resumes))  ),
+            catchError(error => of(fetchResumesFailedAction(error.message)))
+          );
       })
     );
   };

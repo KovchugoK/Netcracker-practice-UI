@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
-import { StartupEpic } from './startup.epic';
-import {ResumeEpic} from "./resume.epic";
+import {NgModule} from '@angular/core';
+import {StartupEpic} from './startup.epic';
+import {AccountEpic} from './account.epic';
+import {ResumeEpic} from './resume.epic';
 import {CurrentUserEpic} from './current-user.epic';
 import {ContactsEpic} from './contacts.epic';
 
@@ -10,7 +11,10 @@ import {ContactsEpic} from './contacts.epic';
     StartupEpic,
     ResumeEpic,
     CurrentUserEpic,
-    ContactsEpic
+    ContactsEpic,
+    StartupEpic,
+    AccountEpic
   ],
 })
-export class EpicsModule {}
+export class EpicsModule {
+}

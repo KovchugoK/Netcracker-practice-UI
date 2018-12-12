@@ -62,4 +62,9 @@ export class ResumeService {
     return this.http.get<BusinessRole[]>('/api/resume/businessRole');
   }
 
+  getSpecialistsBusinessRole(): Observable<BusinessRole[]> {
+    return this.http.get<BusinessRole[]>('/api/resume/specialists-business-role');
+  }
+
+
 }

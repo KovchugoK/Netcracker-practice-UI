@@ -5,6 +5,7 @@ import {MatDialog} from '@angular/material';
 import {Observable} from 'rxjs';
 import {closeDialogAction} from '../../store/actions/dialogs.actions';
 import {clearUserErrorMessage} from '../../store/actions/current-user.actions';
+import {Overlay} from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-dialogs',
@@ -16,7 +17,7 @@ export class DialogsComponent implements OnInit {
   @select(state => state.dialogsState.isDialogOpen)
   readonly isDialogOpen: Observable<boolean>;
 
-  constructor(private dialog: MatDialog, private ngRedux: NgRedux<AppState>) { }
+  constructor(private dialog: MatDialog, private ngRedux: NgRedux<AppState>, private overlay: Overlay) { }
 
   ngOnInit() {
     console.log('Open');
@@ -26,7 +27,8 @@ export class DialogsComponent implements OnInit {
         const dialogRef = this.dialog.open(dialogProperty.componentType, {
           width: dialogProperty.width,
           height: dialogProperty.height,
-          data: dialogProperty.data
+          data: dialogProperty.data,
+          scrollStrategy: this.overlay.scrollStrategies.noop()
         });
         dialogRef.afterClosed().subscribe(() => {
           this.ngRedux.dispatch(closeDialogAction());

@@ -4,9 +4,18 @@
 }
 
 .sortTypeSelect{
-  width:250px;
+  width:200px;
 }
 
 .buttonSearch{
-  width: 250px;
+  width: 150px;
+}
+
+mat-form-field{
+  width: 120px;
+  font-size: 14px;
+}
+
+mat-label{
+  font-size: 16px;
 }

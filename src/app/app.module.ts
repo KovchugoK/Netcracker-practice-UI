@@ -31,10 +31,10 @@ import {JwtInterceptor} from './interceptors/jwt.interceptor';
 import {DialogsModule} from './components/dialogs/dialogs.module';
 import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
-import {MatDialogModule, MatListModule} from '@angular/material';
 import {
-  MatButtonModule, MatCardModule, MatChipsModule, MatIconModule,
-  MatMenuModule
+  MatDialogModule, MatListModule, MatButtonModule, MatCardModule, MatChipsModule, MatIconModule,
+  MatMenuModule, MatProgressBarModule, MatDatepickerModule,
+  MatNativeDateModule, MatInputModule
 } from '@angular/material';
 import { MyStartupsComponent } from './components/my-startups/my-startups.component';
 import { StartupSearchToolbarComponent } from './components/startup-search-toolbar/startup-search-toolbar.component';
@@ -46,7 +46,8 @@ import { AccountComponent } from './components/account/account.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountEditComponent } from './components/account-edit/account-edit.component';
 import {ImageUploadComponent} from './components/image-upload/image-upload.component';
-import { ConversationComponent } from './components/conversation/conversation.component';
+import {NgxPermissionsModule} from 'ngx-permissions';
+import {ConversationComponent} from './components/conversation/conversation.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,12 @@ import { ConversationComponent } from './components/conversation/conversation.co
     AccountEditComponent,
     ResumeListComponent,
     ImageUploadComponent,
-    ConversationComponent
+    StartupSearchToolbarComponent,
+    AccountComponent,
+    AccountEditComponent,
+    ResumeListComponent,
+    ImageUploadComponent,
+    ConversationComponent,
     StartupSearchToolbarComponent
   ],
   imports: [
@@ -91,11 +97,23 @@ import { ConversationComponent } from './components/conversation/conversation.co
     MatChipsModule,
     MatDialogModule,
     MatListModule,
+    FlexLayoutModule,
     MaterialModule,
     MatMenuModule,
     MatButtonModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MaterialModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatProgressBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    FlexLayoutModule,
+    NgxPermissionsModule.forRoot(),
   ],
   entryComponents: [
     ResumeDetailDialogComponent

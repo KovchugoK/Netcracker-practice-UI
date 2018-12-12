@@ -8,7 +8,8 @@ import {resumePageReducer} from './resume-page.reducer';
 import {currentUserReducer} from './current-user.reducer';
 import {startupSearchToolbarReducer} from './startup-search-toolbar.reducer';
 import {userSideNavReducer} from './user-side-nav.reducer';
-import {contactsReducer, ContactsState} from './contacts.reducer';
+import {contactsReducer} from './contacts.reducer';
+import {specialistsSearchToolbarReducer} from './specialists-search-toolbar.reducer';
 
 
 export const reducers: Reducer = combineReducers({
@@ -21,5 +22,6 @@ export const reducers: Reducer = combineReducers({
   currentUserState: currentUserReducer,
   startupSearchToolbarState: startupSearchToolbarReducer,
   userSideNavState: userSideNavReducer,
-  contactsState: contactsReducer
+  contactsState: contactsReducer,
+  specialistsSearchState: specialistsSearchToolbarReducer
 });

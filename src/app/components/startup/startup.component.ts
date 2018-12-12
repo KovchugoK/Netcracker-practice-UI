@@ -12,6 +12,7 @@ import {AppState} from '../../store';
 import {selectStartup} from '../../store/actions/startup-state.actions';
 import {showDialogAction} from '../../store/actions/dialogs.actions';
 import {DeleteStartupComponent} from '../dialogs/delete-startup/delete-startup.component';
+import {AdminService} from '../../services/admin.service';
 
 
 @Component({
@@ -32,6 +33,7 @@ export class StartupComponent implements OnInit {
   constructor(private ngRedux: NgRedux<AppState>,
               private startupService: StartupService,
               private route: ActivatedRoute,
+              private  adminService: AdminService
               ) {
 
   }
@@ -58,6 +60,18 @@ export class StartupComponent implements OnInit {
 
   get currentUserAccountId(): string {
     return this.ngRedux.getState().currentUserState.currentUser.account.id;
+  }
+
+  get currentStartup(): Startup {
+    return this.ngRedux.getState().startupPageState.startupModel;
+  }
+  blockStartup(startup: Startup) {
+    this.adminService.blockStartup(startup.id).subscribe();
+    startup.nonBlock = false;
+  }
+  unBlockStartup(startup: Startup ) {
+    this.adminService.unBlockStartup(startup.id).subscribe();
+    startup.nonBlock = true;
   }
 
 

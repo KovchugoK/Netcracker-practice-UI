@@ -1,4 +1,5 @@
-export class BusinessRole {
+export class BusinessRole{
+  id: string;
   businessRoleName: string;
   lable: string;
 }

@@ -1,6 +1,7 @@
 import {ResumeSkill} from './ResumeSkill';
 import {Account} from './Account';
 import {BusinessRole} from './BusinessRole';
+import {StartupResume} from "./StartupResume";
 
 export interface Resume {
   id: string;
@@ -8,6 +9,7 @@ export interface Resume {
   resumeSkills: ResumeSkill[];
   businessRole: BusinessRole;
   account: Account;
+  startupResumes?: StartupResume[];
 }
 
 export const defaultResume: Resume = {

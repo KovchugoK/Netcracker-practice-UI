@@ -1,0 +1,7 @@
+<mat-card class="image-loader">
+  <mat-spinner *ngIf="ishiddenImage" mode="determinate"></mat-spinner>
+  <img mat-card-lg-image *ngIf="!ishiddenImage" id="currentImage" [src]="imageUrl" onclick="document.getElementById('selectedFile').click()">
+  <input type="file" id="selectedFile" (change)="selectFile($event)" style="display: none;">
+  <br/>
+  <button mat-raised-button color="primary" onclick="document.getElementById('selectedFile').click()">Upload image</button>
+</mat-card>
