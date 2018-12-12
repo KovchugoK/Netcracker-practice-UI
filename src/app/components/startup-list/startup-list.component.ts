@@ -3,10 +3,12 @@ import {Observable} from 'rxjs';
 import {Startup} from '../../model/Startup';
 import {NgRedux, select} from '@angular-redux/store';
 import {AppState} from '../../store';
-import {searchStartupsAction} from '../../store/actions/startups.actions';
+import {searchStartupsAction, updateStartupAction} from '../../store/actions/startups.actions';
 import {selectStartups, isLoading} from '../../store/selectors/startups.selector';
 import {skipWhile, take} from 'rxjs/internal/operators';
 import {AdminService} from '../../services/admin.service';
+import {loginUserAction} from '../../store/actions/current-user.actions';
+import {Credential} from '../../model/Credential';
 
 
 @Component({
@@ -34,12 +36,14 @@ export class StartupListComponent implements OnInit {
       .subscribe(() => this.ngRedux.select(selectStartups));
 
   }
-  blockStartup(id: string) {
-    this.adminService.blockStartup(id).subscribe();
+  blockStartup(startup: Startup) {
+    this.adminService.blockStartup(startup.id).subscribe();
+    startup.nonBlock = false;
     console.log('Стартап заблокирован');
   }
-  unBlockStartup(id: string) {
-    this.adminService.unBlockStartup(id).subscribe();
+  unBlockStartup(startup: Startup) {
+    this.adminService.unBlockStartup(startup.id).subscribe();
+    startup.nonBlock = true;
     console.log('Стартап разблокирован');
   }
 

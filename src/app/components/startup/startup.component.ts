@@ -65,11 +65,13 @@ export class StartupComponent implements OnInit {
   get currentStartup(): Startup {
     return this.ngRedux.getState().startupPageState.startupModel;
   }
-  blockStartup() {
-    this.adminService.blockStartup(this.id).subscribe();
+  blockStartup(startup: Startup) {
+    this.adminService.blockStartup(startup.id).subscribe();
+    startup.nonBlock = false;
   }
-  unBlockStartup() {
-    this.adminService.unBlockStartup(this.id).subscribe();
+  unBlockStartup(startup: Startup ) {
+    this.adminService.unBlockStartup(startup.id).subscribe();
+    startup.nonBlock = true;
   }
 
 
