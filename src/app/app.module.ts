@@ -42,6 +42,11 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ResumeEditComponent } from './components/resume-edit/resume-edit.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import {GlobalUserStorageService} from './services/global-storage.service';
+import { AccountComponent } from './components/account/account.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { AccountEditComponent } from './components/account-edit/account-edit.component';
+import {ImageUploadComponent} from './components/image-upload/image-upload.component';
+import { ConversationComponent } from './components/conversation/conversation.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +67,12 @@ import {GlobalUserStorageService} from './services/global-storage.service';
     ResumeEditComponent,
     ContactsComponent,
     MyStartupsComponent,
+    StartupSearchToolbarComponent,
+    AccountComponent,
+    AccountEditComponent,
+    ResumeListComponent,
+    ImageUploadComponent,
+    ConversationComponent
     StartupSearchToolbarComponent
   ],
   imports: [

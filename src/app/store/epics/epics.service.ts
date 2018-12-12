@@ -28,7 +28,8 @@ export class EpicService {
       this.resumeEpic.deleteResume$,
       this.resumeEpic.updateResume$,
       this.contactsEpic.fetchContacts$,
-      this.contactsEpic.deleteContact$
+      this.contactsEpic.deleteContact$,
+      this.contactsEpic.addContact$
     );
   }
 
