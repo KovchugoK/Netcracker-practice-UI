@@ -46,7 +46,8 @@ import { AccountComponent } from './components/account/account.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountEditComponent } from './components/account-edit/account-edit.component';
 import {ImageUploadComponent} from './components/image-upload/image-upload.component';
-import {NgxPermissionsModule} from 'ngx-permissions';
+import {NgxPermissionsModule, NgxPermissionsService} from 'ngx-permissions';
+import {AuthenticationService} from './services/authentication.service';
 
 @NgModule({
   declarations: [
@@ -125,7 +126,8 @@ export class AppModule {
               private ngReduxRouter: NgReduxRouter,
               private epicService: EpicService,
               private devTools: DevToolsExtension,
-              private storageService: GlobalUserStorageService) {
+              private storageService: GlobalUserStorageService,
+              private auth: AuthenticationService) {
     const epics = this.epicService.getEpics();
     const middleware = createEpicMiddleware();
     let enhancers = [];
@@ -135,7 +137,9 @@ export class AppModule {
     ngRedux.configureStore(reducers, this.storageService.getInitialState(), [middleware, thunkMiddlware, createLogger()], enhancers);
     middleware.run(epics as any);
     ngReduxRouter.initialize((state: AppState) => state.router);
-
+    if (this.ngRedux.getState().currentUserState.currentUser) {
+      this.auth.addRole(this.ngRedux.getState().currentUserState.currentUser.roles);
+    }
   }
 
 
