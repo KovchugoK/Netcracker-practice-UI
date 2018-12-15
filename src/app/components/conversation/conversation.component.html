@@ -1,0 +1,14 @@
+<mat-list>
+  <mat-list-item class="mat-list-item-word-wrap" *ngFor="let message of messages">
+    <img matListAvatar class="full-size" src="/src/assets/images/Person.jpg">
+    <h4 mat-line>{{message.senderAccount.firstName}} {{message.senderAccount.lastName}} {{message.creationDate | date : 'MMM d, yyyy H:mm:SS'}}</h4>
+    <h3 mat-line>
+      {{message.msg}}
+    </h3>
+  </mat-list-item>
+</mat-list>
+<mat-form-field class="example-full-width">
+  <textarea rows="4" class="message-input-text-area" matInput placeholder="Input a message"
+            maxlength="1024" cdkTextareaAutosize="false"></textarea>
+  <mat-icon matSuffix>send</mat-icon>
+</mat-form-field>

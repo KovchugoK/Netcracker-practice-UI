@@ -4,7 +4,7 @@
     <ng-template [ngIf]="(opened|async)">
       <p></p>
       <p><a> Personal cabinet </a></p>
-      <p><a> Messages </a></p>
+      <p><a routerLink="/messages"> Messages </a></p>
       <p><a routerLink="/my-startups"> My Startups </a></p>
       <p><a routerLink="/contacts/{{(currentUser|async)?.account.id}}"> Contacts </a></p>
       <p><a> Favorites </a></p>
