@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Message} from '../../model/Message';
-import {Test} from '../../model/test';
 
 @Component({
   selector: 'app-conversation',
@@ -11,88 +10,61 @@ export class ConversationComponent implements OnInit {
   messages: Message[] = [
     {
       conversationId: '1',
-      senderAccount: {
-        firstName: 'Yauheni',
-        lastName: 'Harkavik'
-      },
-      receiveAccount: null,
+      senderId: '2',
+      receiveId: '3',
       creationDate: new Date('2016-06-01 23:00:00'),
       msg: 'First'
     },
     {
       conversationId: '1',
-      senderAccount: {
-        firstName: 'Yauheni',
-        lastName: 'Harkavik'
-      },
-      receiveAccount: null,
+      senderId: '2',
+      receiveId: '3',
       creationDate: new Date('2016-06-01 23:00:00'),
       msg: 'Other'
     },
     {
       conversationId: '1',
-      senderAccount: {
-        firstName: 'Yauheni',
-        lastName: 'Harkavik'
-      },
-      receiveAccount: null,
+      senderId: '2',
+      receiveId: '3',
       creationDate: new Date('2016-06-01 23:00:00'),
       msg: 'Other'
     },
     {
       conversationId: '1',
-      senderAccount: {
-        firstName: 'Yauheni',
-        lastName: 'Harkavik'
-      },
-      receiveAccount: null,
+      senderId: '2',
+      receiveId: '3',
       creationDate: new Date('2016-06-01 23:00:00'),
       msg: 'Other'
     }, {
       conversationId: '1',
-      senderAccount: {
-        firstName: 'Yauheni',
-        lastName: 'Harkavik'
-      },
-      receiveAccount: null,
+      senderId: '2',
+      receiveId: '3',
       creationDate: new Date('2016-06-01 23:00:00'),
       msg: 'Other'
     }, {
       conversationId: '1',
-      senderAccount: {
-        firstName: 'Yauheni',
-        lastName: 'Harkavik'
-      },
-      receiveAccount: null,
+      senderId: '2',
+      receiveId: '3',
       creationDate: new Date('2016-06-01 23:00:00'),
       msg: 'Other'
     }, {
       conversationId: '1',
-      senderAccount: {
-        firstName: 'Yauheni',
-        lastName: 'Harkavik'
-      },
-      receiveAccount: null,
+      senderId: '2',
+      receiveId: '3',
       creationDate: new Date('2016-06-01 23:00:00'),
       msg: 'Other'
     },
     {
       conversationId: '1',
-      senderAccount: {
-        firstName: 'Yauheni',
-        lastName: 'Harkavik'
-      },
-      receiveAccount: null,
+      senderId: '2',
+      receiveId: '3',
       creationDate: new Date('2016-06-01 23:00:00'),
       msg: 'Other'
     },
     {
       conversationId: '1',
-      senderAccount: {
-        firstName: 'Yauheni',
-        lastName: 'Harkavik'
-      },
-      receiveAccount: null,
+      senderId: '2',
+      receiveId: '3',
       creationDate: new Date('2016-06-01 23:00:00'),
       msg: 'Last'
     }

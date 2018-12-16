@@ -2,8 +2,8 @@ import {Account} from './Account';
 
 export class Message {
   conversationId: string;
-  senderAccount: Account;
-  receiveAccount: Account;
+  senderId: string;
+  receiveId: string;
   msg: string;
   creationDate: Date;
 }

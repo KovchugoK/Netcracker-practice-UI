@@ -1,7 +1,7 @@
-<mat-list>
+<mat-list dense>
   <mat-list-item class="mat-list-item-word-wrap" *ngFor="let message of messages">
     <img matListAvatar class="full-size" src="/src/assets/images/Person.jpg">
-    <h4 mat-line>{{message.senderAccount.firstName}} {{message.senderAccount.lastName}} {{message.creationDate | date : 'MMM d, yyyy H:mm:SS'}}</h4>
+    <h4 mat-line>{{message.senderId}} {{message.creationDate | date : 'MMM d, yyyy H:mm:SS'}}</h4>
     <h3 mat-line>
       {{message.msg}}
     </h3>
