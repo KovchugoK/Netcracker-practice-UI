@@ -1,8 +1,8 @@
-import {Resume} from "./Resume";
-import {Education} from "./Education";
-import {Startup} from "./Startup";
-import {WorkExperience} from "./WorkExperience";
-import {User} from "./User";
+import {Resume} from './Resume';
+import {Education} from './Education';
+import {Startup} from './Startup';
+import {WorkExperience} from './WorkExperience';
+import {User} from './User';
 
 export class Account {
   id: string;
@@ -37,7 +37,7 @@ export const defaultAccount: Account = {
   startups: null,
   startupRoles: null,
   favorites: null,
-  workExperiences:null,
+  workExperiences: null,
   educations: null,
   imageId: '',
   compressedImageId: '',

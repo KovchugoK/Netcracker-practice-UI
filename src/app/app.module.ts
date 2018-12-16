@@ -48,6 +48,8 @@ import { AccountEditComponent } from './components/account-edit/account-edit.com
 import {ImageUploadComponent} from "./components/image-upload/image-upload.component";
 import { MessagesComponent } from './components/messages/messages.component';
 import {ConversationComponent} from './components/conversation/conversation.component';
+import {ImageUploadComponent} from './components/image-upload/image-upload.component';
+import {NgxPermissionsModule} from 'ngx-permissions';
 
 @NgModule({
   declarations: [
@@ -107,7 +109,8 @@ import {ConversationComponent} from './components/conversation/conversation.comp
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxPermissionsModule.forRoot(),
   ],
   entryComponents: [
     ResumeDetailDialogComponent
