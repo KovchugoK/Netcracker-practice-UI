@@ -3,13 +3,14 @@ import {ContactsService} from '../../services/contacts.service';
 import {ActionsObservable} from 'redux-observable';
 import {AnyAction} from 'redux';
 import {
+  ADD_CONTACT, addContactFailedAction, addContactSuccessAction,
   DELETE_CONTACT, deleteContactFailedAction,
   deleteContactSuccessAction,
   FETCH_CONTACTS,
   fetchContactsFailedAction,
   fetchContactsSuccessAction
 } from '../actions/contacts.actions';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
 import {TransformService} from '../../utils/transform.service';
 import {of} from 'rxjs';
 
@@ -33,16 +34,28 @@ export class ContactsEpic {
 
   deleteContact$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(DELETE_CONTACT).pipe(
-      switchMap(({payload}) => {
+      mergeMap(({payload}) => {
         return this.contactsService
           .deleteUserContact(payload.yourId, payload.otherId)
           .pipe(
-            map(result => deleteContactSuccessAction(payload.yourId, payload.otherId)),
-            catchError(error => of(
-              deleteContactSuccessAction(payload.yourId, payload.otherId)
-              /*deleteContactFailedAction(error.message)*/))
+            map(() => deleteContactSuccessAction(payload.yourId, payload.otherId)),
+            catchError(error => of(deleteContactFailedAction(error.message)))
           );
       })
+    );
+  };
+
+  addContact$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(ADD_CONTACT).pipe(
+      mergeMap(({payload}) => {
+          return this.contactsService
+            .addUserInContacts(payload.yourId, payload.otherId)
+            .pipe(
+              map((contact) => addContactSuccessAction(contact)),
+              catchError(error => of(addContactFailedAction(error.message)))
+            );
+        }
+      )
     );
   };
 }
