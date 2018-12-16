@@ -11,6 +11,7 @@ import {User} from '../../model/User';
 import {updateRouterState} from '../../store/actions/router.actions';
 import {selectCurrentUser} from '../../store/selectors/current-user.selector';
 import {hideUserSideNavAction} from '../../store/actions/user-side-nav.actions';
+import {NgxPermissionsService} from 'ngx-permissions';
 
 @Component({
   selector: 'app-header',
@@ -44,7 +45,8 @@ export class HeaderComponent implements OnInit {
     }];
 
   constructor(
-    private ngRedux: NgRedux<AppState>) {
+    private ngRedux: NgRedux<AppState>,
+    private  permissionsServive: NgxPermissionsService) {
   }
 
   ngOnInit() {
@@ -72,6 +74,7 @@ export class HeaderComponent implements OnInit {
     this.ngRedux.dispatch(hideUserSideNavAction());
     this.ngRedux.dispatch(logoutUserAction());
     this.ngRedux.dispatch(updateRouterState('/main'));
+    this.permissionsServive.flushPermissions();
   }
 
 }

@@ -5,7 +5,6 @@ import {CurrentUserEpic} from './current-user.epic';
 import {ResumeEpic} from './resume.epic';
 import {ContactsEpic} from './contacts.epic';
 import {AccountEpic} from './account.epic';
-import {ConversationsEpic} from './conversations.epic';
 
 @Injectable()
 export class EpicService {
@@ -38,6 +37,8 @@ export class EpicService {
       this.resumeEpic.searchResumes$,
       this.resumeEpic.updateResume$,
       this.contactsEpic.fetchContacts$,
+      this.contactsEpic.deleteContact$,
+      this.contactsEpic.addContact$,
       this.contactsEpic.deleteContact$,
       this.conversationsEpic.fetchConversations$,
       this.conversationsEpic.getConversation$
