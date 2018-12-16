@@ -1,7 +1,7 @@
 import {Message} from './Message';
 
 export class Conversation {
-  conversationId: string;
+  id: string;
   yourAccount: Account;
   otherAccount: Account;
   name: string;
