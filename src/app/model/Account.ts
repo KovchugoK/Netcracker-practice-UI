@@ -9,7 +9,6 @@ export class Account {
   birthday: Date;
   firstName: string;
   lastName: string;
-  email: string;
   aboutMe: string;
   resumes: Resume[];
   yourContact: string;
@@ -22,6 +21,7 @@ export class Account {
   imageId: string;
   compressedImageId: string;
   user: User;
+  image: string;
 }
 
 export const defaultAccount: Account = {
@@ -29,7 +29,6 @@ export const defaultAccount: Account = {
   birthday: null,
   firstName: '',
   lastName: '',
-  email: '',
   aboutMe: '',
   resumes: null,
   yourContact: '',
@@ -41,5 +40,6 @@ export const defaultAccount: Account = {
   educations: null,
   imageId: '',
   compressedImageId: '',
-  user: null
+  user: null,
+  image:'',
 };

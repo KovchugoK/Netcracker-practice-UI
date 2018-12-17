@@ -1,5 +1,4 @@
 import {Account} from '../../model/Account';
-
 export const SELECT_ACCOUNT = '[Account State] Select account';
 export const SELECT_ACCOUNT_SUCCESS = '[Account State] Select account success';
 

@@ -36,7 +36,10 @@ export class EpicService {
       this.resumeEpic.searchResumes$,
       this.resumeEpic.updateResume$,
       this.contactsEpic.fetchContacts$,
-      this.contactsEpic.deleteContact$
+      this.contactsEpic.deleteContact$,
+      this.accountEpic.updateAccount$,
+      this.accountEpic.selectAccount$,
+      this.accountEpic.deleteAccount$,
     );
   }
 }

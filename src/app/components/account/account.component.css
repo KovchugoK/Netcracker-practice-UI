@@ -1,11 +1,10 @@
-body{
+main{
   margin: 0 6% 0 6%;
   padding: 1% 2% 0 2%;
 }
 
 img {
-  height: 100px;
-  width: 100px;
+  height: 100%;
 }
 
 .skill-button{

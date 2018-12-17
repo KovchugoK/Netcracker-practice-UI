@@ -1,5 +1,6 @@
 import {Reducer, combineReducers} from 'redux';
 import {startupsReducer} from './startups.reducer';
+import {accountPageReducer} from './account-page.reducer';
 import {startupPageReducer} from './startup-page.reducer';
 import {routerReducer} from '@angular-redux/router';
 import {dialogStateReducer} from './dialogs.reducer';
@@ -23,5 +24,6 @@ export const reducers: Reducer = combineReducers({
   startupSearchToolbarState: startupSearchToolbarReducer,
   userSideNavState: userSideNavReducer,
   contactsState: contactsReducer,
-  specialistsSearchState: specialistsSearchToolbarReducer
+  specialistsSearchState: specialistsSearchToolbarReducer,
+  accountPageState: accountPageReducer,
 });

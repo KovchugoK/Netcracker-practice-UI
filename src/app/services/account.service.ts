@@ -18,11 +18,21 @@ export class AccountService {
     return this.http.get<Account>(`${this.accountUrl+id}`);
   }
 
-  updateAccount(detailAccountDTO: DetailAccountDTO): void {
+  updateAccount(detailAccountDTO: any): Observable<any> {
+     console.log(detailAccountDTO);
     let options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
-    this.http.put(this.accountUrl+'update/'+detailAccountDTO.id, detailAccountDTO, options).subscribe(
+    return this.http.put<any>(this.accountUrl+'update/'+detailAccountDTO.id, detailAccountDTO, options);
+   }
+
+  createAccount(detailAccountDTO: DetailAccountDTO): void {
+    let options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+    this.http.post(this.accountUrl+'create/', detailAccountDTO, options).subscribe(
       res=> console.log(res)
     );
-   }
+  }
+
+  deleteAccount(id:string):  Observable<any> {
+    return this.http.delete(this.accountUrl+'delete/'+id);
+  }
 
 }

@@ -1,9 +1,16 @@
- <form novalidate [formGroup]="accountForm" (ngSubmit)="onSubmit(accountForm.getRawValue())" class="form-group" >
+<main>
+<div class="spinner">
+  <mat-spinner *ngIf="isSelected | async; else aForm" mode="indeterminate" color="primary">
+  </mat-spinner>
+</div>
+
+<ng-template #aForm>
+ <form novalidate [formGroup]="accountForm" class="form-group" >
     <div class="form-group">
       <app-image-upload (valueChange)='getImageAsString($event)'></app-image-upload>
       <legend>Name</legend>
       <mat-form-field appearance="legacy">
-      <input matInput type="text" formControlName="firstName" placeholder="First name" [value]="account.firstName">
+      <input matInput type="text" formControlName="firstName" placeholder="First name">
         <mat-error *ngIf="accountForm.get('firstName').hasError('required') && accountForm.get('firstName').touched">This field is required</mat-error>
         <mat-error *ngIf="accountForm.get('firstName').hasError('maxlength')">First name must be less than 35 characters</mat-error>
         <mat-error *ngIf="accountForm.get('firstName').hasError('pattern')">Invalid symbol</mat-error>
@@ -74,7 +81,9 @@
    </div>
    <mat-divider></mat-divider>
    <div class="button-edit">
-   <button mat-raised-button color="primary" type="submit" [disabled]="accountForm.invalid">Save</button>
-   <button mat-raised-button color="primary" >Cancel</button>
+   <button mat-raised-button color="primary" type="submit" [disabled]="accountForm.invalid" (click)="updateAccount(accountForm)">Save</button>
+   <button mat-raised-button color="primary" routerLink="/account/{{accountId}}">Cancel</button>
    </div>
   </form>
+</ng-template>
+</main>

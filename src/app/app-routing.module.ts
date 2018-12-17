@@ -22,7 +22,7 @@ const routes: Routes = [
   {path: 'main-page', component: MainPageComponent},
   {path: 'startup-list', component: StartupListComponent},
   {path: 'investor-list', component: InvestorListComponent},
-  {path: 'specialist-list/:id', component: AccountComponent},
+  {path: 'specialist-list/:id', component: AccountComponent, canActivate: [AuthGuard]},
   {path: 'specialist-list', component: SpecialistListComponent},
   {path: 'startup/:id', component: StartupComponent},
   {path: 'startup-edit/:id', component: StartupEditComponent, canActivate: [AuthGuard]},
@@ -34,6 +34,7 @@ const routes: Routes = [
   {path: 'resume-edit', component: ResumeEditComponent},
   {path: 'contacts/:id', component: ContactsComponent},
   {path: 'my-startups', component: MyStartupsComponent},
+  {path: 'account/:id', component: AccountComponent, canActivate: [AuthGuard]},
   {path: 'account-edit/:id', component: AccountEditComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: 'main-page'}
 ];

@@ -46,8 +46,12 @@ import { AccountComponent } from './components/account/account.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountEditComponent } from './components/account-edit/account-edit.component';
 import {ImageUploadComponent} from './components/image-upload/image-upload.component';
-import {NgxPermissionsModule, NgxPermissionsService} from 'ngx-permissions';
+import {NgxPermissionsModule} from 'ngx-permissions';
 import {AuthenticationService} from './services/authentication.service';
+import {SkillPipe} from "./components/account/pipes/skill-pipe";
+import {ProjectPipe} from "./components/account/pipes/project-pipe";
+import {AgePipe} from "./components/account/pipes/age-pipe";
+
 
 @NgModule({
   declarations: [
@@ -72,7 +76,10 @@ import {AuthenticationService} from './services/authentication.service';
     AccountComponent,
     AccountEditComponent,
     ResumeListComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+    SkillPipe,
+    ProjectPipe,
+    AgePipe
   ],
   imports: [
     BrowserModule,
@@ -106,7 +113,7 @@ import {AuthenticationService} from './services/authentication.service';
     MatNativeDateModule,
     MatInputModule,
     FlexLayoutModule,
-    NgxPermissionsModule.forRoot(),
+    NgxPermissionsModule.forRoot()
   ],
   entryComponents: [
     ResumeDetailDialogComponent
