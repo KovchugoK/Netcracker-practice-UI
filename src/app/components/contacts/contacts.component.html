@@ -1,20 +1,26 @@
 <main class="contacts-list">
-  <div *ngFor="let contact of contacts | async">
-    <mat-card class="example-card">
-      <mat-card-header>
-        <img mat-card-avatar class="full-size" src="/src/assets/images/Person.jpg">
-        <mat-card-title>
-          <a routerLink="/specialist-list/{{contact.id}}">
-            {{contact.firstName + " " +contact.lastName}}
-          </a>
-        </mat-card-title>
-        <mat-card-subtitle>
-          <a>
-            Write message
-          </a>
-        </mat-card-subtitle>
-        <button mat-raised-button class="delete-button" (click)="deleteContact(contact.id)">Delete</button>
-      </mat-card-header>
-    </mat-card>
+  <div class="spinner">
+    <mat-spinner *ngIf="isLoading | async;else contactsList" mode="indeterminate" color="primary">
+    </mat-spinner>
   </div>
+  <ng-template #contactsList>
+    <div *ngFor="let contact of contacts | async">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <img mat-card-avatar class="full-size" src="/src/assets/images/Person.jpg">
+          <mat-card-title>
+            <a routerLink="/specialist-list/{{contact.id}}">
+              {{contact.firstName + " " +contact.lastName}}
+            </a>
+          </mat-card-title>
+          <mat-card-subtitle>
+            <a routerLink="/messages/{{contact.id}}">
+              Write message
+            </a>
+          </mat-card-subtitle>
+          <button mat-raised-button class="delete-button" (click)="deleteContact(contact.id)">Delete</button>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </ng-template>
 </main>
