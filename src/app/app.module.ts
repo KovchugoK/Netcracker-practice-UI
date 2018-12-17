@@ -70,7 +70,7 @@ import {ImageUploadComponent} from "./components/image-upload/image-upload.compo
     AccountComponent,
     AccountEditComponent,
     ResumeListComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
   ],
   imports: [
     BrowserModule,

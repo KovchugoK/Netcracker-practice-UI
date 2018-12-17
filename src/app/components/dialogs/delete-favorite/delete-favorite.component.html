@@ -1,0 +1,10 @@
+<div class="delete-favorite-dialog">
+  <h2 mat-dialog-title>Delete favorite</h2>
+  Are you sure?
+  <div class="delete-favorite-dialog-controls">
+    <button mat-button color="primary" [mat-dialog-close]="" cdkFocusInitial>
+      Yes
+    </button>
+    <button mat-button color="warn" (click)=onCancelClick()> No </button>
+  </div>
+</div>

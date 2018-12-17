@@ -6,9 +6,9 @@ export const selectResumes = (state: AppState) => Array.from(state.resumeState.r
 
 export const isLoading = (state: AppState) => state.resumeState.isLoading;
 
-export const selectRsesumeById = (state: AppState, resumeId: string) => {
+export const selectResumeById = (state: AppState, resumeId: string) => {
   const resume = state.resumeState.resumes.get(resumeId);
-  return resume ? resume : defaultResume;
+  return resume;
 };
 
 //Resume-page state

@@ -5,6 +5,8 @@ import {CurrentUserEpic} from './current-user.epic';
 import {ResumeEpic} from './resume.epic';
 import {ContactsEpic} from './contacts.epic';
 import {AccountEpic} from './account.epic';
+import {Favorite} from "../../model/Favorite";
+import {FavoriteEpic} from "./favorite.epic";
 
 @Injectable()
 export class EpicService {
@@ -13,7 +15,8 @@ export class EpicService {
               private resumeEpic: ResumeEpic,
               private currentUserEpic: CurrentUserEpic,
               private contactsEpic: ContactsEpic,
-              private  accountEpic: AccountEpic) {
+              private  accountEpic: AccountEpic,
+              private favoriteEpic: FavoriteEpic) {
   }
 
   getEpics() {
@@ -36,7 +39,9 @@ export class EpicService {
       this.resumeEpic.searchResumes$,
       this.resumeEpic.updateResume$,
       this.contactsEpic.fetchContacts$,
-      this.contactsEpic.deleteContact$
+      this.contactsEpic.deleteContact$,
+      this.favoriteEpic.deleteFavorite$,
+      this.favoriteEpic.fetchFavorites$
     );
   }
 }

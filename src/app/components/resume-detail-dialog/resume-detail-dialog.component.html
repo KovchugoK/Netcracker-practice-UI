@@ -18,7 +18,7 @@
           <br><h5>Skills</h5>
           <mat-chip-list>
             <div *ngFor="let resumeSkill of (resume | async)?.resumeSkills">
-              <mat-chip>{{resumeSkill.skill.skillName}}</mat-chip>
+              <mat-chip>{{resumeSkill.skillName}}</mat-chip>
             </div>
           </mat-chip-list>
         </div>

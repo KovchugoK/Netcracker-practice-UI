@@ -31,5 +31,7 @@ export class InvestorListComponent implements OnInit {
       .subscribe(() => this.ngRedux.dispatch(fetchResumesInvestorstsAction()));
   }
 
+
+
 }
 
