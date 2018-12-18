@@ -18,7 +18,8 @@ export class DeleteResumeComponent implements OnInit {
 
   constructor(private ngRedux: NgRedux<AppState>,
               public dialogRef: MatDialogRef<DeleteResumeComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: ResumeDialogData) { }
+              @Inject(MAT_DIALOG_DATA) public data: ResumeDialogData) {
+  }
 
   ngOnInit() {
     this.resumeId = this.data.resumeId;

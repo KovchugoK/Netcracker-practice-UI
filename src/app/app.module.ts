@@ -74,7 +74,6 @@ import {ConversationComponent} from './components/conversation/conversation.comp
     AccountComponent,
     AccountEditComponent,
     ResumeListComponent,
-    ImageUploadComponent,
     StartupSearchToolbarComponent,
     AccountComponent,
     AccountEditComponent,

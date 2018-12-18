@@ -33,17 +33,6 @@ export class ResumeService {
       .pipe(catchError((error: any) => throwError(error.error)));
   }
 
-  deleteResumeSkill(skill: Skill) {
-    let params = new HttpParams();
-    for (const key in skill) {
-      const val = skill[key];
-      if (val) {
-        params = params.set(key, val);
-      }
-    }
-    return this.http.delete('/api/resume/' + skill.id + '/delete/skill', {params: params});
-  }
-
   updateResume(resume: Resume): Observable<any> {
     return this.http.put<Resume>('/api/resume/update/' + resume.id, resume)
       .pipe(catchError((error: any) => throwError(error.error)));

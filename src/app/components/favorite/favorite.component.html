@@ -1,18 +1,31 @@
 <body>
 <h1> Favorite list </h1>
+<main>
+  <div class="spinner">
+    <mat-spinner *ngIf="isLoading | async ;else  resumeTable" mode="indeterminate" color="primary">
+    </mat-spinner>
+  </div>
+  <ng-template #resumeTable>
+    <table class="table table-striped table-bordered">
+      <tr>
+        <td><b> Id </b></td>
+        <td><b> First Name </b></td>
+        <td><b> Second Name </b></td>
+        <td></td>
+      </tr>
 
-<table class="table table-striped table-bordered">
-  <tr>
-    <td><b> Id </b></td>
-    <td><b> First Name </b></td>
-    <td><b> Second Name </b></td>
-  </tr>
-
-  <tr *ngFor="let favorite of favoriteList | async">
-    <td>{{favorite.id}}</td>
-    <td>{{favorite.account.firstName}}</td>
-    <td>{{favorite.account.lastName}}</td>
-  </tr>
-</table>
+      <tr *ngFor="let favorite of favoriteList|async">
+        <td>{{favorite.id}}</td>
+        <td>{{favorite?.account.firstName}}</td>
+        <td>{{favorite?.account.lastName}}</td>
+        <td>
+          <button (click)="deleteFavorite(favorite.id)">
+            delete
+          </button>
+        </td>
+      </tr>
+    </table>
+  </ng-template>
+</main>
 
 </body>
