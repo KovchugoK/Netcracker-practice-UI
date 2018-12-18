@@ -31,7 +31,7 @@ export class MyStartupsComponent implements OnInit {
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.dispatch(searchStartupsAction(
         {
-          ...this.ngRedux.getState().startupSearchToolbarState.startupSearchParams,
+          ...this.ngRedux.getState().startupSearchToolbarState.myStartupSearchParams,
           accountID: this.ngRedux.getState().currentUserState.currentUser.account.id,
           creatorNameContains: this.ngRedux.getState().currentUserState.currentUser.login
         })));
