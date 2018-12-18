@@ -25,14 +25,14 @@ import {
 import {SELECT_RESUME, selectResumeSuccess} from "../actions/resume-state.actions";
 import {defaultResume} from "../../model/Resume";
 import {SpecialistService} from "../../services/specialist.service";
+import {selectResumeById} from "../selectors/resume.selector";
 
 
 @Injectable()
 export class ResumeEpic {
   constructor(private resumeService: ResumeService,
               private ngRedux: NgRedux<AppState>,
-              private specialistService: SpecialistService,
-             ) {
+              private specialistService: SpecialistService,) {
   }
 
   fetchResumes$ = (action$: ActionsObservable<AnyAction>) => {
@@ -84,18 +84,21 @@ export class ResumeEpic {
   selectResume$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(SELECT_RESUME).pipe(
       switchMap(({payload}) => {
-        return payload.resumeId !== null ?
-          this.resumeService
-            .getResumeById(payload.resumeId)
-            .pipe(
-              map(resume => selectResumeSuccess(resume)),
-              catchError(error => of(fetchResumesFailedAction(error.message)))
-            )
-          : of(defaultResume)
-            .pipe(
-              map(resume => selectResumeSuccess(resume)),
-              catchError(error => of(fetchResumesFailedAction(error.message)))
-            );
+        if (payload.resumeId !== null) {
+          const resume = selectResumeById(this.ngRedux.getState(), payload.resumeId);
+          if (resume) {
+            return of(selectResumeSuccess(resume));
+          } else {
+            return this.resumeService
+              .getResumeById(payload.resumeId)
+              .pipe(
+                map(resume => selectResumeSuccess(resume)),
+                catchError(error => of(fetchResumesFailedAction(error.message)))
+              )
+          }} else {
+             return of(selectResumeSuccess(defaultResume));
+        }
+
       })
     );
   };
@@ -123,8 +126,7 @@ export class ResumeEpic {
   fetchResumesInvestors$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(FETCH_RESUMES_INVESTORS).pipe(
       switchMap(({}) => {
-        return this.specialistService.
-        getInvestorList()
+        return this.specialistService.getInvestorList()
           .pipe(
             map(resumes => fetchResumesInvestorsSuccessAction(TransformService.transformToMap(resumes))),
             catchError(error => of(fetchResumesInvestorsFaildAction(error.message)))
@@ -139,7 +141,7 @@ export class ResumeEpic {
         return this.specialistService
           .getSpecialistList(payload.searchObj)
           .pipe(
-            map(resumes => searchResumesSuccessAction(TransformService.transformToMap(resumes))  ),
+            map(resumes => searchResumesSuccessAction(TransformService.transformToMap(resumes))),
             catchError(error => of(fetchResumesFailedAction(error.message)))
           );
       })
