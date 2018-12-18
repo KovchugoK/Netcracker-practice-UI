@@ -3,9 +3,13 @@ import {Observable} from 'rxjs';
 import {Startup} from '../../model/Startup';
 import {NgRedux, select} from '@angular-redux/store';
 import {AppState} from '../../store';
-import {searchStartupsAction} from '../../store/actions/startups.actions';
+import {searchStartupsAction, updateStartupAction} from '../../store/actions/startups.actions';
 import {selectStartups, isLoading} from '../../store/selectors/startups.selector';
 import {skipWhile, take} from 'rxjs/internal/operators';
+import {AdminService} from '../../services/admin.service';
+import {loginUserAction} from '../../store/actions/current-user.actions';
+import {Credential} from '../../model/Credential';
+
 
 @Component({
   selector: 'app-startup-list',
@@ -13,9 +17,10 @@ import {skipWhile, take} from 'rxjs/internal/operators';
   styleUrls: ['./startup-list.component.css']
 })
 export class StartupListComponent implements OnInit {
-
-  constructor(private ngRedux: NgRedux<AppState>) {
-  }
+  id: string;
+  constructor(private ngRedux: NgRedux<AppState>,
+             private adminService: AdminService,
+              ) {}
 
   @select(isLoading)
   isLoading: Observable<boolean>;
@@ -30,6 +35,16 @@ export class StartupListComponent implements OnInit {
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.select(selectStartups));
 
+  }
+  blockStartup(startup: Startup) {
+    this.adminService.blockStartup(startup).subscribe();
+    startup.nonBlock = false;
+    console.log('Стартап заблокирован');
+  }
+  unBlockStartup(startup: Startup) {
+    this.adminService.unBlockStartup(startup).subscribe();
+    startup.nonBlock = true;
+    console.log('Стартап разблокирован');
   }
 
 

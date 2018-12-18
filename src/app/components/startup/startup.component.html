@@ -4,11 +4,14 @@
   </mat-spinner>
 </div>
   <ng-template #startupView>
-    <div class="template">
+    <div class="template" *ngIf="currentStartup.nonBlock; else blockStartupView">
     <div class="imageBlock">
       <mat-card>
         <img class="imgParametrs" src="/src/assets/images/Logo.png" alt="startupLogo">
       </mat-card>
+      <div *ngIf="currentStartup.nonBlock">
+        <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="blockStartup(currentStartup)"> Block Startup  </button></ng-template>
+      </div>
     </div>
 
 
@@ -77,3 +80,8 @@
 
 </main>
 
+<ng-template #blockStartupView>
+<div *ngIf="!currentStartup.nonBlock"> Данная страница заблокирована
+  <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="unBlockStartup(currentStartup)"> Unblock Startup  </button></ng-template>
+</div>
+</ng-template>

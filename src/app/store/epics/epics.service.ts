@@ -41,7 +41,8 @@ export class EpicService {
       this.contactsEpic.fetchContacts$,
       this.contactsEpic.deleteContact$,
       this.favoriteEpic.deleteFavorite$,
-      this.favoriteEpic.fetchFavorites$
+      this.favoriteEpic.fetchFavorites$,
+      this.contactsEpic.addContact$
     );
   }
 }
