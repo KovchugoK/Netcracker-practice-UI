@@ -14,7 +14,7 @@ import {
 } from "../../store/actions/resume.actions";
 import {FormGroup} from "@angular/forms";
 import {Favorite} from "../../model/Favorite";
-} from '../../store/actions/resume.actions';
+
 
 @Component({
   selector: 'app-specialist-list',

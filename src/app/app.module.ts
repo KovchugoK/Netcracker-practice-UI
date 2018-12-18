@@ -48,8 +48,7 @@ import { AccountEditComponent } from './components/account-edit/account-edit.com
 import {ImageUploadComponent} from './components/image-upload/image-upload.component';
 import {NgxPermissionsModule, NgxPermissionsService} from 'ngx-permissions';
 import {AuthenticationService} from './services/authentication.service';
-import {NgxPermissionsModule} from 'ngx-permissions';
-import {ConversationComponent} from './components/conversation/conversation.component';
+//import {ConversationComponent} from './components/conversation/conversation.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +78,7 @@ import {ConversationComponent} from './components/conversation/conversation.comp
     AccountEditComponent,
     ResumeListComponent,
     ImageUploadComponent,
-    ConversationComponent,
+  //  ConversationComponent,
     StartupSearchToolbarComponent
   ],
   imports: [
