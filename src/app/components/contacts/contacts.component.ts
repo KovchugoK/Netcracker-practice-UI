@@ -30,12 +30,12 @@ export class ContactsComponent implements OnInit {
       .subscribe(contacts => this.contacts = contacts);*/
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() =>
-        this.ngRedux.dispatch(this.ngRedux.dispatch(fetchContactsAction(this.route.snapshot.paramMap.get('id')))));
+        this.ngRedux.dispatch(fetchContactsAction(this.route.snapshot.paramMap.get('id'))));
 
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.select(selectContacts));
-    //this.ngRedux.dispatch(fetchContactsAction(this.route.snapshot.paramMap.get('id')));
-    //this.ngRedux.select(selectContacts);
+    // this.ngRedux.dispatch(fetchContactsAction(this.route.snapshot.paramMap.get('id')));
+    // this.ngRedux.select(selectContacts);
   }
 
   deleteContact(otherId: string): void {
