@@ -8,6 +8,7 @@ export interface Startup {
   aboutProject: string;
   businessPlan: string;
   sumOfInvestment: number;
+  nonBlock: boolean;
   account: Account;
   startupResumes: StartupResume[];
   dateOfCreation: Date;
@@ -20,6 +21,7 @@ export const defaultStartup: Startup = {
   idea: '',
   aboutProject: '',
   businessPlan: '',
+  nonBlock: true,
   sumOfInvestment: 0,
   account: null,
   startupResumes: null,
