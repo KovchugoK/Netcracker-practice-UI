@@ -4,31 +4,39 @@ import {
   FETCH_CONVERSATIONS,
   FETCH_CONVERSATIONS_FAILED,
   FETCH_CONVERSATIONS_SUCCESS,
-  GET_CONVERSATION, GET_CONVERSATION_FAILED, GET_CONVERSATION_SUCCESS
+  GET_CONVERSATION,
+  GET_CONVERSATION_FAILED,
+  GET_CONVERSATION_SUCCESS
 } from '../actions/conversation.action';
-import {s} from '@angular/core/src/render3';
 
 export interface ConversationsState {
   readonly conversations: Map<string, Conversation>;
+  readonly currentConversation: Conversation;
+  readonly isLoading: boolean;
 }
 
 const INITIAL_STATE = {
-  conversations: new Map<string, Conversation>()
+  conversations: new Map<string, Conversation>(),
+  currentConversation: null,
+  isLoading: false
 };
 
 export const conversationsReducer:
   Reducer<ConversationsState> = (state: ConversationsState = INITIAL_STATE, action): ConversationsState => {
   switch (action.type) {
     case FETCH_CONVERSATIONS:
-      return {...state, ...action.payload};
+      return {...state, isLoading: true};
     case FETCH_CONVERSATIONS_SUCCESS:
-      return {...state, ...action.payload};
+      return {...state, ...action.payload, isLoading: false};
     case FETCH_CONVERSATIONS_FAILED:
-      return {...state, ...action.payload};
+      return {...state, ...action.payload, isLoading: false};
     case GET_CONVERSATION:
-      return {...state, ...action.payload};
-    case GET_CONVERSATION_SUCCESS:
-      return {...state, ...action.payload};
+      return {...state, isLoading: true};
+    case GET_CONVERSATION_SUCCESS: {
+      const conversations = new Map(state.conversations);
+      conversations.set(action.payload.id, action.payload);
+      return {...state, ...action.payload, isLoading: false};
+    }
     case GET_CONVERSATION_FAILED:
       return {...state, ...action.payload};
     default:

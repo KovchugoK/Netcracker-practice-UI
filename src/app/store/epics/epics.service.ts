@@ -5,6 +5,7 @@ import {CurrentUserEpic} from './current-user.epic';
 import {ResumeEpic} from './resume.epic';
 import {ContactsEpic} from './contacts.epic';
 import {AccountEpic} from './account.epic';
+import {ConversationsEpic} from './conversations.epic';
 
 @Injectable()
 export class EpicService {

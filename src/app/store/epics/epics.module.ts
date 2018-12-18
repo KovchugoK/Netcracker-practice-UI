@@ -4,6 +4,7 @@ import {AccountEpic} from './account.epic';
 import {ResumeEpic} from './resume.epic';
 import {CurrentUserEpic} from './current-user.epic';
 import {ContactsEpic} from './contacts.epic';
+import {ConversationsEpic} from './conversations.epic';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {ContactsEpic} from './contacts.epic';
     CurrentUserEpic,
     ContactsEpic,
     StartupEpic,
-    AccountEpic
+    AccountEpic,
+    ConversationsEpic
   ],
 })
 export class EpicsModule {

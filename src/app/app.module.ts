@@ -45,7 +45,6 @@ import {GlobalUserStorageService} from './services/global-storage.service';
 import { AccountComponent } from './components/account/account.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountEditComponent } from './components/account-edit/account-edit.component';
-import { MessagesComponent } from './components/messages/messages.component';
 import {ConversationComponent} from './components/conversation/conversation.component';
 import {ImageUploadComponent} from './components/image-upload/image-upload.component';
 import {NgxPermissionsModule, NgxPermissionsService} from 'ngx-permissions';
@@ -75,8 +74,6 @@ import {AuthenticationService} from './services/authentication.service';
     AccountEditComponent,
     ResumeListComponent,
     ImageUploadComponent,
-    MessagesComponent,
-    ConversationComponent,
     ImageUploadComponent,
     StartupSearchToolbarComponent,
     AccountComponent,

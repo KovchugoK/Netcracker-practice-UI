@@ -2,8 +2,8 @@ import {Message} from './Message';
 
 export class Conversation {
   id: string;
-  yourAccount: Account;
-  otherAccount: Account;
+  firstAccount: Account;
+  secondAccount: Account;
   name: string;
-  lastMessage: Message;
+  conversationMessages: Message[];
 }
