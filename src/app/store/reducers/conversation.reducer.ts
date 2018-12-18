@@ -8,6 +8,7 @@ import {
   GET_CONVERSATION_FAILED,
   GET_CONVERSATION_SUCCESS
 } from '../actions/conversation.action';
+import {UPDATE_MESSAGES} from '../actions/message.action';
 
 export interface ConversationsState {
   readonly conversations: Map<string, Conversation>;
@@ -39,6 +40,17 @@ export const conversationsReducer:
     }
     case GET_CONVERSATION_FAILED:
       return {...state, ...action.payload};
+    case UPDATE_MESSAGES: {
+      const conversations = new Map(state.conversations);
+      const messages = conversations.get(action.payload.message.conversationId).conversationMessages;
+      messages.unshift(action.payload);
+
+      const curConversation = {...state.currentConversation};
+      if (state.currentConversation !== null && state.currentConversation.id === action.payload.message.conversationId) {
+        curConversation.conversationMessages.unshift(action.payload);
+      }
+      return {...state, conversations: conversations, currentConversation: curConversation};
+    }
     default:
       return state;
   }

@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {Message} from '../../model/Message';
 import {NgRedux, select} from '@angular-redux/store';
 import {Observable} from 'rxjs';
 import {skipWhile, take} from 'rxjs/operators';
@@ -21,69 +20,6 @@ export class ConversationComponent implements OnInit {
   @select(currentConversation)
   currentConversation: Observable<Conversation>;
 
-  messages: Message[] = [
-    {
-      conversationId: '1',
-      senderId: '2',
-      receiveId: '3',
-      creationDate: new Date('2016-06-01 23:00:00'),
-      msg: 'First'
-    },
-    {
-      conversationId: '1',
-      senderId: '2',
-      receiveId: '3',
-      creationDate: new Date('2016-06-01 23:00:00'),
-      msg: 'Other'
-    },
-    {
-      conversationId: '1',
-      senderId: '2',
-      receiveId: '3',
-      creationDate: new Date('2016-06-01 23:00:00'),
-      msg: 'Other'
-    },
-    {
-      conversationId: '1',
-      senderId: '2',
-      receiveId: '3',
-      creationDate: new Date('2016-06-01 23:00:00'),
-      msg: 'Other'
-    }, {
-      conversationId: '1',
-      senderId: '2',
-      receiveId: '3',
-      creationDate: new Date('2016-06-01 23:00:00'),
-      msg: 'Other'
-    }, {
-      conversationId: '1',
-      senderId: '2',
-      receiveId: '3',
-      creationDate: new Date('2016-06-01 23:00:00'),
-      msg: 'Other'
-    }, {
-      conversationId: '1',
-      senderId: '2',
-      receiveId: '3',
-      creationDate: new Date('2016-06-01 23:00:00'),
-      msg: 'Other'
-    },
-    {
-      conversationId: '1',
-      senderId: '2',
-      receiveId: '3',
-      creationDate: new Date('2016-06-01 23:00:00'),
-      msg: 'Other'
-    },
-    {
-      conversationId: '1',
-      senderId: '2',
-      receiveId: '3',
-      creationDate: new Date('2016-06-01 23:00:00'),
-      msg: 'Last'
-    }
-  ];
-
   constructor(private route: ActivatedRoute, private ngRedux: NgRedux<AppState>) {
   }
 
@@ -96,12 +32,5 @@ export class ConversationComponent implements OnInit {
           )
         )
       );
-
-    this.isLoading.pipe(skipWhile(result => result === true), take(1))
-      .subscribe(() => this.ngRedux.select(currentConversation));
-
-    /*this.currentConversation.pipe(filter(el => el != null), take(1)).subscribe((conver) => {
-      // Message Logic
-    });*/
   }
 }

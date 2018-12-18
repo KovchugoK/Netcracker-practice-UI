@@ -7,7 +7,7 @@
     <div style="width: 90%" *ngIf="(conversations | async)?.length !== 0; else empty">
       <div *ngFor="let conversation of conversations | async">
         <div *ngIf="conversation.conversationMessages?.length!==0">
-          <mat-card class="example-card">
+          <mat-card class="example-card" routerLink="/conversations/{{conversation.secondAccount.id}}">
             <mat-card-header>
               <img mat-card-avatar class="full-size" src="/src/assets/images/Person.jpg">
               <mat-card-title>

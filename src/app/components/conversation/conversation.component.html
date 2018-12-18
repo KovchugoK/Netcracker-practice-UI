@@ -5,9 +5,17 @@
   </div>
   <ng-template #conversationFragment>
     <mat-list>
-      <mat-list-item class="mat-list-item-word-wrap" *ngFor="let message of messages">
+      <mat-list-item class="mat-list-item-word-wrap"
+                     *ngFor="let message of (currentConversation | async)?.conversationMessages">
         <img matListAvatar class="full-size" src="/src/assets/images/Person.jpg">
-        <h4 mat-line>{{message.senderId}} {{message.creationDate | date : 'MMM d, yyyy H:mm:SS'}}</h4>
+        <h4 *ngIf="message.senderId===(currentConversation | async)?.firstAccount.id" mat-line>
+          {{(currentConversation | async)?.firstAccount.firstName}}
+          {{(currentConversation | async)?.firstAccount.lastName}}
+          {{message.creationDate | date : 'MMM d, yyyy H:mm:SS'}}</h4>
+        <h4 *ngIf="message.senderId!==(currentConversation | async)?.firstAccount.id" mat-line>
+          {{(currentConversation | async)?.secondAccount.firstName}}
+          {{(currentConversation | async)?.secondAccount.lastName}}
+          {{message.creationDate | date : 'MMM d, yyyy H:mm:SS'}}</h4>
         <h3 mat-line>
           {{message.msg}}
         </h3>
@@ -20,3 +28,15 @@
     </mat-form-field>
   </ng-template>
 </main>
+<!--<ng-container *ngTemplateOutlet="otherSender;
+         context: message.senderId === (currentConversation | async)?.firstAccount.id ?
+         {'account': (currentConversation | async)?.firstAccount, message: message} :
+         {'account': (currentConversation | async)?.secondAccount, message: message}">
+        </ng-container>-->
+<!--
+<ng-template #otherSender let-account='account' let-message='message'>
+  <h4 mat-line>
+    {{account.firstName}} {{account.lastName}} {{message.creationDate | date : 'MMM d, yyyy H:mm:SS'}}
+  </h4>
+</ng-template>
+-->

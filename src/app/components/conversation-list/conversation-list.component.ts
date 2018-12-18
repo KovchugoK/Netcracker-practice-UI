@@ -3,7 +3,7 @@ import {NgRedux, select} from '@angular-redux/store';
 import {conversationsList, isLoading} from '../../store/selectors/conversation.selector';
 import {Observable} from 'rxjs';
 import {Conversation} from '../../model/Conversation';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AppState} from '../../store';
 import {skipWhile, take} from 'rxjs/operators';
 import {fetchConversationsAction} from '../../store/actions/conversation.action';
@@ -26,7 +26,7 @@ export class ConversationListComponent implements OnInit {
   @select(selectCurrentUser)
   currentUser: Observable<User>;
 
-  constructor(private route: ActivatedRoute, private ngRedux: NgRedux<AppState>) {
+  constructor(private route: ActivatedRoute, private ngRedux: NgRedux<AppState>, private router: Router) {
   }
 
   ngOnInit() {
@@ -37,5 +37,9 @@ export class ConversationListComponent implements OnInit {
 
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.select(conversationsList));
+  }
+
+  selectConversation(otherUserId: string) {
+    this.router.navigate(['/conversations', otherUserId]);
   }
 }
