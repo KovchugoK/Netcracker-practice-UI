@@ -34,12 +34,12 @@ export const conversationsReducer:
       return {...state, isLoading: true};
     case GET_CONVERSATION_SUCCESS: {
       const conversations = new Map(state.conversations);
-      conversations.set(action.payload.id, action.payload);
-      return {...state, ...action.payload, isLoading: false};
+      conversations.set(action.payload.conversation.id, action.payload);
+      return {...state, conversations: conversations, currentConversation: action.payload.conversation, isLoading: false};
     }
     case GET_CONVERSATION_FAILED:
       return {...state, ...action.payload};
     default:
-      return {...state, ...action.payload};
+      return state;
   }
 };

@@ -1,6 +1,6 @@
 import {AppState} from '../index';
 
-export const selectConversations = (state: AppState) => Array.from(state.conversationsState.conversations.values());
+export const conversationsList = (state: AppState) => Array.from(state.conversationsState.conversations.values());
 
 export const isLoading = (state: AppState) => state.conversationsState.isLoading;
 
