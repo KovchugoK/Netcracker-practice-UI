@@ -4,7 +4,6 @@ import {NgRedux, select} from '@angular-redux/store';
 import {Observable} from 'rxjs';
 import {skipWhile, take} from 'rxjs/operators';
 import {Conversation} from '../../model/Conversation';
-import {MessageService} from '../../services/message.service';
 import {ActivatedRoute} from '@angular/router';
 import {AppState} from '../../store';
 import {currentConversation, isLoading} from '../../store/selectors/conversation.selector';
@@ -85,7 +84,7 @@ export class ConversationComponent implements OnInit {
     }
   ];
 
-  constructor(private messageService: MessageService, private route: ActivatedRoute, private ngRedux: NgRedux<AppState>) {
+  constructor(private route: ActivatedRoute, private ngRedux: NgRedux<AppState>) {
   }
 
   ngOnInit() {

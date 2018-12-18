@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {ConversationService} from '../../services/conversation.service';
-import {MessageService} from '../../services/message.service';
 import {ActionsObservable} from 'redux-observable';
 import {AnyAction} from 'redux';
 import {
@@ -15,7 +14,7 @@ import {of} from 'rxjs';
 
 @Injectable()
 export class ConversationsEpic {
-  constructor(private conversationsService: ConversationService, private messagesService: MessageService) {
+  constructor(private conversationsService: ConversationService) {
   }
 
   fetchConversations$ = (action$: ActionsObservable<AnyAction>) => {
