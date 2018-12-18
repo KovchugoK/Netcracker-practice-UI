@@ -17,7 +17,6 @@ export interface Startup {
   compressedImageId: String;
   image: String;
   startupInvestments: Investment[];
-  nonBlock: boolean;
 }
 
 export const defaultStartup: Startup = {
@@ -34,6 +33,5 @@ export const defaultStartup: Startup = {
   imageId: '',
   compressedImageId: '',
   image: '',
-  startupInvestments: null,
-  nonBlock: true
+  startupInvestments: null
 };

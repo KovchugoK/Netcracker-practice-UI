@@ -49,7 +49,9 @@ export class StartupEditComponent implements OnInit {
       .subscribe(() => this.ngRedux.select(state => selectStartupForEdit(state))
         .subscribe(startup => {
           {
-            this.currentStartup = startup;
+            if (startup) {
+              this.currentStartup = startup;
+            }
             this.initializeForm(startup);
             if (this.id !== null) {
               this.checkPending(startup);
