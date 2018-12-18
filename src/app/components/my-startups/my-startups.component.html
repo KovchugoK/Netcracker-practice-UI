@@ -31,7 +31,7 @@
 
 <ng-template #startupCard let-startup="startup">
   <mat-card class="example-card">
-    <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+    <img mat-card-lg-image="" class="full-size" src="https://drive.google.com/thumbnail?id={{startup.compressedImageId}}" alt="startupLogo">
     <mat-card-content>
       <p align="center">
         <a routerLink="/startup/{{startup.id}}">

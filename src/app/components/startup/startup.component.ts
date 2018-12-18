@@ -12,6 +12,11 @@ import {AppState} from '../../store';
 import {selectStartup} from '../../store/actions/startup-state.actions';
 import {showDialogAction} from '../../store/actions/dialogs.actions';
 import {DeleteStartupComponent} from '../dialogs/delete-startup/delete-startup.component';
+import {selectCurrentUser} from '../../store/selectors/current-user.selector';
+import {User} from '../../model/User';
+import {MakeInvestmentsComponent} from '../dialogs/make-investments/make-investments.component';
+import {Investment} from '../../model/Investment';
+import {skipWhile, take} from 'rxjs/internal/operators';
 
 
 @Component({
@@ -29,16 +34,32 @@ export class StartupComponent implements OnInit {
   @select(selectStartupFromState)
   startup: Observable<Startup>;
 
+  @select(selectCurrentUser)
+  currentUser: Observable<User>;
+
+  investments: Investment[];
+  currentInvestments: number;
+
   constructor(private ngRedux: NgRedux<AppState>,
               private startupService: StartupService,
               private route: ActivatedRoute,
-              ) {
+  ) {
 
   }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.ngRedux.dispatch(selectStartup(this.id));
+
+    this.isSelected.pipe(skipWhile(result => result === true), take(1)).subscribe(() =>
+      this.ngRedux.select(selectStartupFromState).subscribe(startup => {
+          this.currentInvestments = startup.startupInvestments.map(value => value.sumOfInvestment).reduce((a, b) => a + b, 0);
+          return this.investments =
+            startup.startupInvestments.sort(
+              (value1, value2) => value2.sumOfInvestment - value1.sumOfInvestment);
+
+        }
+      ));
   }
 
   deleteStartup() {
@@ -46,19 +67,27 @@ export class StartupComponent implements OnInit {
       componentType: DeleteStartupComponent,
       width: '200px',
       data: {startupId: this.id}
-  }));
+    }));
   }
 
-  get currentUser(): boolean {
-    if (this.ngRedux.getState().currentUserState.currentUser) {
-      return true;
-    }
-    return false;
+  makeInvestments() {
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: MakeInvestmentsComponent,
+      width: '400px',
+      data: {startupId: this.id}
+    }));
   }
 
-  get currentUserAccountId(): string {
-    return this.ngRedux.getState().currentUserState.currentUser.account.id;
-  }
+  // get currentUser(): boolean {
+  //   if (this.ngRedux.getState().currentUserState.currentUser) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
+
+  // get currentUserAccountId(): string {
+  //   return this.ngRedux.getState().currentUserState.currentUser.account.id;
+  // }
 
 
 }

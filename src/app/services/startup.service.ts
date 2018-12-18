@@ -4,6 +4,8 @@ import {Observable, throwError} from 'rxjs';
 import {Startup} from '../model/Startup';
 import {catchError} from 'rxjs/internal/operators';
 import {StartupSearchParams} from '../store/reducers/startup-search-toolbar.reducer';
+import {Investment} from '../model/Investment';
+import {Account} from '../model/Account';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +52,12 @@ export class StartupService {
           accountID: startupSearchParams.accountID
         }
       })
+      .pipe(catchError((error: any) => throwError(error.error)));
+  }
+
+  makeInvestment(investor: Account, startup: Startup, sumOfInvestment: number): Observable<Investment> {
+    return this.http.post<Investment>('/api/startup/make-investment/', {investor: investor, startup: startup,
+    sumOfInvestment: sumOfInvestment})
       .pipe(catchError((error: any) => throwError(error.error)));
   }
 

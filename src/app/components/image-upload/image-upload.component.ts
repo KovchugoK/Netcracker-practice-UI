@@ -6,17 +6,18 @@ import {Component, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output}
   templateUrl: './image-upload.component.html',
   styleUrls: ['./image-upload.component.css'],
 })
-export class ImageUploadComponent implements OnInit{
+export class ImageUploadComponent implements OnInit {
 
   @Output() valueChange = new EventEmitter();
   base64textString: string;
   imageUrl: string;
   ishiddenImage: boolean;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
-    this.imageUrl = "/src/assets/images/default-image.png";
+    this.imageUrl = '/src/assets/images/default-image.png';
     this.ishiddenImage = false;
   }
 
@@ -30,29 +31,29 @@ export class ImageUploadComponent implements OnInit{
     }
   }
 
-  convertToBinaryString(file: File){
+  convertToBinaryString(file: File) {
     let readerForBinarySring = new FileReader();
-    readerForBinarySring.onload =this._handleReaderLoaded.bind(this);
+    readerForBinarySring.onload = this._handleReaderLoaded.bind(this);
     readerForBinarySring.readAsBinaryString(file);
   }
 
-  convertToDataURL(file: File){
-    this.ishiddenImage=true;
+  convertToDataURL(file: File) {
+    this.ishiddenImage = true;
     let readerForDataUrl = new FileReader();
     readerForDataUrl.readAsDataURL(file);
     readerForDataUrl.onload = (event) => {
       this.imageUrl = event.target.result;
       this.ishiddenImage = false;
-    }
+    };
   }
 
   upload() {
-    this.ishiddenImage=true;
+    this.ishiddenImage = true;
   }
 
   _handleReaderLoaded(readerEvt) {
     var binaryString = readerEvt.target.result;
-    this.base64textString= btoa(binaryString);
+    this.base64textString = btoa(binaryString);
     this.valueChange.emit(this.base64textString);
   }
 
