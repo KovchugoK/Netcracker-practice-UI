@@ -49,6 +49,7 @@ import {ConversationComponent} from './components/conversation/conversation.comp
 import {ImageUploadComponent} from './components/image-upload/image-upload.component';
 import {NgxPermissionsModule, NgxPermissionsService} from 'ngx-permissions';
 import {AuthenticationService} from './services/authentication.service';
+import { ConversationListComponent } from './components/conversation-list/conversation-list.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import {AuthenticationService} from './services/authentication.service';
     ResumeListComponent,
     ImageUploadComponent,
     ConversationComponent,
-    StartupSearchToolbarComponent
+    StartupSearchToolbarComponent,
+    ConversationListComponent
   ],
   imports: [
     BrowserModule,

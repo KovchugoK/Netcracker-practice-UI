@@ -8,7 +8,6 @@ import {Observable} from 'rxjs';
 import {AppState} from '../../store';
 import {deleteContactAction, fetchContactsAction} from '../../store/actions/contacts.actions';
 import {skipWhile, take} from 'rxjs/operators';
-import {searchStartupsAction} from '../../store/actions/startups.actions';
 
 @Component({
   selector: 'app-contacts',
@@ -32,8 +31,8 @@ export class ContactsComponent implements OnInit {
       .subscribe(() =>
         this.ngRedux.dispatch(fetchContactsAction(this.route.snapshot.paramMap.get('id'))));
 
-    this.isLoading.pipe(skipWhile(result => result === true), take(1))
-      .subscribe(() => this.ngRedux.select(selectContacts));
+    /*this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() => this.ngRedux.select(selectContacts));*/
     // this.ngRedux.dispatch(fetchContactsAction(this.route.snapshot.paramMap.get('id')));
     // this.ngRedux.select(selectContacts);
   }

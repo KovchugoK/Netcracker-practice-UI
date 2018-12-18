@@ -16,6 +16,7 @@ import {ResumeEditComponent} from './components/resume-edit/resume-edit.componen
 import {ContactsComponent} from './components/contacts/contacts.component';
 import {AccountEditComponent} from './components/account-edit/account-edit.component';
 import {ConversationComponent} from './components/conversation/conversation.component';
+import {ConversationListComponent} from './components/conversation-list/conversation-list.component';
 
 
 const routes: Routes = [
@@ -36,7 +37,8 @@ const routes: Routes = [
   {path: 'contacts/:id', component: ContactsComponent},
   {path: 'my-startups', component: MyStartupsComponent},
   {path: 'account-edit/:id', component: AccountEditComponent, canActivate: [AuthGuard]},
-  {path: 'messages/:id', component: ConversationComponent},
+  {path: 'conversations/:id', component: ConversationComponent},
+  {path: 'conversations', component: ConversationListComponent},
   {path: '**', redirectTo: 'main-page'}
 ];
 
