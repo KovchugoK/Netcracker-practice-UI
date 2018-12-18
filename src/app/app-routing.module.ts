@@ -27,7 +27,7 @@ const routes: Routes = [
   {path: 'startup/:id', component: StartupComponent},
   {path: 'startup-edit/:id', component: StartupEditComponent, canActivate: [AuthGuard]},
   {path: 'startup-edit', component: StartupEditComponent, canActivate: [AuthGuard]},
-  {path: 'favorite', component: FavoriteComponent},
+  {path: 'favorites/:id', component: FavoriteComponent},
   {path: 'resume/list', component: ResumeListComponent},
   {path: 'resume/:id', component: ResumeDetailDialogComponent},
   {path: 'resume-edit/:id', component: ResumeEditComponent},

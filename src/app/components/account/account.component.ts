@@ -35,7 +35,7 @@ export class AccountComponent implements OnInit {
         if (this.account) {
           console.log("We are here");
           this.resumeSkills = this.account.resumes.reduce((resultArr, currResume) => {
-            resultArr.push(...currResume.resumeSkills.map(value => value.skill.skillName));
+            resultArr.push(...currResume.resumeSkills.map(value => value.skillName));
             return resultArr;
           }, []);
           this.resumeSkills = AccountComponent.removeDuplicateUsingFilter(this.resumeSkills);

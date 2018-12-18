@@ -11,7 +11,10 @@ import {skipWhile, take} from 'rxjs/internal/operators';
 import {
   fetchResumesAction, fetchResumesSpecialistsAction,
   searchResumesAction
-} from '../../store/actions/resume.actions';
+} from "../../store/actions/resume.actions";
+import {FormGroup} from "@angular/forms";
+import {Favorite} from "../../model/Favorite";
+
 
 @Component({
   selector: 'app-specialist-list',
@@ -21,6 +24,7 @@ import {
 export class SpecialistListComponent implements OnInit {
 
 
+  favorite: Favorite = new Favorite();
 
   @select(isLoading)
   isLoading: Observable<boolean>;
@@ -28,8 +32,9 @@ export class SpecialistListComponent implements OnInit {
   @select(selectResumes)
   resumeList: Observable<Resume[]>;
 
+  favotiteForm: FormGroup;
 
-  constructor(private ngRedux: NgRedux<AppState>, private specialisService: SpecialistService ) {
+  constructor(private ngRedux: NgRedux<AppState>, private specialisService: SpecialistService) {
   }
 
   ngOnInit() {
@@ -37,16 +42,10 @@ export class SpecialistListComponent implements OnInit {
       .subscribe(() => this.ngRedux.dispatch(searchResumesAction(this.ngRedux.getState().specialistsSearchState.searchObj)));
   }
 
+
   onClick(account: Account) {
-    this.specialisService.post(account as Account).subscribe(
-      value => {
-        console.log('[POST] create Fav successfully', value);
-      }, error => {
-        console.log('FAIL to create');
-      },
-      () => {
-        console.log('POST Fav - now completed.');
-      });
+    this.favorite.account = account;
+    this.specialisService.post(this.favorite, this.ngRedux.getState().currentUserState.currentUser.account.id).subscribe();
   }
 
 }

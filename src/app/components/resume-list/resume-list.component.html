@@ -1,37 +1,3 @@
-<!--main>
-  <div *ngFor="let resume of resumes">
-    <div class="mat-card-item" (click)="openDetailDialog(resume)">
-      <mat-card>
-
-        <mat-card-header>
-          <div mat-card-avatar class="header-image"></div>
-
-          <mat-card-title>
-            {{resume.businessRole.businessRoleName}}
-
-            <font size="-0.5" color="#a9a9a9">
-              <p>
-                {{resume.account.firstName}}
-                {{resume.account.lastName}}
-              </p>
-            </font>
-          </mat-card-title>
-
-          <mat-card-subtitle>
-            <mat-chip-list>
-
-              <div *ngFor="let resumeSkill of resume.resumeSkills">
-                <mat-chip>{{resumeSkill.skill.skillName}}</mat-chip>
-              </div>
-
-            </mat-chip-list>
-          </mat-card-subtitle>
-        </mat-card-header>
-
-      </mat-card>
-    </div>
-  </div>
-</main-->
 <main>
   <div class="spinner">
     <mat-spinner *ngIf="isLoading | async ;else  resumeTable" mode="indeterminate" color="primary">
@@ -60,7 +26,7 @@
                 <mat-chip-list>
 
                   <div *ngFor="let resumeSkill of resume.resumeSkills">
-                    <mat-chip>{{resumeSkill.skill.skillName}}</mat-chip>
+                    <mat-chip>{{resumeSkill.skillName}}</mat-chip>
                   </div>
                 </mat-chip-list>
               </mat-card-subtitle>

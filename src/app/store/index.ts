@@ -9,6 +9,7 @@ import {UserSideNavState} from './reducers/user-side-nav.reducer';
 import {ContactsState} from './reducers/contacts.reducer';
 import { AccountPageState} from './reducers/account-page.reducer';
 import {SpecialistsSearchToolbarState} from "./reducers/specialists-search-toolbar.reducer";
+import {FavoritesState} from "./reducers/favorite.reducer";
 
 
 export interface AppState {
@@ -24,6 +25,7 @@ export interface AppState {
   readonly contactsState?: ContactsState;
   readonly accountPageState?: AccountPageState;
   readonly specialistsSearchState?: SpecialistsSearchToolbarState;
+  readonly favoritesState?: FavoritesState;
 }
 
 
