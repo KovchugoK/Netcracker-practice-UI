@@ -48,4 +48,9 @@ export class SpecialistListComponent implements OnInit {
     this.specialisService.post(this.favorite, this.ngRedux.getState().currentUserState.currentUser.account.id).subscribe();
   }
 
+  get currentAccount(): Account{
+    return this.ngRedux.getState().currentUserState.currentUser.account;
+  }
+
+
 }

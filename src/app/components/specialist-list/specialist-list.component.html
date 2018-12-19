@@ -7,31 +7,43 @@
     </mat-spinner>
   </div>
   <ng-template #resumeTable>
-      <div class="container" *ngFor="let resume of resumeList | async">
-        <mat-card class="example-card">
-          <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
-          <mat-card-content>
-            <p align="center">
-              <b>
-                {{resume?.businessRole.businessRoleName}}
-              </b>
-            </p>
-            <p class="box">
-              <a routerLink="/specialist-list/{{resume?.account.id}}">{{resume?.account.firstName}}
-                {{resume?.account.lastName}}</a>
-              <button (click)="onClick(resume?.account)" class="fav"><img mat-card-lg-image="" class="img"
-                                                                  src="/src/assets/images/favorite.png"></button>
-            <h6>Skills: </h6>
-            <mat-card-subtitle>
-              <mat-chip-list>
-                <div *ngFor="let resumeSkill of resume.resumeSkills">
-                  <mat-chip>{{resumeSkill?.skillName}}</mat-chip>
-                </div>
-              </mat-chip-list>
-            </mat-card-subtitle>
-          </mat-card-content>
-        </mat-card>
-      </div>
+    <div class="container" *ngFor="let resume of resumeList | async">
+      <mat-card class="example-card">
+        <mat-card-content>
+          <!--img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png"-->
+          <div class="photoAndRole">
+            <div *ngIf="resume?.account.compressedImageId !== null; else defaultImg">
+              <img mat-card-lg-image="" class="full-size"
+                   src="https://drive.google.com/thumbnail?id={{resume?.account.compressedImageId}}" alt="resumeLogo">
+            </div>
+            <ng-template #defaultImg>
+              <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+            </ng-template>
+            <div class="rightFromImageBlock">
+              <p>
+                <b>
+                  {{resume?.businessRole.businessRoleName}}
+                </b>
+              </p>
+              <p class="box">
+                <a routerLink="/specialist-list/{{resume?.account.id}}">{{resume?.account.firstName}}
+                  {{resume?.account.lastName}}</a></p>
+            </div>
+          </div>
+          <button *ngIf="currentAccount && currentAccount.id !== resume?.account.id"
+                  (click)="onClick(resume?.account)" class="fav"><img mat-card-lg-image="" class="img"
+                                                                      src="/src/assets/images/favorite.png"></button>
+          <h6>Skills: </h6>
+          <mat-card-subtitle>
+            <mat-chip-list>
+              <div *ngFor="let resumeSkill of resume.resumeSkills">
+                <mat-chip>{{resumeSkill?.skillName}}</mat-chip>
+              </div>
+            </mat-chip-list>
+          </mat-card-subtitle>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </ng-template>
 </main>
 
