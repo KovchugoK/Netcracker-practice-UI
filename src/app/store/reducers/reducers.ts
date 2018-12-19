@@ -10,7 +10,8 @@ import {startupSearchToolbarReducer} from './startup-search-toolbar.reducer';
 import {userSideNavReducer} from './user-side-nav.reducer';
 import {contactsReducer} from './contacts.reducer';
 import {specialistsSearchToolbarReducer} from './specialists-search-toolbar.reducer';
-import {favoriteReducer} from "./favorite.reducer";
+import {favoriteReducer} from './favorite.reducer';
+import {conversationsReducer} from './conversation.reducer';
 
 
 export const reducers: Reducer = combineReducers({
@@ -26,4 +27,5 @@ export const reducers: Reducer = combineReducers({
   contactsState: contactsReducer,
   specialistsSearchState: specialistsSearchToolbarReducer,
   favoritesState: favoriteReducer,
+  conversationsState: conversationsReducer
 });

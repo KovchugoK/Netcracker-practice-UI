@@ -7,19 +7,14 @@ img {
   height: 80px;
 }
 
-.delete-button {
-  height: 40px;
-  margin-right: 10px;
-  margin-left: auto;
-}
-
 .example-card {
   height: 100px;
   padding: 10px;
   margin-top: 5px;
+  cursor: pointer;
 }
 
-.contacts-list {
+.conversation-list {
   margin-left: 70px;
   margin-right: 70px;
   margin-top: 20px;
@@ -32,4 +27,9 @@ img {
   justify-content: flex-start;
   height: 100%;
   width: 100%;
+}
+
+.date-area {
+  margin-left: auto;
+  color: #787f7b;
 }

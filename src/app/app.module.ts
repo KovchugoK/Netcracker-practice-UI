@@ -45,10 +45,11 @@ import {GlobalUserStorageService} from './services/global-storage.service';
 import { AccountComponent } from './components/account/account.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountEditComponent } from './components/account-edit/account-edit.component';
+import {ConversationComponent} from './components/conversation/conversation.component';
 import {ImageUploadComponent} from './components/image-upload/image-upload.component';
 import {NgxPermissionsModule, NgxPermissionsService} from 'ngx-permissions';
 import {AuthenticationService} from './services/authentication.service';
-//import {ConversationComponent} from './components/conversation/conversation.component';
+import { ConversationListComponent } from './components/conversation-list/conversation-list.component';
 
 @NgModule({
   declarations: [
@@ -73,13 +74,15 @@ import {AuthenticationService} from './services/authentication.service';
     AccountComponent,
     AccountEditComponent,
     ResumeListComponent,
+    ImageUploadComponent,
     StartupSearchToolbarComponent,
     AccountComponent,
     AccountEditComponent,
     ResumeListComponent,
     ImageUploadComponent,
-  //  ConversationComponent,
-    StartupSearchToolbarComponent
+    ConversationComponent,
+    StartupSearchToolbarComponent,
+    ConversationListComponent
   ],
   imports: [
     BrowserModule,

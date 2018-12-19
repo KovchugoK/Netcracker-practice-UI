@@ -4,6 +4,7 @@ import {AccountEpic} from './account.epic';
 import {ResumeEpic} from './resume.epic';
 import {CurrentUserEpic} from './current-user.epic';
 import {ContactsEpic} from './contacts.epic';
+import {ConversationsEpic} from './conversations.epic';
 import {FavoriteEpic} from "./favorite.epic";
 
 
@@ -15,7 +16,8 @@ import {FavoriteEpic} from "./favorite.epic";
     ContactsEpic,
     StartupEpic,
     AccountEpic,
-    FavoriteEpic
+    FavoriteEpic,
+    ConversationsEpic
   ],
 })
 export class EpicsModule {
