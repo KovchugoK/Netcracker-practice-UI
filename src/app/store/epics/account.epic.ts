@@ -14,7 +14,7 @@ import {
   UPDATE_ACCOUNT,
   updateAccountSuccessAction
 } from "../actions/accounts.actions";
-import {of} from "rxjs/index";
+import {of} from "rxjs";
 import {SELECT_ACCOUNT, selectAccountSuccess} from "../actions/account-state.actions";
 import {defaultAccount} from "../../model/Account";
 

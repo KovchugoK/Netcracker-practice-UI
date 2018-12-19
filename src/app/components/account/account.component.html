@@ -3,7 +3,7 @@
   <img mat-card-lg-image fxFlex="1 1 15%" src="https://drive.google.com/thumbnail?id={{(account|async)?.compressedImageId}}"  onError="this.src='/src/assets/images/Person.jpg';">
   <mat-card-title-group fxFlex="1 1 75%">
     <mat-card-title>{{(account| async)?.firstName}} {{(account| async)?.lastName}}</mat-card-title>
-    <mat-card-subtitle>{{(account| async)| age}} years</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="account | async as accountData">{{accountData|age}} years</mat-card-subtitle>
     <mat-card-subtitle>{{(account| async)?.user.email}}</mat-card-subtitle>
   </mat-card-title-group>
   <mat-card-actions fxFlex="1 1 10%">

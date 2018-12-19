@@ -7,7 +7,10 @@ import * as moment from 'moment';
   name: 'age'
 })
 export class AgePipe implements PipeTransform {
-  transform(account: Account, args?: any): number{
-    return moment().diff(account.birthday, 'years');
+  transform(account: Account): number{
+    if(account) {
+      return moment().diff(account.birthday, 'years');
+    }
+    return null;
   }
 }

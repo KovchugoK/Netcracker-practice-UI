@@ -22,9 +22,11 @@ const INITIAL_STATE = {
 
 export const accountPageReducer: Reducer<AccountPageState> = (state: AccountPageState = INITIAL_STATE, action) => {
   switch (action.type) {
-    case UPDATE_ACCOUNT:
+    case UPDATE_ACCOUNT:{
+      return {...state, isLoading: true}
+    }
     case UPDATE_ACCOUNT_SUCCESS: {
-      return {...state, accountModel: action.payload.account, isSelected: false};
+      return {...state, accountModel: action.payload.account, isSelected: false, isLoading: false};
     }
     case SELECT_ACCOUNT: {
       return {...state, isSelected: true};

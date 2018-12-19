@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AccountService} from "../../services/account.service";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
@@ -12,14 +12,14 @@ import {Observable} from "rxjs/index";
 import {isLoading, isSelected, selectAccountForEdit} from "../../store/selectors/account.selector";
 import {selectAccount} from "../../store/actions/account-state.actions";
 import {updateAccountAction} from "../../store/actions/accounts.actions";
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-account-edit',
   templateUrl: './account-edit.component.html',
   styleUrls: ['./account-edit.component.css']
 })
-export class AccountEditComponent implements OnInit {
+export class AccountEditComponent implements OnInit, OnDestroy {
 
   accountId: string;
   accountForm: FormGroup;
@@ -31,6 +31,7 @@ export class AccountEditComponent implements OnInit {
   base64textString: string;
 
   updatedAccount: Account;
+  isCompareDateError:boolean;
 
   @select(isLoading)
   isLoading: Observable<boolean>;
@@ -44,6 +45,7 @@ export class AccountEditComponent implements OnInit {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.isCompareDateError=false;
     this.accountId = this.route.snapshot.paramMap.get('id');
     this.ngRedux.dispatch(selectAccount(this.accountId));
     this.isSelected.pipe(skipWhile(result => result), take(1))
@@ -69,7 +71,7 @@ export class AccountEditComponent implements OnInit {
     );
   }
 
-  ChangeAccount(form:FormGroup): Account{
+  changeAccount(form:FormGroup): Account{
     this.updatedAccount.firstName = form.getRawValue().firstName;
     this.updatedAccount.lastName = form.getRawValue().lastName;
     this.updatedAccount.birthday = form.getRawValue().birthday;
@@ -107,20 +109,20 @@ export class AccountEditComponent implements OnInit {
     return this.formBuilder.group({
       workPlace: '',
       position: '',
-      start: new Date(),
-      finish: new Date()
-    },{validator: this.dateLessThan('start', 'finish')});
+      start: null,
+      finish: null
+    });
   }
 
   createEducationItem(): FormGroup {
     return this.formBuilder.group({
-      institution: '',
+      institution: ['',Validators.maxLength(35)],
       completionYear: ['', Validators.pattern('\\d{4,4}')]
     });
   }
 
  updateAccount(form) {
-   this.ngRedux.dispatch(updateAccountAction({...this.ChangeAccount(form)}));
+   this.ngRedux.dispatch(updateAccountAction({...this.changeAccount(form)}));
    this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/account/' + this.accountId)));
   }
@@ -128,7 +130,7 @@ export class AccountEditComponent implements OnInit {
   addWorkExperience(): void {
     this.workExperience = this.accountForm.get('workExperience') as FormArray;
     this.workExperience.push(this.createWorkExperienceItem());
-  }
+   }
   deleteWorkExperience(index: number): void {
     this.workExperience = this.accountForm.get('workExperience') as FormArray;
     this.workExperience.removeAt(index);
@@ -144,22 +146,18 @@ export class AccountEditComponent implements OnInit {
 
   getImageAsString(base64textString: string){
     this.base64textString=base64textString;
-}
+ }
 
-  dateLessThan(from: string, to: string) {
-    return (group: FormGroup): {[key: string]: any} => {
-      let f = group.controls[from];
-      let t = group.controls[to];
-      if (f.value > t.value&& t!=null) {
-        return {
-          dates: "Date from should be less than Date to"
-        };
-      }
-      return {};
-    }
+   dateFilter = (d: Date): boolean => {
+    const day = d;
+    const maxDate=moment().toDate();
+    const minDate=moment().subtract(100,'years').toDate();
+    return day>=minDate && day<=maxDate;
   }
 
    ngOnDestroy() {
-    this.subscription.unsubscribe();
+   if(this.subscription){
+     this.subscription.unsubscribe();
+   }
   }
 }

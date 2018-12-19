@@ -26,9 +26,7 @@ export class AccountService {
 
   createAccount(detailAccountDTO: DetailAccountDTO): void {
     let options = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
-    this.http.post(this.accountUrl+'create/', detailAccountDTO, options).subscribe(
-      res=> console.log(res)
-    );
+    this.http.post(this.accountUrl+'create/', detailAccountDTO, options);
   }
 
   deleteAccount(id:string):  Observable<any> {

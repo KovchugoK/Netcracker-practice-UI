@@ -1,6 +1,6 @@
 <main>
 <div class="spinner">
-  <mat-spinner *ngIf="isSelected | async; else aForm" mode="indeterminate" color="primary">
+  <mat-spinner *ngIf="isSelected | async; else aForm" mode="indeterminate" color="primary" class="spinner-item">
   </mat-spinner>
 </div>
 
@@ -22,13 +22,13 @@
       </mat-form-field>
    </div>
    <mat-form-field appearance="legacy">
-     <input matInput [matDatepicker]="birthday" placeholder="Birthday">
+     <input matInput [matDatepicker]="birthday" [matDatepickerFilter]="dateFilter" formControlName="birthday" placeholder="Birthday">
      <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
-     <mat-datepicker #birthday></mat-datepicker>
+     <mat-datepicker #birthday ></mat-datepicker>
    </mat-form-field>
    <br>
-   <mat-form-field class="form-group" appearance="legacy">
-     <textarea matInput mat-autosize="" placeholder="About me" formControlName="aboutMe" class="textarea-wrapper" ></textarea>
+   <mat-form-field class="form-group" appearance="legacy" style="width: 40%;">
+     <textarea matInput mat-autosize="" placeholder="About me" formControlName="aboutMe" class="textarea-wrapper" matAutosizeMinRows=1 matAutosizeMaxRows=5></textarea>
    </mat-form-field>
    <div class="form-group">
       <legend>Work experience</legend>
@@ -42,20 +42,21 @@
           <input matInput type="text" formControlName="position" placeholder="Position">
           </mat-form-field>
           <mat-form-field appearance="legacy">
-            <input matInput [matDatepicker]="start" placeholder="Choose a start date">
+            <input matInput [matDatepicker]="start" [matDatepickerFilter]="dateFilter" formControlName="start" placeholder="Choose a start date">
             <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
-            <mat-datepicker #start></mat-datepicker>
+            <mat-datepicker #start ></mat-datepicker>
           </mat-form-field>
           <mat-form-field appearance="legacy">
-            <input matInput [matDatepicker]="finish" placeholder="Choose a finish date">
+            <input matInput [matDatepicker]="finish" [matDatepickerFilter]="dateFilter" formControlName="finish" placeholder="Choose a finish date">
             <mat-datepicker-toggle matSuffix [for]="finish"></mat-datepicker-toggle>
             <mat-datepicker #finish></mat-datepicker>
           </mat-form-field>
-          <button mat-icon-button color="primary" (click)="deleteWorkExperience(workExpIndex)">
+          <button mat-icon-button color="primary" (click)="deleteWorkExperience(workExpIndex);">
             <mat-icon>clear</mat-icon>
           </button>
         </div>
-        </div>
+      </div>
+     <mat-error *ngIf="isCompareDateError">Start date should be less than finish date</mat-error>
      <mat-error *ngIf="accountForm.get('workExperience').hasError('maxlength')">Quantity limit exceeded</mat-error>
      <button mat-raised-button color="primary" [disabled]="accountForm.get('workExperience').hasError('maxlength')" (click)="addWorkExperience()">Add</button>
      </div>
