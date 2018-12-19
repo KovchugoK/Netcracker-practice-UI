@@ -7,6 +7,8 @@ export const DELETE_CONTACT = 'DELETE_CONTACT';
 export const DELETE_CONTACT_SUCCESS = 'DELETE_CONTACT_SUCCESS';
 export const DELETE_CONTACT_FAILED = 'DELETE_CONTACT_FAILED';
 export const ADD_CONTACT = 'ADD_CONTACT';
+export const ADD_CONTACT_SUCCESS = 'ADD_CONTACT_SUCCESS';
+export const ADD_CONTACT_FAILED = 'ADD_CONTACT_FAILED';
 
 export function fetchContactsAction(userId: string) {
   return {
@@ -52,9 +54,24 @@ export function deleteContactFailedAction(message: string) {
   };
 }
 
-export function addContactAction(userId: string) {
+export function addContactAction(yourId: string, otherId: string) {
   return {
     type: ADD_CONTACT,
-    payload: {userId}
+    payload: {yourId, otherId}
+  };
+}
+
+export function addContactSuccessAction(contact: Contact) {
+  return {
+    type: ADD_CONTACT_SUCCESS,
+    payload: {contact}
+  };
+}
+
+export function addContactFailedAction(message: string) {
+  return {
+    type: ADD_CONTACT_FAILED,
+    error: true,
+    payload: {message}
   };
 }

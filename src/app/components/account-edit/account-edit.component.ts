@@ -135,6 +135,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     this.workExperience = this.accountForm.get('workExperience') as FormArray;
     this.workExperience.removeAt(index);
   }
+
   addEducation(): void {
     this.education = this.accountForm.get('education') as FormArray;
     this.education.push(this.createEducationItem());

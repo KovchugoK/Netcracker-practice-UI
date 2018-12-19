@@ -1,82 +1,111 @@
 <main>
   <div>
-  <mat-spinner *ngIf="isSelected | async; else startupView" mode="indeterminate" color="primary">
-  </mat-spinner>
-</div>
+    <mat-spinner *ngIf="isSelected | async; else startupView" mode="indeterminate" color="primary">
+    </mat-spinner>
+  </div>
   <ng-template #startupView>
     <div class="template" *ngIf="currentStartup.nonBlock; else blockStartupView">
-    <div class="imageBlock">
-      <mat-card>
-        <img class="imgParametrs" src="/src/assets/images/Logo.png" alt="startupLogo">
-      </mat-card>
+      <div class="imageBlock">
+        <mat-card>
+          <img class="imgParametrs" src="https://drive.google.com/thumbnail?id={{(startup | async)?.compressedImageId}}"
+               alt="startupLogo">
+        </mat-card>
       <div *ngIf="currentStartup.nonBlock">
         <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="blockStartup(currentStartup)"> Block Startup  </button></ng-template>
       </div>
     </div>
 
 
-    <div class="rightFromImageBlock">
-      <h3> {{(startup | async)?.startupName}} </h3>
-      <p style="text-align: justify"><br/> {{(startup | async)?.idea}} </p>
+      <div class="rightFromImageBlock">
+        <h3> {{(startup | async)?.startupName}} </h3>
+        <p style="text-align: justify"><br/> {{(startup | async)?.idea}} </p>
 
-      <p>
-        Need investment:
-        <br/>
-        <b>{{(startup | async)?.sumOfInvestment}}$</b>
-      </p>
-      <button mat-raised-button="" class="buttonInBlock"> Write </button>
-    </div>
+        <p>
+          <b style="margin-right: 30px">Need investments:</b>
 
-    <div class="block">
-      <h3><b> About project:</b></h3>
-      <p> {{(startup | async)?.aboutProject}}</p>
-      <mat-divider></mat-divider>
-    </div>
+          {{(startup | async)?.sumOfInvestment}}$
+          <br/>
+          <b style="margin-right: 15px">Current investments:</b>
 
-    <div class="block">
-      <h3><b> Business plan:</b></h3>
-      <p> {{(startup | async)?.businessPlan}}</p>
-      <mat-divider></mat-divider>
-    </div>
+          {{currentInvestments}}$
+        </p>
+      </div>
 
-    <div class="blockText">
-      <h3><b> Members:</b></h3>
-    </div>
+      <div class="block">
+        <h3><b> About project:</b></h3>
+        <p> {{(startup | async)?.aboutProject}}</p>
+        <mat-divider></mat-divider>
+      </div>
 
-
-    <div class="blockStartupMembers">
-      <mat-card>
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title *ngIf="(startup | async)?.account!==null"> {{(startup | async)?.account.firstName}} <br/>
-            {{(startup | async)?.account.lastName}}
-          </mat-card-title>
-          <mat-card-title *ngIf="(startup | async)?.account===null"> UNKNOWN</mat-card-title>
-          <mat-card-subtitle> LEADER</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-    </div>
+      <div class="block">
+        <h3><b> Business plan:</b></h3>
+        <p> {{(startup | async)?.businessPlan}}</p>
+        <mat-divider></mat-divider>
+      </div>
 
 
-    <div class="blockStartupMembers" *ngFor="let res of (startup | async)?.startupResumes">
-      <mat-card>
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title> {{res.resume.account.firstName}}<br/> {{res.resume.account?.lastName}}</mat-card-title>
-          <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}}</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-    </div>
+      <div class="blockText">
+        <h3><b> Members:</b></h3>
+      </div>
+      <div>
+        <mat-card style="width: 200px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title *ngIf="(startup | async)?.account!==null"> {{(startup | async)?.account.firstName}} <br/>
+              {{(startup | async)?.account.lastName}}
+            </mat-card-title>
+            <mat-card-title *ngIf="(startup | async)?.account===null"> UNKNOWN</mat-card-title>
+            <mat-card-subtitle> LEADER</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </div>
 
-    <mat-divider style="width: 90%"></mat-divider>
+      <div *ngFor="let res of (startup | async)?.startupResumes">
+        <mat-card style="margin: 15px; width: 200px" *ngIf="res.status ==='accepted' ">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title> {{res.resume.account?.firstName}}<br/> {{res.resume.account.lastName}}</mat-card-title>
+            <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}}</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </div>
 
+      <mat-divider style="width: 90%"></mat-divider>
+
+      <div class="blockText">
+        <h3><b> Top Investors </b></h3>
+      </div>
+        <div *ngFor="let investment of investments">
+          <mat-card style="margin: 15px; width: 200px">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title> {{investment.investor?.firstName}}<br/> {{investment.investor?.lastName}}</mat-card-title>
+              <mat-card-subtitle> {{investment.sumOfInvestment}}$</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+        </div>
+
+
+
+      <mat-divider style="width: 90%"></mat-divider>
       <div style="width: 90%">
-      <button mat-raised-button="" class="btnControl" *ngIf="!currentUser || (currentUser && currentUserAccountId !== (startup | async)?.account.id)"> Join </button>
-      <button mat-raised-button="" class="btnControl" routerLink="/startup-edit/{{id}}" *ngIf="currentUser && (currentUserAccountId === (startup | async)?.account.id)"> Edit</button>
-      <button mat-raised-button="" class="btnControl" (click)="deleteStartup()" *ngIf="currentUser && (currentUserAccountId === (startup | async)?.account.id)"> Delete</button>
+        <button mat-raised-button="" class="btnControl"
+                *ngIf="((currentUser|async) && (currentUser|async)?.account.id !== (startup | async)?.account.id)"> Join
+        </button>
+        <button mat-raised-button="" class="btnControl" (click)="makeInvestments()"
+                *ngIf="((currentUser|async) && (currentUser|async)?.account.id !== (startup | async)?.account.id)"> Make investments
+        </button>
+        <button mat-raised-button="" class="btnControl" routerLink="/startup-edit/{{id}}"
+                *ngIf="currentUser && ((currentUser|async)?.account.id === (startup | async)?.account.id)"> Edit
+        </button>
+        <button mat-raised-button="" class="btnControl" (click)="deleteStartup()"
+                *ngIf="(currentUser|async) && ((currentUser|async)?.account.id === (startup | async)?.account.id)">
+          Delete
+        </button>
+
+      </div>
     </div>
-    </div>
-    </ng-template>
+  </ng-template>
 
 </main>
 

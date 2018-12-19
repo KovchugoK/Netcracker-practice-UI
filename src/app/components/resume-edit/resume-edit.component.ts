@@ -28,9 +28,6 @@ export class ResumeEditComponent implements OnInit {
 
   skillsList: Skill[];
   rolesList: BusinessRole[];
-  resumeSkillsList: ResumeSkill[];
-
-  items: ResumeSkill[];
 
   id: string;
 
@@ -68,7 +65,6 @@ export class ResumeEditComponent implements OnInit {
       account: [this.ngRedux.getState().currentUserState.currentUser.account],
       businessRole: [resume.businessRole],
     });
-    this.resumeSkillsList = resume.resumeSkills;
   }
 
   get info(): FormControl {
@@ -91,19 +87,11 @@ export class ResumeEditComponent implements OnInit {
     this.location.back();
   }
 
-  formResumeSkill(skill: Skill): ResumeSkill {
-    return new ResumeSkill(null, skill);
+  private compareSkills(sk1: Skill, sk2: Skill): boolean {
+    return sk1 && sk2 ? sk1.id === sk2.id : sk1 === sk2;
   }
 
-  onDeleteSkill(skill: Skill) {
-    /* this.resumeService.deleteResumeSkill(this.id, skill).subscribe(() => this.isSelected.pipe(skipWhile(result => result), take(1))
-       .subscribe(() => this.ngRedux.select(state => selectResumeForEdit(state))
-         .subscribe(resume => {
-           this.initializeForm(resume);
-         })));
-     this.isLoading.pipe(skipWhile(result => result === true), take(1))
-       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/resume-edit/' + this.id)));*/
-  }
+
 
 
   updateResume() {

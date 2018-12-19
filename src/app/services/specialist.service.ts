@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Account} from '../model/Account';
 import {SearchObject} from "../model/SearchObject";
+import {Favorite} from "../model/Favorite";
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +32,8 @@ export class SpecialistService {
     return this.http.get(`${this.specialistListUrl}`, {params: params});
   }
 
-  post(account: Account): Observable<any> {
-    return this.http.post(`${this.specialistListUrl}`, account, {headers: this.headers});
+  post(favorite: Favorite, id: string): Observable<any> {
+    return this.http.post(`${this.specialistListUrl}` + '/' + id, favorite, {headers: this.headers});
   }
 
   getInvestorList(): Observable<any> {

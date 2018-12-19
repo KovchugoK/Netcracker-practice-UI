@@ -7,12 +7,13 @@ import {Account} from '../../model/Account';
 import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import {NgRedux, select} from '@angular-redux/store';
 import {AppState} from '../../store';
-import { skipWhile, take} from 'rxjs/internal/operators';
+import {skipWhile, take} from 'rxjs/internal/operators';
 import {isLoading, selectStartupForEdit, isSelected} from '../../store/selectors/startups.selector';
 import {createStartupAction, updateStartupAction} from '../../store/actions/startups.actions';
 import {Observable} from 'rxjs';
 import {selectStartup} from '../../store/actions/startup-state.actions';
 import {updateRouterState} from '../../store/actions/router.actions';
+import {StartupResume} from '../../model/StartupResume';
 
 @Component({
   selector: 'app-startup-edit',
@@ -30,6 +31,9 @@ export class StartupEditComponent implements OnInit {
   @select(isSelected)
   isSelected: Observable<boolean>;
 
+  pendingResumes: StartupResume[];
+  currentStartup: Startup;
+
   constructor(private ngRedux: NgRedux<AppState>,
               private startupService: StartupService,
               private route: ActivatedRoute,
@@ -44,7 +48,15 @@ export class StartupEditComponent implements OnInit {
     this.isSelected.pipe(skipWhile(result => result), take(1))
       .subscribe(() => this.ngRedux.select(state => selectStartupForEdit(state))
         .subscribe(startup => {
-          this.initializeForm(startup);
+          {
+            if (startup) {
+              this.currentStartup = startup;
+            }
+            this.initializeForm(startup);
+            if (this.id !== null) {
+              this.checkPending(startup);
+            }
+          }
         }));
   }
 
@@ -56,7 +68,9 @@ export class StartupEditComponent implements OnInit {
       aboutProject: [startup.aboutProject],
       businessPlan: [startup.businessPlan],
       account: [this.ngRedux.getState().currentUserState.currentUser.account],
-      startupResumes: [startup.startupResumes]
+      startupResumes: [startup.startupResumes],
+      image: [''],
+      nonBlock: [true]
     });
   }
 
@@ -101,4 +115,11 @@ export class StartupEditComponent implements OnInit {
       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/startup-list')));
   }
 
+  getImageAsString(base64textString: string) {
+    this.startupForm.controls['image'].setValue(base64textString);
+  }
+
+  checkPending(startup: Startup) {
+    this.pendingResumes = startup.startupResumes.filter(value => value.status === 'pending');
+  }
 }

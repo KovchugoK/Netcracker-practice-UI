@@ -45,13 +45,14 @@ import {GlobalUserStorageService} from './services/global-storage.service';
 import { AccountComponent } from './components/account/account.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AccountEditComponent } from './components/account-edit/account-edit.component';
+import {ConversationComponent} from './components/conversation/conversation.component';
 import {ImageUploadComponent} from './components/image-upload/image-upload.component';
-import {NgxPermissionsModule} from 'ngx-permissions';
+import {NgxPermissionsModule, NgxPermissionsService} from 'ngx-permissions';
 import {AuthenticationService} from './services/authentication.service';
 import {SkillPipe} from "./components/account/pipes/skill-pipe";
 import {ProjectPipe} from "./components/account/pipes/project-pipe";
 import {AgePipe} from "./components/account/pipes/age-pipe";
-
+import { ConversationListComponent } from './components/conversation-list/conversation-list.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,14 @@ import {AgePipe} from "./components/account/pipes/age-pipe";
     AccountEditComponent,
     ResumeListComponent,
     ImageUploadComponent,
+    StartupSearchToolbarComponent,
+    AccountComponent,
+    AccountEditComponent,
+    ResumeListComponent,
+    ImageUploadComponent,
+    ConversationComponent,
+    StartupSearchToolbarComponent,
+    ConversationListComponent,
     SkillPipe,
     ProjectPipe,
     AgePipe
@@ -113,7 +122,7 @@ import {AgePipe} from "./components/account/pipes/age-pipe";
     MatNativeDateModule,
     MatInputModule,
     FlexLayoutModule,
-    NgxPermissionsModule.forRoot()
+    NgxPermissionsModule.forRoot(),
   ],
   entryComponents: [
     ResumeDetailDialogComponent

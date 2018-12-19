@@ -6,7 +6,9 @@ import {SignUpComponent} from './sign-up/sign-up.component';
 import {SignInComponent} from './sign-in/sign-in.component';
 import {MaterialModule} from '../../material';
 import {DeleteStartupComponent} from './delete-startup/delete-startup.component';
-import {DeleteResumeComponent} from "./delete-resume/delete-resume.component";
+import {DeleteResumeComponent} from './delete-resume/delete-resume.component';
+import { MakeInvestmentsComponent } from './make-investments/make-investments.component';
+import {DeleteFavoriteComponent} from "./delete-favorite/delete-favorite.component";
 
 @NgModule({
   imports: [
@@ -15,8 +17,8 @@ import {DeleteResumeComponent} from "./delete-resume/delete-resume.component";
     ReactiveFormsModule,
     MaterialModule
   ],
-  declarations: [DialogsComponent, SignUpComponent, SignInComponent, DeleteStartupComponent, DeleteResumeComponent],
-  exports: [DialogsComponent, SignUpComponent, SignInComponent, DeleteStartupComponent, DeleteResumeComponent],
-  entryComponents: [SignUpComponent, SignInComponent, DeleteStartupComponent, DeleteResumeComponent ]
+  declarations: [DialogsComponent, SignUpComponent, SignInComponent, DeleteStartupComponent, DeleteResumeComponent, MakeInvestmentsComponent, DeleteFavoriteComponent],
+  exports: [DialogsComponent, SignUpComponent, SignInComponent, DeleteStartupComponent, DeleteResumeComponent, MakeInvestmentsComponent, DeleteFavoriteComponent],
+  entryComponents: [SignUpComponent, SignInComponent, DeleteStartupComponent, DeleteResumeComponent, MakeInvestmentsComponent, DeleteFavoriteComponent ]
 })
 export class DialogsModule { }

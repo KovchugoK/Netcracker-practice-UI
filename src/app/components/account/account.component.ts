@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AccountService} from '../../services/account.service';
 import {Account} from '../../model/Account';
-import {  ActivatedRoute } from '@angular/router';
+import {ActivatedRoute } from '@angular/router';
 import {NgRedux, select} from "@angular-redux/store";
 import {AppState} from "../../store";
 import {Observable} from "rxjs/index";

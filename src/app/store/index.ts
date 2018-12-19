@@ -1,4 +1,4 @@
-import { StartupsState } from './reducers/startups.reducer';
+import {StartupsState} from './reducers/startups.reducer';
 import {StartupPageState} from './reducers/startup-page.reducer';
 import {DialogState} from './reducers/dialogs.reducer';
 import {CurrentUserState} from './reducers/current-user.reducer';
@@ -8,7 +8,9 @@ import {ResumePageState} from './reducers/resume-page.reducer';
 import {UserSideNavState} from './reducers/user-side-nav.reducer';
 import {ContactsState} from './reducers/contacts.reducer';
 import { AccountPageState} from './reducers/account-page.reducer';
-import {SpecialistsSearchToolbarState} from "./reducers/specialists-search-toolbar.reducer";
+import {SpecialistsSearchToolbarState} from './reducers/specialists-search-toolbar.reducer';
+import {FavoritesState} from './reducers/favorite.reducer';
+import {ConversationsState} from './reducers/conversation.reducer';
 
 
 export interface AppState {
@@ -24,6 +26,8 @@ export interface AppState {
   readonly contactsState?: ContactsState;
   readonly accountPageState?: AccountPageState;
   readonly specialistsSearchState?: SpecialistsSearchToolbarState;
+  readonly conversationsState?: ConversationsState;
+  readonly favoritesState?: FavoritesState;
 }
 
 

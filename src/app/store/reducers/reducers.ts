@@ -1,6 +1,5 @@
 import {Reducer, combineReducers} from 'redux';
 import {startupsReducer} from './startups.reducer';
-import {accountPageReducer} from './account-page.reducer';
 import {startupPageReducer} from './startup-page.reducer';
 import {routerReducer} from '@angular-redux/router';
 import {dialogStateReducer} from './dialogs.reducer';
@@ -11,6 +10,9 @@ import {startupSearchToolbarReducer} from './startup-search-toolbar.reducer';
 import {userSideNavReducer} from './user-side-nav.reducer';
 import {contactsReducer} from './contacts.reducer';
 import {specialistsSearchToolbarReducer} from './specialists-search-toolbar.reducer';
+import {favoriteReducer} from './favorite.reducer';
+import {conversationsReducer} from './conversation.reducer';
+import {accountPageReducer} from "./account-page.reducer";
 
 
 export const reducers: Reducer = combineReducers({
@@ -25,5 +27,7 @@ export const reducers: Reducer = combineReducers({
   userSideNavState: userSideNavReducer,
   contactsState: contactsReducer,
   specialistsSearchState: specialistsSearchToolbarReducer,
+  favoritesState: favoriteReducer,
+  conversationsState: conversationsReducer,
   accountPageState: accountPageReducer,
 });

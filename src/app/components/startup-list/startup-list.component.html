@@ -8,7 +8,7 @@
     <div style="width: 90%" *ngIf="(startupList|async)?.length !== 0; else empty">
       <div *ngFor="let startup of startupList | async ">
         <mat-card class="example-card">
-          <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+          <img mat-card-lg-image="" class="full-size" src="https://drive.google.com/thumbnail?id={{startup.compressedImageId}}" alt="startupLogo">
           <mat-card-content>
             <p align="center">
               <a routerLink="/startup/{{startup.id}}">

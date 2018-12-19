@@ -3,10 +3,11 @@ import {ActivatedRoute} from '@angular/router';
 import {ContactsService} from '../../services/contacts.service';
 import {Contact} from '../../model/Contact';
 import {NgRedux, select} from '@angular-redux/store';
-import {selectContacts} from '../../store/selectors/contacts.selector';
+import {isLoading, selectContacts} from '../../store/selectors/contacts.selector';
 import {Observable} from 'rxjs';
 import {AppState} from '../../store';
 import {deleteContactAction, fetchContactsAction} from '../../store/actions/contacts.actions';
+import {skipWhile, take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-contacts',
@@ -17,14 +18,16 @@ export class ContactsComponent implements OnInit {
   @select(selectContacts)
   contacts: Observable<Contact[]>;
 
+  @select(isLoading)
+  isLoading: Observable<boolean>;
+
   constructor(private contactService: ContactsService, private route: ActivatedRoute, private ngRedux: NgRedux<AppState>) {
   }
 
   ngOnInit() {
-    /*this.contactService.getUserContacts(this.route.snapshot.paramMap.get('id'))
-      .subscribe(contacts => this.contacts = contacts);*/
-    this.ngRedux.dispatch(fetchContactsAction(this.route.snapshot.paramMap.get('id')));
-    this.ngRedux.select(selectContacts);
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() =>
+        this.ngRedux.dispatch(fetchContactsAction(this.route.snapshot.paramMap.get('id'))));
   }
 
   deleteContact(otherId: string): void {
