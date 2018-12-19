@@ -22,9 +22,9 @@
       </mat-list-item>
     </mat-list>
     <mat-form-field class="example-full-width">
-  <textarea rows="4" class="message-input-text-area" matInput placeholder="Input a message"
-            maxlength="1024" cdkTextareaAutosize="false" #inputArea></textarea>
-      <button mat-raised-button (click)='sendMessage(inputArea.value)'>
+  <textarea [(ngModel)]='defaultTextAreaValue' rows="3" class="message-input-text-area" matInput placeholder="Input a message"
+            maxlength="100" cdkTextareaAutosize="false" #inputArea></textarea>
+      <button mat-raised-button class="send-button" (click)='sendMessage(inputArea.value)'>
         <mat-icon matSuffix>send</mat-icon>
       </button>
     </mat-form-field>

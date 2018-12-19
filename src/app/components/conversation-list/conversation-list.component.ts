@@ -26,7 +26,7 @@ export class ConversationListComponent implements OnInit {
   @select(selectCurrentUser)
   currentUser: Observable<User>;
 
-  constructor(private route: ActivatedRoute, private ngRedux: NgRedux<AppState>, private router: Router) {
+  constructor(private route: ActivatedRoute, private ngRedux: NgRedux<AppState>) {
   }
 
   ngOnInit() {
@@ -37,9 +37,5 @@ export class ConversationListComponent implements OnInit {
 
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.select(conversationsList));
-  }
-
-  selectConversation(otherUserId: string) {
-    this.router.navigate(['/conversations', otherUserId]);
   }
 }

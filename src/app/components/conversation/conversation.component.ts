@@ -23,6 +23,8 @@ export class ConversationComponent implements OnInit {
   @select(currentConversation)
   currentConversation: Observable<Conversation>;
 
+  defaultTextAreaValue = '';
+
   constructor(private route: ActivatedRoute, private ngRedux: NgRedux<AppState>, private chatService: ChatServerService) {
   }
 
@@ -43,24 +45,26 @@ export class ConversationComponent implements OnInit {
   }
 
   sendMessage(messageBody: string) {
-    /*let conversation: Conversation;
-    this.currentConversation.subscribe(conv => conversation = conv);*/
-    this.chatService.sendMessage({
-      conversationId: this.ngRedux.getState().conversationsState.currentConversation.id,
-      senderId: this.ngRedux.getState().conversationsState.currentConversation.firstAccount.id,
-      receiverId: this.ngRedux.getState().conversationsState.currentConversation.secondAccount.id,
-      msg: messageBody,
-      creationDate: new Date()
-    }).subscribe(answer => {
-      if (answer === 1) {
-        this.ngRedux.dispatch(updateMessagesAction({
-          conversationId: this.ngRedux.getState().conversationsState.currentConversation.id,
-          senderId: this.ngRedux.getState().conversationsState.currentConversation.firstAccount.id,
-          receiverId: this.ngRedux.getState().conversationsState.currentConversation.secondAccount.id,
-          msg: messageBody,
-          creationDate: new Date()
-        }));
-      }
-    });
+    messageBody = messageBody.trim();
+    if (messageBody.length !== 0) {
+      this.chatService.sendMessage({
+        conversationId: this.ngRedux.getState().conversationsState.currentConversation.id,
+        senderId: this.ngRedux.getState().conversationsState.currentConversation.firstAccount.id,
+        receiverId: this.ngRedux.getState().conversationsState.currentConversation.secondAccount.id,
+        msg: messageBody,
+        creationDate: new Date()
+      }).subscribe(answer => {
+        if (answer === 1) {
+          this.ngRedux.dispatch(updateMessagesAction({
+            conversationId: this.ngRedux.getState().conversationsState.currentConversation.id,
+            senderId: this.ngRedux.getState().conversationsState.currentConversation.firstAccount.id,
+            receiverId: this.ngRedux.getState().conversationsState.currentConversation.secondAccount.id,
+            msg: messageBody,
+            creationDate: new Date()
+          }));
+        }
+      });
+      this.defaultTextAreaValue = '';
+    }
   }
 }
