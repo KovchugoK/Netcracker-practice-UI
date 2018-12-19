@@ -9,6 +9,7 @@ import {
   GET_CONVERSATION_SUCCESS
 } from '../actions/conversation.action';
 import {UPDATE_MESSAGES} from '../actions/message.action';
+import {Message} from '../../model/Message';
 
 export interface ConversationsState {
   readonly conversations: Map<string, Conversation>;
@@ -35,21 +36,23 @@ export const conversationsReducer:
       return {...state, isLoading: true};
     case GET_CONVERSATION_SUCCESS: {
       const conversations = new Map(state.conversations);
-      conversations.set(action.payload.conversation.id, action.payload);
+      conversations.set(action.payload.conversation.id, action.payload.conversation);
       return {...state, conversations: conversations, currentConversation: action.payload.conversation, isLoading: false};
     }
     case GET_CONVERSATION_FAILED:
       return {...state, ...action.payload};
     case UPDATE_MESSAGES: {
       const conversations = new Map(state.conversations);
-      const messages = conversations.get(action.payload.message.conversationId).conversationMessages;
-      messages.unshift(action.payload);
-
-      const curConversation = {...state.currentConversation};
+      const conversation = conversations.get(action.payload.message.conversationId);
+      const messages: Message[] = Array.from(conversation.conversationMessages);
+      messages.unshift(action.payload.message);
+      conversation.conversationMessages = messages;
+      conversations.set(conversation.id, conversation);
+      /*const curConversation = {...state.currentConversation};
       if (state.currentConversation !== null && state.currentConversation.id === action.payload.message.conversationId) {
-        curConversation.conversationMessages.unshift(action.payload);
-      }
-      return {...state, conversations: conversations, currentConversation: curConversation};
+        curConversation.conversationMessages.unshift(action.payload.message);
+      }*/
+      return {...state, conversations: conversations, currentConversation: conversation};
     }
     default:
       return state;
