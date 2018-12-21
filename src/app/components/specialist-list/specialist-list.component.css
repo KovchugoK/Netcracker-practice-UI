@@ -3,7 +3,7 @@
 }
 .photoAndRole{
   display: flex;
-  flex-flow: row;
+
 }
 mat-card {
   float: left;
