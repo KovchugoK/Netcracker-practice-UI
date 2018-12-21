@@ -61,7 +61,7 @@
       </div>
 
       <div *ngFor="let res of (startup | async)?.startupResumes">
-        <mat-card style="margin: 15px; width: 200px" *ngIf="res.status ==='accepted' ">
+        <mat-card style="margin: 15px; width: 200px" *ngIf="res.accepted === true ">
           <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title> {{res.resume.account?.firstName}}<br/> {{res.resume.account.lastName}}</mat-card-title>
@@ -89,7 +89,7 @@
 
       <mat-divider style="width: 90%"></mat-divider>
       <div style="width: 90%">
-        <button mat-raised-button="" class="btnControl"
+        <button mat-raised-button="" class="btnControl" (click)="joinStartup()"
                 *ngIf="((currentUser|async) && (currentUser|async)?.account.id !== (startup | async)?.account.id)"> Join
         </button>
         <button mat-raised-button="" class="btnControl" (click)="makeInvestments()"

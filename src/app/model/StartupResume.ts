@@ -3,9 +3,9 @@ import {Resume} from './Resume';
 
 export class StartupResume {
   id: string;
-  status: string;
+  accepted: boolean;
   startupName: string;
   // startupId: string;
-  resume: Resume[];
+  resume: Resume;
   startup: Startup;
 }

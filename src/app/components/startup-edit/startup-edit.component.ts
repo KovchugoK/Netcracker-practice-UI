@@ -14,6 +14,11 @@ import {Observable} from 'rxjs';
 import {selectStartup} from '../../store/actions/startup-state.actions';
 import {updateRouterState} from '../../store/actions/router.actions';
 import {StartupResume} from '../../model/StartupResume';
+import {showDialogAction} from '../../store/actions/dialogs.actions';
+import {RejectResumeComponent} from '../dialogs/reject-resume/reject-resume.component';
+import {AcceptResumeComponent} from '../dialogs/accept-resume/accept-resume.component';
+import {KickMemberComponent} from '../dialogs/kick-member/kick-member.component';
+import {ChangeStartupRoleComponent} from '../dialogs/change-startup-role/change-startup-role.component';
 
 @Component({
   selector: 'app-startup-edit',
@@ -70,7 +75,7 @@ export class StartupEditComponent implements OnInit {
       account: [this.ngRedux.getState().currentUserState.currentUser.account],
       startupResumes: [startup.startupResumes],
       image: [''],
-      nonBlock: [true]
+      nonBlock: [this.ngRedux.getState().router === '/startup-edit' ? true : startup.nonBlock]
     });
   }
 
@@ -104,13 +109,17 @@ export class StartupEditComponent implements OnInit {
   }
 
   updateStartup() {
-    this.ngRedux.dispatch(updateStartupAction({...this.startupForm.value, id: this.id}));
+    this.ngRedux.dispatch(updateStartupAction({
+      ...this.startupForm.value, id: this.id, startupResumes: this.currentStartup.startupResumes, startupRoles: this.currentStartup.startupRoles,
+      startupInvestments: this.currentStartup.startupInvestments, compressedImageId: this.currentStartup.compressedImageId,
+      dateOfCreation: this.currentStartup.dateOfCreation, imageId: this.currentStartup.imageId, account: this.currentStartup.account
+    }));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/startup/' + this.id)));
   }
 
   createStartup() {
-    this.ngRedux.dispatch(createStartupAction({...this.startupForm.value, id: this.id, dateOfCreation: Date.now()}));
+    this.ngRedux.dispatch(createStartupAction({...this.startupForm.value, id: this.id, dateOfCreation: '2018-12-10 10:23:40.433000' }));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/startup-list')));
   }
@@ -120,6 +129,38 @@ export class StartupEditComponent implements OnInit {
   }
 
   checkPending(startup: Startup) {
-    this.pendingResumes = startup.startupResumes.filter(value => value.status === 'pending');
+    this.pendingResumes = startup.startupResumes.filter(value => value.accepted === false);
+  }
+
+  rejectResume(id: string) {
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: RejectResumeComponent,
+      width: '300px',
+      data: {resumeId: id}
+    }));
+  }
+
+  acceptResume(resumeId: string, accountId: string) {
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: AcceptResumeComponent,
+      width: '300px',
+      data: {resumeId: resumeId, accountId: accountId}
+    }));
+  }
+
+  kickMember(id: string) {
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: KickMemberComponent,
+      width: '300px',
+      data: {resumeId: id}
+    }));
+  }
+
+  changeRole(accountId: string) {
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: ChangeStartupRoleComponent,
+      width: '300px',
+      data: {accountId: accountId}
+    }));
   }
 }

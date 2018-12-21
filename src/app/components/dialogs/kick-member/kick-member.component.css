@@ -1,0 +1,10 @@
+.kick-member-dialog {
+  display: flex;
+  flex-direction: column;
+  font-size: 14pt;
+  justify-content: space-between;
+}
+
+.kick-member-dialog-controls {
+  margin-top: 20px;
+}

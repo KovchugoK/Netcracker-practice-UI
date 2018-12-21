@@ -41,7 +41,7 @@ export class AccountComponent implements OnInit {
           this.resumeSkills = AccountComponent.removeDuplicateUsingFilter(this.resumeSkills);
           this.projects = this.account.resumes.reduce((resultArr, currResume) => {
             currResume.startupResumes.map(result => {
-              if (result.status == "apply") {
+              if (result.accepted == true) {
                 let temp = {
                   businessRoleName: currResume.businessRole.businessRoleName,
                   startupName: result.startupName

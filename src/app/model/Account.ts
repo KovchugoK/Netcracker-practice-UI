@@ -22,6 +22,7 @@ export class Account {
   imageId: string;
   compressedImageId: string;
   user: User;
+  balance: number;
 }
 
 export const defaultAccount: Account = {
@@ -41,5 +42,6 @@ export const defaultAccount: Account = {
   educations: null,
   imageId: '',
   compressedImageId: '',
-  user: null
+  user: null,
+  balance: 0
 };

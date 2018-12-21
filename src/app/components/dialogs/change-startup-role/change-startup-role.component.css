@@ -1,0 +1,10 @@
+.change-startup-role-dialog {
+  display: flex;
+  flex-direction: column;
+  font-size: 14pt;
+  justify-content: space-between;
+}
+
+.change-startup-role-controls {
+  margin-top: 20px;
+}

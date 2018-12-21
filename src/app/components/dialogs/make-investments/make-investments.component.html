@@ -1,14 +1,16 @@
 <div class="make-investments-dialog">
   <h1 mat-dialog-title>Make investments</h1>
   <form [formGroup]="investmentForm">
+    <span> Your current balance is {{balance}}</span>
     <mat-form-field>
       <input matInput placeholder="Enter the sum you want to give" [formControlName]="'sumOfInvestment'" maxLength="7">
-      <span matPrefix>$</span>
+      <span matPrefix>$ </span>
       <mat-error *ngIf="sumOfInvestment.invalid">{{getErrorText('sumOfInvestment')}}</mat-error>
-    </mat-form-field>
 
+    </mat-form-field>
+    <span style="color: red; font-size: 14px" *ngIf="error !== '' " > {{error}}</span>
     <div class="controls">
-      <button mat-button color="primary" (click)="makeInvestment()" [disabled]="investmentForm.invalid" [mat-dialog-close]="" cdkFocusInitial>
+      <button mat-button color="primary" (click)="makeInvestment()" [disabled]="investmentForm.invalid" cdkFocusInitial>
         Confirm
       </button>
       <button mat-button color="warn" (click)=onCancelClick()> Close</button>

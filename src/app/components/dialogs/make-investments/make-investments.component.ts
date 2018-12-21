@@ -2,11 +2,18 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {StartupDialogData} from '../../../model/dialog-data';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AppState} from '../../../store';
-import {NgRedux} from '@angular-redux/store';
+import {NgRedux, select} from '@angular-redux/store';
 import {DialogResult} from '../../../model/dialog-result';
 import {StartupService} from '../../../services/startup.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {selectStartup} from '../../../store/actions/startup-state.actions';
+import {
+  makeInvestmentInStartupAction,
+  makeInvestmentInStartupSuccessAction,
+  selectStartup
+} from '../../../store/actions/startup-state.actions';
+import {selectCurrentUser} from '../../../store/selectors/current-user.selector';
+import {Observable} from 'rxjs';
+import {User} from '../../../model/User';
 
 @Component({
   selector: 'app-make-investments',
@@ -17,6 +24,10 @@ export class MakeInvestmentsComponent implements OnInit {
 
   investmentForm: FormGroup;
   startupId: string;
+  balance: number;
+  error: string;
+  @select(selectCurrentUser)
+  currentUser: Observable<User>;
 
   constructor(private ngRedux: NgRedux<AppState>,
               private startupService: StartupService,
@@ -27,6 +38,7 @@ export class MakeInvestmentsComponent implements OnInit {
 
   ngOnInit() {
     this.startupId = this.data.startupId;
+    this.currentUser.subscribe(user => this.balance = user.account.balance);
     this.initializeForm();
     this.dialogRef.afterClosed().subscribe(result => {
       if (result !== DialogResult.CLOSE) {
@@ -71,9 +83,18 @@ export class MakeInvestmentsComponent implements OnInit {
   }
 
   makeInvestment() {
-    this.startupService.makeInvestment(this.ngRedux.getState().currentUserState.currentUser.account,
-      this.ngRedux.getState().startupPageState.startupModel, this.investmentForm.controls['sumOfInvestment'].value)
-      .subscribe(() => this.ngRedux.dispatch(selectStartup(this.startupId)));
+    const sum = this.investmentForm.controls['sumOfInvestment'].value as number;
+    if (sum < this.balance && sum !== 0) {
+      this.ngRedux.dispatch(makeInvestmentInStartupAction(this.ngRedux.getState().currentUserState.currentUser.account,
+        this.ngRedux.getState().startupPageState.startupModel, sum));
+      this.dialogRef.close(DialogResult.CLOSE);
+    } else {
+      this.error = 'You do not have enough money to make this investment!';
+    }
+
+    // this.startupService.makeInvestment(this.ngRedux.getState().currentUserState.currentUser.account,
+    //   this.ngRedux.getState().startupPageState.startupModel, this.investmentForm.controls['sumOfInvestment'].value)
+    //   .subscribe(() => this.ngRedux.dispatch(selectStartup(this.startupId)));
 
   }
 
