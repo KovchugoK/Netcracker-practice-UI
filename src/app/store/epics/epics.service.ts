@@ -49,11 +49,11 @@ export class EpicService {
       this.favoriteEpic.fetchFavorites$,
       this.contactsEpic.addContact$,
       this.conversationsEpic.fetchConversations$,
-      this.conversationsEpic.getConversation$
+      this.conversationsEpic.getConversation$,
       this.contactsEpic.deleteContact$,
       this.accountEpic.updateAccount$,
       this.accountEpic.selectAccount$,
-      this.accountEpic.deleteAccount$,
+      this.accountEpic.deleteAccount$
     );
   }
 }
