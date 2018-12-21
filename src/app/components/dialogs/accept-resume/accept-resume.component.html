@@ -1,0 +1,21 @@
+<div class="accept-resume-dialog">
+  <h2 mat-dialog-title>Accept resume</h2>
+  Choose startup role:
+  <form [formGroup]="acceptResumeForm">
+    <mat-radio-group [formControlName]="'role'">
+      <mat-radio-button value="MEMBER">
+        Member
+      </mat-radio-button>
+      <mat-radio-button value="MODERATOR">
+        Moderator
+      </mat-radio-button>
+    </mat-radio-group>
+    <div class="controls">
+      <button mat-button color="primary" (click)="acceptResume()" [disabled]="acceptResumeForm.invalid"
+              [mat-dialog-close]="" cdkFocusInitial>
+        Accept resume
+      </button>
+      <button mat-button color="warn" (click)=onCancelClick()> Close</button>
+    </div>
+  </form>
+</div>

@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import {HttpClient,HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Account} from "../model/Account";
-import {DetailAccountDTO} from "../model/DetailAccountDTO";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, throwError} from 'rxjs';
+import {Account} from '../model/Account';
+import {DetailAccountDTO} from '../model/DetailAccountDTO';
+import {catchError} from 'rxjs/internal/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,11 @@ export class AccountService {
 
   deleteAccount(id:string):  Observable<any> {
     return this.http.delete(this.accountUrl+'delete/'+id);
+  }
+
+  updateAccountBalance(accountId: string, currentBalance: number): Observable<Account> {
+    return this.http.put<Account>(this.accountUrl + 'update-balance/' + accountId, currentBalance)
+      .pipe(catchError((error: any) => throwError(error.error)));
   }
 
 }

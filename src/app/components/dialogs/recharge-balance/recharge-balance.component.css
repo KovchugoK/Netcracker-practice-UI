@@ -1,11 +1,11 @@
-.make-investments-dialog {
+.recharge-balance-dialog {
   display: flex;
   flex-direction: column;
   font-size: 14pt;
   justify-content: space-between;
 }
 
-.make-investments-dialog-controls {
+.recharge-balance-dialog-controls {
   margin-top: 20px;
 }
 

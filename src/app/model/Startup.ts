@@ -17,6 +17,7 @@ export interface Startup {
   compressedImageId: String;
   image: String;
   startupInvestments: Investment[];
+  startupRoles: StartupRole[];
 }
 
 export const defaultStartup: Startup = {
@@ -28,10 +29,13 @@ export const defaultStartup: Startup = {
   nonBlock: true,
   sumOfInvestment: 0,
   account: null,
-  startupResumes: null,
+  startupResumes: [],
   dateOfCreation: null,
   imageId: '',
   compressedImageId: '',
   image: '',
-  startupInvestments: null
+  startupInvestments: [],
+  startupRoles: []
 };
+
+

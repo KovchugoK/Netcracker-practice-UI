@@ -1,5 +1,5 @@
-import {Resume} from "../../model/Resume";
-import {SearchObject} from "../../model/SearchObject";
+import {Resume} from '../../model/Resume';
+import {SearchObject} from '../../model/SearchObject';
 
 
 export const FETCH_RESUMES = '[Resume] Fetch resumes specialist';
@@ -20,7 +20,8 @@ export const DELETE_RESUME_SUCCESS = '[Resume State] Delete resume success';
 
 export const SEARCH_RESUMES = '[Resumes] Search resumes';
 export const SEARCH_RESUMES_SUCCESS = '[Resumes] Search resumes success';
-
+export const FETCH_MY_RESUMES = '[Resumes] Fetch my resumes';
+export const FETCH_MY_RESUMES_SUCCESS = '[Resumes] Fetch my resumes success';
 export function fetchResumesAction() {
   return {
     type: FETCH_RESUMES
@@ -140,3 +141,16 @@ export function searchResumesSuccessAction(resumes: Map<string, Resume>) {
   };
 }
 
+export function fetchMyResumesAction(accountId: String) {
+  return {
+    type: FETCH_MY_RESUMES,
+    payload: {accountId}
+  };
+}
+
+export function fetchMyResumesSuccessAction(resumes: Map<string, Resume>) {
+  return {
+    type: FETCH_MY_RESUMES_SUCCESS,
+    payload: {resumes}
+  };
+}

@@ -1,0 +1,17 @@
+mat-form-field {
+  width: 100%;
+}
+
+mat-radio-button{
+  width: 100%;
+}
+h1 {
+  text-align: center;
+}
+
+.join-startup-dialog {
+  display: flex;
+  flex-direction: column;
+  font-size: 14pt;
+  justify-content: space-between;
+}
