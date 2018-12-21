@@ -44,15 +44,15 @@ export const conversationsReducer:
     case UPDATE_MESSAGES: {
       const conversations = new Map(state.conversations);
       const conversation = conversations.get(action.payload.message.conversationId);
-      const messages: Message[] = Array.from(conversation.conversationMessages);
+      const messages: Message[] = [...conversation.conversationMessages];
       messages.unshift(action.payload.message);
-      conversation.conversationMessages = messages;
-      conversations.set(conversation.id, conversation);
+      const updatedConversation = {...conversation, conversationMessages: messages};
+      conversations.set(conversation.id, updatedConversation);
       /*const curConversation = {...state.currentConversation};
       if (state.currentConversation !== null && state.currentConversation.id === action.payload.message.conversationId) {
         curConversation.conversationMessages.unshift(action.payload.message);
       }*/
-      return {...state, conversations: conversations, currentConversation: conversation};
+      return {...state, conversations: conversations, currentConversation: updatedConversation};
     }
     default:
       return state;

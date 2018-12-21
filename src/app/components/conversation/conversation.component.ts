@@ -37,11 +37,6 @@ export class ConversationComponent implements OnInit {
           )
         )
       );
-
-    this.chatService.connect();
-    this.chatService.getMessages().subscribe((message: Message) => {
-      this.ngRedux.dispatch(updateMessagesAction(message));
-    });
   }
 
   sendMessage(messageBody: string) {
@@ -53,16 +48,6 @@ export class ConversationComponent implements OnInit {
         receiverId: this.ngRedux.getState().conversationsState.currentConversation.secondAccount.id,
         msg: messageBody,
         creationDate: new Date()
-      }).subscribe(answer => {
-        if (answer === 1) {
-          this.ngRedux.dispatch(updateMessagesAction({
-            conversationId: this.ngRedux.getState().conversationsState.currentConversation.id,
-            senderId: this.ngRedux.getState().conversationsState.currentConversation.firstAccount.id,
-            receiverId: this.ngRedux.getState().conversationsState.currentConversation.secondAccount.id,
-            msg: messageBody,
-            creationDate: new Date()
-          }));
-        }
       });
       this.defaultTextAreaValue = '';
     }

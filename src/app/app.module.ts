@@ -36,23 +36,24 @@ import {
   MatMenuModule, MatProgressBarModule, MatDatepickerModule,
   MatNativeDateModule, MatInputModule
 } from '@angular/material';
-import { MyStartupsComponent } from './components/my-startups/my-startups.component';
-import { StartupSearchToolbarComponent } from './components/startup-search-toolbar/startup-search-toolbar.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { ResumeEditComponent } from './components/resume-edit/resume-edit.component';
-import { ContactsComponent } from './components/contacts/contacts.component';
+import {MyStartupsComponent} from './components/my-startups/my-startups.component';
+import {StartupSearchToolbarComponent} from './components/startup-search-toolbar/startup-search-toolbar.component';
+import {ToolbarComponent} from './components/toolbar/toolbar.component';
+import {ResumeEditComponent} from './components/resume-edit/resume-edit.component';
+import {ContactsComponent} from './components/contacts/contacts.component';
 import {GlobalUserStorageService} from './services/global-storage.service';
-import { AccountComponent } from './components/account/account.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { AccountEditComponent } from './components/account-edit/account-edit.component';
+import {AccountComponent} from './components/account/account.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {AccountEditComponent} from './components/account-edit/account-edit.component';
 import {ConversationComponent} from './components/conversation/conversation.component';
 import {ImageUploadComponent} from './components/image-upload/image-upload.component';
 import {NgxPermissionsModule, NgxPermissionsService} from 'ngx-permissions';
 import {AuthenticationService} from './services/authentication.service';
-import {SkillPipe} from "./components/account/pipes/skill-pipe";
-import {ProjectPipe} from "./components/account/pipes/project-pipe";
-import {AgePipe} from "./components/account/pipes/age-pipe";
-import { ConversationListComponent } from './components/conversation-list/conversation-list.component';
+import {SkillPipe} from './components/account/pipes/skill-pipe';
+import {ProjectPipe} from './components/account/pipes/project-pipe';
+import {AgePipe} from './components/account/pipes/age-pipe';
+import {ConversationListComponent} from './components/conversation-list/conversation-list.component';
+import {ChatServerService} from './services/chat-server.service';
 
 @NgModule({
   declarations: [
@@ -143,7 +144,8 @@ export class AppModule {
               private epicService: EpicService,
               private devTools: DevToolsExtension,
               private storageService: GlobalUserStorageService,
-              private auth: AuthenticationService) {
+              private auth: AuthenticationService,
+              private chatService: ChatServerService) {
     const epics = this.epicService.getEpics();
     const middleware = createEpicMiddleware();
     let enhancers = [];
@@ -156,7 +158,6 @@ export class AppModule {
     if (this.ngRedux.getState().currentUserState.currentUser) {
       this.auth.addRole(this.ngRedux.getState().currentUserState.currentUser.roles);
     }
+    this.chatService.connect();
   }
-
-
 }
