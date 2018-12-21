@@ -4,34 +4,29 @@
     </mat-spinner>
   </div>
   <ng-template #conversationFragment>
-    <div style="display: flex; flex-direction: column; align-items: center">
+    <div class="main-conversation">
       <mat-list>
         <mat-list-item class="mat-list-item-word-wrap"
                        *ngFor="let message of (currentConversation | async)?.conversationMessages">
-          <div style="display: flex; align-items: center">
+          <div class="mat-list-item-content">
             <img matListAvatar class="full-size" src="/src/assets/images/Person.jpg">
-            <div style="display: flex; flex-direction: column">
-              <ng-container *ngTemplateOutlet="otherSender;
-         context: message.senderId === (currentConversation | async)?.firstAccount.id ?
+            <div class="mat-list-item-text-info">
+              <ng-container *ngTemplateOutlet="otherSender; context: message.senderId === (currentConversation | async)?.firstAccount.id ?
          {'account': (currentConversation | async)?.firstAccount, message: message} :
          {'account': (currentConversation | async)?.secondAccount, message: message}">
               </ng-container>
-              <h3 mat-line>
+              <h4 mat-line>
                 {{message.msg}}
-              </h3>
+              </h4>
             </div>
           </div>
-
         </mat-list-item>
       </mat-list>
-      <div style="display: flex; justify-content: space-between">
-        <mat-form-field class="example-full-width">
-  <textarea [(ngModel)]='defaultTextAreaValue' rows="3" class="message-input-text-area" matInput
-            placeholder="Input a message"
-            maxlength="100" cdkTextareaAutosize="false" #inputArea>
-
+      <div class="input-form">
+        <mat-form-field class="mat-form-field-input">
+  <textarea [(ngModel)]='defaultTextAreaValue' class="text-area-input" matInput placeholder="Input a message" maxlength="100"
+            cdkTextareaAutosize="false" #inputArea>
   </textarea>
-
         </mat-form-field>
         <button mat-raised-button class="send-button" (click)='sendMessage(inputArea.value)'>
           <mat-icon matSuffix>send</mat-icon>
@@ -42,7 +37,7 @@
 </main>
 
 <ng-template #otherSender let-account='account' let-message='message'>
-  <h5 mat-line>
+  <h6 mat-line>
     {{account.firstName}} {{account.lastName}} {{message.creationDate | date : 'MMM d, yyyy H:mm:SS'}}
-  </h5>
+  </h6>
 </ng-template>
