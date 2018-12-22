@@ -124,7 +124,7 @@ export class StartupComponent implements OnInit {
   joinStartup() {
     this.ngRedux.dispatch(showDialogAction({
       componentType: JoinStartupComponent,
-      width: '400px',
+      width: '600px',
       data: {startupId: this.id}
     }));
 

@@ -37,15 +37,10 @@ export const currentUserReducer: Reducer<CurrentUserState> = (state: CurrentUser
       return {...state, errorMessage: null};
     }
     case UPDATE_BALANCE_SUCCESS: {
-      // bad realization, but we need to update localStorage
-      // let user: User = JSON.parse(localStorage.getItem('currentUser'));
-      // user = {...user, account: {...user.account, balance: action.payload.account.balance}};
-      // localStorage.setItem('currentUser', JSON.stringify(user));
-
       return {
         ...state, currentUser: {
           ...state.currentUser,
-          account: {...state.currentUser.account, balance: action.payload.account.balance}
+          account: {...state.currentUser.account, balance: action.payload.balance}
         }
       };
     }

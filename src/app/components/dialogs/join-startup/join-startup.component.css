@@ -15,3 +15,7 @@ h1 {
   font-size: 14pt;
   justify-content: space-between;
 }
+
+mat-card {
+  width: 500px;
+}

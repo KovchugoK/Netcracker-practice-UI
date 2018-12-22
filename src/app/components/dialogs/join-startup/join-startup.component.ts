@@ -71,5 +71,11 @@ export class JoinStartupComponent implements OnInit {
       this.ngRedux.dispatch(updateRouterState('/resume-edit'));
     });
   }
+  goToResume(id: string) {
+    this.dialogRef.close(DialogResult.CLOSE);
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.ngRedux.dispatch(updateRouterState('/resume/' + id));
+    });
+  }
 
 }

@@ -44,8 +44,6 @@ export class AcceptResumeComponent implements OnInit {
 
 
   acceptResume() {
-    this.ngRedux.dispatch(acceptResumeToStartupAction(this.resumeId, this.acceptResumeForm.controls['role'].value, this.accountId));
-    // this.startupResumeService.acceptResume(this.resumeId, this.acceptResumeForm.controls['role'].value)
-    //   .subscribe(() => this.ngRedux.dispatch(selectStartup(this.ngRedux.getState().startupPageState.startupModel.id)));
+    this.ngRedux.dispatch(acceptResumeToStartupAction(this.resumeId, 'MEMBER', this.accountId));
   }
 }

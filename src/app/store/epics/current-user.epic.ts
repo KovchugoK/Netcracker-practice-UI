@@ -51,12 +51,12 @@ export class CurrentUserEpic {
         return this.accountService
           .updateAccountBalance(payload.accountId, payload.currentBalance)
           .pipe(
-            map(account => {
+            map(balance => {
               this.localStorageService.currentUser = {
                 ...this.localStorageService.currentUser,
-                account: {...this.localStorageService.currentUser.account, balance: payload.currentBalance}
+                account: {...this.localStorageService.currentUser.account, balance: balance}
               };
-              return updateBalanceSuccessAction(account);
+              return updateBalanceSuccessAction(balance);
             }),
             catchError(error => error)
           );

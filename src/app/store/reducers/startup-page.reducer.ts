@@ -56,25 +56,39 @@ export const startupPageReducer: Reducer<StartupPageState> = (state: StartupPage
           updatedResumes.splice(index, 1, startupResume);
         }
       }
+      let addNewRole = true;
       const updatedStartupRoles = [...state.startupModel.startupRoles];
-      updatedStartupRoles.push({
-        id: uuid.v4,
-        startupId: state.startupModel.id,
-        accountId: action.payload.accountId,
-        roleName: action.payload.roleName
-      });
+      for (const startupRole of updatedStartupRoles) {
+        if (startupRole.accountId === action.payload.accountId) {
+          addNewRole = false;
+          break;
+        }
+      }
+      if (addNewRole) {
+        updatedStartupRoles.push({
+          id: uuid.v4,
+          startupId: state.startupModel.id,
+          accountId: action.payload.accountId,
+          roleName: action.payload.roleName
+        });
+      }
       return {...state, startupModel: {...state.startupModel, startupResumes: updatedResumes, startupRoles: updatedStartupRoles}};
     }
 
     case KICK_MEMBER_FROM_STARTUP: {
-      const updatedResumes = [...state.startupModel.startupResumes];
+      let updatedResumes = [...state.startupModel.startupResumes];
       const updateStartupRoles = [...state.startupModel.startupRoles];
+
+      if (updatedResumes.filter(value => value.resume.account.id === action.payload.accountId).length <= 1) {
+        updateStartupRoles.filter(value => value.accountId !== action.payload.accountId);
+      }
+      updatedResumes = [...state.startupModel.startupResumes];
       return {
         ...state, startupModel:
           {
             ...state.startupModel, startupResumes:
               updatedResumes.filter(value => value.id !== action.payload.startupResumeId),
-            startupRoles: updateStartupRoles.filter(value => value.accountId !== action.payload.accountId)
+            startupRoles: updateStartupRoles
           }
       };
     }
@@ -82,7 +96,7 @@ export const startupPageReducer: Reducer<StartupPageState> = (state: StartupPage
     case MAKE_INVESTMENT_IN_STARTUP_SUCCESS: {
       const updatedStartupInvestments = [...state.startupModel.startupInvestments];
       updatedStartupInvestments.push(action.payload.investment);
-      return{...state, startupModel: {...state.startupModel, startupInvestments: updatedStartupInvestments}};
+      return {...state, startupModel: {...state.startupModel, startupInvestments: updatedStartupInvestments}};
     }
 
     case CHANGE_STARTUP_MEMBER_ROLE: {

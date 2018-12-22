@@ -1,6 +1,5 @@
 import {User} from '../../model/User';
 import {Credential} from '../../model/Credential';
-import {Account} from '../../model/Account';
 
 export const UPDATE_CURRENT_USER = '[Current user] Update current user';
 export const LOGIN_USER = '[Current user] Login user';
@@ -50,9 +49,9 @@ export function updateBalanceAction(accountId: string, currentBalance: number) {
   };
 }
 
-export function updateBalanceSuccessAction(account: Account) {
+export function updateBalanceSuccessAction(balance: number) {
   return {
     type: UPDATE_BALANCE_SUCCESS,
-    payload: {account}
+    payload: {balance}
   };
 }

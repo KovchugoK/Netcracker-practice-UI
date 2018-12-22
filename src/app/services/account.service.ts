@@ -34,8 +34,8 @@ export class AccountService {
     return this.http.delete(this.accountUrl+'delete/'+id);
   }
 
-  updateAccountBalance(accountId: string, currentBalance: number): Observable<Account> {
-    return this.http.put<Account>(this.accountUrl + 'update-balance/' + accountId, currentBalance)
+  updateAccountBalance(accountId: string, currentBalance: number): Observable<number> {
+    return this.http.put<number>(this.accountUrl + 'update-balance/' + accountId, currentBalance)
       .pipe(catchError((error: any) => throwError(error.error)));
   }
 
