@@ -4,4 +4,4 @@ export const conversationsList = (state: AppState) => Array.from(state.conversat
 
 export const isLoading = (state: AppState) => state.conversationsState.isLoading;
 
-export const currentConversation = (state: AppState) => state.conversationsState.currentConversation;
+export const selectCurrentConversation = (state: AppState) => state.conversationsState.conversations.get(state.conversationsState.currentConversation);

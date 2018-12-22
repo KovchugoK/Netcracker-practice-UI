@@ -6,6 +6,8 @@ import {Observable} from 'rxjs';
 import {Message} from '../model/Message';
 import * as io from 'socket.io-client';
 import {AppState} from '../store';
+import {updateMessagesAction} from '../store/actions/message.action';
+import {fetchConversationsAction} from '../store/actions/conversation.action';
 
 @Injectable({
   providedIn: 'root'
@@ -26,26 +28,26 @@ export class ChatServerService {
         userId: this.ngRedux.getState().currentUserState.currentUser.account.id
       }
     });
+
+    this.socket.on('new_message', (message) => {
+      if (this.ngRedux.getState().conversationsState.conversations.size === 0 ||
+        this.ngRedux.getState().conversationsState.conversations.get(message.conversationId) === null) {
+        this.ngRedux.dispatch(fetchConversationsAction(this.ngRedux.getState().currentUserState.currentUser.account.id));
+      } else {
+        this.ngRedux.dispatch(updateMessagesAction(message));
+      }
+    });
   }
 
   public disconnect() {
     this.socket.disconnect();
   }
 
-  public sendMessage = (message: Message) => {
-    return Observable.create((observer) => {
-      this.socket.emit('new_message', message, (answer) => {
-          observer.next(answer);
-        }
-      );
+  public sendMessage(message: Message) {
+    this.socket.emit('new_message', message, (answer) => {
+      if (answer === 1) {
+        this.ngRedux.dispatch(updateMessagesAction(message));
+      }
     });
-  };
-
-  public getMessages = () => {
-    return Observable.create((observer) => {
-      this.socket.on('new_message', (message) => {
-        observer.next(message);
-      });
-    });
-  };
+  }
 }

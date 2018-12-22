@@ -5,7 +5,7 @@ import {ResumeEpic} from './resume.epic';
 import {CurrentUserEpic} from './current-user.epic';
 import {ContactsEpic} from './contacts.epic';
 import {ConversationsEpic} from './conversations.epic';
-import {FavoriteEpic} from "./favorite.epic";
+import {FavoriteEpic} from './favorite.epic';
 
 
 @NgModule({

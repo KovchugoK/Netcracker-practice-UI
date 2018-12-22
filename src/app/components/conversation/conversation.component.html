@@ -4,41 +4,40 @@
     </mat-spinner>
   </div>
   <ng-template #conversationFragment>
-    <mat-list>
-      <mat-list-item class="mat-list-item-word-wrap"
-                     *ngFor="let message of (currentConversation | async)?.conversationMessages">
-        <img matListAvatar class="full-size" src="/src/assets/images/Person.jpg">
-        <h4 *ngIf="message.senderId===(currentConversation | async)?.firstAccount.id" mat-line>
-          {{(currentConversation | async)?.firstAccount.firstName}}
-          {{(currentConversation | async)?.firstAccount.lastName}}
-          {{message.creationDate | date : 'MMM d, yyyy H:mm:SS'}}</h4>
-        <h4 *ngIf="message.senderId!==(currentConversation | async)?.firstAccount.id" mat-line>
-          {{(currentConversation | async)?.secondAccount.firstName}}
-          {{(currentConversation | async)?.secondAccount.lastName}}
-          {{message.creationDate | date : 'MMM d, yyyy H:mm:SS'}}</h4>
-        <h3 mat-line>
-          {{message.msg}}
-        </h3>
-      </mat-list-item>
-    </mat-list>
-    <mat-form-field class="example-full-width">
-  <textarea [(ngModel)]='defaultTextAreaValue' rows="3" class="message-input-text-area" matInput placeholder="Input a message"
-            maxlength="100" cdkTextareaAutosize="false" #inputArea></textarea>
-      <button mat-raised-button class="send-button" (click)='sendMessage(inputArea.value)'>
-        <mat-icon matSuffix>send</mat-icon>
-      </button>
-    </mat-form-field>
-  </ng-template>
-</main>
-<!--<ng-container *ngTemplateOutlet="otherSender;
-         context: message.senderId === (currentConversation | async)?.firstAccount.id ?
+    <div class="main-conversation">
+      <mat-list>
+        <mat-list-item class="mat-list-item-word-wrap"
+                       *ngFor="let message of (currentConversation | async)?.conversationMessages">
+          <div class="mat-list-item-content">
+            <img matListAvatar class="full-size" src="/src/assets/images/Person.jpg">
+            <div class="mat-list-item-text-info">
+              <ng-container *ngTemplateOutlet="otherSender; context: message.senderId === (currentConversation | async)?.firstAccount.id ?
          {'account': (currentConversation | async)?.firstAccount, message: message} :
          {'account': (currentConversation | async)?.secondAccount, message: message}">
-        </ng-container>-->
-<!--
+              </ng-container>
+              <h4 mat-line>
+                {{message.msg}}
+              </h4>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+      <div class="input-form">
+        <mat-form-field class="mat-form-field-input">
+  <textarea [(ngModel)]='defaultTextAreaValue' class="text-area-input" matInput placeholder="Input a message" maxlength="100"
+            cdkTextareaAutosize="false" #inputArea>
+  </textarea>
+        </mat-form-field>
+        <button mat-raised-button class="send-button" (click)='sendMessage(inputArea.value)'>
+          <mat-icon matSuffix>send</mat-icon>
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</main>
+
 <ng-template #otherSender let-account='account' let-message='message'>
-  <h4 mat-line>
+  <h6 mat-line>
     {{account.firstName}} {{account.lastName}} {{message.creationDate | date : 'MMM d, yyyy H:mm:SS'}}
-  </h4>
+  </h6>
 </ng-template>
--->

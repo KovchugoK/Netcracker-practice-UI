@@ -13,7 +13,7 @@ import {Message} from '../../model/Message';
 
 export interface ConversationsState {
   readonly conversations: Map<string, Conversation>;
-  readonly currentConversation: Conversation;
+  readonly currentConversation: string;
   readonly isLoading: boolean;
 }
 
@@ -37,22 +37,18 @@ export const conversationsReducer:
     case GET_CONVERSATION_SUCCESS: {
       const conversations = new Map(state.conversations);
       conversations.set(action.payload.conversation.id, action.payload.conversation);
-      return {...state, conversations: conversations, currentConversation: action.payload.conversation, isLoading: false};
+      return {...state, conversations: conversations, currentConversation: action.payload.conversation.id, isLoading: false};
     }
     case GET_CONVERSATION_FAILED:
       return {...state, ...action.payload};
     case UPDATE_MESSAGES: {
       const conversations = new Map(state.conversations);
       const conversation = conversations.get(action.payload.message.conversationId);
-      const messages: Message[] = Array.from(conversation.conversationMessages);
+      const messages: Message[] = [...conversation.conversationMessages];
       messages.unshift(action.payload.message);
-      conversation.conversationMessages = messages;
-      conversations.set(conversation.id, conversation);
-      /*const curConversation = {...state.currentConversation};
-      if (state.currentConversation !== null && state.currentConversation.id === action.payload.message.conversationId) {
-        curConversation.conversationMessages.unshift(action.payload.message);
-      }*/
-      return {...state, conversations: conversations, currentConversation: conversation};
+      const updatedConversation = {...conversation, conversationMessages: messages};
+      conversations.set(conversation.id, updatedConversation);
+      return {...state, conversations: conversations};
     }
     default:
       return state;
