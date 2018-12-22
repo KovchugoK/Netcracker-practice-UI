@@ -21,11 +21,11 @@ export class ChatServerService {
   constructor(private ngRedux: NgRedux<AppState>) {
   }
 
-  public connect() {
+  public connect(token: string, userId: string) {
     this.socket = io('http://localhost:10000', {
       query: {
-        token: this.ngRedux.getState().currentUserState.currentUser.token.accessToken,
-        userId: this.ngRedux.getState().currentUserState.currentUser.account.id
+        token: token,
+        userId: userId
       }
     });
 

@@ -5,7 +5,7 @@
   </div>
   <ng-template #conversationFragment>
     <div class="main-conversation">
-      <mat-list>
+      <mat-list class="mat-list">
         <mat-list-item class="mat-list-item-word-wrap"
                        *ngFor="let message of (currentConversation | async)?.conversationMessages">
           <div class="mat-list-item-content">

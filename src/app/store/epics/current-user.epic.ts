@@ -14,11 +14,13 @@ import {
 import {AuthenticationService} from '../../services/authentication.service';
 import {GlobalUserStorageService} from '../../services/global-storage.service';
 import {AccountService} from '../../services/account.service';
+import {ChatServerService} from '../../services/chat-server.service';
 
 @Injectable()
 export class CurrentUserEpic {
   constructor(private authService: AuthenticationService, private localStorageService: GlobalUserStorageService,
-              private accountService: AccountService) {
+              private accountService: AccountService,
+              private chatService: ChatServerService) {
   }
 
   loginUser$ = (action$: ActionsObservable<AnyAction>) => {
@@ -29,6 +31,7 @@ export class CurrentUserEpic {
           .pipe(
             map(user => {
               this.localStorageService.currentUser = {...user};
+              this.chatService.connect(user.token.accessToken, user.account.id);
               return updateCurrentUserAction(user);
             }), catchError(error => of(loginUserFailedAction(error)))
           );
@@ -40,6 +43,7 @@ export class CurrentUserEpic {
     return action$.ofType(LOGOUT_USER).pipe(
       switchMap(({}) => {
         this.localStorageService.currentUser = null;
+        this.chatService.disconnect();
         return of(updateCurrentUserAction(null));
       })
     );

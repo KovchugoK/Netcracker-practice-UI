@@ -157,7 +157,8 @@ export class AppModule {
     ngReduxRouter.initialize((state: AppState) => state.router);
     if (this.ngRedux.getState().currentUserState.currentUser) {
       this.auth.addRole(this.ngRedux.getState().currentUserState.currentUser.roles);
+      this.chatService.connect(this.ngRedux.getState().currentUserState.currentUser.token.accessToken,
+        this.ngRedux.getState().currentUserState.currentUser.account.id);
     }
-    this.chatService.connect();
   }
 }
