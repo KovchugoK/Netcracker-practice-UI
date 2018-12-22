@@ -87,19 +87,19 @@ export class StartupComponent implements OnInit {
   //   return false;
   // }
 
-  // get currentUserAccountId(): string {
-  //   return this.ngRedux.getState().currentUserState.currentUser.account.id;
-  // }
+  get currentUserAccountId(): string {
+    return this.ngRedux.getState().currentUserState.currentUser.account.id;
+  }
 
   get currentStartup(): Startup {
     return this.ngRedux.getState().startupPageState.startupModel;
   }
   blockStartup(startup: Startup) {
-    this.adminService.blockStartup(startup).subscribe();
+    this.adminService.blockStartup(startup.id).subscribe();
     startup.nonBlock = false;
   }
   unBlockStartup(startup: Startup ) {
-    this.adminService.unBlockStartup(startup).subscribe();
+    this.adminService.unBlockStartup(startup.id).subscribe();
     startup.nonBlock = true;
   }
 

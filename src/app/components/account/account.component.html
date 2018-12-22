@@ -7,6 +7,13 @@
     <mat-card-subtitle>{{(account| async)?.user.email}}</mat-card-subtitle>
   </mat-card-title-group>
   <mat-card-actions fxFlex="1 1 10%">
+    <div *ngIf="!currentUser.nonBlock" style="color: red">
+      <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="unBlockUser(currentUser)"> Unblock User  </button></ng-template>
+      User blocked
+    </div>
+    <div *ngIf="currentUser.nonBlock">
+      <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="blockUser(currentUser)"> Block User  </button></ng-template>
+    </div>
     <button mat-icon-button color="primary" routerLink="/account-edit/{{id}}" >
     <mat-icon>edit</mat-icon>
   </button>
