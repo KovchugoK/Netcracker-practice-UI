@@ -3,8 +3,11 @@ import {ContactsService} from '../../services/contacts.service';
 import {ActionsObservable} from 'redux-observable';
 import {AnyAction} from 'redux';
 import {
-  ADD_CONTACT, addContactFailedAction, addContactSuccessAction,
-  DELETE_CONTACT, deleteContactFailedAction,
+  ADD_CONTACT,
+  addContactFailedAction,
+  addContactSuccessAction,
+  DELETE_CONTACT,
+  deleteContactFailedAction,
   deleteContactSuccessAction,
   FETCH_CONTACTS,
   fetchContactsFailedAction,
