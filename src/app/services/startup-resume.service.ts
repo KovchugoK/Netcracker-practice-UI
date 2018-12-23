@@ -20,10 +20,10 @@ export class StartupResumeService {
       .pipe(catchError((error: any) => throwError(error.error)));
   }
 
-  // rejectResume(resumeId: String): Observable<any> {
-  //   return this.http.delete<any>('/api/startup-resume/reject-resume/' + resumeId)
-  //     .pipe(catchError((error: any) => throwError(error.error)));
-  // }
+  cancelResume(resumeId: String): Observable<any> {
+    return this.http.delete<any>('/api/startup-resume/cancel-resume/' + resumeId)
+      .pipe(catchError((error: any) => throwError(error.error)));
+  }
   //
   // acceptResume(startupResumeId: String, startupRole: String): Observable<StartupResume> {
   //   return this.http.put<StartupResume>('/api/startup-resume/accept-resume/' + startupResumeId, startupRole)

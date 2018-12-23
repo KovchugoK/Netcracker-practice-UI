@@ -5,7 +5,6 @@ import {AppState} from '../../../store';
 import {DeleteStartupComponent} from '../delete-startup/delete-startup.component';
 import {NgRedux} from '@angular-redux/store';
 import {DialogResult} from '../../../model/dialog-result';
-import {StartupResumeService} from '../../../services/startup-resume.service';
 
 
 @Component({
@@ -26,7 +25,6 @@ export class KickMemberComponent implements OnInit {
   ngOnInit() {
     this.resumeId = this.data.resumeId;
     this.accountId = this.data.accountId;
-
   }
 
   onCancelClick() {

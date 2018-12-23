@@ -13,8 +13,6 @@ import {Observable} from 'rxjs';
 import {skipWhile, take} from 'rxjs/internal/operators';
 import {Resume} from '../../../model/Resume';
 import {updateRouterState} from '../../../store/actions/router.actions';
-
-import {StartupResumeService} from '../../../services/startup-resume.service';
 import {sendResumeToStartupAction} from '../../../store/actions/startup-state.actions';
 
 @Component({
@@ -33,6 +31,8 @@ export class JoinStartupComponent implements OnInit {
   @select(selectResumes)
   myResumeList: Observable<Resume[]>;
 
+  myResumeListNotInStartup: Resume[];
+
   constructor(private ngRedux: NgRedux<AppState>,
               public dialogRef: MatDialogRef<MakeInvestmentsComponent>,
               private fb: FormBuilder,
@@ -45,8 +45,8 @@ export class JoinStartupComponent implements OnInit {
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.dispatch(fetchMyResumesAction(this.ngRedux.getState().currentUserState.currentUser.account.id)));
 
-    this.isLoading.pipe(skipWhile(result => result === true), take(1))
-      .subscribe(() => this.ngRedux.select(selectResumes));
+    this.myResumeList.subscribe(value => this.myResumeListNotInStartup = value.filter(r =>
+      !this.ngRedux.getState().startupPageState.startupModel.startupResumes.find(sr => sr.resume.id === r.id)));
 
     this.initializeForm();
   }
@@ -63,19 +63,25 @@ export class JoinStartupComponent implements OnInit {
   }
 
   sendResume() {
-    this.ngRedux.dispatch(sendResumeToStartupAction(this.resumeChooseForm.controls['resume'].value));
+    this.dialogRef.close(DialogResult.CLOSE);
+    this.dialogRef.afterClosed().subscribe(() => {
+      this.ngRedux.dispatch(sendResumeToStartupAction(this.resumeChooseForm.controls['resume'].value));
+    });
   }
+
   createNewResume() {
     this.dialogRef.close(DialogResult.CLOSE);
     this.dialogRef.afterClosed().subscribe(() => {
       this.ngRedux.dispatch(updateRouterState('/resume-edit'));
     });
   }
+
   goToResume(id: string) {
     this.dialogRef.close(DialogResult.CLOSE);
     this.dialogRef.afterClosed().subscribe(() => {
       this.ngRedux.dispatch(updateRouterState('/resume/' + id));
     });
   }
+
 
 }

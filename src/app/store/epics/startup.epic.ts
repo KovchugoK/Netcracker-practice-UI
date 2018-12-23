@@ -19,6 +19,8 @@ import {AnyAction} from 'redux';
 import {TransformService} from '../../utils/transform.service';
 import {StartupService} from '../../services/startup.service';
 import {
+  CANCEL_RESUME_TO_STARTUP,
+  cancelResumeToStartupSuccessAction,
   MAKE_INVESTMENT_IN_STARTUP, makeInvestmentInStartupSuccessAction,
   SELECT_STARTUP,
   selectStartupSuccess,
@@ -126,6 +128,19 @@ export class StartupEpic {
           .sendResumeToStartup(payload.resume, this.ngRedux.getState().startupPageState.startupModel)
           .pipe(
             map(startupResume => sendResumeToStartupSuccessAction(startupResume)),
+            catchError(error => of(fetchStartupsFailedAction(error.message)))
+          );
+      })
+    );
+  };
+
+  cancelResumeToStartup$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(CANCEL_RESUME_TO_STARTUP).pipe(
+      switchMap(({payload}) => {
+        return this.startupResumeService
+          .cancelResume(payload.startupResumeId)
+          .pipe(
+            map(() => cancelResumeToStartupSuccessAction(payload.startupResumeId)),
             catchError(error => of(fetchStartupsFailedAction(error.message)))
           );
       })
