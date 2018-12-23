@@ -1,6 +1,7 @@
 .startup-toolbar{
   background-color: transparent;
   width: 80%;
+  margin-top: 10px;
 }
 
 .sortTypeSelect{

@@ -6,7 +6,7 @@
     </mat-spinner>
   </div>
   <ng-template #resumeTable>
-    <table class="table table-striped table-bordered">
+    <!--table class="table table-striped table-bordered">
       <tr>
         <td><b> Id </b></td>
         <td><b> First Name </b></td>
@@ -24,7 +24,36 @@
           </button>
         </td>
       </tr>
-    </table>
+    </table-->
+    <div class="container" *ngFor="let favorite of favoriteList|async">
+      <mat-card class="example-card">
+        <mat-card-content>
+          <!--img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png"-->
+          <div>
+            <div>
+              <div *ngIf="favorite?.account.compressedImageId !== null; else defaultImg">
+                <img mat-card-lg-image="" class="full-size"
+                     src="https://drive.google.com/thumbnail?id={{favorite?.account.compressedImageId}}"
+                     alt="resumeLogo">
+              </div>
+              <ng-template #defaultImg>
+                <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+              </ng-template>
+            </div>
+            <div class="name">
+              <p class="box">
+                <a routerLink="/specialist-list/{{favorite?.account.id}}">{{favorite?.account.firstName}}
+                  {{favorite?.account.lastName}}</a></p>
+            </div>
+          </div>
+          <div class="deleteIcon">
+            <mat-icon fxFlexAlign="right" class="material-icons" (click)="deleteFavorite(favorite.id)">
+              close
+            </mat-icon>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </ng-template>
 </main>
 

@@ -6,22 +6,28 @@
   <ng-template #resumeView>
     <mat-dialog-content>
       <div class="header">
-        <img class="header-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Account avatar">
-        <div align="right">
-          <button mat-raised-button="" class="btnControl" routerLink="/resume-edit/{{id}}" *ngIf="currentUser && (currentUserAccountId === (resume | async)?.account.id)"> Edit</button>
-          <button mat-raised-button="" class="btnControl" (click)="onDeleteResume()" *ngIf="currentUser && (currentUserAccountId === (resume | async)?.account.id)"> Delete</button>
-        </div>
-        <div class="brief-info">
-          <h4>{{(resume | async)?.businessRole.businessRoleName}}</h4>
-          <a>{{(resume | async)?.account.firstName}} {{(resume | async)?.account.lastName}}</a><br>
+        <!--img class="header-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Account avatar"-->
+        <div class="rightFromImageBlock">
+          <div class="img">
+            <img mat-card-lg-image="" class="full-size"
+                 src="https://drive.google.com/thumbnail?id={{(resume | async)?.account.compressedImageId}}"
+                 alt="resumeLogo">
+          </div>
 
-          <br><h5>Skills</h5>
-          <mat-chip-list>
-            <div *ngFor="let resumeSkill of (resume | async)?.resumeSkills">
-              <mat-chip>{{resumeSkill.skillName}}</mat-chip>
-            </div>
-          </mat-chip-list>
+
+          <div class="nameAndRole">
+            <h4>{{(resume | async)?.businessRole.businessRoleName}}</h4>
+            <a>{{(resume | async)?.account.firstName}} {{(resume | async)?.account.lastName}}</a><br>
+          </div>
         </div>
+
+
+        <br><h5>Skills</h5>
+        <mat-chip-list>
+          <div *ngFor="let resumeSkill of (resume | async)?.resumeSkills">
+            <mat-chip>{{resumeSkill.skillName}}</mat-chip>
+          </div>
+        </mat-chip-list>
       </div>
 
       <div class="about">
@@ -33,32 +39,43 @@
             </p>
           </div>
 
-          <mat-divider></mat-divider>
-
           <div class="about_edu">
-            <br><h5>Education</h5>
-            <mat-list *ngFor="let education of (resume | async)?.account.educations">
-              {{education.completionYear}} <b>{{education.institution}}</b>
-              <mat-divider></mat-divider>
-            </mat-list>
+            <mat-card-title>Education</mat-card-title>
+            <mat-card>
+              <mat-list *ngFor="let education of (resume | async)?.account.educations">
+                <mat-list-item>
+                  <h4>{{education.completionYear}} {{education.institution}}</h4>
+                </mat-list-item>
+              </mat-list>
+            </mat-card>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="about_work">
+            <mat-card-title>Work experience</mat-card-title>
+            <mat-card *ngFor="let workExp of (resume | async)?.account.workExperiences" fxLayoutGap="10px"
+                      fxFlexAlign="space-between start" class="work-experience">
+              <img mat-card-sm-image src="/src/assets/images/Logo.png">
+              <mat-card-title-group fxFlex="1 1 30%">
+                <mat-card-title>{{workExp.workPlace}}</mat-card-title>
+                <mat-card-subtitle>{{workExp.position}}</mat-card-subtitle>
+                <mat-card-subtitle>{{workExp.start|date: 'dd/MM/yyyy'}}-{{(workExp.finish|date:
+                  'dd/MM/yyyy')||"now"}}
+                </mat-card-subtitle>
+              </mat-card-title-group>
+            </mat-card>
           </div>
         </div>
-
-        <div class="about_work">
-          <h5>Work Experience</h5>
-          <mat-list *ngFor="let workExp of (resume | async)?.account.workExperiences">
-            <b>{{workExp.position}}</b><br>
-            {{workExp.workPlace}}<br>
-
-            {{formatDate(workExp.start)}} -
-            <div *ngIf="workExp.finish; then endDate else presentDay"></div>
-            <ng-template #endDate>{{formatDate(workExp.finish)}}</ng-template>
-            <ng-template #presentDay>настоящее время</ng-template>
-
-            <mat-divider></mat-divider>
-          </mat-list>
-        </div>
       </div>
+
+      <div class="button">
+          <button mat-raised-button="" class="btnControl" routerLink="/resume-edit/{{id}}"
+                  *ngIf="currentUser && (currentUserAccountId === (resume | async)?.account.id)"> Edit
+          </button>
+          <button mat-raised-button="" class="btnControl" (click)="onDeleteResume()"
+                  *ngIf="currentUser && (currentUserAccountId === (resume | async)?.account.id)"> Delete
+          </button>
+      </div>
+
     </mat-dialog-content>
   </ng-template>
 </main>
