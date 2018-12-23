@@ -14,7 +14,10 @@ import {RejectResumeComponent} from './reject-resume/reject-resume.component';
 import {AcceptResumeComponent} from './accept-resume/accept-resume.component';
 import {KickMemberComponent} from './kick-member/kick-member.component';
 import {ChangeStartupRoleComponent} from './change-startup-role/change-startup-role.component';
-import { RechargeBalanceComponent } from './recharge-balance/recharge-balance.component';
+import {RechargeBalanceComponent} from './recharge-balance/recharge-balance.component';
+import {CancelResumeComponent} from './cancel-resume/cancel-resume.component';
+import {LeaveStartupComponent } from './leave-startup/leave-startup.component';
+import {DeleteResumeFromStartupComponent } from './delete-resume-from-startup/delete-resume-from-startup.component';
 
 @NgModule({
   imports: [
@@ -28,18 +31,24 @@ import { RechargeBalanceComponent } from './recharge-balance/recharge-balance.co
     DeleteResumeComponent, MakeInvestmentsComponent,
     DeleteFavoriteComponent, JoinStartupComponent,
     RejectResumeComponent, AcceptResumeComponent,
-    KickMemberComponent, ChangeStartupRoleComponent, RechargeBalanceComponent],
+    KickMemberComponent, ChangeStartupRoleComponent,
+    RechargeBalanceComponent, CancelResumeComponent,
+    LeaveStartupComponent, DeleteResumeFromStartupComponent],
   exports: [DialogsComponent, SignUpComponent,
     SignInComponent, DeleteStartupComponent,
     DeleteResumeComponent, MakeInvestmentsComponent,
     DeleteFavoriteComponent, JoinStartupComponent,
     RejectResumeComponent, AcceptResumeComponent,
-    KickMemberComponent, ChangeStartupRoleComponent, RechargeBalanceComponent],
+    KickMemberComponent, ChangeStartupRoleComponent,
+    RechargeBalanceComponent, CancelResumeComponent,
+    LeaveStartupComponent, DeleteResumeFromStartupComponent],
   entryComponents: [SignUpComponent, SignInComponent,
     DeleteStartupComponent, DeleteResumeComponent,
     MakeInvestmentsComponent, DeleteFavoriteComponent,
-    JoinStartupComponent,  RejectResumeComponent, AcceptResumeComponent,
-    KickMemberComponent, ChangeStartupRoleComponent, RechargeBalanceComponent]
+    JoinStartupComponent, RejectResumeComponent, AcceptResumeComponent,
+    KickMemberComponent, ChangeStartupRoleComponent,
+    RechargeBalanceComponent, CancelResumeComponent,
+    LeaveStartupComponent, DeleteResumeFromStartupComponent]
 })
 export class DialogsModule {
 }

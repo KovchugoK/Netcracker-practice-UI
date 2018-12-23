@@ -2,7 +2,7 @@
   <h1 mat-dialog-title> Choose your resume </h1>
   <form [formGroup]="resumeChooseForm">
     <mat-radio-group [formControlName]="'resume'">
-      <mat-radio-button *ngFor="let resume of (myResumeList|async)" [value]="resume">
+      <mat-radio-button *ngFor="let resume of myResumeListNotInStartup" [value]="resume">
         <mat-card>
           <mat-card-content>
             {{resume?.businessRole.businessRoleName}}

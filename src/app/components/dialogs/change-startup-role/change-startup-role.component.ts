@@ -5,8 +5,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NgRedux} from '@angular-redux/store';
 import {StartupResumeService} from '../../../services/startup-resume.service';
 import {DialogResult} from '../../../model/dialog-result';
-import {DeleteStartupComponent} from '../delete-startup/delete-startup.component';
-import {acceptResumeToStartupAction, changeStartupMemberRoleAction} from '../../../store/actions/startup-state.actions';
+import {changeStartupMemberRoleAction} from '../../../store/actions/startup-state.actions';
 
 @Component({
   selector: 'app-change-startup-role',
@@ -21,7 +20,7 @@ export class ChangeStartupRoleComponent implements OnInit {
   constructor(private ngRedux: NgRedux<AppState>,
               private startupResumeService: StartupResumeService,
               private fb: FormBuilder,
-              public dialogRef: MatDialogRef<DeleteStartupComponent>,
+              public dialogRef: MatDialogRef<ChangeStartupRoleComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 

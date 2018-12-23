@@ -1,6 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ResumeDialogData} from '../../../model/dialog-data';
-import {DeleteStartupComponent} from '../delete-startup/delete-startup.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {AppState} from '../../../store';
 import {NgRedux} from '@angular-redux/store';
@@ -18,8 +17,7 @@ export class RejectResumeComponent implements OnInit {
   resumeId: string;
 
   constructor(private ngRedux: NgRedux<AppState>,
-              private startupResumeService: StartupResumeService,
-              public dialogRef: MatDialogRef<DeleteStartupComponent>,
+              public dialogRef: MatDialogRef<RejectResumeComponent>,
               @Inject(MAT_DIALOG_DATA) public data: ResumeDialogData) {
   }
 
