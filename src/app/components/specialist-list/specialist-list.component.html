@@ -31,8 +31,12 @@
             </div>
           </div>
           <div *ngIf="currentAccount && currentAccount.id !== resume?.account.id">
-            <button (click)="onClick(resume?.account)" class="fav"><img mat-card-lg-image="" class="img"
-                                                                        src="/src/assets/images/favorite.png"></button>
+            <!--button  class="fav"><img mat-card-lg-image="" class="img"
+                                                                        src="/src/assets/images/favorite.png"></button-->
+<div ></div>
+            <i (click)="onClick(resume?.account)" class="material-icons">
+              star_border
+            </i>
           </div>
           <h6>Skills: </h6>
           <mat-card-subtitle>

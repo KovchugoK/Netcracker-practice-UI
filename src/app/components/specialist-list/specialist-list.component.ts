@@ -32,7 +32,6 @@ export class SpecialistListComponent implements OnInit {
   @select(selectResumes)
   resumeList: Observable<Resume[]>;
 
-  favotiteForm: FormGroup;
 
   constructor(private ngRedux: NgRedux<AppState>, private specialisService: SpecialistService) {
   }

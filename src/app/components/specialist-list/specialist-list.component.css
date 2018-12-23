@@ -47,3 +47,7 @@ mat-card {
   height: 37px;
   width: 37px;
 }
+.material-icons{
+  font-size: 37px;
+  float: right;
+}
