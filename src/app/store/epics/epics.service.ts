@@ -30,6 +30,7 @@ export class EpicService {
       this.startupEpic.searchStartups$,
       this.startupEpic.sendResumeToStartup$,
       this.startupEpic.makeInvestmentInStartup$,
+      this.startupEpic.cancelResumeToStartup$,
       this.currentUserEpic.loginUser$,
       this.currentUserEpic.logout$,
       this.currentUserEpic.updateBalance$,

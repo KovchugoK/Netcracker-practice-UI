@@ -19,6 +19,8 @@ import {RejectResumeComponent} from '../dialogs/reject-resume/reject-resume.comp
 import {AcceptResumeComponent} from '../dialogs/accept-resume/accept-resume.component';
 import {KickMemberComponent} from '../dialogs/kick-member/kick-member.component';
 import {ChangeStartupRoleComponent} from '../dialogs/change-startup-role/change-startup-role.component';
+import {selectCurrentUser} from '../../store/selectors/current-user.selector';
+import {User} from '../../model/User';
 
 @Component({
   selector: 'app-startup-edit',
@@ -36,8 +38,13 @@ export class StartupEditComponent implements OnInit {
   @select(isSelected)
   isSelected: Observable<boolean>;
 
+  @select(selectCurrentUser)
+  currentUser: Observable<User>;
+
   pendingResumes: StartupResume[];
   currentStartup: Startup;
+
+  // permissionToManage = true;
 
   constructor(private ngRedux: NgRedux<AppState>,
               private startupService: StartupService,
@@ -110,16 +117,22 @@ export class StartupEditComponent implements OnInit {
 
   updateStartup() {
     this.ngRedux.dispatch(updateStartupAction({
-      ...this.startupForm.value, id: this.id, startupResumes: this.currentStartup.startupResumes, startupRoles: this.currentStartup.startupRoles,
-      startupInvestments: this.currentStartup.startupInvestments, compressedImageId: this.currentStartup.compressedImageId,
-      dateOfCreation: this.currentStartup.dateOfCreation, imageId: this.currentStartup.imageId, account: this.currentStartup.account
+      ...this.startupForm.value,
+      id: this.id,
+      startupResumes: this.currentStartup.startupResumes,
+      startupRoles: this.currentStartup.startupRoles,
+      startupInvestments: this.currentStartup.startupInvestments,
+      compressedImageId: this.currentStartup.compressedImageId,
+      dateOfCreation: this.currentStartup.dateOfCreation,
+      imageId: this.currentStartup.imageId,
+      account: this.currentStartup.account
     }));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/startup/' + this.id)));
   }
 
   createStartup() {
-    this.ngRedux.dispatch(createStartupAction({...this.startupForm.value, id: this.id, dateOfCreation: '2018-12-10 10:23:40.433000' }));
+    this.ngRedux.dispatch(createStartupAction({...this.startupForm.value, id: this.id, dateOfCreation: new Date()}));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.dispatch(updateRouterState('/startup-list')));
   }
@@ -148,11 +161,11 @@ export class StartupEditComponent implements OnInit {
     }));
   }
 
-  kickMember(id: string) {
+  kickMember(resumeId: string, accountId: string) {
     this.ngRedux.dispatch(showDialogAction({
       componentType: KickMemberComponent,
-      width: '300px',
-      data: {resumeId: id}
+      width: '180px',
+      data: {resumeId: resumeId, accountId: accountId}
     }));
   }
 
@@ -162,5 +175,27 @@ export class StartupEditComponent implements OnInit {
       width: '300px',
       data: {accountId: accountId}
     }));
+  }
+
+  getStartupRole(accountId: string): string {
+    const st = this.currentStartup.startupRoles;
+    const startupRole = st.find(value => value.accountId === accountId);
+    if (startupRole !== undefined && startupRole.roleName !== 'MEMBER') {
+      return '(' + startupRole.roleName + ')';
+    }
+    return '';
+  }
+
+  checkPermission(accountId: string): boolean {
+    return this.currentStartup.startupRoles
+      .find(value => value.accountId === accountId
+        && value.roleName === 'MODERATOR') === undefined;
+  }
+
+  checkOnCreate(): string {
+    if (this.id === null || this.id === undefined) {
+      return this.ngRedux.getState().currentUserState.currentUser.account.compressedImageId;
+    }
+    return this.currentStartup.compressedImageId;
   }
 }

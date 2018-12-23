@@ -19,8 +19,10 @@ import {Investment} from '../../model/Investment';
 import {skipWhile, take} from 'rxjs/internal/operators';
 import {AdminService} from '../../services/admin.service';
 import {JoinStartupComponent} from '../dialogs/join-startup/join-startup.component';
-// import * as _ from 'lodash';
-
+import {StartupResume} from '../../model/StartupResume';
+import {CancelResumeComponent} from '../dialogs/cancel-resume/cancel-resume.component';
+import {LeaveStartupComponent} from '../dialogs/leave-startup/leave-startup.component';
+import {DeleteResumeFromStartupComponent} from '../dialogs/delete-resume-from-startup/delete-resume-from-startup.component';
 
 @Component({
   selector: 'app-startup',
@@ -30,7 +32,6 @@ import {JoinStartupComponent} from '../dialogs/join-startup/join-startup.compone
 export class StartupComponent implements OnInit {
 
   id: string;
-  groupedData: any = [];
 
   @select(isSelected)
   isSelected: Observable<boolean>;
@@ -43,6 +44,9 @@ export class StartupComponent implements OnInit {
 
   investments: Investment[];
   currentInvestments: number;
+  myPendingResumes: StartupResume[];
+  permissionToEdit = false;
+  permissionToLeave = false;
 
   constructor(private ngRedux: NgRedux<AppState>,
               private startupService: StartupService,
@@ -57,53 +61,61 @@ export class StartupComponent implements OnInit {
     this.ngRedux.dispatch(selectStartup(this.id));
 
     this.isSelected.pipe(skipWhile(result => result === true), take(1)).subscribe(() =>
-      this.ngRedux.select(selectStartupFromState).subscribe(startup => {
+      // this.ngRedux.select(selectStartupFromState).subscribe(startup => {
+      this.startup.subscribe(startup => {
+        if (this.ngRedux.getState().currentUserState.currentUser !== null) {
+          this.checkPermissionToEdit(startup);
+          this.checkStartupMembership(startup);
+          this.myPendingResumes = startup.startupResumes
+            .filter(value => value.resume.account.id === this.ngRedux.getState().currentUserState.currentUser.account.id
+              && value.accepted === false);
+        }
         this.currentInvestments = startup.startupInvestments.map(value => value.sumOfInvestment).reduce((a, b) => a + b, 0);
-        // this.transformInvestments(startup.startupInvestments);
-        return this.investments =
-          startup.startupInvestments.sort(
-            (value1, value2) => value2.sumOfInvestment - value1.sumOfInvestment);
+        this.transformInvestments(startup.startupInvestments);
+        return this.investments.sort(
+          (value1, value2) => value2.sumOfInvestment - value1.sumOfInvestment);
       }));
-    //   return this.investments =
-    //     startup.startupInvestments.sort(
-    //       (value1, value2) => value2.sumOfInvestment - value1.sumOfInvestment);
-    // }));
-
   }
 
+  transformInvestments(investments: Investment[]) {
+    const transformInvestments = investments.map(value => {
+      return {investor: value.investor, sumOfInvestment: value.sumOfInvestment};
+    });
 
-  // groupBy(list, keyGetter) {
-  //   const map = new Map();
-  //   list.forEach((item) => {
-  //     const key = keyGetter(item);
-  //     const collection = map.get(key);
-  //     if (!collection) {
-  //       map.set(key, [item]);
-  //     } else {
-  //       collection.push(item);
-  //     }
-  //   });
-  //   return map;
-  // }
+    const result = transformInvestments.reduce(function (acc, val) {
+      const o = acc.filter(function (obj) {
+        return obj.investor.id === val.investor.id;
+      }).pop() || {investor: val.investor, sumOfInvestment: 0};
+      o.sumOfInvestment += val.sumOfInvestment;
+      acc.push(o);
+      return acc;
+    }, []);
 
-  // transformInvestments(investments: Investment[]) {
-  //   // const firstInvestor = investments[0].investor.id;
-  //   // const grouped = this.groupBy(investments, investment => investment.investor.id);
-  //   // console.log(grouped.get(firstInvestor));
-  //
-  //   from(this.investments)
-  //     .groupBy(x => x.investor) // using groupBy from Rxjs
-  //     .flatMap(group => group.toArray())// GroupBy dont create a array object so you have to flat it
-  //     .map(g => {// mapping
-  //       return {
-  //         investor: g[0].investor, // take the first name because we grouped them by name
-  //         sumOfInvestment: _.sumBy(g, 'sumOfInvestment'), // using lodash to sum quantity
-  //       };
-  //     })
-  //     .toArray()
-  //     .do(sum => console.log('sum:', sum)) // just for debug
-  //     .subscribe(d => this.groupedData = d);
-  // }
+    const unique = result.filter(function (elem, index, self) {
+      return index === self.indexOf(elem);
+    });
+    this.investments = unique;
+  }
+
+  checkPermissionToEdit(startup: Startup) {
+    this.permissionToEdit = startup.startupRoles
+      .find(value => value.accountId ===
+        this.ngRedux.getState().currentUserState.currentUser.account.id && value.roleName === 'MODERATOR') !== undefined;
+  }
+
+  checkStartupMembership(startup: Startup) {
+    this.permissionToLeave = startup.startupRoles
+      .find(value => value.accountId ===
+        this.ngRedux.getState().currentUserState.currentUser.account.id) !== undefined;
+  }
+
+  cancelResume(id: string) {
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: CancelResumeComponent,
+      width: '300px',
+      data: {resumeId: id}
+    }));
+  }
 
   deleteStartup() {
     this.ngRedux.dispatch(showDialogAction({
@@ -121,18 +133,37 @@ export class StartupComponent implements OnInit {
     }));
   }
 
+  leaveStartup() {
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: LeaveStartupComponent,
+      width: '200px',
+      data: {accountId: this.ngRedux.getState().currentUserState.currentUser.account.id}
+    }));
+  }
+
+  deleteMyResumeFromStartup(id: string) {
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: DeleteResumeFromStartupComponent,
+      width: '200px',
+      data: {resumeId: id}
+    }));
+  }
+
+  getStartupRole(accountId: string): string {
+    const st = this.currentStartup.startupRoles;
+    const startupRole = st.find(value => value.accountId === accountId);
+    if (startupRole !== undefined && startupRole.roleName !== 'MEMBER') {
+      return  '(' + startupRole.roleName + ')';
+    }
+    return '';
+  }
+
   joinStartup() {
     this.ngRedux.dispatch(showDialogAction({
       componentType: JoinStartupComponent,
       width: '600px',
       data: {startupId: this.id}
     }));
-
-    // this.ngRedux.dispatch(showDialogAction({
-    //     componentType: RechargeBalanceComponent,
-    //     width: '400px',
-    //     data: null
-    //   }));
   }
 
   get currentStartup(): Startup {

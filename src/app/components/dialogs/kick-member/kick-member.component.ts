@@ -2,10 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {kickMemberFromStartupAction} from '../../../store/actions/startup-state.actions';
 import {AppState} from '../../../store';
-import {DeleteStartupComponent} from '../delete-startup/delete-startup.component';
 import {NgRedux} from '@angular-redux/store';
 import {DialogResult} from '../../../model/dialog-result';
-import {StartupResumeService} from '../../../services/startup-resume.service';
 
 
 @Component({
@@ -19,14 +17,13 @@ export class KickMemberComponent implements OnInit {
   accountId: string;
 
   constructor(private ngRedux: NgRedux<AppState>,
-              public dialogRef: MatDialogRef<DeleteStartupComponent>,
+              public dialogRef: MatDialogRef<KickMemberComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
   ngOnInit() {
     this.resumeId = this.data.resumeId;
     this.accountId = this.data.accountId;
-
   }
 
   onCancelClick() {

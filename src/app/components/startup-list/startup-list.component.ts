@@ -3,12 +3,11 @@ import {Observable} from 'rxjs';
 import {Startup} from '../../model/Startup';
 import {NgRedux, select} from '@angular-redux/store';
 import {AppState} from '../../store';
-import {searchStartupsAction, updateStartupAction} from '../../store/actions/startups.actions';
+import {searchStartupsAction} from '../../store/actions/startups.actions';
 import {selectStartups, isLoading} from '../../store/selectors/startups.selector';
 import {skipWhile, take} from 'rxjs/internal/operators';
 import {AdminService} from '../../services/admin.service';
-import {loginUserAction} from '../../store/actions/current-user.actions';
-import {Credential} from '../../model/Credential';
+
 
 
 @Component({

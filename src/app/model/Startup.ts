@@ -13,9 +13,9 @@ export interface Startup {
   account: Account;
   startupResumes: StartupResume[];
   dateOfCreation: Date;
-  imageId: String;
-  compressedImageId: String;
-  image: String;
+  imageId: string;
+  compressedImageId: string;
+  image: string;
   startupInvestments: Investment[];
   startupRoles: StartupRole[];
 }

@@ -1,8 +1,8 @@
 import {Startup} from '../../model/Startup';
 import {Reducer} from 'redux';
 import {
-  ACCEPT_RESUME_TO_STARTUP, CHANGE_STARTUP_MEMBER_ROLE,
-  KICK_MEMBER_FROM_STARTUP,
+  ACCEPT_RESUME_TO_STARTUP, CANCEL_RESUME_TO_STARTUP_SUCCESS, CHANGE_STARTUP_MEMBER_ROLE, DELETE_RESUME_FROM_STARTUP,
+  KICK_MEMBER_FROM_STARTUP, LEAVE_STARTUP,
   MAKE_INVESTMENT_IN_STARTUP_SUCCESS,
   REJECT_RESUME_TO_STARTUP,
   SELECT_STARTUP,
@@ -74,13 +74,15 @@ export const startupPageReducer: Reducer<StartupPageState> = (state: StartupPage
       }
       return {...state, startupModel: {...state.startupModel, startupResumes: updatedResumes, startupRoles: updatedStartupRoles}};
     }
-
+    case DELETE_RESUME_FROM_STARTUP:
     case KICK_MEMBER_FROM_STARTUP: {
       let updatedResumes = [...state.startupModel.startupResumes];
-      const updateStartupRoles = [...state.startupModel.startupRoles];
-
-      if (updatedResumes.filter(value => value.resume.account.id === action.payload.accountId).length <= 1) {
-        updateStartupRoles.filter(value => value.accountId !== action.payload.accountId);
+      const startupRoles = [...state.startupModel.startupRoles];
+      let updateStartupRoles;
+      if (updatedResumes.filter(value => (value.resume.account.id === action.payload.accountId && value.accepted === true)).length <= 1) {
+       updateStartupRoles = startupRoles.filter(value => value.accountId !== action.payload.accountId);
+      } else {
+        updateStartupRoles = startupRoles;
       }
       updatedResumes = [...state.startupModel.startupResumes];
       return {
@@ -109,6 +111,19 @@ export const startupPageReducer: Reducer<StartupPageState> = (state: StartupPage
         }
       }
       return {...state, startupModel: {...state.startupModel, startupRoles: updatedStartupRoles}};
+    }
+
+    case CANCEL_RESUME_TO_STARTUP_SUCCESS: {
+      const updatedStartupResumes = [...state.startupModel.startupResumes];
+
+      return {...state, startupModel: {...state.startupModel, startupResumes: updatedStartupResumes.filter(value => value.id !== action.payload.startupResumeId) }};
+    }
+    case LEAVE_STARTUP: {
+      const updatedStartupRoles = [...state.startupModel.startupRoles];
+      const updatedStartupResumes = [...state.startupModel.startupResumes];
+      return {...state, startupModel: {...state.startupModel,
+          startupResumes: updatedStartupResumes.filter(value => value.resume.account.id !== action.payload.accountId),
+          startupRoles: updatedStartupRoles.filter(value => value.accountId !== action.payload.accountId)}};
     }
     default: {
       return state;

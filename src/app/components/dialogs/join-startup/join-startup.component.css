@@ -19,3 +19,12 @@ h1 {
 mat-card {
   width: 500px;
 }
+
+.spinner{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
