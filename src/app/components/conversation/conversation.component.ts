@@ -51,4 +51,14 @@ export class ConversationComponent implements OnInit {
       this.defaultTextAreaValue = '';
     }
   }
+
+  onKey(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key === 'Enter') {
+      this.defaultTextAreaValue += '\n';
+      return;
+    }
+    if (event.key === 'Enter') {
+      this.sendMessage(this.defaultTextAreaValue);
+    }
+  }
 }
