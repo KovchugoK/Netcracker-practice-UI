@@ -29,7 +29,7 @@ export class ConversationsEpic {
             map(conversations => fetchConversationsSuccessAction(TransformService.transformToMap(conversations))),
             catchError(error => {
               this.notifierService.notify('error', 'Error while getting conversations');
-              return of(fetchConversationsFailedAction(error.message));
+              return of(fetchConversationsFailedAction(error));
             })
           );
       })
@@ -45,7 +45,7 @@ export class ConversationsEpic {
               map(conversation => getConversationSuccessAction(conversation)),
               catchError(error => {
                 this.notifierService.notify('error', 'Error while getting conversation');
-                return of(getConversationFailedAction(error.message));
+                return of(getConversationFailedAction(error));
               })
             );
         }
