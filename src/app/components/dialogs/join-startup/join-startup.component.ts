@@ -4,8 +4,6 @@ import {DialogResult} from '../../../model/dialog-result';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {StartupDialogData} from '../../../model/dialog-data';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-
-import {MakeInvestmentsComponent} from '../make-investments/make-investments.component';
 import {AppState} from '../../../store';
 import {fetchMyResumesAction} from '../../../store/actions/resume.actions';
 import {isLoading, selectResumes} from '../../../store/selectors/resume.selector';
@@ -34,7 +32,7 @@ export class JoinStartupComponent implements OnInit {
   myResumeListNotInStartup: Resume[];
 
   constructor(private ngRedux: NgRedux<AppState>,
-              public dialogRef: MatDialogRef<MakeInvestmentsComponent>,
+              public dialogRef: MatDialogRef<JoinStartupComponent>,
               private fb: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: StartupDialogData) {
   }
