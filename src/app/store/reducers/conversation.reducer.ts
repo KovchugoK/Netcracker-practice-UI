@@ -31,7 +31,7 @@ export const conversationsReducer:
     case FETCH_CONVERSATIONS_SUCCESS:
       return {...state, ...action.payload, isLoading: false};
     case FETCH_CONVERSATIONS_FAILED:
-      return {...state, ...action.payload, isLoading: false};
+      return {...state, isLoading: false};
     case GET_CONVERSATION:
       return {...state, isLoading: true};
     case GET_CONVERSATION_SUCCESS: {
@@ -40,7 +40,7 @@ export const conversationsReducer:
       return {...state, conversations: conversations, currentConversation: action.payload.conversation.id, isLoading: false};
     }
     case GET_CONVERSATION_FAILED:
-      return {...state, ...action.payload};
+      return {...state, isLoading: false};
     case UPDATE_MESSAGES: {
       const conversations = new Map(state.conversations);
       const conversation = conversations.get(action.payload.message.conversationId);
