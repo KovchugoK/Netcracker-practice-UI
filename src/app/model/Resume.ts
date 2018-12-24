@@ -1,4 +1,3 @@
-import {ResumeSkill} from './ResumeSkill';
 import {Account} from './Account';
 import {BusinessRole} from './BusinessRole';
 import {StartupResume} from "./StartupResume";
@@ -19,4 +18,4 @@ export const defaultResume: Resume = {
   resumeSkills: null,
   businessRole: null,
   account: null
-}
+};

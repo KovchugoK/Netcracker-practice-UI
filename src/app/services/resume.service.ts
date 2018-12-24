@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Resume} from '../model/Resume';
 import {Skill} from "../model/Skill"
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError} from "rxjs/internal/operators";
 import {BusinessRole} from "../model/BusinessRole";
-import {ResumeSkill} from "../model/ResumeSkill";
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,6 @@ export class ResumeService {
     const url = `${this.resumeUrl}/list`;
     return this.http.get<Resume[]>(url)
       .pipe(catchError((error: any) => throwError(error.error)));
-    ;
   }
 
   getResumeById(id: string): Observable<any> {

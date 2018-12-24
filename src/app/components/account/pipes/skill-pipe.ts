@@ -9,7 +9,7 @@ export class SkillPipe implements PipeTransform {
     let resumeSkills = null;
     if(resumes) {
       resumeSkills = resumes.reduce((resultArr, currResume) => {
-        resultArr.push(...currResume.resumeSkills.map(value => value.skill.skillName));
+        resultArr.push(...currResume.resumeSkills.map(value => value.skillName));
         return resultArr;
       }, []);
       resumeSkills = SkillPipe.removeDuplicateUsingFilter(resumeSkills);

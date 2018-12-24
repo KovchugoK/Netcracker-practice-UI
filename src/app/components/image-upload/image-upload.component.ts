@@ -1,4 +1,4 @@
-import {Component, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 
 
 @Component({
@@ -52,7 +52,7 @@ export class ImageUploadComponent implements OnInit {
   }
 
   _handleReaderLoaded(readerEvt) {
-    var binaryString = readerEvt.target.result;
+    let binaryString = readerEvt.target.result;
     this.base64textString = btoa(binaryString);
     this.valueChange.emit(this.base64textString);
   }

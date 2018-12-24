@@ -1,15 +1,9 @@
 import {Injectable} from '@angular/core';
-import {
-  FETCH_STARTUPS, fetchStartupsSuccessAction, fetchStartupsFailedAction, CREATE_STARTUP,
-  createStartupSuccessAction, updateStartupSuccessAction, DELETE_STARTUP, deleteStartupSuccessAction, UPDATE_STARTUP
-} from '../actions/startups.actions';
 import {catchError, switchMap, map} from 'rxjs/operators';
 import {of} from 'rxjs';
 import {ActionsObservable} from 'redux-observable';
 import {AnyAction} from 'redux';
 import {TransformService} from '../../utils/transform.service';
-import {SELECT_STARTUP, selectStartupSuccess} from '../actions/startup-state.actions';
-import {defaultStartup} from '../../model/Startup';
 import {NgRedux} from '@angular-redux/store';
 import {AppState} from '../index';
 import {ResumeService} from "../../services/resume.service";

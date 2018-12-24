@@ -1,5 +1,11 @@
 import { Reducer } from 'redux';
-import {CLEAR_USER_ERROR_MESSAGE, LOGIN_USER, LOGIN_USER_FAILED, UPDATE_CURRENT_USER} from '../actions/current-user.actions';
+import {
+  CLEAR_USER_ERROR_MESSAGE,
+  LOGIN_USER,
+  LOGIN_USER_FAILED,
+  UPDATE_CURRENT_USER,
+  VERIFY_USER_EMAIL
+} from '../actions/current-user.actions';
 import {User} from '../../model/User';
 
 

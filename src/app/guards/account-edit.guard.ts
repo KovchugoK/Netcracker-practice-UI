@@ -13,6 +13,7 @@ import {selectCurrentUser} from "../store/selectors/current-user.selector";
 export class AccountEditGuard implements CanActivate {
   @select(selectCurrentUser)
   user: Observable<User>;
+
   currentUser: User;
   constructor(private ngRedux: NgRedux<AppState>) {
   }

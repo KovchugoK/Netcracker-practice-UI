@@ -1,7 +1,5 @@
 import {Injectable} from '@angular/core';
-import {User} from '../model/User';
-import {selectCurrentUser} from '../store/selectors/current-user.selector';
-import {NgRedux, select} from '@angular-redux/store';
+import {NgRedux} from '@angular-redux/store';
 import {Observable} from 'rxjs';
 import {Message} from '../model/Message';
 import * as io from 'socket.io-client';

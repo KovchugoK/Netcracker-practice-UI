@@ -6,6 +6,7 @@ export const LOGIN_USER = '[Current user] Login user';
 export const LOGIN_USER_FAILED = '[Current user] Login user failed';
 export const LOGOUT_USER = '[Current user] Logout user';
 export const CLEAR_USER_ERROR_MESSAGE = '[Current user] Error message cleared';
+export const VERIFY_USER_EMAIL = '[Current user] Error message cleared';
 
 export function loginUserAction(credential: Credential) {
   return {
@@ -39,3 +40,4 @@ export function clearUserErrorMessage () {
     type: CLEAR_USER_ERROR_MESSAGE
   };
 }
+

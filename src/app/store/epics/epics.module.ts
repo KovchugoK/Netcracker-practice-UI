@@ -6,6 +6,7 @@ import {CurrentUserEpic} from './current-user.epic';
 import {ContactsEpic} from './contacts.epic';
 import {ConversationsEpic} from './conversations.epic';
 import {FavoriteEpic} from "./favorite.epic";
+import {ResetPasswordEpic} from "./reset-password.epic";
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import {FavoriteEpic} from "./favorite.epic";
     StartupEpic,
     AccountEpic,
     FavoriteEpic,
-    ConversationsEpic
+    ConversationsEpic,
+    ResetPasswordEpic,
   ],
 })
 export class EpicsModule {

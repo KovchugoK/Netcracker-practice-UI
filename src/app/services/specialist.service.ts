@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Account} from '../model/Account';
 import {SearchObject} from "../model/SearchObject";
 import {Favorite} from "../model/Favorite";
 
@@ -11,7 +10,7 @@ import {Favorite} from "../model/Favorite";
 export class SpecialistService {
   specialistListUrl = '/api/specialist-list';
   headers = new HttpHeaders({'Content-Type': 'application/json'});
-  params: HttpParams;
+
 
   investorListUrl = '/api/investor-list';
 

@@ -53,6 +53,10 @@ import {SkillPipe} from "./components/account/pipes/skill-pipe";
 import {ProjectPipe} from "./components/account/pipes/project-pipe";
 import {AgePipe} from "./components/account/pipes/age-pipe";
 import { ConversationListComponent } from './components/conversation-list/conversation-list.component';
+import { DatePipe } from '@angular/common';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { EnterEmailComponent } from './components/dialogs/enter-email/enter-email.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component'
 
 @NgModule({
   declarations: [
@@ -88,7 +92,9 @@ import { ConversationListComponent } from './components/conversation-list/conver
     ConversationListComponent,
     SkillPipe,
     ProjectPipe,
-    AgePipe
+    AgePipe,
+    ResetPasswordComponent,
+    VerifyEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -122,7 +128,7 @@ import { ConversationListComponent } from './components/conversation-list/conver
     MatNativeDateModule,
     MatInputModule,
     FlexLayoutModule,
-    NgxPermissionsModule.forRoot(),
+    NgxPermissionsModule.forRoot()
   ],
   entryComponents: [
     ResumeDetailDialogComponent
@@ -131,7 +137,8 @@ import { ConversationListComponent } from './components/conversation-list/conver
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
     EpicService,
-    StartupService
+    StartupService,
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })

@@ -4,13 +4,10 @@ import {NgRedux} from '@angular-redux/store';
 import {AppState} from '../index';
 import {catchError, map, switchMap} from "rxjs/operators";
 import {AnyAction} from "redux";
-import {
-  fetchStartupsFailedAction,
-} from "../actions/startups.actions";
 import {ActionsObservable} from "redux-observable";
 import {
   DELETE_ACCOUNT,
-  deleteAccountSuccessAction,
+  deleteAccountSuccessAction, fetchAccountFailedAction,
   UPDATE_ACCOUNT,
   updateAccountSuccessAction
 } from "../actions/accounts.actions";
@@ -60,12 +57,12 @@ export class AccountEpic {
             .findAccountById(payload.accountId)
             .pipe(
               map(account => selectAccountSuccess(account)),
-              catchError(error => of(fetchStartupsFailedAction(error.message)))
+              catchError(error => of(fetchAccountFailedAction(error.message)))
             )
           : of(defaultAccount)
             .pipe(
               map(account => selectAccountSuccess(account)),
-              catchError(error => of(fetchStartupsFailedAction(error.message)))
+              catchError(error => of(fetchAccountFailedAction(error.message)))
             );
       })
     );

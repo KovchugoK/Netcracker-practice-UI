@@ -1,9 +1,6 @@
-import {Startup} from '../../model/Startup';
 import {Reducer} from 'redux';
-import {SELECT_STARTUP, SELECT_STARTUP_SUCCESS} from '../actions/startup-state.actions';
 import {Resume} from "../../model/Resume";
 import {SELECT_RESUME, SELECT_RESUME_SUCCESS} from "../actions/resume-state.actions";
-import {SELECT_ACCOUNT} from "../actions/account-state.actions";
 
 export interface ResumePageState {
   readonly resumeModel: Resume;
