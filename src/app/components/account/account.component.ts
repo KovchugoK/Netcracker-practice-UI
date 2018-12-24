@@ -22,7 +22,6 @@ import {User} from '../../model/User';
 export class AccountComponent implements OnInit {
 
   id: string;
-  nonBlock: boolean;
   @select(isSelected)
   isSelected: Observable<boolean>;
 
@@ -44,19 +43,17 @@ export class AccountComponent implements OnInit {
     this.ngRedux.dispatch(deleteAccountAction(this.id));
   }
   get currentUser(): User {
-    this.nonBlock = this.ngRedux.getState().accountPageState.accountModel.user.nonBlock;
-    console.log(this.nonBlock + '      !!!!!!!!!!!!!!1');
     return this.ngRedux.getState().accountPageState.accountModel.user;
   }
 
   blockUser(user: User) {
-    this.adminService.blockUser(user).subscribe();
+    this.adminService.blockUser(user.id).subscribe();
     user.nonBlock = false;
     console.log('User заблокирован');
   }
 
   unBlockUser(user: User) {
-    this.adminService.unBlockUser(user).subscribe();
+    this.adminService.unBlockUser(user.id).subscribe();
     user.nonBlock = true;
     console.log('User разблокирован');
   }

@@ -21,12 +21,12 @@ export class AdminService {
     return this.http.post('/api/admin/unblock/startup', id)
       .pipe(catchError((error: any) => throwError(error.error)));
   }
-  blockUser(user: User): Observable<any> {
-    return this.http.post('/api/admin/block/user/', user)
+  blockUser(id: string): Observable<any> {
+    return this.http.post('/api/admin/block/user/', id)
       .pipe(catchError((error: any) => throwError(error.error)));
   }
-  unBlockUser(user: User): Observable<any> {
-    return this.http.post('/api/admin/unblock/user/', user)
+  unBlockUser(id: string): Observable<any> {
+    return this.http.post('/api/admin/unblock/user/', id)
       .pipe(catchError((error: any) => throwError(error.error)));
   }
 }
