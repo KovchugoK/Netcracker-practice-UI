@@ -13,7 +13,6 @@ import {catchError, map} from 'rxjs/operators';
 export class StartupEditGuard implements CanActivate {
   constructor(private ngRedux: NgRedux<AppState>, private startupService: StartupService) {
   }
-
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     const accountId = this.ngRedux.getState().currentUserState.currentUser !== null ?
       this.ngRedux.getState().currentUserState.currentUser.account.id : '';

@@ -7,9 +7,6 @@
   <ng-template #sForm>
     <form [formGroup]="startupForm">
       <div class="imageBlock">
-        <!--<mat-card>-->
-        <!--<img class="imgParametrs" src="/src/assets/images/Logo.png" alt="startupLogo">-->
-        <!--</mat-card>-->
 
         <app-image-upload (valueChange)='getImageAsString($event)'></app-image-upload>
       </div>

@@ -1,11 +1,6 @@
 
   <mat-toolbar style="height: 8vh">
     <img class="pointer" src="/src/assets/images/Logo.png" routerLink="/main-page">
-    <!--<a class="first-header" routerLink="/main-page"> Main </a>-->
-    <!--<a routerLink="/startup-list"> Startups </a>-->
-    <!--<a routerLink="/specialist-list"> Specialists </a>-->
-    <!--<a class="fill-space" routerLink="/investor-list"> Investors </a>-->
-
 
     <nav mat-tab-nav-bar style="margin-left: auto; margin-right: auto">
       <a mat-tab-link style="height: 60px; width: 200px"
@@ -22,7 +17,7 @@
   <button mat-button (click)="openSingUp()" >Sign up</button>
 </div>
 
-    <span *ngIf="ls.getItem('currentUser')"  style="font-size: 16px "> {{(currentUser | async)?.login}} </span>
+    <span *ngIf="ls.getItem('currentUser')"  style="font-size: 18px; margin-right: 20px; "> {{(currentUser | async)?.login}} </span>
     <button mat-button (click)="logout()" *ngIf="(currentUser | async)"> Logout </button>
   </mat-toolbar>
 

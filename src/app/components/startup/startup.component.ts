@@ -112,7 +112,7 @@ export class StartupComponent implements OnInit {
   cancelResume(id: string) {
     this.ngRedux.dispatch(showDialogAction({
       componentType: CancelResumeComponent,
-      width: '300px',
+      width: '210px',
       data: {resumeId: id}
     }));
   }
@@ -120,7 +120,7 @@ export class StartupComponent implements OnInit {
   deleteStartup() {
     this.ngRedux.dispatch(showDialogAction({
       componentType: DeleteStartupComponent,
-      width: '200px',
+      width: '210px',
       data: {startupId: this.id}
     }));
   }
@@ -128,7 +128,7 @@ export class StartupComponent implements OnInit {
   makeInvestments() {
     this.ngRedux.dispatch(showDialogAction({
       componentType: MakeInvestmentsComponent,
-      width: '400px',
+      width: '450px',
       data: {startupId: this.id}
     }));
   }
@@ -136,7 +136,7 @@ export class StartupComponent implements OnInit {
   leaveStartup() {
     this.ngRedux.dispatch(showDialogAction({
       componentType: LeaveStartupComponent,
-      width: '200px',
+      width: '210px',
       data: {accountId: this.ngRedux.getState().currentUserState.currentUser.account.id}
     }));
   }
@@ -144,7 +144,7 @@ export class StartupComponent implements OnInit {
   deleteMyResumeFromStartup(id: string) {
     this.ngRedux.dispatch(showDialogAction({
       componentType: DeleteResumeFromStartupComponent,
-      width: '200px',
+      width: '210px',
       data: {resumeId: id}
     }));
   }

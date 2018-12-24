@@ -37,11 +37,6 @@ export class HeaderComponent implements OnInit {
       path: '/specialist-list',
       label: 'Specialists',
       isActive: true
-    },
-    {
-      path: '/investor-list',
-      label: 'Investors',
-      isActive: true
     }];
 
   constructor(
