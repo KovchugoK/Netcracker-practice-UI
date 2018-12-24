@@ -134,7 +134,12 @@ export class StartupEditComponent implements OnInit {
   createStartup() {
     this.ngRedux.dispatch(createStartupAction({...this.startupForm.value, id: this.id, dateOfCreation: new Date()}));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
-      .subscribe(() => this.ngRedux.dispatch(updateRouterState('/startup-list')));
+      .subscribe(() => {
+        if (this.ngRedux.getState().startupPageState.startupModel.id !== null) {
+          return this.ngRedux.dispatch(updateRouterState('/startup/' + this.ngRedux.getState().startupPageState.startupModel.id));
+        }
+        return this.ngRedux.dispatch(updateRouterState('/startup-edit'));
+      });
   }
 
   getImageAsString(base64textString: string) {
@@ -192,10 +197,10 @@ export class StartupEditComponent implements OnInit {
         && value.roleName === 'MODERATOR') === undefined;
   }
 
-  checkOnCreate(): string {
+  checkOnCreate(): Account {
     if (this.id === null || this.id === undefined) {
-      return this.ngRedux.getState().currentUserState.currentUser.account.compressedImageId;
+      return this.ngRedux.getState().currentUserState.currentUser.account;
     }
-    return this.currentStartup.compressedImageId;
+    return this.currentStartup.account;
   }
 }

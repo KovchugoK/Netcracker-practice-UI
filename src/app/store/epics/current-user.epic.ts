@@ -15,12 +15,13 @@ import {AuthenticationService} from '../../services/authentication.service';
 import {GlobalUserStorageService} from '../../services/global-storage.service';
 import {AccountService} from '../../services/account.service';
 import {ChatServerService} from '../../services/chat-server.service';
+import {NotifierService} from 'angular-notifier';
 
 @Injectable()
 export class CurrentUserEpic {
   constructor(private authService: AuthenticationService, private localStorageService: GlobalUserStorageService,
               private accountService: AccountService,
-              private chatService: ChatServerService) {
+              private chatService: ChatServerService, private notifierService: NotifierService) {
   }
 
   loginUser$ = (action$: ActionsObservable<AnyAction>) => {
@@ -60,9 +61,13 @@ export class CurrentUserEpic {
                 ...this.localStorageService.currentUser,
                 account: {...this.localStorageService.currentUser.account, balance: balance}
               };
+              this.notifierService.notify('success', 'Balance was updated successful');
               return updateBalanceSuccessAction(balance);
             }),
-            catchError(error => error)
+            catchError(error => {
+              this.notifierService.notify('error', 'Your balance was not updated');
+              return error;
+            })
           );
       })
     );

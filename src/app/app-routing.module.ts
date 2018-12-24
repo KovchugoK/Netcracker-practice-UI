@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {InvestorListComponent} from './components/investor-list/investor-list.component';
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {SpecialistListComponent} from './components/specialist-list/specialist-list.component';
 import {StartupListComponent} from './components/startup-list/startup-list.component';
@@ -17,18 +16,18 @@ import {ContactsComponent} from './components/contacts/contacts.component';
 import {AccountEditComponent} from './components/account-edit/account-edit.component';
 import {ConversationComponent} from './components/conversation/conversation.component';
 import {ConversationListComponent} from './components/conversation-list/conversation-list.component';
-import {AccountEditGuard} from "./guards/account-edit.guard";
+import {AccountEditGuard} from './guards/account-edit.guard';
+import {StartupEditGuard} from './guards/startup-edit.guard';
 
 
 const routes: Routes = [
   {path: '', redirectTo: 'main-page', pathMatch: 'full'},
   {path: 'main-page', component: MainPageComponent},
   {path: 'startup-list', component: StartupListComponent},
-  {path: 'investor-list', component: InvestorListComponent},
   {path: 'specialist-list/:id', component: AccountComponent},
   {path: 'specialist-list', component: SpecialistListComponent},
   {path: 'startup/:id', component: StartupComponent},
-  {path: 'startup-edit/:id', component: StartupEditComponent, canActivate: [AuthGuard]},
+  {path: 'startup-edit/:id', component: StartupEditComponent, canActivate: [AuthGuard, StartupEditGuard]},
   {path: 'startup-edit', component: StartupEditComponent, canActivate: [AuthGuard]},
   {path: 'favorites/:id', component: FavoriteComponent},
   {path: 'resume/list', component: ResumeListComponent},

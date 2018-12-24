@@ -65,9 +65,9 @@
       <div>
         <mat-card style="width: 250px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px">
           <mat-card-header>
-            <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{checkOnCreate()}}" onError="this.src='/src/assets/images/Person.jpg'">
-            <mat-card-title *ngIf="getAccount()!==null"> {{ getAccount().firstName }} <br/>
-              {{getAccount().lastName}}
+            <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{checkOnCreate().compressedImageId}}" onError="this.src='/src/assets/images/Person.jpg'">
+            <mat-card-title *ngIf="getAccount()!==null"> {{ checkOnCreate().firstName }} <br/>
+              {{checkOnCreate().lastName}}
             </mat-card-title>
             <mat-card-title *ngIf="getAccount()===null"> UNKNOWN</mat-card-title>
             <mat-card-subtitle> LEADER</mat-card-subtitle>

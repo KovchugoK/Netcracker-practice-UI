@@ -63,7 +63,7 @@
             <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{res.resume.account?.compressedImageId}}" onError="this.src='/src/assets/images/Person.jpg'">
             <mat-card-title> {{res.resume.account?.firstName}}<br/> {{res.resume.account?.lastName}}</mat-card-title>
             <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}} {{getStartupRole(res.resume.account.id)}}</mat-card-subtitle>
-            <i class="material-icons" (click)="deleteMyResumeFromStartup(res.id)" style="cursor: pointer">
+            <i class="material-icons" *ngIf="(currentUser|async)?.account.id === res.resume.account.id" (click)="deleteMyResumeFromStartup(res.id)" style="cursor: pointer">
               delete
             </i>
           </mat-card-header>
