@@ -3,7 +3,7 @@ import {Resume} from '../model/Resume';
 import {Skill} from '../model/Skill';
 import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError} from 'rxjs/internal/operators';
+import {catchError} from 'rxjs/operators';
 import {BusinessRole} from '../model/BusinessRole';
 
 

@@ -17,7 +17,8 @@ import {ContactsComponent} from './components/contacts/contacts.component';
 import {AccountEditComponent} from './components/account-edit/account-edit.component';
 import {ConversationComponent} from './components/conversation/conversation.component';
 import {ConversationListComponent} from './components/conversation-list/conversation-list.component';
-import {AccountEditGuard} from "./guards/account-edit.guard";
+import {AccountEditGuard} from './guards/account-edit.guard';
+import {StartupEditGuard} from './guards/startup-edit.guard';
 
 
 const routes: Routes = [
@@ -28,7 +29,7 @@ const routes: Routes = [
   {path: 'specialist-list/:id', component: AccountComponent},
   {path: 'specialist-list', component: SpecialistListComponent},
   {path: 'startup/:id', component: StartupComponent},
-  {path: 'startup-edit/:id', component: StartupEditComponent, canActivate: [AuthGuard]},
+  {path: 'startup-edit/:id', component: StartupEditComponent, canActivate: [AuthGuard, StartupEditGuard]},
   {path: 'startup-edit', component: StartupEditComponent, canActivate: [AuthGuard]},
   {path: 'favorites/:id', component: FavoriteComponent},
   {path: 'resume/list', component: ResumeListComponent},

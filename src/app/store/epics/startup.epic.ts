@@ -22,7 +22,7 @@ import {
   CANCEL_RESUME_TO_STARTUP,
   cancelResumeToStartupSuccessAction,
   MAKE_INVESTMENT_IN_STARTUP, makeInvestmentInStartupSuccessAction,
-  SELECT_STARTUP,
+  SELECT_STARTUP, selectStartupFailed,
   selectStartupSuccess,
   SEND_RESUME_TO_STARTUP,
   sendResumeToStartupSuccessAction
@@ -32,12 +32,13 @@ import {StartupResumeService} from '../../services/startup-resume.service';
 import {AppState} from '../index';
 import {NgRedux} from '@angular-redux/store';
 import {updateBalanceAction} from '../actions/current-user.actions';
+import {NotifierService} from 'angular-notifier';
 
 
 @Injectable()
 export class StartupEpic {
   constructor(private startupService: StartupService,
-              private startupResumeService: StartupResumeService, private ngRedux: NgRedux<AppState>) {
+              private startupResumeService: StartupResumeService, private ngRedux: NgRedux<AppState>, private notifierService: NotifierService) {
   }
 
   fetchStartups$ = (action$: ActionsObservable<AnyAction>) => {
@@ -47,7 +48,10 @@ export class StartupEpic {
           .getStartupList()
           .pipe(
             map(startups => fetchStartupsSuccessAction(TransformService.transformToMap(startups))),
-            catchError(error => of(fetchStartupsFailedAction(error.message)))
+            catchError(error => {
+              this.notifierService.notify('error', 'Error while getting startups');
+              return of(fetchStartupsFailedAction(error));
+            })
           );
       })
     );
@@ -59,7 +63,14 @@ export class StartupEpic {
         return this.startupService
           .createStartup(payload.startup)
           .pipe(
-            map(startup => createStartupSuccessAction(startup))
+            map(startup => {
+              this.notifierService.notify('success', 'Startup was created successful');
+              return createStartupSuccessAction(startup);
+            }),
+            catchError(error => {
+              this.notifierService.notify('error', 'Startup creation failed. Check startup name.');
+              return of(fetchStartupsFailedAction(error));
+            })
           );
       })
     );
@@ -71,8 +82,16 @@ export class StartupEpic {
         return this.startupService
           .updateStartup(payload.startup)
           .pipe(
-            map(startup => updateStartupSuccessAction(startup))
+            map(startup => {
+              this.notifierService.notify('success', 'Startup was updated successful');
+              return updateStartupSuccessAction(startup);
+            }),
+            catchError(error => {
+              this.notifierService.notify('error', 'Startup update failed. Check startup name.');
+              return of(fetchStartupsFailedAction(error));
+            })
           );
+
       })
     );
   };
@@ -83,7 +102,14 @@ export class StartupEpic {
         return this.startupService
           .deleteStartup(payload.startupId)
           .pipe(
-            map(() => deleteStartupSuccessAction(payload.startupId))
+            map(() => {
+              this.notifierService.notify('success', 'Startup was deleted successful');
+              return deleteStartupSuccessAction(payload.startupId);
+            }),
+            catchError(error => {
+              this.notifierService.notify('error', 'Startup was not deleted');
+              return of(fetchStartupsFailedAction(error));
+            })
           );
       })
     );
@@ -97,12 +123,16 @@ export class StartupEpic {
             .getStartupById(payload.startupId)
             .pipe(
               map(startup => selectStartupSuccess(startup)),
-              catchError(error => of(fetchStartupsFailedAction(error.message)))
+              catchError(error => {
+                this.notifierService.notify('error', 'Select startup failed');
+                return of(selectStartupFailed(error)); } )
             )
           : of(defaultStartup)
             .pipe(
               map(startup => selectStartupSuccess(startup)),
-              catchError(error => of(fetchStartupsFailedAction(error.message)))
+              catchError(error => {
+                this.notifierService.notify('error', 'Select startup failed');
+                return of(selectStartupFailed(error)); } )
             );
       })
     );
@@ -115,7 +145,10 @@ export class StartupEpic {
           .searchStartup(payload.startupSearchParams)
           .pipe(
             map(startups => searchStartupsSuccessAction(TransformService.transformToMap(startups))),
-            catchError(error => of(fetchStartupsFailedAction(error.message)))
+            catchError(error => {
+              this.notifierService.notify('error', 'Search startup failed');
+              return of(fetchStartupsFailedAction(error));
+            })
           );
       })
     );
@@ -127,8 +160,14 @@ export class StartupEpic {
         return this.startupResumeService
           .sendResumeToStartup(payload.resume, this.ngRedux.getState().startupPageState.startupModel)
           .pipe(
-            map(startupResume => sendResumeToStartupSuccessAction(startupResume)),
-            catchError(error => of(fetchStartupsFailedAction(error.message)))
+            map(startupResume => {
+              this.notifierService.notify('success', 'Resume was sended successful');
+              return sendResumeToStartupSuccessAction(startupResume);
+            }),
+            catchError(error => {
+              this.notifierService.notify('error', 'Resume was not sended');
+              return of(selectStartupFailed(error));
+            })
           );
       })
     );
@@ -141,7 +180,10 @@ export class StartupEpic {
           .cancelResume(payload.startupResumeId)
           .pipe(
             map(() => cancelResumeToStartupSuccessAction(payload.startupResumeId)),
-            catchError(error => of(fetchStartupsFailedAction(error.message)))
+            catchError(error => {
+              this.notifierService.notify('error', 'Cancel resume failed');
+              return of(selectStartupFailed(error));
+            })
           );
       })
     );
@@ -156,9 +198,13 @@ export class StartupEpic {
             map(investment => {
               this.ngRedux.dispatch(updateBalanceAction(payload.investor.id,
                 this.ngRedux.getState().currentUserState.currentUser.account.balance - payload.sumOfInvestment));
+              this.notifierService.notify('success', 'Investment was made successful');
               return makeInvestmentInStartupSuccessAction(investment);
             }),
-            catchError(error => of(fetchStartupsFailedAction(error.message)))
+            catchError(error => {
+              this.notifierService.notify('error', 'Investment was not sended');
+              return of(selectStartupFailed(error));
+            })
           );
       })
     );

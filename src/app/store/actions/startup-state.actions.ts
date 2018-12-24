@@ -6,6 +6,7 @@ import {Account} from '../../model/Account';
 
 export const SELECT_STARTUP = '[Startup State] Select startup';
 export const SELECT_STARTUP_SUCCESS = '[Startup State] Select startup success';
+export const SELECT_STARTUP_FAILED = '[Startup State] Select startup failed';
 export const SEND_RESUME_TO_STARTUP = '[Startup State] Send resume to startup';
 export const SEND_RESUME_TO_STARTUP_SUCCESS = '[Startup State] Send resume to startup success';
 export const REJECT_RESUME_TO_STARTUP = '[Startup State] Reject resume to startup';
@@ -31,6 +32,14 @@ export function selectStartupSuccess(startup: Startup) {
   return {
     type: SELECT_STARTUP_SUCCESS,
     payload: {startup}
+  };
+}
+
+export function selectStartupFailed(message: string) {
+  return {
+    type: SELECT_STARTUP_FAILED,
+    error: true,
+    payload: {message}
   };
 }
 

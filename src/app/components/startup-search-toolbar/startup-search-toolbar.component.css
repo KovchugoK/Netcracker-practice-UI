@@ -1,7 +1,8 @@
 .startup-toolbar{
   background-color: transparent;
   width: 80%;
-  margin-top: 10px;
+  /*margin-top: 10px;*/
+  margin: auto;
 }
 
 .sortTypeSelect{
@@ -9,12 +10,12 @@
 }
 
 .buttonSearch{
-  width: 150px;
+  width: 120px;
 }
 
 mat-form-field{
-  width: 120px;
-  font-size: 14px;
+  width: 130px;
+  font-size: 16px;
 }
 
 mat-label{

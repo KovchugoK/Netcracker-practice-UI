@@ -32,7 +32,7 @@ export class ContactsEpic {
             map(contacts => fetchContactsSuccessAction(TransformService.transformToMap(contacts))),
             catchError(error => {
                 this.notifierService.notify('error', 'Error while getting contacts');
-                return of(fetchContactsFailedAction(error.message));
+                return of(fetchContactsFailedAction(error));
               }
             )
           );
@@ -52,7 +52,7 @@ export class ContactsEpic {
             }),
             catchError(error => {
               this.notifierService.notify('error', 'Error while deleting contact');
-              return of(deleteContactFailedAction(error.message));
+              return of(deleteContactFailedAction(error));
             })
           );
       })
@@ -71,7 +71,7 @@ export class ContactsEpic {
               }),
               catchError(error => {
                 this.notifierService.notify('error', 'Error while adding contact');
-                return of(addContactFailedAction(error.message));
+                return of(addContactFailedAction(error));
               })
             );
         }

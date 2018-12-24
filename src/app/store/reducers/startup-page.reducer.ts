@@ -5,12 +5,13 @@ import {
   KICK_MEMBER_FROM_STARTUP, LEAVE_STARTUP,
   MAKE_INVESTMENT_IN_STARTUP_SUCCESS,
   REJECT_RESUME_TO_STARTUP,
-  SELECT_STARTUP,
+  SELECT_STARTUP, SELECT_STARTUP_FAILED,
   SELECT_STARTUP_SUCCESS,
   SEND_RESUME_TO_STARTUP_SUCCESS
 } from '../actions/startup-state.actions';
 
 import * as uuid from 'uuid';
+import {CREATE_STARTUP_SUCCESS, UPDATE_STARTUP_SUCCESS} from '../actions/startups.actions';
 
 
 export interface StartupPageState {
@@ -25,11 +26,19 @@ const INITIAL_STATE = {
 
 export const startupPageReducer: Reducer<StartupPageState> = (state: StartupPageState = INITIAL_STATE, action) => {
   switch (action.type) {
+    case CREATE_STARTUP_SUCCESS:
+    case UPDATE_STARTUP_SUCCESS:
+    {
+      return {...state, startupModel: action.payload.startup};
+    }
     case SELECT_STARTUP_SUCCESS: {
       return {...state, startupModel: action.payload.startup, isSelected: false};
     }
     case SELECT_STARTUP: {
       return {...state, isSelected: true};
+    }
+    case SELECT_STARTUP_FAILED: {
+      return {...state, isSelected: false};
     }
     case SEND_RESUME_TO_STARTUP_SUCCESS: {
       const updatedResumes = [...state.startupModel.startupResumes];

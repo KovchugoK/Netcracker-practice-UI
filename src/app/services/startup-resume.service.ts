@@ -3,7 +3,7 @@ import {Startup} from '../model/Startup';
 import {Resume} from '../model/Resume';
 import {Observable, throwError} from 'rxjs';
 import {StartupResume} from '../model/StartupResume';
-import {catchError} from 'rxjs/internal/operators';
+import {catchError} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
@@ -24,10 +24,9 @@ export class StartupResumeService {
     return this.http.delete<any>('/api/startup-resume/cancel-resume/' + resumeId)
       .pipe(catchError((error: any) => throwError(error.error)));
   }
-  //
+
   // acceptResume(startupResumeId: String, startupRole: String): Observable<StartupResume> {
   //   return this.http.put<StartupResume>('/api/startup-resume/accept-resume/' + startupResumeId, startupRole)
   //     .pipe(catchError((error: any) => throwError(error.error)));
   // }
-
 }
