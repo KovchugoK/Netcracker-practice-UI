@@ -46,10 +46,6 @@ export class ResumeService {
     return this.http.get<Skill[]>('/api/resume/skills');
   }
 
-  getAllBusinessRole(): Observable<BusinessRole[]> {
-    return this.http.get<BusinessRole[]>('/api/resume/businessRole');
-  }
-
   getSpecialistsBusinessRole(): Observable<BusinessRole[]> {
     return this.http.get<BusinessRole[]>('/api/resume/specialists-business-role');
   }

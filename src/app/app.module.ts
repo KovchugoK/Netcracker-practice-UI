@@ -5,7 +5,6 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {AppComponent} from './app.component';
 import {StartupListComponent} from './components/startup-list/startup-list.component';
 import {SpecialistListComponent} from './components/specialist-list/specialist-list.component';
-import {InvestorListComponent} from './components/investor-list/investor-list.component';
 import {MainPageComponent} from './components/main-page/main-page.component';
 import {AppRoutingModule} from './app-routing.module';
 import {HeaderComponent} from './components/header/header.component';
@@ -110,7 +109,6 @@ const customNotifierOptions: NotifierOptions = {
     AppComponent,
     StartupListComponent,
     SpecialistListComponent,
-    InvestorListComponent,
     MainPageComponent,
     HeaderComponent,
     FooterComponent,
