@@ -6,15 +6,18 @@ import {
   FETCH_CONVERSATIONS,
   fetchConversationsFailedAction,
   fetchConversationsSuccessAction,
-  GET_CONVERSATION, getConversationFailedAction, getConversationSuccessAction
+  GET_CONVERSATION,
+  getConversationFailedAction,
+  getConversationSuccessAction
 } from '../actions/conversation.action';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {TransformService} from '../../utils/transform.service';
 import {of} from 'rxjs';
+import {NotifierService} from 'angular-notifier';
 
 @Injectable()
 export class ConversationsEpic {
-  constructor(private conversationsService: ConversationService) {
+  constructor(private conversationsService: ConversationService, private notifierService: NotifierService) {
   }
 
   fetchConversations$ = (action$: ActionsObservable<AnyAction>) => {
@@ -24,7 +27,10 @@ export class ConversationsEpic {
           .getUserConversations(payload.userId)
           .pipe(
             map(conversations => fetchConversationsSuccessAction(TransformService.transformToMap(conversations))),
-            catchError(error => of(fetchConversationsFailedAction(error.message)))
+            catchError(error => {
+              this.notifierService.notify('error', 'Error while getting conversations');
+              return of(fetchConversationsFailedAction(error));
+            })
           );
       })
     );
@@ -37,7 +43,10 @@ export class ConversationsEpic {
             .getConversationByUsersIds(payload.yourId, payload.otherId)
             .pipe(
               map(conversation => getConversationSuccessAction(conversation)),
-              catchError(error => of(getConversationFailedAction(error.message)))
+              catchError(error => {
+                this.notifierService.notify('error', 'Error while getting conversation');
+                return of(getConversationFailedAction(error));
+              })
             );
         }
       )

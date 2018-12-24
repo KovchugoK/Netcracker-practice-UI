@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ResumeService} from '../../services/resume.service';
 import {Resume} from '../../model/Resume';
+import {Account} from '../../model/Account'
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs/index';
 import {NgRedux, select} from '@angular-redux/store';
@@ -56,6 +57,10 @@ export class ResumeDetailDialogComponent implements OnInit {
 
   get currentUserAccountId(): string {
     return this.ngRedux.getState().currentUserState.currentUser.account.id;
+  }
+
+  get currentAccount(): Account{
+    return this.ngRedux.getState().currentUserState.currentUser.account;
   }
 
 

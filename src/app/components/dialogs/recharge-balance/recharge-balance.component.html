@@ -1,0 +1,16 @@
+<div class="recharge-balance-dialog">
+  <h1 mat-dialog-title>Recharge balance</h1>
+  <form [formGroup]="rechargeBalanceForm">
+    <mat-form-field>
+      <input matInput placeholder="Enter the sum to recharge your balance: " [formControlName]="'sumToAdd'" maxLength="7">
+      <span matPrefix>$ </span>
+      <mat-error *ngIf="sumToAdd.invalid">{{getErrorText('sumToAdd')}}</mat-error>
+    </mat-form-field>
+    <div class="controls">
+      <button mat-button color="primary" (click)="rechargeBalance()" [disabled]="rechargeBalanceForm.invalid" cdkFocusInitial>
+        Confirm
+      </button>
+      <button mat-button color="warn" (click)=onCancelClick()> Close</button>
+    </div>
+  </form>
+</div>

@@ -32,7 +32,6 @@ export class SpecialistListComponent implements OnInit {
   @select(selectResumes)
   resumeList: Observable<Resume[]>;
 
-  favotiteForm: FormGroup;
 
   constructor(private ngRedux: NgRedux<AppState>, private specialisService: SpecialistService) {
   }
@@ -47,5 +46,10 @@ export class SpecialistListComponent implements OnInit {
     this.favorite.account = account;
     this.specialisService.post(this.favorite, this.ngRedux.getState().currentUserState.currentUser.account.id).subscribe();
   }
+
+  get currentAccount(): Account{
+    return this.ngRedux.getState().currentUserState.currentUser.account;
+  }
+
 
 }

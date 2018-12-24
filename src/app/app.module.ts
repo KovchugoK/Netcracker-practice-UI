@@ -32,27 +32,78 @@ import {DialogsModule} from './components/dialogs/dialogs.module';
 import {ResumeDetailDialogComponent} from './components/resume-detail-dialog/resume-detail-dialog.component';
 import {ResumeListComponent} from './components/resume-list/resume-list.component';
 import {
-  MatDialogModule, MatListModule, MatButtonModule, MatCardModule, MatChipsModule, MatIconModule,
-  MatMenuModule, MatProgressBarModule, MatDatepickerModule,
-  MatNativeDateModule, MatInputModule
+  MatButtonModule,
+  MatCardModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatProgressBarModule
 } from '@angular/material';
-import { MyStartupsComponent } from './components/my-startups/my-startups.component';
-import { StartupSearchToolbarComponent } from './components/startup-search-toolbar/startup-search-toolbar.component';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { ResumeEditComponent } from './components/resume-edit/resume-edit.component';
-import { ContactsComponent } from './components/contacts/contacts.component';
+import {MyStartupsComponent} from './components/my-startups/my-startups.component';
+import {StartupSearchToolbarComponent} from './components/startup-search-toolbar/startup-search-toolbar.component';
+import {ToolbarComponent} from './components/toolbar/toolbar.component';
+import {ResumeEditComponent} from './components/resume-edit/resume-edit.component';
+import {ContactsComponent} from './components/contacts/contacts.component';
 import {GlobalUserStorageService} from './services/global-storage.service';
-import { AccountComponent } from './components/account/account.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { AccountEditComponent } from './components/account-edit/account-edit.component';
+import {AccountComponent} from './components/account/account.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {AccountEditComponent} from './components/account-edit/account-edit.component';
 import {ConversationComponent} from './components/conversation/conversation.component';
 import {ImageUploadComponent} from './components/image-upload/image-upload.component';
-import {NgxPermissionsModule, NgxPermissionsService} from 'ngx-permissions';
+import {NgxPermissionsModule} from 'ngx-permissions';
 import {AuthenticationService} from './services/authentication.service';
-import {SkillPipe} from "./components/account/pipes/skill-pipe";
-import {ProjectPipe} from "./components/account/pipes/project-pipe";
-import {AgePipe} from "./components/account/pipes/age-pipe";
-import { ConversationListComponent } from './components/conversation-list/conversation-list.component';
+import {SkillPipe} from './components/account/pipes/skill-pipe';
+import {ProjectPipe} from './components/account/pipes/project-pipe';
+import {AgePipe} from './components/account/pipes/age-pipe';
+import {ConversationListComponent} from './components/conversation-list/conversation-list.component';
+import {ChatServerService} from './services/chat-server.service';
+import {NotifierModule, NotifierOptions} from 'angular-notifier';
+
+const customNotifierOptions: NotifierOptions = {
+  position: {
+    horizontal: {
+      position: 'right',
+      distance: 20
+    },
+    vertical: {
+      position: 'bottom',
+      distance: 50,
+      gap: 10
+    }
+  },
+  theme: 'material',
+  behaviour: {
+    autoHide: 2500,
+    onClick: 'hide',
+    onMouseover: 'pauseAutoHide',
+    showDismissButton: true,
+    stacking: 4
+  },
+  animations: {
+    enabled: true,
+    show: {
+      preset: 'slide',
+      speed: 300,
+      easing: 'ease'
+    },
+    hide: {
+      preset: 'fade',
+      speed: 300,
+      easing: 'ease',
+      offset: 50
+    },
+    shift: {
+      speed: 300,
+      easing: 'ease'
+    },
+    overlap: 150
+  }
+};
 
 @NgModule({
   declarations: [
@@ -93,7 +144,6 @@ import { ConversationListComponent } from './components/conversation-list/conver
   imports: [
     BrowserModule,
     EpicsModule,
-    // import main NgReduxModule
     NgReduxModule,
     NgReduxRouterModule.forRoot(),
     HttpClientModule,
@@ -123,6 +173,7 @@ import { ConversationListComponent } from './components/conversation-list/conver
     MatInputModule,
     FlexLayoutModule,
     NgxPermissionsModule.forRoot(),
+    NotifierModule.withConfig(customNotifierOptions)
   ],
   entryComponents: [
     ResumeDetailDialogComponent
@@ -143,7 +194,8 @@ export class AppModule {
               private epicService: EpicService,
               private devTools: DevToolsExtension,
               private storageService: GlobalUserStorageService,
-              private auth: AuthenticationService) {
+              private auth: AuthenticationService,
+              private chatService: ChatServerService) {
     const epics = this.epicService.getEpics();
     const middleware = createEpicMiddleware();
     let enhancers = [];
@@ -155,8 +207,8 @@ export class AppModule {
     ngReduxRouter.initialize((state: AppState) => state.router);
     if (this.ngRedux.getState().currentUserState.currentUser) {
       this.auth.addRole(this.ngRedux.getState().currentUserState.currentUser.roles);
+      this.chatService.connect(this.ngRedux.getState().currentUserState.currentUser.token.accessToken,
+        this.ngRedux.getState().currentUserState.currentUser.account.id);
     }
   }
-
-
 }

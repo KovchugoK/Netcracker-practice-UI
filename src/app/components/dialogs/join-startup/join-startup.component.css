@@ -1,0 +1,30 @@
+mat-form-field {
+  width: 100%;
+}
+
+mat-radio-button{
+  width: 100%;
+}
+h1 {
+  text-align: center;
+}
+
+.join-startup-dialog {
+  display: flex;
+  flex-direction: column;
+  font-size: 14pt;
+  justify-content: space-between;
+}
+
+mat-card {
+  width: 500px;
+}
+
+.spinner{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}

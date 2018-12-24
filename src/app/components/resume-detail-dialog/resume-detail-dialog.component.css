@@ -1,12 +1,27 @@
-mat-dialog-content {
-  padding: 30px 50px;
+main {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  width: 80%;
+  padding: 40px;
+  margin: auto;
 }
 
-.header-image {
-  float: left;
+.img {
+  padding-top: 30px;
   width: 200px;
   height: 200px;
-  margin-right: 25px;
+}
+
+.nameAndRole {
+  padding-top: 30px;
+  padding-left: 5%;
+  width: 470px;
+}
+
+.rightFromImageBlock {
+  display: flex;
+  flex-flow: row;
 }
 
 .header {
@@ -17,18 +32,4 @@ mat-dialog-content {
   margin-top: 30px;
 }
 
-.info-edu {
-  float: left;
-  width: 500px;
-  margin-right: 50px;
-}
 
-.about_info {
-}
-
-.about_edu {
-}
-
-.about_work {
-  float: right;
-}

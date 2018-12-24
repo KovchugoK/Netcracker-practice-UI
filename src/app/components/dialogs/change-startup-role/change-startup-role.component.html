@@ -1,0 +1,21 @@
+<div class="change-startup-role-dialog">
+  <h2 mat-dialog-title>Select role</h2>
+  Select role of this member in startup:
+  <form [formGroup]="changeStartupRoleForm">
+    <mat-radio-group [formControlName]="'role'">
+      <mat-radio-button value="MEMBER">
+        Member
+      </mat-radio-button>
+      <mat-radio-button value="MODERATOR">
+        Moderator
+      </mat-radio-button>
+    </mat-radio-group>
+    <div class="controls">
+      <button mat-button color="primary" (click)="changeStartupMemberRole()" [disabled]="changeStartupRoleForm.invalid"
+              [mat-dialog-close]="" cdkFocusInitial>
+        Confirm
+      </button>
+      <button mat-button color="warn" (click)=onCancelClick()> Close</button>
+    </div>
+  </form>
+</div>

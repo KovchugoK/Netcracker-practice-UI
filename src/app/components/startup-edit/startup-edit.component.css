@@ -10,16 +10,18 @@ main {
 .imageBlock {
   padding-top: 30px;
 }
+
 .rightFromImageBlock {
   padding-top: 30px;
   padding-left: 5%;
   width: 470px;
   height: 370px;
 }
+
 mat-form-field{
   width: 100%;
-
 }
+
 table{
   width: 100%;
 }
@@ -56,10 +58,10 @@ form {
   height: 30px;
 }
 
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}
+/*.example-header-image {*/
+   /*background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');*/
+   /*background-size: cover;*/
+ /*}*/
 
 .btnControl{
   width: 175px;
@@ -75,6 +77,11 @@ form {
   height: 100%;
   width: 100%;
 }
-mat-spinner{
+.center-spinner{
   margin: auto;
 }
+textarea{
+  max-height: 75px;
+  width: 100%;
+}
+

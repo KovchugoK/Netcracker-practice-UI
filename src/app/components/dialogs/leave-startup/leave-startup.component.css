@@ -1,0 +1,10 @@
+.leave-startup-dialog {
+  display: flex;
+  flex-direction: column;
+  font-size: 14pt;
+  justify-content: space-between;
+}
+
+.leave-startup-dialog-controls {
+  margin-top: 20px;
+}

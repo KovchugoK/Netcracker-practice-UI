@@ -12,6 +12,7 @@ export class SkillPipe implements PipeTransform {
     });
     return unique_array;
   }
+
   transform(resumes: Resume[], args?: any): string[] {
     let resumeSkills = null;
     if (resumes) {
