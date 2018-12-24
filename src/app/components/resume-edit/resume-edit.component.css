@@ -2,8 +2,7 @@ main {
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
-  width: 80%;
-  padding: 40px;
+  padding-left: 50px;
 }
 
 .img {
@@ -27,6 +26,11 @@ main {
   margin-top: 20px;
 }
 
+.btnControl{
+  width: 175px;
+  height: 50px;
+  margin: 15px 15px 0 0;
+}
 
 mat-dialog-content {
   padding: 30px 50px;
