@@ -3,10 +3,10 @@ import {Reducer} from 'redux';
 import {SELECT_ACCOUNT, SELECT_ACCOUNT_SUCCESS} from '../actions/account-state.actions';
 import {
   DELETE_ACCOUNT,
-  DELETE_ACCOUNT_SUCCESS,
+  DELETE_ACCOUNT_SUCCESS, FETCH_ACCOUNT_FAILED,
   UPDATE_ACCOUNT,
   UPDATE_ACCOUNT_SUCCESS
-} from "../actions/accounts.actions";
+} from '../actions/accounts.actions';
 
 export interface AccountPageState {
   readonly accountModel: Account;
@@ -37,6 +37,7 @@ export const accountPageReducer: Reducer<AccountPageState> = (state: AccountPage
     case DELETE_ACCOUNT: {
       return {...state, isLoading: true};
     }
+    case FETCH_ACCOUNT_FAILED:
     case DELETE_ACCOUNT_SUCCESS: {
       return {...state, isLoading: false};
     }

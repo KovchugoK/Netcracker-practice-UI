@@ -2,19 +2,19 @@ import {Injectable} from '@angular/core';
 import {AccountService} from '../../services/account.service';
 import {NgRedux} from '@angular-redux/store';
 import {AppState} from '../index';
-import {catchError, map, switchMap} from "rxjs/operators";
-import {AnyAction} from "redux";
-import {ActionsObservable} from "redux-observable";
+import {catchError, map, switchMap} from 'rxjs/operators';
+import {AnyAction} from 'redux';
+import {ActionsObservable} from 'redux-observable';
 import {
   DELETE_ACCOUNT,
   deleteAccountSuccessAction, fetchAccountFailedAction,
   UPDATE_ACCOUNT,
   updateAccountSuccessAction
-} from "../actions/accounts.actions";
-import {of} from "rxjs";
-import {SELECT_ACCOUNT, selectAccountSuccess} from "../actions/account-state.actions";
-import {defaultAccount} from "../../model/Account";
-import {NotifierService} from "angular-notifier";
+} from '../actions/accounts.actions';
+import {of} from 'rxjs';
+import {SELECT_ACCOUNT, selectAccountSuccess} from '../actions/account-state.actions';
+import {defaultAccount} from '../../model/Account';
+import {NotifierService} from 'angular-notifier';
 
 
 
@@ -27,20 +27,19 @@ export class AccountEpic {
   updateAccount$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(UPDATE_ACCOUNT).pipe(
       switchMap(({payload}) => {
-        console.log("update epic");
         return this.accountService
           .updateAccount(payload.account)
           .pipe(
             map(account => {
               this.notifierService.notify('success', 'Account was updated successful');
-              updateAccountSuccessAction(account);
-            },
-              catchError(error => {
-                this.notifierService.notify('error', 'Account was not updated');
-                return of(fetchAccountFailedAction(error));
-              })
-            )
+              return updateAccountSuccessAction(account);
+            }),
+            catchError(error => {
+              this.notifierService.notify('error', 'Account update failed');
+              return of(fetchAccountFailedAction(error));
+            })
           );
+
       })
     );
   };
@@ -65,7 +64,6 @@ export class AccountEpic {
   };
 
   selectAccount$ = (action$: ActionsObservable<AnyAction>) => {
-    console.log("hello from epic");
     return action$.ofType(SELECT_ACCOUNT).pipe(
       switchMap(({payload}) => {
         return payload.accountId !== null ?
