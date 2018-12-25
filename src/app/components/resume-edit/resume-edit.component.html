@@ -65,7 +65,7 @@
 
           <div align="left">
             <div *ngIf="id!==null">
-              <button mat-raised-button="" (click)="updateResume()" [disabled]="resumeForm?.invalid">
+              <button mat-raised-button="" class="btnControl" (click)="updateResume()" [disabled]="resumeForm?.invalid">
                 Save
               </button>
               <button mat-raised-button="" class="btnControl" (click)="goBack()"> Cancel</button>
