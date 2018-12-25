@@ -11,7 +11,7 @@
           <img class="imgParametrs" src="https://drive.google.com/thumbnail?id={{(startup | async)?.compressedImageId}}"
                onError="this.src='/src/assets/images/defaultImageForStartup.png';">
         </mat-card>
-      <div *ngIf="currentStartup.nonBlock">
+      <div>
         <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="blockStartup(currentStartup)"> Block Startup  </button></ng-template>
       </div>
     </div>

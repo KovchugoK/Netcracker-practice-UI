@@ -42,16 +42,22 @@ export class AccountComponent implements OnInit {
   deleteAccount() {
     this.ngRedux.dispatch(deleteAccountAction(this.id));
   }
-  get currentUser(): User {
+  get currentPageUser(): User {
+    console.log(this.ngRedux.getState().accountPageState.accountModel.user.nonBlock);
+    console.log(this.id);
     return this.ngRedux.getState().accountPageState.accountModel.user;
   }
+
+  get currentUser(): User {
+    return this.ngRedux.getState().currentUserState.currentUser;
+    }
+
 
   blockUser(user: User) {
     this.adminService.blockUser(user.id).subscribe();
     user.nonBlock = false;
     console.log('User заблокирован');
   }
-
   unBlockUser(user: User) {
     this.adminService.unBlockUser(user.id).subscribe();
     user.nonBlock = true;
