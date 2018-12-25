@@ -14,6 +14,7 @@ import {Observable} from "rxjs/index";
 import {AppState} from "../../../store";
 import {NgxPermissionsService} from "ngx-permissions";
 import {sendResetPasswordEmail} from "../../../store/actions/reset-password.actions";
+import {SignInComponent} from "../sign-in/sign-in.component";
 
 @Component({
   selector: 'app-enter-email',
@@ -21,7 +22,6 @@ import {sendResetPasswordEmail} from "../../../store/actions/reset-password.acti
   styleUrls: ['./enter-email.component.css']
 })
 export class EnterEmailComponent implements OnInit {
-
 
   @select(isLoading)
   isLoading: Observable<boolean>;
@@ -36,7 +36,7 @@ export class EnterEmailComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ngRedux: NgRedux<AppState>,
     private route: ActivatedRoute,
-    public dialogRef: MatDialogRef<SignUpComponent>,
+    public dialogRef: MatDialogRef<EnterEmailComponent>,
     private permissionsServise: NgxPermissionsService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
@@ -47,7 +47,6 @@ export class EnterEmailComponent implements OnInit {
     this.emailForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]]
     });
-
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
@@ -83,7 +82,6 @@ export class EnterEmailComponent implements OnInit {
     }
     console.log(this.emailForm.get("email").value);
     this.ngRedux.dispatch(sendResetPasswordEmail(this.emailForm.get("email").value));
-    this.dialogRef.close(DialogResult.CLOSE);
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() =>
         this.error.pipe(skipWhile(error => error !== null), take(1)).subscribe(() => this.onCancelClick()));

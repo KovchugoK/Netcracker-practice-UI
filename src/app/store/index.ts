@@ -11,6 +11,7 @@ import { AccountPageState} from './reducers/account-page.reducer';
 import {SpecialistsSearchToolbarState} from './reducers/specialists-search-toolbar.reducer';
 import {FavoritesState} from './reducers/favorite.reducer';
 import {ConversationsState} from './reducers/conversation.reducer';
+import {ResetPasswordState} from "./reducers/reset-password.reducer";
 
 
 export interface AppState {
@@ -28,6 +29,7 @@ export interface AppState {
   readonly specialistsSearchState?: SpecialistsSearchToolbarState;
   readonly conversationsState?: ConversationsState;
   readonly favoritesState?: FavoritesState;
+  readonly resetPasswordState?: ResetPasswordState;
 }
 
 

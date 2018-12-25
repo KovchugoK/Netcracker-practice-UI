@@ -14,6 +14,10 @@ import {AppState} from "../../store/index";
 import {NgxPermissionsService} from "ngx-permissions";
 import {UserService} from "../../services/user.service";
 import {ResetPasswordService} from "../../services/reset-password.service";
+import {showDialogAction} from "../../store/actions/dialogs.actions";
+import {SignInComponent} from "../dialogs/sign-in/sign-in.component";
+import {updateRouterState} from "../../store/actions/router.actions";
+import {savePassword} from "../../store/actions/reset-password.actions";
 
 @Component({
   selector: 'app-reset-password',
@@ -28,6 +32,9 @@ export class ResetPasswordComponent {
   error = '';
   userId: string;
   token: string;
+
+  @select(isLoading)
+  isLoading: Observable<boolean>;
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
@@ -97,23 +104,10 @@ export class ResetPasswordComponent {
     if (this.resetPasswordForm.invalid) {
       return;
     }
-    this.resetPasswordService.updatePassword(this.userId, this.token, this.resetPasswordForm.get('password').value).subscribe();
+    //this.resetPasswordService.updatePassword(this.userId, this.token, this.resetPasswordForm.get('password').value).subscribe();
+    this.ngRedux.dispatch(savePassword({id:this.userId, token: this.token , password:this.resetPasswordForm.get('password').value}))
+    this.isLoading.pipe(skipWhile(result => result === true), take(1))
+      .subscribe(() => this.ngRedux.dispatch(updateRouterState('/mainpage')));
     this.loading = true;
-    //   this.userService.register(this.resetPasswordForm.value)
-    //     .pipe(first())
-    //     .subscribe(
-    //       () => {
-    //         this.ngRedux.dispatch(loginUserAction(
-    //           {login: this.resetPasswordForm.controls['login'].value,
-    //             password: this.resetPasswordForm.controls['password'].value}
-    //         ));
-    //         this.onCancelClick();
-    //       },
-    //       error => {
-    //         console.log(error);
-    //         this.error = error;
-    //         this.loading = false;
-    //       });
-    // }
   }
 }

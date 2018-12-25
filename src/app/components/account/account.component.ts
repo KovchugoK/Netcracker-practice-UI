@@ -22,10 +22,9 @@ import {User} from "../../model/User";
 export class AccountComponent implements OnInit {
 
   id: string;
-
+  currentUserId:string;
   @select(selectCurrentUser)
   user: Observable<User>;
-  currentUserId:string;
 
   @select(isSelected)
   isSelected: Observable<boolean>;

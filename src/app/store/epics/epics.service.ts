@@ -59,6 +59,7 @@ export class EpicService {
       this.accountEpic.selectAccount$,
       this.accountEpic.deleteAccount$,
       this.resetPasswordEpic.sendEmail$,
+      this.resetPasswordEpic.resetPassword$,
       this.accountEpic.deleteAccount$
     );
   }

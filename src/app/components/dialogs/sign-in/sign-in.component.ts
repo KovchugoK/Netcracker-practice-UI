@@ -100,7 +100,7 @@ export class SignInComponent implements OnInit {
   }
 
   forgotPassword(){
-    this.dialogRef.close(DialogResult.CLOSE);
+    this.ngRedux.dispatch(closeDialogAction());
     this.ngRedux.dispatch(showDialogAction({
       componentType: EnterEmailComponent,
       width: '500px',

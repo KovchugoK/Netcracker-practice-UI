@@ -62,6 +62,10 @@ import {AgePipe} from './components/account/pipes/age-pipe';
 import {ConversationListComponent} from './components/conversation-list/conversation-list.component';
 import {ChatServerService} from './services/chat-server.service';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
+import { DatePipe } from '@angular/common';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { EnterEmailComponent } from './components/dialogs/enter-email/enter-email.component';
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component'
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -102,10 +106,7 @@ const customNotifierOptions: NotifierOptions = {
     overlap: 150
   }
 };
-import { DatePipe } from '@angular/common';
-import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
-import { EnterEmailComponent } from './components/dialogs/enter-email/enter-email.component';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component'
+
 
 @NgModule({
   declarations: [
@@ -143,6 +144,7 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     AgePipe,
     ResetPasswordComponent,
     VerifyEmailComponent,
+    EnterEmailComponent,
   ],
   imports: [
     BrowserModule,
@@ -179,7 +181,8 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     NotifierModule.withConfig(customNotifierOptions)
   ],
   entryComponents: [
-    ResumeDetailDialogComponent
+    ResumeDetailDialogComponent,
+    EnterEmailComponent,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},

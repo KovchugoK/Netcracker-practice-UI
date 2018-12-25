@@ -7,6 +7,8 @@ import {skipWhile, take} from "rxjs/internal/operators";
 import {updateRouterState} from "../../store/actions/router.actions";
 import {isLoading} from "../../store/selectors/current-user.selector";
 import {Observable} from "rxjs/index";
+import {showDialogAction} from "../../store/actions/dialogs.actions";
+import {SignInComponent} from "../dialogs/sign-in/sign-in.component";
 
 @Component({
   selector: 'app-verify-email',
@@ -30,6 +32,11 @@ export class VerifyEmailComponent implements OnInit {
     });
     this.userService.verifyEmail(this.token).subscribe();
     this.ngRedux.dispatch(updateRouterState('/main-page'));
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: SignInComponent,
+      width: '500px',
+      data: null
+    }));
   }
 
 

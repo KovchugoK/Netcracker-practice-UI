@@ -1,13 +1,13 @@
 <main>
   <div class="spinner">
-    <mat-spinner *ngIf="isSelected | async; else aForm" mode="indeterminate" color="primary" class="spinner-item">
+    <mat-spinner class="center-spinner" *ngIf="isSelected | async; else aForm" mode="indeterminate" color="primary">
     </mat-spinner>
   </div>
 
   <ng-template #aForm>
     <form novalidate [formGroup]="accountForm" class="form-group">
       <div class="form-group">
-        <app-image-upload (valueChange)='getImageAsString($event)'></app-image-upload>
+        <app-image-upload (valueChange)='getImageAsString($event)' [defaultImage]="updatedAccount.compressedImageId"></app-image-upload>
         <legend>Name</legend>
         <mat-form-field appearance="legacy">
           <input matInput type="text" formControlName="firstName" placeholder="First name">

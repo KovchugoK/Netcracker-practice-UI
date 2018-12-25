@@ -13,6 +13,7 @@ import {specialistsSearchToolbarReducer} from './specialists-search-toolbar.redu
 import {favoriteReducer} from './favorite.reducer';
 import {conversationsReducer} from './conversation.reducer';
 import {accountPageReducer} from "./account-page.reducer";
+import {resetPasswordReducer} from "./reset-password.reducer";
 
 
 export const reducers: Reducer = combineReducers({
@@ -30,4 +31,5 @@ export const reducers: Reducer = combineReducers({
   favoritesState: favoriteReducer,
   conversationsState: conversationsReducer,
   accountPageState: accountPageReducer,
+  resetPasswordState: resetPasswordReducer,
 });

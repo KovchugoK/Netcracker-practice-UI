@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 
 @Component({
@@ -12,12 +12,18 @@ export class ImageUploadComponent implements OnInit {
   base64textString: string;
   imageUrl: string;
   ishiddenImage: boolean;
+  @Input() defaultImage: string;
 
   constructor() {
   }
 
   ngOnInit() {
-    this.imageUrl = '/src/assets/images/default-image.png';
+    if(this.defaultImage){
+      this.imageUrl='https://drive.google.com/thumbnail?id='+this.defaultImage;
+    }
+    else {
+      this.imageUrl = '/src/assets/images/default-image.png';
+    }
     this.ishiddenImage = false;
   }
 

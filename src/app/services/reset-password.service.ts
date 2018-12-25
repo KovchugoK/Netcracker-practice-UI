@@ -21,13 +21,13 @@ export class ResetPasswordService {
   });
   }
 
-  updatePassword(id: string, token: string, password: string): Observable<any> {
-    console.log(id+token+password);
+  updatePassword(resetPassword: ResetPassword): Observable<any> {
+    console.log('service'+resetPassword.id+resetPassword.token+resetPassword.password);
     return this.http.post<any>(this.userUrl+'savePassword',
       {
-        id: id,
-        token: token,
-        password: password
+        id: resetPassword.id,
+        token: resetPassword.token,
+        password: resetPassword.password
       }).pipe(catchError((error: any) => throwError(error.error)));
   }
 

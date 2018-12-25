@@ -18,7 +18,6 @@ import {ConversationComponent} from './components/conversation/conversation.comp
 import {ConversationListComponent} from './components/conversation-list/conversation-list.component';
 import {AccountEditGuard} from './guards/account-edit.guard';
 import {StartupEditGuard} from './guards/startup-edit.guard';
-import {AccountEditGuard} from "./guards/account-edit.guard";
 import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
 import {VerifyEmailComponent} from "./components/verify-email/verify-email.component";
 
