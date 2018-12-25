@@ -30,17 +30,19 @@
                   {{resume?.account.lastName}}</a></p>
             </div>
           </div>
-          <div *ngIf="currentAccount && currentAccount.id !== resume?.account.id">
-            <div *ngIf="isAddedToFavorite(resume?.account); else notAddes">
-              <mat-icon (click)="onClick(resume?.account, true)" class="material-icons">
-                star
-              </mat-icon>
+          <div *ngIf="ngRedux.getState().currentUserState.currentUser !== null">
+            <div *ngIf="currentAccount && currentAccount.id !== resume?.account.id">
+              <div *ngIf="isAddedToFavorite(resume?.account); else notAddes">
+                <mat-icon (click)="onClick(resume?.account, true)" class="material-icons">
+                  star
+                </mat-icon>
+              </div>
+              <ng-template #notAddes>
+                <mat-icon (click)="onClick(resume?.account, false)" class="material-icons">
+                  star_border
+                </mat-icon>
+              </ng-template>
             </div>
-            <ng-template #notAddes>
-              <mat-icon (click)="onClick(resume?.account, false)" class="material-icons">
-                star_border
-              </mat-icon>
-            </ng-template>
           </div>
           <h6>Skills: </h6>
           <mat-card-subtitle>
