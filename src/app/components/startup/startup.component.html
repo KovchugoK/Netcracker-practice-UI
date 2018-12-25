@@ -181,7 +181,7 @@
 
 <ng-template #blockStartupView>
 <div *ngIf="currentStartup.account.id !== currentUserAccountId; else forCreator">
-  <ng-template ngxPermissionsOnly="USER">Данная страница заблокирована</ng-template>
+  <ng-template ngxPermissionsOnly="USER"> This page is blocked </ng-template>
   <ng-template ngxPermissionsOnly="ADMIN">
     <div class="imageBlock">
       <mat-card>
@@ -233,7 +233,7 @@
     </div>
 
     <div *ngFor="let res of (startup | async)?.startupResumes">
-      <mat-card style="margin: 15px; width: 200px" *ngIf="res.status ==='accepted' ">
+      <mat-card style="margin: 15px; width: 200px" *ngIf="res.accepted === true ">
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
           <mat-card-title> {{res.resume.account?.firstName}}<br/> {{res.resume.account.lastName}}</mat-card-title>
@@ -320,7 +320,7 @@
   </div>
 
   <div *ngFor="let res of (startup | async)?.startupResumes">
-    <mat-card style="margin: 15px; width: 200px" *ngIf="res.status ==='accepted' ">
+    <mat-card style="margin: 15px; width: 200px" *ngIf="res.accepted === true ">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
         <mat-card-title> {{res.resume.account?.firstName}}<br/> {{res.resume.account.lastName}}</mat-card-title>
