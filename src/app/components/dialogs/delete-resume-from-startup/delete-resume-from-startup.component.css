@@ -1,0 +1,12 @@
+.delete-resume-from-startup-dialog {
+  display: flex;
+  flex-direction: column;
+  font-size: 15pt;
+  justify-content: center;
+}
+.delete-resume-from-startup-dialog-controls {
+  margin-top: 10px;
+}
+button {
+  font-size: 17px;
+}

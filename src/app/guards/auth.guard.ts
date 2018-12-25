@@ -14,10 +14,10 @@ export class AuthGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    if (localStorage.getItem('currentUser')) {
+    if (this.ngRedux.getState().currentUserState.currentUser !== null) {
       return true;
     }
-    this.ngRedux.dispatch(updateRouterState('/main'));
+    this.ngRedux.dispatch(updateRouterState('/main-page'));
     this.ngRedux.dispatch(showDialogAction({
       componentType: SignInComponent,
       width: '500px',

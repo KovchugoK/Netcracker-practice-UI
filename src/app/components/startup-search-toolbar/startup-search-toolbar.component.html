@@ -5,8 +5,8 @@
       <mat-form-field style="margin-right: 20px">
         <input matInput=""  [formControlName]="'startupNameContains'">
       </mat-form-field>
-      <mat-label style="margin-left: 20px;" *ngIf="creatorSearchView"> Creator name: </mat-label>
-      <mat-form-field *ngIf="creatorSearchView">
+      <mat-label style="margin-right: 20px;" *ngIf="creatorSearchView"> Creator name: </mat-label>
+      <mat-form-field *ngIf="creatorSearchView" style="margin-right: 20px">
         <input matInput=""  [formControlName]="'creatorNameContains'">
       </mat-form-field>
       <mat-label style="margin-right: 20px"> Sort by:</mat-label>

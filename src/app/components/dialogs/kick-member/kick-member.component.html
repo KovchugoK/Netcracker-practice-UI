@@ -1,0 +1,11 @@
+<div class="kick-member-dialog">
+  <h2 mat-dialog-title align="center">Kick member</h2>
+  <p align="center"> Are you sure?</p>
+  <div class="kick-member-dialog-controls" align="center">
+    <button mat-button color="primary" (click)="kickMember()" [mat-dialog-close]="" cdkFocusInitial>
+      Yes
+    </button>
+    <button mat-button color="warn" (click)=onCancelClick()> No </button>
+  </div>
+</div>
+

@@ -9,7 +9,9 @@
         <div *ngIf="conversation.conversationMessages?.length!==0">
           <mat-card class="example-card" routerLink="/conversations/{{conversation.secondAccount.id}}">
             <mat-card-header>
-              <img mat-card-avatar class="full-size" src="/src/assets/images/Person.jpg">
+              <img mat-card-avatar class="full-size"
+                   src="https://drive.google.com/thumbnail?id={{conversation.secondAccount.compressedImageId}}"
+                   onError="this.src='/src/assets/images/Person.jpg'">
               <mat-card-title>
                 <a routerLink="/specialist-list/{{conversation.secondAccount.id}}">
                   {{conversation.secondAccount.firstName+ ' ' +conversation.secondAccount.lastName}}

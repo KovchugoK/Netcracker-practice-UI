@@ -1,18 +1,9 @@
-
-
 <app-header></app-header>
-<app-dialogs> </app-dialogs>
-<!--<main style="height: 80vh">-->
-<!--<app-user-sidenav *ngIf="currentUser | async; else Unauthorized">-->
-  <!--<router-outlet></router-outlet>-->
-<!--</app-user-sidenav>-->
-<!--<ng-template #Unauthorized>-->
-  <!--<router-outlet> </router-outlet>-->
-<!--</ng-template>-->
-<!--</main>-->
-
+<app-dialogs></app-dialogs>
 <app-user-sidenav>
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </app-user-sidenav>
+
 <app-footer></app-footer>
 
+<notifier-container></notifier-container>

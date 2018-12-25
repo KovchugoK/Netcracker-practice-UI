@@ -30,8 +30,12 @@ export class EpicService {
       this.startupEpic.deleteStartup$,
       this.startupEpic.selectStartup$,
       this.startupEpic.searchStartups$,
+      this.startupEpic.sendResumeToStartup$,
+      this.startupEpic.makeInvestmentInStartup$,
+      this.startupEpic.cancelResumeToStartup$,
       this.currentUserEpic.loginUser$,
       this.currentUserEpic.logout$,
+      this.currentUserEpic.updateBalance$,
       this.resumeEpic.fetchResumes$,
       this.resumeEpic.selectResume$,
       this.resumeEpic.createResume$,
@@ -41,6 +45,7 @@ export class EpicService {
       this.resumeEpic.fetchResumesInvestors$,
       this.resumeEpic.searchResumes$,
       this.resumeEpic.updateResume$,
+      this.resumeEpic.fetchMyResumes$,
       this.contactsEpic.fetchContacts$,
       this.contactsEpic.deleteContact$,
       this.favoriteEpic.deleteFavorite$,
@@ -49,10 +54,12 @@ export class EpicService {
       this.conversationsEpic.fetchConversations$,
       this.conversationsEpic.getConversation$,
       this.contactsEpic.deleteContact$,
+      this.conversationsEpic.getConversation$,
       this.accountEpic.updateAccount$,
       this.accountEpic.selectAccount$,
       this.accountEpic.deleteAccount$,
       this.resetPasswordEpic.sendEmail$,
+      this.accountEpic.deleteAccount$
     );
   }
 }

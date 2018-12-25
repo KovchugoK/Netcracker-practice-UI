@@ -3,12 +3,10 @@ import {
   CLEAR_USER_ERROR_MESSAGE,
   LOGIN_USER,
   LOGIN_USER_FAILED,
-  UPDATE_CURRENT_USER,
-  VERIFY_USER_EMAIL
+  UPDATE_BALANCE_SUCCESS,
+  UPDATE_CURRENT_USER
 } from '../actions/current-user.actions';
 import {User} from '../../model/User';
-
-
 
 
 export interface CurrentUserState {
@@ -24,7 +22,7 @@ const INITIAL_STATE = {
 };
 
 
-export const currentUserReducer: Reducer<CurrentUserState> = (state: CurrentUserState  = INITIAL_STATE, action) => {
+export const currentUserReducer: Reducer<CurrentUserState> = (state: CurrentUserState = INITIAL_STATE, action) => {
   switch (action.type) {
     case UPDATE_CURRENT_USER: {
       return {...state, currentUser: action.payload.user, isLoading: false, errorMessage: null};
@@ -38,8 +36,17 @@ export const currentUserReducer: Reducer<CurrentUserState> = (state: CurrentUser
     case CLEAR_USER_ERROR_MESSAGE: {
       return {...state, errorMessage: null};
     }
+    case UPDATE_BALANCE_SUCCESS: {
+      return {
+        ...state, currentUser: {
+          ...state.currentUser,
+          account: {...state.currentUser.account, balance: action.payload.balance}
+        }
+      };
+    }
     default: {
       return state;
     }
   }
+
 };

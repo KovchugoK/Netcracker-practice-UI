@@ -47,7 +47,7 @@ export class ResumeEditComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.resumeService.getAllSkills().subscribe(skillsList => this.skillsList = skillsList);
-    this.resumeService.getAllBusinessRole().subscribe(businessRole => this.rolesList = businessRole);
+    this.resumeService.getSpecialistsBusinessRole().subscribe(businessRole => this.rolesList = businessRole);
     this.ngRedux.dispatch(selectResume(this.id));
     this.isSelected.pipe(skipWhile(result => result), take(1))
       .subscribe(() => this.ngRedux.select(state => selectResumeForEdit(state))

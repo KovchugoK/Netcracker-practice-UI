@@ -3,8 +3,9 @@ import {Resume} from '../model/Resume';
 import {Skill} from "../model/Skill"
 import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError} from "rxjs/internal/operators";
 import {BusinessRole} from "../model/BusinessRole";
+import {catchError} from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -45,12 +46,13 @@ export class ResumeService {
     return this.http.get<Skill[]>('/api/resume/skills');
   }
 
-  getAllBusinessRole(): Observable<BusinessRole[]> {
-    return this.http.get<BusinessRole[]>('/api/resume/businessRole');
-  }
-
   getSpecialistsBusinessRole(): Observable<BusinessRole[]> {
     return this.http.get<BusinessRole[]>('/api/resume/specialists-business-role');
+  }
+
+  getMyResumeList(id: string): Observable<Resume[]> {
+    return this.http.get<Resume[]>('/api/resume/my-resume-list/' + id)
+      .pipe(catchError((error: any) => throwError(error.error)));
   }
 
 

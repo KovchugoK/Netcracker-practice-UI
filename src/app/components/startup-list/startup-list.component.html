@@ -8,10 +8,10 @@
     <div style="width: 90%" *ngIf="(startupList|async)?.length !== 0; else empty">
       <div *ngFor="let startup of startupList | async ">
         <mat-card class="example-card">
-          <img mat-card-lg-image="" class="full-size" src="https://drive.google.com/thumbnail?id={{startup.compressedImageId}}" alt="startupLogo">
+          <img mat-card-lg-image="" class="full-size" src="https://drive.google.com/thumbnail?id={{startup.compressedImageId}}" onError="this.src='/src/assets/images/defaultImageForStartup.png';">
           <mat-card-content>
             <p align="center">
-              <a routerLink="/startup/{{startup.id}}">
+              <a style="font-size: 18px" routerLink="/startup/{{startup.id}}">
                 {{startup.startupName}}
               </a>
             </p>
@@ -19,7 +19,7 @@
               {{startup.idea}}
             </p>
             <p>
-              {{startup.sumOfInvestment}}$              Created by: {{startup.account.user.login}}
+              <b> {{startup.sumOfInvestment}}$ </b>  &nbsp;  Created by: <a routerLink="/account/{{startup.account.id}}"> {{startup.account.user.login}} </a>
             </p>
             <div *ngIf="!startup.nonBlock" style="color: red">
               <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="unBlockStartup(startup)"> Unblock Startup  </button></ng-template>

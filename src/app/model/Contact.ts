@@ -3,4 +3,5 @@ export class Contact {
   firstName: string;
   lastName: string;
   birthday: string;
+  compressedImageId: string;
 }

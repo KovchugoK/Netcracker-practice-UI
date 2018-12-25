@@ -1,6 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {SignUpComponent} from '../sign-up/sign-up.component';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {skipWhile, take} from 'rxjs/internal/operators';
@@ -37,7 +36,7 @@ export class SignInComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ngRedux: NgRedux<AppState>,
     private route: ActivatedRoute,
-    public dialogRef: MatDialogRef<SignUpComponent>,
+    public dialogRef: MatDialogRef<SignInComponent>,
     private permissionsServise: NgxPermissionsService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {

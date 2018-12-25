@@ -8,9 +8,11 @@
       <div *ngFor="let contact of contacts | async">
         <mat-card class="example-card">
           <mat-card-header>
-            <img mat-card-avatar class="full-size" src="/src/assets/images/Person.jpg">
+            <img mat-card-avatar class="full-size"
+                 src="https://drive.google.com/thumbnail?id={{contact.compressedImageId}}"
+                 onError="this.src='/src/assets/images/Person.jpg'">
             <mat-card-title>
-              <a routerLink="/specialist-list/{{contact.id}}">
+              <a routerLink="/account/{{contact.id}}">
                 {{contact.firstName + " " +contact.lastName}}
               </a>
             </mat-card-title>

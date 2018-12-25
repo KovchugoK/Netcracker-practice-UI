@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InvestorListComponent } from './investor-list.component';
+import { LeaveStartupComponent } from './leave-startup.component';
 
-describe('InvestorListComponent', () => {
-  let component: InvestorListComponent;
-  let fixture: ComponentFixture<InvestorListComponent>;
+describe('LeaveStartupComponent', () => {
+  let component: LeaveStartupComponent;
+  let fixture: ComponentFixture<LeaveStartupComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InvestorListComponent ]
+      declarations: [ LeaveStartupComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InvestorListComponent);
+    fixture = TestBed.createComponent(LeaveStartupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

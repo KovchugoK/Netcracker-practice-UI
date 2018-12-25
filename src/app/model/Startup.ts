@@ -13,10 +13,11 @@ export interface Startup {
   account: Account;
   startupResumes: StartupResume[];
   dateOfCreation: Date;
-  imageId: String;
-  compressedImageId: String;
-  image: String;
+  imageId: string;
+  compressedImageId: string;
+  image: string;
   startupInvestments: Investment[];
+  startupRoles: StartupRole[];
 }
 
 export const defaultStartup: Startup = {
@@ -28,10 +29,13 @@ export const defaultStartup: Startup = {
   nonBlock: true,
   sumOfInvestment: 0,
   account: null,
-  startupResumes: null,
+  startupResumes: [],
   dateOfCreation: null,
   imageId: '',
   compressedImageId: '',
   image: '',
-  startupInvestments: null
+  startupInvestments: [],
+  startupRoles: []
 };
+
+

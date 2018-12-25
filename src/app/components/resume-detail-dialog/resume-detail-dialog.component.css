@@ -1,12 +1,25 @@
-mat-dialog-content {
-  padding: 30px 50px;
+main {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  padding-left: 50px;
 }
 
-.header-image {
-  float: left;
+.img {
+  padding-top: 30px;
   width: 200px;
   height: 200px;
-  margin-right: 25px;
+}
+
+.nameAndRole {
+  padding-top: 30px;
+  padding-left: 5%;
+  width: 470px;
+}
+
+.rightFromImageBlock {
+  display: flex;
+  flex-flow: row;
 }
 
 .header {
@@ -16,19 +29,10 @@ mat-dialog-content {
 .about {
   margin-top: 30px;
 }
-
-.info-edu {
-  float: left;
-  width: 500px;
-  margin-right: 50px;
+.btnControl{
+  width: 175px;
+  height: 50px;
+  margin: 15px 15px 0 0;
 }
 
-.about_info {
-}
 
-.about_edu {
-}
-
-.about_work {
-  float: right;
-}

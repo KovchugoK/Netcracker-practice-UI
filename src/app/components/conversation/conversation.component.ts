@@ -5,10 +5,8 @@ import {skipWhile, take} from 'rxjs/operators';
 import {Conversation} from '../../model/Conversation';
 import {ActivatedRoute} from '@angular/router';
 import {AppState} from '../../store';
-import {currentConversation, isLoading} from '../../store/selectors/conversation.selector';
+import {isLoading, selectCurrentConversation} from '../../store/selectors/conversation.selector';
 import {getConversationAction} from '../../store/actions/conversation.action';
-import {Message} from '../../model/Message';
-import {updateMessagesAction} from '../../store/actions/message.action';
 import {ChatServerService} from '../../services/chat-server.service';
 
 @Component({
@@ -20,7 +18,7 @@ export class ConversationComponent implements OnInit {
   @select(isLoading)
   isLoading: Observable<boolean>;
 
-  @select(currentConversation)
+  @select(selectCurrentConversation)
   currentConversation: Observable<Conversation>;
 
   defaultTextAreaValue = '';
@@ -30,41 +28,37 @@ export class ConversationComponent implements OnInit {
 
   ngOnInit() {
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
-      .subscribe(() =>
-        this.ngRedux.dispatch(getConversationAction(
-          this.ngRedux.getState().currentUserState.currentUser.account.id,
-          this.route.snapshot.paramMap.get('id')
-          )
-        )
+      .subscribe(() => this.ngRedux.dispatch(getConversationAction(
+        this.ngRedux.getState().currentUserState.currentUser.account.id,
+        this.route.snapshot.paramMap.get('id')))
       );
-
-    this.chatService.connect();
-    this.chatService.getMessages().subscribe((message: Message) => {
-      this.ngRedux.dispatch(updateMessagesAction(message));
-    });
   }
 
   sendMessage(messageBody: string) {
     messageBody = messageBody.trim();
     if (messageBody.length !== 0) {
       this.chatService.sendMessage({
-        conversationId: this.ngRedux.getState().conversationsState.currentConversation.id,
-        senderId: this.ngRedux.getState().conversationsState.currentConversation.firstAccount.id,
-        receiverId: this.ngRedux.getState().conversationsState.currentConversation.secondAccount.id,
+        conversationId: this.ngRedux.getState().conversationsState.currentConversation,
+        senderId: this.ngRedux.getState().conversationsState.conversations.get(
+          this.ngRedux.getState().conversationsState.currentConversation
+        ).firstAccount.id,
+        receiverId: this.ngRedux.getState().conversationsState.conversations.get(
+          this.ngRedux.getState().conversationsState.currentConversation
+        ).secondAccount.id,
         msg: messageBody,
         creationDate: new Date()
-      }).subscribe(answer => {
-        if (answer === 1) {
-          this.ngRedux.dispatch(updateMessagesAction({
-            conversationId: this.ngRedux.getState().conversationsState.currentConversation.id,
-            senderId: this.ngRedux.getState().conversationsState.currentConversation.firstAccount.id,
-            receiverId: this.ngRedux.getState().conversationsState.currentConversation.secondAccount.id,
-            msg: messageBody,
-            creationDate: new Date()
-          }));
-        }
       });
       this.defaultTextAreaValue = '';
+    }
+  }
+
+  onKey(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key === 'Enter') {
+      this.defaultTextAreaValue += '\n';
+      return;
+    }
+    if (event.key === 'Enter') {
+      this.sendMessage(this.defaultTextAreaValue);
     }
   }
 }

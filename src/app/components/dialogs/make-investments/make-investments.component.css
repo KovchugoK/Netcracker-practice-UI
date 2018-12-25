@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   font-size: 14pt;
-  font-weight: bold;
   justify-content: space-between;
 }
 
@@ -23,7 +22,11 @@ h1 {
 }
 
 .controls {
-  margin-top: 40px;
+  margin-top: 20px;
   display: flex;
   justify-content: flex-end;
+}
+
+button {
+  font-size: 17px;
 }

@@ -8,14 +8,14 @@ import {NgRedux} from '@angular-redux/store';
 import {AppState} from '../index';
 import {ResumeService} from "../../services/resume.service";
 import {
-  CREATE_RESUME, createResumeSuccessAction, DELETE_RESUME, deleteResumeSuccessAction, FETCH_RESUMES,
+  CREATE_RESUME, createResumeSuccessAction, DELETE_RESUME, deleteResumeSuccessAction, FETCH_MY_RESUMES, FETCH_RESUMES,
   FETCH_RESUMES_INVESTORS,
-  FETCH_RESUMES_SPECIALISTS,
+  FETCH_RESUMES_SPECIALISTS, fetchMyResumesSuccessAction,
   fetchResumesFailedAction, fetchResumesInvestorsFaildAction, fetchResumesInvestorsSuccessAction,
   fetchResumesSpecialistsFaildAction,
   fetchResumesSpecialistsSuccessAction,
   fetchResumesSuccessAction, SEARCH_RESUMES, searchResumesSuccessAction, UPDATE_RESUME, updateResumeSuccessAction
-} from "../actions/resume.actions";
+} from '../actions/resume.actions';
 import {SELECT_RESUME, selectResumeSuccess} from "../actions/resume-state.actions";
 import {defaultResume} from "../../model/Resume";
 import {SpecialistService} from "../../services/specialist.service";
@@ -142,5 +142,17 @@ export class ResumeEpic {
     );
   };
 
+  fetchMyResumes$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(FETCH_MY_RESUMES).pipe(
+      switchMap(({payload}) => {
+        return this.resumeService
+          .getMyResumeList(payload.accountId)
+          .pipe(
+            map(resumes => fetchMyResumesSuccessAction(TransformService.transformToMap(resumes))),
+            catchError(error => of(fetchResumesFailedAction(error.message)))
+          );
+      })
+    );
+  };
 }
 
