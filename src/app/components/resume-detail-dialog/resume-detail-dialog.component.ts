@@ -10,6 +10,8 @@ import {selectResumeFromState, isSelected} from '../../store/selectors/resume.se
 import {selectResume} from '../../store/actions/resume-state.actions';
 import {DeleteResumeComponent} from '../dialogs/delete-resume/delete-resume.component';
 import {showDialogAction} from '../../store/actions/dialogs.actions';
+import {updateRouterState} from "../../store/actions/router.actions";
+import {DisabledEditComponent} from "../dialogs/disabled-edit/disabled-edit.component";
 
 
 @Component({
@@ -19,7 +21,7 @@ import {showDialogAction} from '../../store/actions/dialogs.actions';
 })
 export class ResumeDetailDialogComponent implements OnInit {
 
-
+  resumeInStatrup: Resume = null;
   id: string;
 
   @select(isSelected)
@@ -36,17 +38,36 @@ export class ResumeDetailDialogComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.ngRedux.dispatch(selectResume(this.id));
+    this.reumeService.resumeInStartup(this.id).subscribe(resume => this.resumeInStatrup = resume);
   }
 
 
   onDeleteResume() {
-    this.ngRedux.dispatch(showDialogAction({
-      componentType: DeleteResumeComponent,
-      width: '200px',
-      data: {resumeId: this.id}
-    }));
+    if (this.resumeInStatrup !== null) {
+      this.ngRedux.dispatch(showDialogAction({
+        componentType: DisabledEditComponent,
+        width: '300px'
+      }));
+    } else {
+      this.ngRedux.dispatch(showDialogAction({
+        componentType: DeleteResumeComponent,
+        width: '200px',
+        data: {resumeId: this.id}
+      }));
+    }
   }
 
+  onEditClick() {
+    console.log(this.resumeInStatrup);
+    if (this.resumeInStatrup !== null) {
+      this.ngRedux.dispatch(showDialogAction({
+        componentType: DisabledEditComponent,
+        width: '300px'
+      }));
+    } else {
+      this.ngRedux.dispatch(updateRouterState('/resume-edit/' + this.id));
+    }
+  }
 
   get currentUser(): boolean {
     if (this.ngRedux.getState().currentUserState.currentUser) {
@@ -59,7 +80,7 @@ export class ResumeDetailDialogComponent implements OnInit {
     return this.ngRedux.getState().currentUserState.currentUser.account.id;
   }
 
-  get currentAccount(): Account{
+  get currentAccount(): Account {
     return this.ngRedux.getState().currentUserState.currentUser.account;
   }
 

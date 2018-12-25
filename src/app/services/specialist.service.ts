@@ -33,11 +33,4 @@ export class SpecialistService {
     return this.http.post(`${this.specialistListUrl}` + '/' + id, favorite, {headers: this.headers});
   }
 
-  getInvestorList(): Observable<any> {
-    return this.http.get(`${this.investorListUrl}`);
-  }
-
- /* post(account: Account): Observable<any> {
-    return this.http.post(`${this.investorListUrl}`, account, {headers: this.headers});
-  }*/
 }

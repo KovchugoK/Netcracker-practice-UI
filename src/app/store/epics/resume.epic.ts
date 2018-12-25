@@ -131,17 +131,6 @@ export class ResumeEpic {
     );
   };
 
-  fetchResumesInvestors$ = (action$: ActionsObservable<AnyAction>) => {
-    return action$.ofType(FETCH_RESUMES_INVESTORS).pipe(
-      switchMap(({}) => {
-        return this.specialistService.getInvestorList()
-          .pipe(
-            map(resumes => fetchResumesInvestorsSuccessAction(TransformService.transformToMap(resumes))),
-            catchError(error => of(fetchResumesInvestorsFaildAction(error.message)))
-          );
-      })
-    );
-  };
 
   searchResumes$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(SEARCH_RESUMES).pipe(

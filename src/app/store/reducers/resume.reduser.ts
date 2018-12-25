@@ -7,7 +7,7 @@ import {
   DELETE_RESUME_SUCCESS,
   FETCH_MY_RESUMES,
   FETCH_MY_RESUMES_SUCCESS,
-  FETCH_RESUMES,
+  FETCH_RESUMES, FETCH_RESUMES_FAILED,
   FETCH_RESUMES_INVESTORS,
   FETCH_RESUMES_INVESTORS_SUCCESS,
   FETCH_RESUMES_SPECIALISTS,
@@ -52,6 +52,9 @@ export const resumeReducer: Reducer<ResumeState> = (state: ResumeState = INITIAL
     case UPDATE_RESUME:
     case DELETE_RESUME: {
       return {...state, isLoading: true};
+    }
+    case FETCH_RESUMES_FAILED: {
+      return {...state, isLoading: false};
     }
     case CREATE_RESUME_SUCCESS:
     case UPDATE_RESUME_SUCCESS: {

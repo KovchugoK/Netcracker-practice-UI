@@ -19,6 +19,7 @@ import {RechargeBalanceComponent} from './recharge-balance/recharge-balance.comp
 import {CancelResumeComponent} from './cancel-resume/cancel-resume.component';
 import {LeaveStartupComponent } from './leave-startup/leave-startup.component';
 import {DeleteResumeFromStartupComponent } from './delete-resume-from-startup/delete-resume-from-startup.component';
+import {DisabledEditComponent} from "./disabled-edit/disabled-edit.component";
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import {DeleteResumeFromStartupComponent } from './delete-resume-from-startup/de
     RejectResumeComponent, AcceptResumeComponent,
     KickMemberComponent, ChangeStartupRoleComponent,
     RechargeBalanceComponent, CancelResumeComponent,
-    LeaveStartupComponent, DeleteResumeFromStartupComponent],
+    LeaveStartupComponent, DeleteResumeFromStartupComponent,
+     DisabledEditComponent],
   exports: [DialogsComponent, SignUpComponent,
     SignInComponent, DeleteStartupComponent,
     DeleteResumeComponent, MakeInvestmentsComponent,
@@ -42,14 +44,16 @@ import {DeleteResumeFromStartupComponent } from './delete-resume-from-startup/de
     RejectResumeComponent, AcceptResumeComponent,
     KickMemberComponent, ChangeStartupRoleComponent,
     RechargeBalanceComponent, CancelResumeComponent,
-    LeaveStartupComponent, DeleteResumeFromStartupComponent],
+    LeaveStartupComponent, DeleteResumeFromStartupComponent,
+    DisabledEditComponent],
   entryComponents: [SignUpComponent, SignInComponent,
     DeleteStartupComponent, DeleteResumeComponent,
     MakeInvestmentsComponent, DeleteFavoriteComponent,
     JoinStartupComponent, RejectResumeComponent, AcceptResumeComponent,
     KickMemberComponent, ChangeStartupRoleComponent,
     RechargeBalanceComponent, CancelResumeComponent,
-    LeaveStartupComponent, DeleteResumeFromStartupComponent]
+    LeaveStartupComponent, DeleteResumeFromStartupComponent,
+    DisabledEditComponent]
 })
 export class DialogsModule {
 }

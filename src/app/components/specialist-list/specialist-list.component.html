@@ -7,54 +7,59 @@
     </mat-spinner>
   </div>
   <ng-template #resumeTable>
-    <div class="container" *ngFor="let resume of resumeList | async">
-      <mat-card class="example-card">
-        <mat-card-content>
-          <!--img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png"-->
-          <div class="photoAndRole">
-            <div *ngIf="resume?.account.compressedImageId !== null; else defaultImg">
-              <img mat-card-lg-image="" class="full-size"
-                   src="https://drive.google.com/thumbnail?id={{resume?.account.compressedImageId}}" alt="resumeLogo">
-            </div>
-            <ng-template #defaultImg>
-              <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
-            </ng-template>
-            <div class="rightFromImageBlock">
-              <p>
-                <b>
-                  <a routerLink="/resume/{{resume?.id}}">{{resume?.businessRole.businessRoleName}}</a>
-                </b>
-              </p>
-              <p class="box">
-                <a routerLink="/specialist-list/{{resume?.account.id}}">{{resume?.account.firstName}}
-                  {{resume?.account.lastName}}</a></p>
-            </div>
-          </div>
-          <div *ngIf="ngRedux.getState().currentUserState.currentUser !== null">
-            <div *ngIf="currentAccount && currentAccount.id !== resume?.account.id">
-              <div *ngIf="isAddedToFavorite(resume?.account); else notAddes">
-                <mat-icon (click)="onClick(resume?.account, true)" class="material-icons">
-                  star
-                </mat-icon>
+    <div style="width: 90%" *ngIf="(resume|async)?.length !== 0; else empty">
+      <div class="container" *ngFor="let resume of resumeList | async">
+        <mat-card class="example-card">
+          <mat-card-content>
+            <!--img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png"-->
+            <div class="photoAndRole">
+              <div *ngIf="resume?.account.compressedImageId !== null; else defaultImg">
+                <img mat-card-lg-image="" class="full-size"
+                     src="https://drive.google.com/thumbnail?id={{resume?.account.compressedImageId}}" alt="resumeLogo">
               </div>
-              <ng-template #notAddes>
-                <mat-icon (click)="onClick(resume?.account, false)" class="material-icons">
-                  star_border
-                </mat-icon>
+              <ng-template #defaultImg>
+                <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
               </ng-template>
-            </div>
-          </div>
-          <h6>Skills: </h6>
-          <mat-card-subtitle>
-            <mat-chip-list>
-              <div *ngFor="let resumeSkill of resume.resumeSkills">
-                <mat-chip>{{resumeSkill?.skillName}}</mat-chip>
+              <div class="rightFromImageBlock">
+                <p>
+                  <b>
+                    <a routerLink="/resume/{{resume?.id}}">{{resume?.businessRole.businessRoleName}}</a>
+                  </b>
+                </p>
+                <p class="box">
+                  <a routerLink="/specialist-list/{{resume?.account.id}}">{{resume?.account.firstName}}
+                    {{resume?.account.lastName}}</a></p>
               </div>
-            </mat-chip-list>
-          </mat-card-subtitle>
-        </mat-card-content>
-      </mat-card>
+            </div>
+            <div *ngIf="ngRedux.getState().currentUserState.currentUser !== null">
+              <div *ngIf="currentAccount && currentAccount.id !== resume?.account.id">
+                <div *ngIf="isAddedToFavorite(resume?.account); else notAddes">
+                  <mat-icon (click)="onClick(resume?.account, true)" class="material-icons">
+                    star
+                  </mat-icon>
+                </div>
+                <ng-template #notAddes>
+                  <mat-icon (click)="onClick(resume?.account, false)" class="material-icons">
+                    star_border
+                  </mat-icon>
+                </ng-template>
+              </div>
+            </div>
+            <h6>Skills: </h6>
+            <mat-card-subtitle>
+              <mat-chip-list>
+                <div *ngFor="let resumeSkill of resume.resumeSkills">
+                  <mat-chip>{{resumeSkill?.skillName}}</mat-chip>
+                </div>
+              </mat-chip-list>
+            </mat-card-subtitle>
+          </mat-card-content>
+        </mat-card>
+      </div>
     </div>
+  </ng-template>
+  <ng-template #empty>
+    <h5> Such resumes were not found</h5>
   </ng-template>
 </main>
 

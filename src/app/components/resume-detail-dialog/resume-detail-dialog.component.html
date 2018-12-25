@@ -17,7 +17,7 @@
 
           <div class="nameAndRole">
             <h4>{{(resume | async)?.businessRole.businessRoleName}}</h4>
-            <a>{{(resume | async)?.account.firstName}} {{(resume | async)?.account.lastName}}</a><br>
+            <a routerLink="//specialist-list/{{(resume | async)?.account.id}}">{{(resume | async)?.account.firstName}} {{(resume | async)?.account.lastName}}</a><br>
           </div>
         </div>
 
@@ -40,7 +40,7 @@
           </div>
 
           <div class="button">
-            <button mat-raised-button="" class="btnControl" routerLink="/resume-edit/{{id}}"
+            <button mat-raised-button="" class="btnControl" (click) = "onEditClick()"
                     *ngIf="currentUser && (currentUserAccountId === (resume | async)?.account.id)"> Edit
             </button>
             <button mat-raised-button="" class="btnControl" (click)="onDeleteResume()"
