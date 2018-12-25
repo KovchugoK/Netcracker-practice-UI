@@ -19,7 +19,7 @@ img {
   margin-top: 5px;
 }
 
-.contacts-list {
+.contacts-list-main {
   margin-left: 70px;
   margin-right: 70px;
   margin-top: 20px;
@@ -32,4 +32,13 @@ img {
   justify-content: flex-start;
   height: 100%;
   width: 100%;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
 }

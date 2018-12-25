@@ -11,7 +11,7 @@ import {
   deleteContactSuccessAction,
   FETCH_CONTACTS,
   fetchContactsFailedAction,
-  fetchContactsSuccessAction
+  fetchContactsSuccessAction, SEARCH_CONTACTS, searchContactsFailedAction, searchContactsSuccessAction
 } from '../actions/contacts.actions';
 import {catchError, map, mergeMap, switchMap} from 'rxjs/operators';
 import {TransformService} from '../../utils/transform.service';
@@ -72,6 +72,23 @@ export class ContactsEpic {
               catchError(error => {
                 this.notifierService.notify('error', 'Error while adding contact');
                 return of(addContactFailedAction(error));
+              })
+            );
+        }
+      )
+    );
+  };
+
+  searchContacts$ = (action$: ActionsObservable<AnyAction>) => {
+    return action$.ofType(SEARCH_CONTACTS).pipe(
+      switchMap(({payload}) => {
+          return this.contactsService
+            .searchInContacts(payload.userId, payload.name)
+            .pipe(
+              map((contacts) => searchContactsSuccessAction(TransformService.transformToMap(contacts))),
+              catchError(error => {
+                this.notifierService.notify('error', 'Error while search contacts');
+                return of(searchContactsFailedAction(error));
               })
             );
         }

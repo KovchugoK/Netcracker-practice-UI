@@ -65,7 +65,8 @@ import {NotifierModule, NotifierOptions} from 'angular-notifier';
 import { DatePipe } from '@angular/common';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { EnterEmailComponent } from './components/dialogs/enter-email/enter-email.component';
-import { VerifyEmailComponent } from './components/verify-email/verify-email.component'
+import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { ContactsSearchToolbarComponent } from './components/contacts-search-toolbar/contacts-search-toolbar.component'
 const customNotifierOptions: NotifierOptions = {
   position: {
     horizontal: {
@@ -145,6 +146,7 @@ const customNotifierOptions: NotifierOptions = {
     ResetPasswordComponent,
     VerifyEmailComponent,
     EnterEmailComponent,
+    ContactsSearchToolbarComponent,
   ],
   imports: [
     BrowserModule,

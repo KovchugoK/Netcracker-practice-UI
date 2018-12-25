@@ -48,6 +48,7 @@ export class EpicService {
       this.resumeEpic.fetchMyResumes$,
       this.contactsEpic.fetchContacts$,
       this.contactsEpic.deleteContact$,
+      this.contactsEpic.searchContacts$,
       this.favoriteEpic.deleteFavorite$,
       this.favoriteEpic.fetchFavorites$,
       this.contactsEpic.addContact$,
