@@ -50,4 +50,5 @@ mat-card {
 .material-icons{
   font-size: 37px;
   float: right;
+  cursor: default;
 }

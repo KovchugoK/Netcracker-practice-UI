@@ -10,7 +10,7 @@ import {
 import {Favorite} from "../../model/Favorite";
 import {
   DELETE_FAVORITE, DELETE_FAVORITE_SUCCESS, FETCH_FAVORITES,
-  FETCH_FAVORITES_SUCCESS
+  FETCH_FAVORITES_SUCCESS, UPDATE_FAVORITES
 } from "../actions/favorite.actions";
 
 export interface FavoritesState {
@@ -39,6 +39,9 @@ export const favoriteReducer: Reducer<FavoritesState> = (state: FavoritesState =
       const updatedFavorites = new Map(state.favorites);
       updatedFavorites.delete(favoriteId);
       return {...state, favorites: updatedFavorites, isLoading: false};
+    }
+    case UPDATE_FAVORITES: {
+      return {...state, favorites: action.payload.favorites};
     }
     default: {
       return state;

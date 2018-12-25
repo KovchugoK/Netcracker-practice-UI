@@ -22,11 +22,9 @@ export class SpecialistService {
   getSpecialistList(searchObj: SearchObject): Observable<any> {
     let params = new HttpParams();
     for (const key in searchObj) {
-      console.log(key);
       const val = searchObj[key];
       if (val) {
         params = params.set(key, val);
-        console.log(val);
       }
     }
     return this.http.get(`${this.specialistListUrl}`, {params: params});
