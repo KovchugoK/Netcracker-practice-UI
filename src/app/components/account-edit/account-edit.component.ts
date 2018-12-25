@@ -43,8 +43,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
  constructor(private accountService: AccountService,
               private route: ActivatedRoute,
               private ngRedux: NgRedux<AppState>,
-              private formBuilder: FormBuilder,
-             public datepipe: DatePipe) { }
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.isCompareDateError=false;

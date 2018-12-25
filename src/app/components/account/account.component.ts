@@ -34,8 +34,9 @@ export class AccountComponent implements OnInit {
 
   constructor(private ngRedux: NgRedux<AppState>,
               private accountService: AccountService,
-              private route: ActivatedRoute) {
-  };
+              private route: ActivatedRoute,
+              private adminService: AdminService) {
+  }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -49,6 +50,27 @@ export class AccountComponent implements OnInit {
 
   addContact(){
     this.ngRedux.dispatch(addContactAction(this.id,this.currentUserId));
+  }
+  get currentPageUser(): User {
+    console.log(this.ngRedux.getState().accountPageState.accountModel.user.nonBlock);
+    console.log(this.id);
+    return this.ngRedux.getState().accountPageState.accountModel.user;
+  }
+
+  get currentUser(): User {
+    return this.ngRedux.getState().currentUserState.currentUser;
+    }
+
+
+  blockUser(user: User) {
+    this.adminService.blockUser(user.id).subscribe();
+    user.nonBlock = false;
+    console.log('User заблокирован');
+  }
+  unBlockUser(user: User) {
+    this.adminService.unBlockUser(user.id).subscribe();
+    user.nonBlock = true;
+    console.log('User разблокирован');
   }
 }
 

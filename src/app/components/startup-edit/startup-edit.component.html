@@ -8,7 +8,7 @@
     <form [formGroup]="startupForm">
       <div class="imageBlock">
 
-        <app-image-upload (valueChange)='getImageAsString($event)'></app-image-upload>
+        <app-image-upload (valueChange)='getImageAsString($event)' [defaultImage]="currentStartup.compressedImageId" [imageHeight]="250" [imageWidth]="450"></app-image-upload>
       </div>
 
       <div class="rightFromImageBlock">
