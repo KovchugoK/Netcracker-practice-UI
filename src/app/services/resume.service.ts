@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Resume} from '../model/Resume';
 import {Skill} from "../model/Skill"
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {BusinessRole} from "../model/BusinessRole";
 import {catchError} from 'rxjs/operators';
@@ -52,6 +52,12 @@ export class ResumeService {
 
   getMyResumeList(id: string): Observable<Resume[]> {
     return this.http.get<Resume[]>('/api/resume/my-resume-list/' + id)
+      .pipe(catchError((error: any) => throwError(error.error)));
+  }
+
+  resumeInStartup(id: string): Observable<Resume> {
+    let params = new HttpParams().set("id_account", id);
+    return this.http.get<Resume>('/api/resume/checkIsInStartup', {params: params})
       .pipe(catchError((error: any) => throwError(error.error)));
   }
 

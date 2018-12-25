@@ -4,9 +4,20 @@ main {
   flex-wrap: wrap;
   padding-left: 50px;
 }
-
+.spinner{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
 .img {
   padding-top: 30px;
+  width: 200px;
+  height: 200px;
+}
+.full-size {
   width: 200px;
   height: 200px;
 }
@@ -22,6 +33,21 @@ main {
   flex-flow: row;
 }
 
+.skillsAndInfo{
+  margin-top: 20px;
+}
+
+.btnControl{
+  width: 175px;
+  height: 50px;
+  margin: 15px 15px 0 0;
+}
+
+mat-dialog-content {
+  padding: 30px 50px;
+}
+
+
 .header {
   overflow: hidden;
 }
@@ -29,10 +55,7 @@ main {
 .about {
   margin-top: 30px;
 }
-.btnControl{
-  width: 175px;
-  height: 50px;
-  margin: 15px 15px 0 0;
-}
+
+
 
 

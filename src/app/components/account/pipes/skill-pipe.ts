@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import {Resume} from "../../../model/Resume";
+import {Resume} from '../../../model/Resume';
 
 @Pipe({
   name: 'skills'
@@ -13,9 +13,9 @@ export class SkillPipe implements PipeTransform {
     return unique_array;
   }
 
-  transform(resumes: Resume[], args?: any): string[]{
+  transform(resumes: Resume[], args?: any): string[] {
     let resumeSkills = null;
-    if(resumes) {
+    if (resumes) {
       resumeSkills = resumes.reduce((resultArr, currResume) => {
         resultArr.push(...currResume.resumeSkills.map(value => value.skillName));
         return resultArr;

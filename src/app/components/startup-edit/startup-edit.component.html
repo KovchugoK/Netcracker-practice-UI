@@ -8,40 +8,41 @@
     <form [formGroup]="startupForm">
       <div class="imageBlock">
 
-        <app-image-upload (valueChange)='getImageAsString($event)'></app-image-upload>
+        <app-image-upload (valueChange)='getImageAsString($event)' [defaultImage]="currentStartup.compressedImageId"
+                          [imageHeight]="250" [imageWidth]="450"
+                          [onErrorImage]="'/src/assets/images/defaultImageForStartup.png'"></app-image-upload>
       </div>
 
       <div class="rightFromImageBlock">
         <table>
           <tr>
-            <mat-label> Startup name</mat-label>
-            <mat-form-field>
-              <input matInput placeholder="Startup name" [formControlName]="'startupName'" maxlength="255" >
-            </mat-form-field>
 
+            <mat-form-field>
+              <mat-label> Startup name</mat-label>
+              <input matInput placeholder="Startup name" [formControlName]="'startupName'" maxlength="20" required>
+            </mat-form-field>
           </tr>
           <tr>
             <mat-form-field>
-              <mat-label> Idea </mat-label>
-      <textarea matInput  maxRows="5" placeholder="Idea" [formControlName]="'idea'" maxlength="255" >
+              <mat-label> Idea</mat-label>
+              <textarea matInput maxRows="5" placeholder="Idea" [formControlName]="'idea'" maxlength="150">
       </textarea>
             </mat-form-field>
           </tr>
 
           <tr>
             <mat-form-field>
-              <input matInput placeholder="Sum of investment" [formControlName]="'sumOfInvestment'" maxlength="8" >
+              <input matInput placeholder="Sum of investment" [formControlName]="'sumOfInvestment'" maxlength="8">
               <span matPrefix>$</span>
             </mat-form-field>
           </tr>
         </table>
-        <button mat-raised-button=""> Load image</button>
 
       </div>
 
       <div class="block">
         <mat-form-field style="width: 100%">
-      <textarea matInput  maxRows="5" placeholder="About project" [formControlName]="'aboutProject'" maxlength="255">
+      <textarea matInput maxRows="5" placeholder="About project" [formControlName]="'aboutProject'" maxlength="255">
       </textarea>
         </mat-form-field>
       </div>
@@ -60,11 +61,16 @@
 
 
       <div>
-        <mat-card style="width: 250px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px">
+        <mat-card
+          style="min-width: 250px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px; min-height: 153px ">
           <mat-card-header>
-            <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{checkOnCreate().compressedImageId}}" onError="this.src='/src/assets/images/Person.jpg'">
-            <mat-card-title *ngIf="getAccount()!==null"> {{ checkOnCreate().firstName }} <br/>
-              {{checkOnCreate().lastName}}
+            <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{checkOnCreate().compressedImageId}}"
+                 onError="this.src='/src/assets/images/Person.jpg'" style="cursor: pointer"
+                 routerLink="/account/{{checkOnCreate().id}}">
+            <mat-card-title *ngIf="getAccount()!==null">
+              <span style="cursor: pointer" routerLink="/account/{{checkOnCreate().id}}">
+                {{ checkOnCreate().firstName }} <br/>  {{checkOnCreate().lastName}}
+                  </span>
             </mat-card-title>
             <mat-card-title *ngIf="getAccount()===null"> UNKNOWN</mat-card-title>
             <mat-card-subtitle> LEADER</mat-card-subtitle>
@@ -74,16 +80,32 @@
 
 
       <div *ngFor="let res of startupForm.get('startupResumes').value">
-        <mat-card style=" margin-right: 15px; margin-top: 15px; margin-bottom: 15px; width: 250px" *ngIf="res.accepted === true ">
+        <mat-card
+          style=" margin-right: 15px; margin-top: 15px; margin-bottom: 15px; min-width: 250px; min-height: 153px"
+          *ngIf="res.accepted === true ">
           <mat-card-header>
-            <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{res.resume.account?.compressedImageId}}" onError="this.src='/src/assets/images/Person.jpg'">
-            <mat-card-title> {{res.resume.account.firstName}}<br/> {{res.resume.account.lastName}}</mat-card-title>
-            <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}} {{getStartupRole(res.resume.account.id)}}</mat-card-subtitle>
+            <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{res.resume.account?.compressedImageId}}"
+                 onError="this.src='/src/assets/images/Person.jpg'" style="cursor: pointer"
+                 routerLink="/account/{{res.resume.account?.id}}">
+            <mat-card-title>
+                   <span style="cursor: pointer" routerLink="/account/{{res.resume.account?.id}}">
+                  {{res.resume.account?.firstName}}<br/> {{res.resume.account.lastName}}
+                  </span>
+            </mat-card-title>
+            <mat-card-subtitle>  <span style="cursor: pointer" routerLink="/resume/{{res.resume?.id}}">
+                  {{res.resume.businessRole.businessRoleName}}
+                  </span> {{getStartupRole(res.resume.account.id)}}
+            </mat-card-subtitle>
+
             <mat-card-content>
-              <i class="material-icons" *ngIf="((currentUser|async)?.account.id === currentStartup?.account.id)|| checkPermission(res.resume.account.id)" (click)="kickMember(res.id, res.resume.account.id)" style="cursor: pointer">
+              <i class="material-icons"
+                 *ngIf="((currentUser|async)?.account.id === currentStartup?.account.id)|| checkPermission(res.resume.account.id)"
+                 (click)="kickMember(res.id, res.resume.account.id)" style="cursor: pointer">
                 delete
               </i>
-              <i class="material-icons" *ngIf="((currentUser|async)?.account.id === currentStartup?.account.id)|| checkPermission(res.resume.account.id)" (click)="changeRole(res.resume.account.id)" style="cursor: pointer">
+              <i class="material-icons"
+                 *ngIf="((currentUser|async)?.account.id === currentStartup?.account.id)|| checkPermission(res.resume.account.id)"
+                 (click)="changeRole(res.resume.account.id)" style="cursor: pointer">
                 create
               </i>
             </mat-card-content>
@@ -97,19 +119,32 @@
       <div class="blockText" *ngIf="pendingResumes?.length !== 0">
         <h3><b> Pending members:</b></h3>
       </div>
-      <div *ngIf="pendingResumes?.length !==0 ;else empty" >
+
+      <div *ngIf="pendingResumes?.length !==0 ;else empty" class="template" style="width: 100%">
         <div *ngFor="let res of pendingResumes">
-          <mat-card style="width: 250px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px"
-                    *ngIf="res.accepted === false ">
+          <mat-card
+            style="min-width: 250px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px; min-height: 153px"
+            *ngIf="res.accepted === false ">
             <mat-card-header>
-              <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{res.resume.account?.compressedImageId}}" onError="this.src='/src/assets/images/Person.jpg'">
-              <mat-card-title> {{res.resume.account.firstName}}<br/> {{res.resume.account.lastName}}</mat-card-title>
-              <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}}</mat-card-subtitle>
+              <img mat-card-avatar
+                   src="https://drive.google.com/thumbnail?id={{res.resume.account?.compressedImageId}}"
+                   onError="this.src='/src/assets/images/Person.jpg'" style="cursor: pointer"
+                   routerLink="/account/{{res.resume.account?.id}}">
+              <mat-card-title>
+                   <span style="cursor: pointer" routerLink="/account/{{res.resume.account?.id}}">
+                  {{res.resume.account?.firstName}}<br/> {{res.resume.account.lastName}}
+                  </span>
+              </mat-card-title>
+              <mat-card-subtitle>  <span style="cursor: pointer" routerLink="/resume/{{res.resume?.id}}">
+                  {{res.resume.businessRole.businessRoleName}}
+                  </span>
+              </mat-card-subtitle>
               <mat-card-content>
                 <i class="material-icons" (click)="rejectResume(res.id)" style="cursor: pointer">
                   delete
                 </i>
-                <i class="material-icons" (click)="acceptResume(res.id, res.resume.account.id)" style="cursor: pointer">
+                <i class="material-icons" (click)="acceptResume(res.id, res.resume.account.id)"
+                   style="cursor: pointer">
                   add
                 </i>
               </mat-card-content>
@@ -117,7 +152,6 @@
           </mat-card>
         </div>
       </div>
-
       <ng-template #empty>
         <h5 style="margin-top: 20px"> No pending member at that moment </h5>
       </ng-template>
@@ -125,8 +159,9 @@
       <mat-divider style="width: 90%"></mat-divider>
 
 
-      <div *ngIf="id!==null">
-        <mat-spinner *ngIf="isLoading | async" mode="indeterminate" color="primary" diameter="30">
+      <div *ngIf="id!==null" class="template">
+        <mat-spinner *ngIf="isLoading | async" mode="indeterminate" color="primary" diameter="30"
+                     style="margin: auto; margin-right: 15px; margin-left: 15px">
         </mat-spinner>
         <button mat-raised-button="" class="btnControl" (click)="updateStartup()" [disabled]="startupForm.invalid"> Save
         </button>

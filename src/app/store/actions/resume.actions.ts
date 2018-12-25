@@ -1,5 +1,6 @@
 import {Resume} from '../../model/Resume';
 import {SearchObject} from '../../model/SearchObject';
+import {Favorite} from "../../model/Favorite";
 
 
 export const FETCH_RESUMES = '[Resume] Fetch resumes specialist';
@@ -154,3 +155,5 @@ export function fetchMyResumesSuccessAction(resumes: Map<string, Resume>) {
     payload: {resumes}
   };
 }
+
+

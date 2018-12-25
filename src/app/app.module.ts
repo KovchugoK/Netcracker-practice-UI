@@ -64,6 +64,7 @@ import {ChatServerService} from './services/chat-server.service';
 import {NotifierModule, NotifierOptions} from 'angular-notifier';
 import { DatePipe } from '@angular/common';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { ContactsSearchToolbarComponent } from './components/contacts-search-toolbar/contacts-search-toolbar.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -143,6 +144,7 @@ const customNotifierOptions: NotifierOptions = {
     AgePipe,
     ResetPasswordComponent,
     VerifyEmailComponent,
+    ContactsSearchToolbarComponent,
   ],
   imports: [
     BrowserModule,

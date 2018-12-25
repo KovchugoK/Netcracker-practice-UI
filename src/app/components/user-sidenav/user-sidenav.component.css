@@ -4,7 +4,7 @@
 mat-sidenav{
   background-color: grey;
   color: white;
-  font-size: 14px;
+  font-size: 15px;
 }
 .side-nav-text{
 
@@ -20,6 +20,9 @@ p {
 }
 
 a:visited{
+  color: white;
+}
+a{
   color: white;
 }
 

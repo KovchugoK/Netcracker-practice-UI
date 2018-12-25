@@ -20,6 +20,7 @@ main {
 
 mat-form-field{
   width: 100%;
+  font-size: 19px;
 }
 
 table{
@@ -83,5 +84,21 @@ form {
 textarea{
   max-height: 75px;
   width: 100%;
+}
+.template{
+
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: auto;
+
+}
+
+span:focus {
+  outline:none;
+}
+button:focus{
+  outline:none;
 }
 

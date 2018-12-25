@@ -10,7 +10,7 @@ export class ProjectPipe implements PipeTransform {
     if(account) {
       projects = account.resumes.reduce((resultArr, currResume) => {
         currResume.startupResumes.map(result => {
-          if (result.accepted == true) {
+          if (result.accepted === true) {
             let temp = {
               businessRoleName: currResume.businessRole.businessRoleName,
               startupName: result.startupName

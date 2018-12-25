@@ -36,13 +36,15 @@ export class StartupListComponent implements OnInit {
 
   }
   blockStartup(startup: Startup) {
-    this.adminService.blockStartup(startup).subscribe();
+    this.adminService.blockStartup(startup.id).subscribe();
     startup.nonBlock = false;
+    console.log(startup.id);
     console.log('Стартап заблокирован');
   }
   unBlockStartup(startup: Startup) {
-    this.adminService.unBlockStartup(startup).subscribe();
+    this.adminService.unBlockStartup(startup.id).subscribe();
     startup.nonBlock = true;
+    console.log(startup.id);
     console.log('Стартап разблокирован');
   }
 

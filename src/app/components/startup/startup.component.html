@@ -4,133 +4,175 @@
     </mat-spinner>
   </div>
   <ng-template #startupView>
-    <div class="template" *ngIf="currentStartup.nonBlock; else blockStartupView">
-      <div class="imageBlock">
-        <mat-card>
-          <img class="imgParametrs" src="https://drive.google.com/thumbnail?id={{(startup | async)?.compressedImageId}}"
-               onError="this.src='/src/assets/images/defaultImageForStartup.png';">
-        </mat-card>
-      <div *ngIf="currentStartup.nonBlock">
-        <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="blockStartup(currentStartup)"> Block Startup  </button></ng-template>
-      </div>
-    </div>
+    <div *ngIf="(startup|async) !== null; else startupNotFound">
+      <div class="template" *ngIf="currentStartup.nonBlock; else blockStartupView">
+        <div class="imageBlock">
+          <mat-card>
+            <img class="imgParametrs"
+                 src="https://drive.google.com/thumbnail?id={{(startup | async)?.compressedImageId}}"
+                 onError="this.src='/src/assets/images/defaultImageForStartup.png';">
+          </mat-card>
+          <div *ngIf="currentStartup.nonBlock">
+            <ng-template ngxPermissionsOnly="ADMIN">
+              <button (click)="blockStartup(currentStartup)"> Block Startup</button>
+            </ng-template>
+          </div>
+        </div>
 
 
-      <div class="rightFromImageBlock">
-        <h3> {{(startup | async)?.startupName}} </h3>
-        <p style="text-align: justify"><br/> {{(startup | async)?.idea}} </p>
+        <div class="rightFromImageBlock" style="word-wrap: break-word;">
+          <h3> {{(startup | async)?.startupName}} </h3>
+          <p><br/> {{(startup | async)?.idea}} </p>
 
-        <p>
-          <b style="margin-right: 30px">Need investments:</b>
+          <p>
+            <b style="margin-right: 30px">Need investments:</b>
 
-          {{(startup | async)?.sumOfInvestment}}$
-          <br/>
-          <b style="margin-right: 15px">Current investments:</b>
+            {{(startup | async)?.sumOfInvestment}}$
+            <br/>
+            <b style="margin-right: 15px">Current investments:</b>
 
-          {{currentInvestments}}$
-        </p>
-      </div>
+            {{currentInvestments}}$
+          </p>
+        </div>
 
-      <div class="block">
-        <h3><b> About project:</b></h3>
-        <p> {{(startup | async)?.aboutProject}}</p>
-        <mat-divider></mat-divider>
-      </div>
+        <div class="block" style="word-wrap: break-word;">
+          <h3><b> About project:</b></h3>
+          <p> {{(startup | async)?.aboutProject}}</p>
+          <mat-divider></mat-divider>
+        </div>
 
-      <div class="block">
-        <h3><b> Business plan:</b></h3>
-        <p> {{(startup | async)?.businessPlan}}</p>
-        <mat-divider></mat-divider>
-      </div>
-
-
-      <div class="blockText">
-        <h3><b> Members:</b></h3>
-      </div>
-      <div>
-        <mat-card style="width: 250px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px">
-          <mat-card-header>
-            <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{(startup | async)?.account.compressedImageId}}" onError="this.src='/src/assets/images/Person.jpg'">
-            <mat-card-title *ngIf="(startup | async)?.account!==null"> {{(startup | async)?.account.firstName}} <br/>
-              {{(startup | async)?.account.lastName}}
-            </mat-card-title>
-            <mat-card-title *ngIf="(startup | async)?.account===null"> UNKNOWN</mat-card-title>
-            <mat-card-subtitle> LEADER</mat-card-subtitle>
-          </mat-card-header>
-        </mat-card>
-      </div>
-
-      <div *ngFor="let res of (startup | async)?.startupResumes">
-        <mat-card style="margin-right: 15px; margin-top: 15px; margin-bottom: 15px; width: 250px" *ngIf="res?.accepted === true ">
-          <mat-card-header>
-            <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{res.resume.account?.compressedImageId}}" onError="this.src='/src/assets/images/Person.jpg'">
-            <mat-card-title> {{res.resume.account?.firstName}}<br/> {{res.resume.account?.lastName}}</mat-card-title>
-            <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}} {{getStartupRole(res.resume.account.id)}}</mat-card-subtitle>
-            <i class="material-icons" *ngIf="(currentUser|async)?.account.id === res.resume.account.id" (click)="deleteMyResumeFromStartup(res.id)" style="cursor: pointer">
-              delete
-            </i>
-          </mat-card-header>
-        </mat-card>
-      </div>
-
-      <mat-divider style="width: 90%"></mat-divider>
+        <div class="block" style="word-wrap: break-word;">
+          <h3><b> Business plan:</b></h3>
+          <p> {{(startup | async)?.businessPlan}}</p>
+          <mat-divider></mat-divider>
+        </div>
 
 
-
-  <div class="template" style="width: 100%">
-      <div class="blockText" *ngIf="(myPendingResumes !== undefined) &&(myPendingResumes.length > 0)">
-        <h3><b> Your pending resumes: </b></h3>
-      </div>
-      <div *ngFor="let resume of myPendingResumes">
-        <mat-card style="margin-right: 15px; margin-top: 15px; margin-bottom: 15px; width: 250px">
-          <mat-card-header>
-            <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{resume.resume.account?.compressedImageId}}" onError="this.src='/src/assets/images/Person.jpg'">
-            <mat-card-title> {{resume.resume.account?.firstName}}<br/> {{resume.resume.account.lastName}}</mat-card-title>
-            <mat-card-subtitle> {{resume.resume.businessRole.businessRoleName}}</mat-card-subtitle>
-            <i class="material-icons" (click)="cancelResume(resume.id)" style="cursor: pointer">
-              delete
-            </i>
-          </mat-card-header>
-
-        </mat-card>
-      </div>
-      <mat-divider style="width: 90%"></mat-divider>
-  </div>
-      <div class="blockText">
-        <h3><b> Top Investors: </b></h3>
-      </div>
-        <div *ngFor="let investment of investments">
-          <mat-card style="margin-right: 15px; margin-top: 15px; margin-bottom: 15px; width: 250px">
+        <div class="blockText">
+          <h3><b> Members:</b></h3>
+        </div>
+        <div>
+          <mat-card
+            style="min-width: 250px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px; min-height: 153px">
             <mat-card-header>
-              <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{investment.investor?.compressedImageId}}" onError="this.src='/src/assets/images/Person.jpg'">
-              <mat-card-title> {{investment.investor?.firstName}}<br/> {{investment.investor?.lastName}}</mat-card-title>
-              <mat-card-subtitle> {{investment.sumOfInvestment}}$</mat-card-subtitle>
+              <img mat-card-avatar
+                   src="https://drive.google.com/thumbnail?id={{(startup | async)?.account.compressedImageId}}"
+                   onError="this.src='/src/assets/images/Person.jpg'" style="cursor: pointer"
+                   routerLink="/account/{{(startup | async)?.account.id}}">
+              <mat-card-title *ngIf="(startup | async)?.account!==null">
+                <span style="cursor: pointer" routerLink="/account/{{(startup | async)?.account.id}}">
+                {{(startup | async)?.account.firstName}} <br/>
+                {{(startup | async)?.account.lastName}}
+                   </span>
+              </mat-card-title>
+              <mat-card-title *ngIf="(startup | async)?.account===null"> UNKNOWN</mat-card-title>
+              <mat-card-subtitle> LEADER</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+        </div>
+
+        <div *ngFor="let res of (startup | async)?.startupResumes">
+          <mat-card
+            style="margin-right: 15px; margin-top: 15px; margin-bottom: 15px; min-width: 250px; min-height: 153px"
+            *ngIf="res?.accepted === true ">
+            <mat-card-header>
+              <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{res.resume.account?.compressedImageId}}"
+                   onError="this.src='/src/assets/images/Person.jpg'" style="cursor: pointer"
+                   routerLink="/account/{{res.resume.account?.id}}">
+              <mat-card-title>
+                <span style="cursor: pointer" routerLink="/account/{{res.resume.account?.id}}">
+                  {{res.resume.account?.firstName}}<br/> {{res.resume.account.lastName}}
+                  </span>
+              </mat-card-title>
+              <mat-card-subtitle>
+                <span style="cursor: pointer" routerLink="/resume/{{res.resume?.id}}">
+                  {{res.resume.businessRole.businessRoleName}}
+                  </span>
+                {{getStartupRole(res.resume.account.id)}}
+              </mat-card-subtitle>
+              <i class="material-icons" *ngIf="(currentUser|async)?.account.id === res.resume.account.id"
+                 (click)="deleteMyResumeFromStartup(res.id)" style="cursor: pointer">
+                delete
+              </i>
+            </mat-card-header>
+          </mat-card>
+        </div>
+
+        <mat-divider style="width: 90%"></mat-divider>
+
+
+        <div class="template" style="width: 100%">
+          <div class="blockText" *ngIf="(myPendingResumes !== undefined) &&(myPendingResumes.length > 0)">
+            <h3><b> Your pending resumes: </b></h3>
+          </div>
+          <div *ngFor="let resume of myPendingResumes">
+            <mat-card
+              style="margin-right: 15px; margin-top: 15px; margin-bottom: 15px; min-width: 250px; min-height: 153px">
+              <mat-card-header>
+                <img mat-card-avatar
+                     src="https://drive.google.com/thumbnail?id={{resume.resume.account?.compressedImageId}}"
+                     onError="this.src='/src/assets/images/Person.jpg'" style="cursor: pointer"
+                     routerLink="/account/{{resume.resume.account?.id}}">
+                <mat-card-title>
+                  <span style="cursor: pointer" routerLink="/account/{{resume.resume.account?.id}}">
+                  {{resume.resume.account?.firstName}}<br/> {{resume.resume.account.lastName}}
+                  </span>
+                </mat-card-title>
+                <mat-card-subtitle>  <span style="cursor: pointer" routerLink="/resume/{{resume.resume?.id}}">
+                  {{resume.resume.businessRole.businessRoleName}}
+                  </span></mat-card-subtitle>
+                <i class="material-icons" (click)="cancelResume(resume.id)" style="cursor: pointer">
+                  delete
+                </i>
+              </mat-card-header>
+
+            </mat-card>
+          </div>
+          <mat-divider style="width: 90%"></mat-divider>
+        </div>
+        <div class="blockText" *ngIf="(investments !== undefined) &&(investments.length > 0)">
+          <h3><b> Top Investors: </b></h3>
+        </div>
+        <div *ngFor="let investment of investments">
+          <mat-card
+            style="margin-right: 15px; margin-top: 15px; margin-bottom: 15px; min-width: 250px; min-height: 153px">
+            <mat-card-header>
+              <img mat-card-avatar
+                   src="https://drive.google.com/thumbnail?id={{investment.investor?.compressedImageId}}"
+                   onError="this.src='/src/assets/images/Person.jpg'" style="cursor: pointer"
+                   routerLink="/account/{{investment.investor?.id}}">
+              <mat-card-title><span style="cursor: pointer" routerLink="/account/{{investment.investor?.id}}"> {{investment.investor?.firstName}}<br/> {{investment.investor?.lastName}} </span>
+              </mat-card-title>
+              <mat-card-subtitle> Donated: {{investment.sumOfInvestment}}$</mat-card-subtitle>
             </mat-card-header>
           </mat-card>
         </div>
 
 
+        <mat-divider style="width: 90%"></mat-divider>
+        <div style="width: 90%">
+          <button mat-raised-button="" class="btnControl" (click)="joinStartup()"
+                  *ngIf="((currentUser|async) && (currentUser|async)?.account.id !== (startup | async)?.account.id)">
+            Send resume
+          </button>
+          <button mat-raised-button="" class="btnControl" (click)="makeInvestments()"
+                  *ngIf="((currentUser|async) && (currentUser|async)?.account.id !== (startup | async)?.account.id)">
+            Make investments
+          </button>
+          <button mat-raised-button="" class="btnControl" routerLink="/startup-edit/{{id}}"
+                  *ngIf="currentUser && (((currentUser|async)?.account.id === (startup | async)?.account.id) || permissionToEdit)">
+            Edit
+          </button>
+          <button mat-raised-button="" class="btnControl" (click)="deleteStartup()"
+                  *ngIf="(currentUser|async) && ((currentUser|async)?.account.id === (startup | async)?.account.id)">
+            Delete
+          </button>
+          <button mat-raised-button="" class="btnControl" (click)="leaveStartup()"
+                  *ngIf="(currentUser|async) &&  permissionToLeave">
+            Leave
+          </button>
 
-      <mat-divider style="width: 90%"></mat-divider>
-      <div style="width: 90%">
-        <button mat-raised-button="" class="btnControl" (click)="joinStartup()"
-                *ngIf="((currentUser|async) && (currentUser|async)?.account.id !== (startup | async)?.account.id)"> Send resume
-        </button>
-        <button mat-raised-button="" class="btnControl" (click)="makeInvestments()"
-                *ngIf="((currentUser|async) && (currentUser|async)?.account.id !== (startup | async)?.account.id)"> Make investments
-        </button>
-        <button mat-raised-button="" class="btnControl" routerLink="/startup-edit/{{id}}"
-                *ngIf="currentUser && (((currentUser|async)?.account.id === (startup | async)?.account.id) || permissionToEdit)"> Edit
-        </button>
-        <button mat-raised-button="" class="btnControl" (click)="deleteStartup()"
-                *ngIf="(currentUser|async) && ((currentUser|async)?.account.id === (startup | async)?.account.id)">
-          Delete
-        </button>
-        <button mat-raised-button="" class="btnControl" (click)="leaveStartup()"
-                *ngIf="(currentUser|async) &&  permissionToLeave">
-          Leave
-        </button>
-
+        </div>
       </div>
     </div>
   </ng-template>
@@ -138,9 +180,187 @@
 </main>
 
 <ng-template #blockStartupView>
-<div *ngIf="!currentStartup.nonBlock"> Данная страница заблокирована
-  <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="unBlockStartup(currentStartup)"> Unblock Startup  </button></ng-template>
+<div *ngIf="currentStartup.account.id !== currentUserAccountId; else forCreator">
+  <ng-template ngxPermissionsOnly="USER"> This page is blocked </ng-template>
+  <ng-template ngxPermissionsOnly="ADMIN">
+    <div class="imageBlock">
+      <mat-card>
+        <img class="imgParametrs" src="https://drive.google.com/thumbnail?id={{(startup | async)?.compressedImageId}}"
+             alt="startupLogo">
+      </mat-card>
+      <button (click)="unBlockStartup(currentStartup)"> Unblock Startup  </button>
+     <p style="color: red">This startup blocked</p>
+    </div>
+
+    <div class="rightFromImageBlock">
+      <h3> {{(startup | async)?.startupName}} </h3>
+      <p style="text-align: justify"><br/> {{(startup | async)?.idea}} </p>
+      <p>
+        <b style="margin-right: 30px">Need investments:</b>
+        {{(startup | async)?.sumOfInvestment}}$
+        <br/>
+        <b style="margin-right: 15px">Current investments:</b>
+        {{currentInvestments}}$
+      </p>
+    </div>
+
+    <div class="block">
+      <h3><b> About project:</b></h3>
+      <p> {{(startup | async)?.aboutProject}}</p>
+      <mat-divider></mat-divider>
+    </div>
+
+    <div class="block">
+      <h3><b> Business plan:</b></h3>
+      <p> {{(startup | async)?.businessPlan}}</p>
+      <mat-divider></mat-divider>
+    </div>
+
+    <div class="blockText">
+      <h3><b> Members:</b></h3>
+    </div>
+    <div>
+      <mat-card style="width: 200px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title *ngIf="(startup | async)?.account!==null"> {{(startup | async)?.account.firstName}} <br/>
+            {{(startup | async)?.account.lastName}}
+          </mat-card-title>
+          <mat-card-title *ngIf="(startup | async)?.account===null"> UNKNOWN</mat-card-title>
+          <mat-card-subtitle> LEADER</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+
+    <div *ngFor="let res of (startup | async)?.startupResumes">
+      <mat-card style="margin: 15px; width: 200px" *ngIf="res.accepted === true ">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title> {{res.resume.account?.firstName}}<br/> {{res.resume.account.lastName}}</mat-card-title>
+          <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+
+    <mat-divider style="width: 90%"></mat-divider>
+
+    <div class="blockText">
+      <h3><b> Top Investors </b></h3>
+    </div>
+    <div *ngFor="let investment of investments">
+      <mat-card style="margin: 15px; width: 200px">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title> {{investment.investor?.firstName}}<br/> {{investment.investor?.lastName}}</mat-card-title>
+          <mat-card-subtitle> {{investment.sumOfInvestment}}$</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+
+    <mat-divider style="width: 90%"></mat-divider>
+    <div style="width: 90%">
+      <button mat-raised-button="" class="btnControl" (click)="deleteStartup()">Delete</button>
+    </div>
+  </ng-template>
 </div>
+</ng-template>
+
+
+<!--!!!!!!!!!!!FOR CREATOR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<ng-template #forCreator><div class="imageBlock">
+  <mat-card>
+    <img class="imgParametrs" src="https://drive.google.com/thumbnail?id={{(startup | async)?.compressedImageId}}"
+         alt="startupLogo">
+  </mat-card>
+</div>
+  <ng-template ngxPermissionsOnly="ADMIN"><button (click)="unBlockStartup(currentStartup)"> Unblock Startup  </button></ng-template>
+  <p style="color: red">Your startup blocked</p>
+  <div class="rightFromImageBlock">
+    <h3> {{(startup | async)?.startupName}} </h3>
+    <p style="text-align: justify"><br/> {{(startup | async)?.idea}} </p>
+
+    <p>
+      <b style="margin-right: 30px">Need investments:</b>
+
+      {{(startup | async)?.sumOfInvestment}}$
+      <br/>
+      <b style="margin-right: 15px">Current investments:</b>
+
+      {{currentInvestments}}$
+    </p>
+  </div>
+
+  <div class="block">
+    <h3><b> About project:</b></h3>
+    <p> {{(startup | async)?.aboutProject}}</p>
+    <mat-divider></mat-divider>
+  </div>
+
+  <div class="block">
+    <h3><b> Business plan:</b></h3>
+    <p> {{(startup | async)?.businessPlan}}</p>
+    <mat-divider></mat-divider>
+  </div>
+
+
+  <div class="blockText">
+    <h3><b> Members:</b></h3>
+  </div>
+  <div>
+    <mat-card style="width: 200px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title *ngIf="(startup | async)?.account!==null"> {{(startup | async)?.account.firstName}} <br/>
+          {{(startup | async)?.account.lastName}}
+        </mat-card-title>
+        <mat-card-title *ngIf="(startup | async)?.account===null"> UNKNOWN</mat-card-title>
+        <mat-card-subtitle> LEADER</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <div *ngFor="let res of (startup | async)?.startupResumes">
+    <mat-card style="margin: 15px; width: 200px" *ngIf="res.accepted === true ">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title> {{res.resume.account?.firstName}}<br/> {{res.resume.account.lastName}}</mat-card-title>
+        <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}}</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+  <mat-divider style="width: 90%"></mat-divider>
+
+  <div class="blockText">
+    <h3><b> Top Investors </b></h3>
+  </div>
+  <div *ngFor="let investment of investments">
+    <mat-card style="margin: 15px; width: 200px">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title> {{investment.investor?.firstName}}<br/> {{investment.investor?.lastName}}</mat-card-title>
+        <mat-card-subtitle> {{investment.sumOfInvestment}}$</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
+
+
+
+  <mat-divider style="width: 90%"></mat-divider>
+  <div style="width: 90%">
+    <button mat-raised-button="" class="btnControl"
+            *ngIf="((currentUser|async) && (currentUser|async)?.account.id !== (startup | async)?.account.id)"> Join
+    </button>
+    <button mat-raised-button="" class="btnControl" (click)="makeInvestments()"
+            *ngIf="((currentUser|async) && (currentUser|async)?.account.id !== (startup | async)?.account.id)"> Make investments
+    </button>
+    <button mat-raised-button="" class="btnControl" routerLink="/startup-edit/{{id}}"
+            *ngIf="currentUser && ((currentUser|async)?.account.id === (startup | async)?.account.id)"> Edit
+    </button>
+    <button mat-raised-button="" class="btnControl" (click)="deleteStartup()"
+            *ngIf="(currentUser|async) && ((currentUser|async)?.account.id === (startup | async)?.account.id)">Delete
+    </button>
+  </div>
 </ng-template>
 
 <ng-template #emptyPendingResume>
@@ -150,3 +370,8 @@
 <ng-template #emptyInvestors>
   <h5 style="margin-top: 20px"> No investors yet </h5>
 </ng-template>
+
+<ng-template #startupNotFound>
+  <h2 align="center">Sorry. Such startup not found </h2>
+</ng-template>
+

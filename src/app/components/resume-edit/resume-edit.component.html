@@ -4,18 +4,19 @@
     </mat-spinner>
   </div>
   <ng-template #sForm>
-    <form [formGroup]="resumeForm">
-      <div class="header">
-        <!--img class="header-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg"
-             alt="Account avatar"-->
-
+    <div class="header">
+      <form [formGroup]="resumeForm">
 
         <div class="rightFromImageBlock">
           <div class="img">
-            <img mat-card-lg-image="" class="full-size"
-                 src="https://drive.google.com/thumbnail?id={{getAccount().compressedImageId}}" alt="startupLogo">
+            <div *ngIf="getAccount().compressedImageId !== null; else defaultImg">
+              <img mat-card-lg-image="" class="full-size"
+                   src="https://drive.google.com/thumbnail?id={{getAccount().compressedImageId}}" alt="resumeLogo">
+            </div>
+            <ng-template #defaultImg>
+              <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+            </ng-template>
           </div>
-
 
           <div class="nameAndRole">
             <div>
@@ -63,22 +64,21 @@
           </div>
         </div>
 
-          <div align="left">
-            <div *ngIf="id!==null">
-              <button mat-raised-button="" (click)="updateResume()" [disabled]="resumeForm?.invalid">
-                Save
-              </button>
-              <button mat-raised-button="" class="btnControl" (click)="goBack()"> Cancel</button>
-            </div>
-            <div *ngIf="id===null">
-              <button mat-raised-button="" class="btnControl" [disabled]="resumeForm?.invalid" (click)="createResume()"
-                      routerLink="/resume/list"> Create
-              </button>
-              <button mat-raised-button="" class="btnControl" (click)="goBack()"> Cancel</button>
-            </div>
+        <div align="left">
+          <div *ngIf="id!==null">
+            <button mat-raised-button="" class="btnControl" (click)="updateResume()" [disabled]="resumeForm?.invalid">
+              Save
+            </button>
+            <button mat-raised-button="" class="btnControl" (click)="goBack()"> Cancel</button>
           </div>
-      </div>
-
-    </form>
+          <div *ngIf="id===null">
+            <button mat-raised-button="" class="btnControl" [disabled]="resumeForm?.invalid" (click)="createResume()"
+                    routerLink="/resume/list"> Create
+            </button>
+            <button mat-raised-button="" class="btnControl" (click)="goBack()"> Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
   </ng-template>
 </main>

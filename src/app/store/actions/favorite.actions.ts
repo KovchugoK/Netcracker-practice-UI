@@ -8,6 +8,8 @@ export const FETCH_FAVORITES_FAILED = '[Favorites] Fetch resumes favorites faile
 export const DELETE_FAVORITE = '[Favorites State] Delete favorite';
 export const DELETE_FAVORITE_SUCCESS = '[Favorites State] Delete favorite success';
 
+export const UPDATE_FAVORITES = '[Favorite State] Update favorite';
+
 export function fetchFavoritesAction(account: Account) {
   return {
     type: FETCH_FAVORITES,
@@ -40,6 +42,13 @@ export function deleteFavoriteSuccessAction(favoriteId: string) {
   return {
     type: DELETE_FAVORITE_SUCCESS,
     payload: {favoriteId}
+  };
+}
+
+export function updateFavoritesAction(favorites: Favorite) {
+  return {
+    type: UPDATE_FAVORITES,
+    payload: {favorites}
   };
 }
 

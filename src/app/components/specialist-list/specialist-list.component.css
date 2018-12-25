@@ -5,6 +5,18 @@
   display: flex;
 
 }
+h5{
+  margin-top: 100px;
+}
+.spinner{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
 mat-card {
   float: left;
   margin-left: 3%;
@@ -50,4 +62,5 @@ mat-card {
 .material-icons{
   font-size: 37px;
   float: right;
+  cursor: default;
 }

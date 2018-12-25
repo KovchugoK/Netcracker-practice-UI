@@ -27,7 +27,7 @@ export class DeleteResumeComponent implements OnInit {
     this.dialogRef.afterClosed().subscribe(result => {
       if (result !== DialogResult.CLOSE) {
         this.ngRedux.dispatch(deleteResumeAction(this.resumeId));
-        this.ngRedux.dispatch(updateRouterState('/resume/list'));
+        this.ngRedux.dispatch(updateRouterState('/specialist-list/' + this.ngRedux.getState().currentUserState.currentUser.account.id));
       }
     });
   }

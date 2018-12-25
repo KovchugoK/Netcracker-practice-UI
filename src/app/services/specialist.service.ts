@@ -21,11 +21,9 @@ export class SpecialistService {
   getSpecialistList(searchObj: SearchObject): Observable<any> {
     let params = new HttpParams();
     for (const key in searchObj) {
-      console.log(key);
       const val = searchObj[key];
       if (val) {
         params = params.set(key, val);
-        console.log(val);
       }
     }
     return this.http.get(`${this.specialistListUrl}`, {params: params});
@@ -35,11 +33,4 @@ export class SpecialistService {
     return this.http.post(`${this.specialistListUrl}` + '/' + id, favorite, {headers: this.headers});
   }
 
-  getInvestorList(): Observable<any> {
-    return this.http.get(`${this.investorListUrl}`);
-  }
-
- /* post(account: Account): Observable<any> {
-    return this.http.post(`${this.investorListUrl}`, account, {headers: this.headers});
-  }*/
 }

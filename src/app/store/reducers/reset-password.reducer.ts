@@ -1,12 +1,12 @@
-import { Reducer } from 'redux';
-import { SHOW_DIALOG, CLOSE_DIALOG } from '../actions/dialogs.actions';
-import {ResetPassword} from "../../model/ResetPassword";
-import {SAVE_PASSWORD, SAVE_PASSWORD_SUCCESS} from "../actions/reset-password.actions";
+import {Reducer} from 'redux';
+import {ResetPassword} from '../../model/ResetPassword';
+import {SAVE_PASSWORD, SAVE_PASSWORD_SUCCESS} from '../actions/reset-password.actions';
 
 export interface ResetPasswordState {
   readonly payload: ResetPassword;
   readonly isLoading: boolean;
 }
+
 const INITIAL_STATE = {
   payload: null,
   isLoading: false

@@ -9,7 +9,10 @@ import {
   DELETE_CONTACT_SUCCESS,
   FETCH_CONTACTS,
   FETCH_CONTACTS_FAILED,
-  FETCH_CONTACTS_SUCCESS
+  FETCH_CONTACTS_SUCCESS,
+  SEARCH_CONTACTS,
+  SEARCH_CONTACTS_FAILED,
+  SEARCH_CONTACTS_SUCCESS
 } from '../actions/contacts.actions';
 
 export interface ContactsState {
@@ -24,10 +27,13 @@ const INITIAL_STATE = {
 
 export const contactsReducer: Reducer<ContactsState> = (state: ContactsState = INITIAL_STATE, action): ContactsState => {
   switch (action.type) {
+    case SEARCH_CONTACTS:
     case FETCH_CONTACTS:
       return {...state, isLoading: true};
+    case SEARCH_CONTACTS_SUCCESS:
     case FETCH_CONTACTS_SUCCESS:
       return {...state, ...action.payload, isLoading: false};
+    case SEARCH_CONTACTS_FAILED:
     case FETCH_CONTACTS_FAILED:
       return {...state, isLoading: false};
     case DELETE_CONTACT:

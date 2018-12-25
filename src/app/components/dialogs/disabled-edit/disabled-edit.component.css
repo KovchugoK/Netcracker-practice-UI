@@ -1,0 +1,11 @@
+.disabled-dialog{
+  display: flex;
+  flex-direction: column;
+  font-size: 14pt;
+  font-weight: bold;
+  justify-content: space-between;
+}
+
+.delete-favorite-dialog-controls {
+  margin-top: 20px;
+}

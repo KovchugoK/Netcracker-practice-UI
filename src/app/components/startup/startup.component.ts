@@ -63,17 +63,19 @@ export class StartupComponent implements OnInit {
     this.isSelected.pipe(skipWhile(result => result === true), take(1)).subscribe(() =>
       // this.ngRedux.select(selectStartupFromState).subscribe(startup => {
       this.startup.subscribe(startup => {
-        if (this.ngRedux.getState().currentUserState.currentUser !== null) {
-          this.checkPermissionToEdit(startup);
-          this.checkStartupMembership(startup);
-          this.myPendingResumes = startup.startupResumes
-            .filter(value => value.resume.account.id === this.ngRedux.getState().currentUserState.currentUser.account.id
-              && value.accepted === false);
+        if (startup !== null && startup !== undefined) {
+          if (this.ngRedux.getState().currentUserState.currentUser !== null) {
+            this.checkPermissionToEdit(startup);
+            this.checkStartupMembership(startup);
+            this.myPendingResumes = startup.startupResumes
+              .filter(value => value.resume.account.id === this.ngRedux.getState().currentUserState.currentUser.account.id
+                && value.accepted === false);
+          }
+          this.currentInvestments = startup.startupInvestments.map(value => value.sumOfInvestment).reduce((a, b) => a + b, 0);
+          this.transformInvestments(startup.startupInvestments);
+          return this.investments.sort(
+            (value1, value2) => value2.sumOfInvestment - value1.sumOfInvestment);
         }
-        this.currentInvestments = startup.startupInvestments.map(value => value.sumOfInvestment).reduce((a, b) => a + b, 0);
-        this.transformInvestments(startup.startupInvestments);
-        return this.investments.sort(
-          (value1, value2) => value2.sumOfInvestment - value1.sumOfInvestment);
       }));
   }
 
@@ -166,17 +168,20 @@ export class StartupComponent implements OnInit {
     }));
   }
 
+  get currentUserAccountId(): string {
+    return this.ngRedux.getState().currentUserState.currentUser.account.id;
+  }
+
   get currentStartup(): Startup {
     return this.ngRedux.getState().startupPageState.startupModel;
   }
 
   blockStartup(startup: Startup) {
-    this.adminService.blockStartup(startup).subscribe();
+    this.adminService.blockStartup(startup.id).subscribe();
     startup.nonBlock = false;
   }
-
-  unBlockStartup(startup: Startup) {
-    this.adminService.unBlockStartup(startup).subscribe();
+  unBlockStartup(startup: Startup ) {
+    this.adminService.unBlockStartup(startup.id).subscribe();
     startup.nonBlock = true;
   }
 
