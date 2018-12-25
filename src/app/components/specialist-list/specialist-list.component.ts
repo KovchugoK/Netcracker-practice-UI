@@ -61,9 +61,6 @@ export class SpecialistListComponent implements OnInit {
     this.isLoading.pipe(skipWhile(result => result === true), take(2)).subscribe();
     this.favoriteService.getFavorites(this.ngRedux.getState().currentUserState.currentUser.account)
       .subscribe(favoriteList => this.favorites = favoriteList);
-    for (let i of this.favorites) {
-      console.log(i.id);
-    }
 
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
       .subscribe(() => this.ngRedux.dispatch(searchResumesAction(this.ngRedux.getState().specialistsSearchState.searchObj)));
