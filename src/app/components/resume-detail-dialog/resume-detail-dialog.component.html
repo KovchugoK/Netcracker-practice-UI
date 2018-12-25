@@ -1,17 +1,21 @@
 <main>
-  <div>
+  <div class="spinner">
     <mat-spinner *ngIf="isSelected | async; else resumeView" mode="indeterminate" color="primary">
     </mat-spinner>
   </div>
   <ng-template #resumeView>
-    <mat-dialog-content>
       <div class="header">
         <!--img class="header-image" src="https://material.angular.io/assets/img/examples/shiba1.jpg" alt="Account avatar"-->
         <div class="rightFromImageBlock">
           <div class="img">
-            <img mat-card-lg-image="" class="full-size"
-                 src="https://drive.google.com/thumbnail?id={{(resume | async)?.account.compressedImageId}}"
-                 alt="resumeLogo">
+            <div *ngIf="(resume | async)?.account.compressedImageId !== null; else defaultImg">
+              <<img mat-card-lg-image="" class="full-size"
+                    src="https://drive.google.com/thumbnail?id={{(resume | async)?.account.compressedImageId}}"
+                    alt="resumeLogo">
+            </div>
+            <ng-template #defaultImg>
+              <img mat-card-lg-image="" class="full-size" src="/src/assets/images/Logo.png">
+            </ng-template>
           </div>
 
 
@@ -39,7 +43,7 @@
             </div>
           </div>
 
-          <div class="button">
+          <div align="left">
             <button mat-raised-button="" class="btnControl" (click) = "onEditClick()"
                     *ngIf="currentUser && (currentUserAccountId === (resume | async)?.account.id)"> Edit
             </button>
@@ -49,6 +53,5 @@
           </div>
         </div>
       </div>
-    </mat-dialog-content>
   </ng-template>
 </main>

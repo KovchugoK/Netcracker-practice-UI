@@ -4,9 +4,20 @@ main {
   flex-wrap: wrap;
   padding-left: 50px;
 }
-
+.spinner{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
 .img {
   padding-top: 30px;
+  width: 200px;
+  height: 200px;
+}
+.full-size {
   width: 200px;
   height: 200px;
 }
