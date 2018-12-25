@@ -1,29 +1,32 @@
-<main class="contacts-list">
+<main class="contacts-list-main">
   <div class="spinner">
     <mat-spinner *ngIf="isLoading | async;else contactsList" mode="indeterminate" color="primary">
     </mat-spinner>
   </div>
   <ng-template #contactsList>
-    <div style="width: 90%" *ngIf="(contacts | async)?.length !== 0; else empty">
-      <div *ngFor="let contact of contacts | async">
-        <mat-card class="example-card">
-          <mat-card-header>
-            <img mat-card-avatar class="full-size"
-                 src="https://drive.google.com/thumbnail?id={{contact.compressedImageId}}"
-                 onError="this.src='/src/assets/images/Person.jpg'">
-            <mat-card-title>
-              <a routerLink="/account/{{contact.id}}">
-                {{contact.firstName + " " +contact.lastName}}
-              </a>
-            </mat-card-title>
-            <mat-card-subtitle>
-              <a routerLink="/conversations/{{contact.id}}">
-                Write message
-              </a>
-            </mat-card-subtitle>
-            <button mat-raised-button class="delete-button" (click)="deleteContact(contact.id)">Delete</button>
-          </mat-card-header>
-        </mat-card>
+    <div class="main-content">
+      <app-contacts-search-toolbar style="width: 90%"></app-contacts-search-toolbar>
+      <div style="width: 90%" *ngIf="(contacts | async)?.length !== 0; else empty">
+        <div *ngFor="let contact of contacts | async">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <img mat-card-avatar class="full-size"
+                   src="https://drive.google.com/thumbnail?id={{contact.compressedImageId}}"
+                   onError="this.src='/src/assets/images/Person.jpg'">
+              <mat-card-title>
+                <a routerLink="/account/{{contact.id}}">
+                  {{contact.firstName + " " +contact.lastName}}
+                </a>
+              </mat-card-title>
+              <mat-card-subtitle>
+                <a routerLink="/conversations/{{contact.id}}">
+                  Write message
+                </a>
+              </mat-card-subtitle>
+              <button mat-raised-button class="delete-button" (click)="deleteContact(contact.id)">Delete</button>
+            </mat-card-header>
+          </mat-card>
+        </div>
       </div>
     </div>
   </ng-template>
