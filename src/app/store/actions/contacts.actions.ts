@@ -9,6 +9,31 @@ export const DELETE_CONTACT_FAILED = 'DELETE_CONTACT_FAILED';
 export const ADD_CONTACT = 'ADD_CONTACT';
 export const ADD_CONTACT_SUCCESS = 'ADD_CONTACT_SUCCESS';
 export const ADD_CONTACT_FAILED = 'ADD_CONTACT_FAILED';
+export const SEARCH_CONTACTS = 'SEARCH_CONTACTS';
+export const SEARCH_CONTACTS_SUCCESS = 'SEARCH_CONTACTS_SUCCESS';
+export const SEARCH_CONTACTS_FAILED = 'SEARCH_CONTACTS_FAILED';
+
+export function searchContactsAction(userId: string, name: string) {
+  return {
+    type: SEARCH_CONTACTS,
+    payload: {userId, name}
+  };
+}
+
+export function searchContactsSuccessAction(contacts: Map<string, Contact>) {
+  return {
+    type: SEARCH_CONTACTS_SUCCESS,
+    payload: {contacts}
+  };
+}
+
+export function searchContactsFailedAction(message: string) {
+  return {
+    type: SEARCH_CONTACTS_FAILED,
+    error: true,
+    payload: {message}
+  };
+}
 
 export function fetchContactsAction(userId: string) {
   return {
