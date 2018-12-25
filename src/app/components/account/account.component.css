@@ -18,7 +18,17 @@ mat-divider{
   width: available;
 }
 .project-item{
-
   text-align: center;
   width: min-content;
+}
+.spinner{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: left;
+  height: 100%;
+  width: 100%;
+}
+.center-spinner{
+  margin: auto;
 }

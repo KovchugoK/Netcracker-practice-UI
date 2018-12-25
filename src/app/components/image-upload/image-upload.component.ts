@@ -13,7 +13,8 @@ export class ImageUploadComponent implements OnInit {
   imageUrl: string;
   ishiddenImage: boolean;
   @Input() defaultImage: string;
-
+  @Input() imageWidth: string;
+  @Input() imageHeight: string;
   constructor() {
   }
 
@@ -53,11 +54,7 @@ export class ImageUploadComponent implements OnInit {
     };
   }
 
-  upload() {
-    this.ishiddenImage = true;
-  }
-
-  _handleReaderLoaded(readerEvt) {
+   _handleReaderLoaded(readerEvt) {
     let binaryString = readerEvt.target.result;
     this.base64textString = btoa(binaryString);
     this.valueChange.emit(this.base64textString);

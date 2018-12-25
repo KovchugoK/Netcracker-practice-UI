@@ -7,7 +7,7 @@
   <ng-template #aForm>
     <form novalidate [formGroup]="accountForm" class="form-group">
       <div class="form-group">
-        <app-image-upload (valueChange)='getImageAsString($event)' [defaultImage]="updatedAccount.compressedImageId"></app-image-upload>
+        <app-image-upload (valueChange)='getImageAsString($event)' [defaultImage]="updatedAccount.compressedImageId" [imageHeight]="175" [imageWidth]="175"></app-image-upload>
         <legend>Name</legend>
         <mat-form-field appearance="legacy">
           <input matInput type="text" formControlName="firstName" placeholder="First name">
