@@ -25,6 +25,8 @@ export class AccountEditComponent implements OnInit, OnDestroy {
   accountId: string;
   accountForm: FormGroup;
 
+  datepipe: DatePipe;
+
   workExperience: FormArray;
   education: FormArray;
 
