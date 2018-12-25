@@ -63,17 +63,19 @@ export class StartupComponent implements OnInit {
     this.isSelected.pipe(skipWhile(result => result === true), take(1)).subscribe(() =>
       // this.ngRedux.select(selectStartupFromState).subscribe(startup => {
       this.startup.subscribe(startup => {
-        if (this.ngRedux.getState().currentUserState.currentUser !== null) {
-          this.checkPermissionToEdit(startup);
-          this.checkStartupMembership(startup);
-          this.myPendingResumes = startup.startupResumes
-            .filter(value => value.resume.account.id === this.ngRedux.getState().currentUserState.currentUser.account.id
-              && value.accepted === false);
+        if (startup !== null && startup !== undefined) {
+          if (this.ngRedux.getState().currentUserState.currentUser !== null) {
+            this.checkPermissionToEdit(startup);
+            this.checkStartupMembership(startup);
+            this.myPendingResumes = startup.startupResumes
+              .filter(value => value.resume.account.id === this.ngRedux.getState().currentUserState.currentUser.account.id
+                && value.accepted === false);
+          }
+          this.currentInvestments = startup.startupInvestments.map(value => value.sumOfInvestment).reduce((a, b) => a + b, 0);
+          this.transformInvestments(startup.startupInvestments);
+          return this.investments.sort(
+            (value1, value2) => value2.sumOfInvestment - value1.sumOfInvestment);
         }
-        this.currentInvestments = startup.startupInvestments.map(value => value.sumOfInvestment).reduce((a, b) => a + b, 0);
-        this.transformInvestments(startup.startupInvestments);
-        return this.investments.sort(
-          (value1, value2) => value2.sumOfInvestment - value1.sumOfInvestment);
       }));
   }
 
@@ -112,7 +114,7 @@ export class StartupComponent implements OnInit {
   cancelResume(id: string) {
     this.ngRedux.dispatch(showDialogAction({
       componentType: CancelResumeComponent,
-      width: '300px',
+      width: '210px',
       data: {resumeId: id}
     }));
   }
@@ -120,7 +122,7 @@ export class StartupComponent implements OnInit {
   deleteStartup() {
     this.ngRedux.dispatch(showDialogAction({
       componentType: DeleteStartupComponent,
-      width: '200px',
+      width: '210px',
       data: {startupId: this.id}
     }));
   }
@@ -128,7 +130,7 @@ export class StartupComponent implements OnInit {
   makeInvestments() {
     this.ngRedux.dispatch(showDialogAction({
       componentType: MakeInvestmentsComponent,
-      width: '400px',
+      width: '450px',
       data: {startupId: this.id}
     }));
   }
@@ -136,7 +138,7 @@ export class StartupComponent implements OnInit {
   leaveStartup() {
     this.ngRedux.dispatch(showDialogAction({
       componentType: LeaveStartupComponent,
-      width: '200px',
+      width: '210px',
       data: {accountId: this.ngRedux.getState().currentUserState.currentUser.account.id}
     }));
   }
@@ -144,7 +146,7 @@ export class StartupComponent implements OnInit {
   deleteMyResumeFromStartup(id: string) {
     this.ngRedux.dispatch(showDialogAction({
       componentType: DeleteResumeFromStartupComponent,
-      width: '200px',
+      width: '210px',
       data: {resumeId: id}
     }));
   }

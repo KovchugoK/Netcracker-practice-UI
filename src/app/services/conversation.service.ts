@@ -15,13 +15,13 @@ export class ConversationService {
 
   getUserConversations(id: string): Observable<Conversation[]> {
     return this.http.get<Conversation[]>(`${this.conversationUrl}/${id}`)
-      .pipe(catchError((error: any) => throwError(error.error)));
+      .pipe(catchError((error: any) => throwError(error)));
   }
 
   getConversationByUsersIds(yourId: string, otherId: string) {
     return this.http.get<Conversation>(`${this.conversationUrl}/getConversationInfoByUsersIds`, {
       params: {yourId, otherId}
     })
-      .pipe(catchError((error: any) => throwError(error.error)));
+      .pipe(catchError((error: any) => throwError(error)));
   }
 }

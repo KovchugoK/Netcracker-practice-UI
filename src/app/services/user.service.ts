@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {User} from '../model/User';
+import {Observable, throwError} from "rxjs/index";
+import {catchError} from "rxjs/internal/operators";
 
 
 
@@ -10,5 +12,12 @@ export class UserService {
 
   register(user: User) {
     return this.http.post(`/api/auth/signup`, user);
+  }
+
+  verifyEmail(token: string): Observable<any> {
+    return this.http.post<any>('/api/user/verifyEmail',
+      null, {
+        params: new HttpParams().set('token', token)
+      }).pipe(catchError((error: any) => throwError(error.error)));
   }
 }

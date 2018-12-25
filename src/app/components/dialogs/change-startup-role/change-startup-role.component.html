@@ -1,11 +1,13 @@
 <div class="change-startup-role-dialog">
-  <h2 mat-dialog-title>Select role</h2>
-  Select role of this member in startup:
+  <h2 mat-dialog-title align="center">Select role</h2>
+  <p align="center" >Select role of this member in startup: </p>
   <form [formGroup]="changeStartupRoleForm">
-    <mat-radio-group [formControlName]="'role'">
+    <mat-radio-group [formControlName]="'role'" align="center">
+      &nbsp; &nbsp;
       <mat-radio-button value="MEMBER">
-        Member
+         Member
       </mat-radio-button>
+      &nbsp;  &nbsp;
       <mat-radio-button value="MODERATOR">
         Moderator
       </mat-radio-button>

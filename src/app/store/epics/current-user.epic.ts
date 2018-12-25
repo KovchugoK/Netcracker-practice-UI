@@ -12,10 +12,12 @@ import {
   updateCurrentUserAction
 } from '../actions/current-user.actions';
 import {AuthenticationService} from '../../services/authentication.service';
+import {UserService} from '../../services/user.service';
 import {GlobalUserStorageService} from '../../services/global-storage.service';
 import {AccountService} from '../../services/account.service';
 import {ChatServerService} from '../../services/chat-server.service';
 import {NotifierService} from 'angular-notifier';
+import {updateAccountSuccessAction} from "../actions/accounts.actions";
 
 @Injectable()
 export class CurrentUserEpic {
@@ -23,7 +25,6 @@ export class CurrentUserEpic {
               private accountService: AccountService,
               private chatService: ChatServerService, private notifierService: NotifierService) {
   }
-
   loginUser$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(LOGIN_USER).pipe(
       switchMap(({payload}) => {
@@ -72,5 +73,17 @@ export class CurrentUserEpic {
       })
     );
   };
+
+  // verifyUserEmail$ = (action$: ActionsObservable<AnyAction>) => {
+  //   return action$.ofType(VERIFY_USER_EMAIL).pipe(
+  //     switchMap(({ payload }) => {
+  //       return this.userService
+  //         .verifyEmail(payload)
+  //         .pipe(
+  //           map(account => updateAccountSuccessAction(account))
+  //         );
+  //     })
+  //   );
+  // }
 
 }

@@ -7,6 +7,7 @@ import {ContactsEpic} from './contacts.epic';
 import {AccountEpic} from './account.epic';
 import {ConversationsEpic} from './conversations.epic';
 import {FavoriteEpic} from './favorite.epic';
+import {ResetPasswordEpic} from './reset-password.epic'
 
 @Injectable()
 export class EpicService {
@@ -17,7 +18,8 @@ export class EpicService {
               private contactsEpic: ContactsEpic,
               private  accountEpic: AccountEpic,
               private favoriteEpic: FavoriteEpic,
-              private conversationsEpic: ConversationsEpic) {
+              private conversationsEpic: ConversationsEpic,
+              private resetPasswordEpic: ResetPasswordEpic) {
   }
 
   getEpics() {
@@ -46,14 +48,19 @@ export class EpicService {
       this.resumeEpic.fetchMyResumes$,
       this.contactsEpic.fetchContacts$,
       this.contactsEpic.deleteContact$,
+      this.contactsEpic.searchContacts$,
       this.favoriteEpic.deleteFavorite$,
       this.favoriteEpic.fetchFavorites$,
       this.contactsEpic.addContact$,
       this.conversationsEpic.fetchConversations$,
       this.conversationsEpic.getConversation$,
       this.contactsEpic.deleteContact$,
+      this.conversationsEpic.getConversation$,
       this.accountEpic.updateAccount$,
       this.accountEpic.selectAccount$,
+      this.accountEpic.deleteAccount$,
+      this.resetPasswordEpic.sendEmail$,
+      this.resetPasswordEpic.resetPassword$,
       this.accountEpic.deleteAccount$
     );
   }

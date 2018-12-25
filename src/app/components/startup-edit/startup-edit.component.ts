@@ -153,7 +153,7 @@ export class StartupEditComponent implements OnInit {
   rejectResume(id: string) {
     this.ngRedux.dispatch(showDialogAction({
       componentType: RejectResumeComponent,
-      width: '300px',
+      width: '210px',
       data: {resumeId: id}
     }));
   }
@@ -161,7 +161,7 @@ export class StartupEditComponent implements OnInit {
   acceptResume(resumeId: string, accountId: string) {
     this.ngRedux.dispatch(showDialogAction({
       componentType: AcceptResumeComponent,
-      width: '300px',
+      width: '210px',
       data: {resumeId: resumeId, accountId: accountId}
     }));
   }
@@ -169,7 +169,7 @@ export class StartupEditComponent implements OnInit {
   kickMember(resumeId: string, accountId: string) {
     this.ngRedux.dispatch(showDialogAction({
       componentType: KickMemberComponent,
-      width: '180px',
+      width: '210px',
       data: {resumeId: resumeId, accountId: accountId}
     }));
   }
@@ -177,7 +177,7 @@ export class StartupEditComponent implements OnInit {
   changeRole(accountId: string) {
     this.ngRedux.dispatch(showDialogAction({
       componentType: ChangeStartupRoleComponent,
-      width: '300px',
+      width: '400px',
       data: {accountId: accountId}
     }));
   }

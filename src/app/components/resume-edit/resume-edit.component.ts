@@ -1,20 +1,20 @@
 import {Component, OnInit} from '@angular/core';
 import {ResumeService} from '../../services/resume.service';
 import {ActivatedRoute} from '@angular/router';
-import {defaultResume, Resume} from '../../model/Resume';
+import {Resume} from '../../model/Resume';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Location} from '@angular/common';
 import {Skill} from '../../model/Skill';
 import {BusinessRole} from '../../model/BusinessRole';
-import {ResumeSkill} from '../../model/ResumeSkill';
 import {Observable} from 'rxjs/index';
 import {NgRedux, select} from '@angular-redux/store';
-import {isLoading, isSelected, selectResumeForEdit, selectResumes} from '../../store/selectors/resume.selector';
+import {isLoading, isSelected, selectResumeForEdit} from '../../store/selectors/resume.selector';
 import {selectResume} from '../../store/actions/resume-state.actions';
 import {skipWhile, take} from 'rxjs/internal/operators';
 import {AppState} from '../../store/index';
 import {createResumeAction, updateResumeAction} from '../../store/actions/resume.actions';
 import {updateRouterState} from '../../store/actions/router.actions';
+import {Account} from "../../model/Account";
 
 
 @Component({
@@ -92,8 +92,6 @@ export class ResumeEditComponent implements OnInit {
   }
 
 
-
-
   updateResume() {
     this.ngRedux.dispatch(updateResumeAction({...this.resumeForm.value, id: this.id}));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
@@ -104,7 +102,8 @@ export class ResumeEditComponent implements OnInit {
   createResume() {
     this.ngRedux.dispatch(createResumeAction({...this.resumeForm.value, id: this.id}));
     this.isLoading.pipe(skipWhile(result => result === true), take(1))
-      .subscribe(() => this.ngRedux.dispatch(updateRouterState('/resume/list')));
+      .subscribe(() => this.ngRedux.dispatch(updateRouterState('/specialist-list/'
+        + this.ngRedux.getState().currentUserState.currentUser.account.id)));
   }
 
 

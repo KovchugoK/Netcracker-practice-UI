@@ -12,6 +12,8 @@ import {isLoading, selectErrorMessage} from '../../../store/selectors/current-us
 import {Observable} from 'rxjs';
 import {Role} from '../../../model/Role';
 import {NgxPermissionsService} from 'ngx-permissions';
+import {closeDialogAction, showDialogAction} from "../../../store/actions/dialogs.actions";
+import {EnterEmailComponent} from "../enter-email/enter-email.component";
 
 
 @Component({
@@ -95,6 +97,15 @@ export class SignInComponent implements OnInit {
   addRole(roles: Role[]) {
     roles.forEach(role => this.roleNames.push(role.roleName));
     this.permissionsServise.loadPermissions(this.roleNames);
+  }
+
+  forgotPassword(){
+    this.ngRedux.dispatch(closeDialogAction());
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: EnterEmailComponent,
+      width: '500px',
+      data: null
+    }));
   }
 
 }

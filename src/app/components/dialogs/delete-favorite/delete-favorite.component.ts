@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {NgRedux} from "@angular-redux/store";
 import {AppState} from "../../../store/index";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
-import {updateRouterState} from "../../../store/actions/router.actions";
 import {DialogResult} from "../../../model/dialog-result";
 import {deleteFavoriteAction} from "../../../store/actions/favorite.actions";
 import {FavoriteDialogData} from "../../../model/dialog-data";

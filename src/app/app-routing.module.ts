@@ -18,6 +18,8 @@ import {ConversationComponent} from './components/conversation/conversation.comp
 import {ConversationListComponent} from './components/conversation-list/conversation-list.component';
 import {AccountEditGuard} from './guards/account-edit.guard';
 import {StartupEditGuard} from './guards/startup-edit.guard';
+import {ResetPasswordComponent} from "./components/reset-password/reset-password.component";
+import {VerifyEmailComponent} from "./components/verify-email/verify-email.component";
 
 
 const routes: Routes = [
@@ -40,6 +42,8 @@ const routes: Routes = [
   {path: 'account-edit/:id', component: AccountEditComponent, canActivate: [AccountEditGuard]},
   {path: 'conversations/:id', component: ConversationComponent},
   {path: 'conversations', component: ConversationListComponent},
+  {path: 'changePassword', component: ResetPasswordComponent},
+  {path: 'verifyEmail', component: VerifyEmailComponent},
   {path: '**', redirectTo: 'main-page'}
 ];
 

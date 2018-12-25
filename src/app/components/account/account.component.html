@@ -1,9 +1,10 @@
 <main>
   <div class="spinner">
-    <mat-spinner *ngIf="isSelected | async; else userView" mode="indeterminate" color="primary">
+    <mat-spinner class="center-spinner" *ngIf="isSelected | async; else accountTemplate" mode="indeterminate" color="primary">
     </mat-spinner>
   </div>
-  <ng-template #userView>
+
+  <ng-template #accountTemplate>
   <div *ngIf="currentPageUser.nonBlock; else blockUserView">
     <mat-card fxLayout="row"  fxLayoutGap="10px" fxFlexAlign="space-between start">
       <img mat-card-lg-image fxFlex="1 1 15%" src="https://drive.google.com/thumbnail?id={{(account|async)?.compressedImageId}}"  onError="this.src='/src/assets/images/Person.jpg';">
@@ -28,6 +29,8 @@
     </button>
       <button *ngIf="currentPageUser.id !== currentUser.id" mat-button>Write</button>
       <button *ngIf="currentPageUser.id !== currentUser.id" mat-button>Add</button>
+      <button mat-button>Contact</button>
+      <button mat-button (click)="addContact()">Add</button>
   </mat-card-actions>
 </mat-card>
 <mat-divider></mat-divider>

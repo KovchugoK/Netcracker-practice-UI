@@ -22,7 +22,7 @@
             <div class="rightFromImageBlock">
               <p>
                 <b>
-                  {{resume?.businessRole.businessRoleName}}
+                  <a routerLink="/resume/{{resume?.id}}">{{resume?.businessRole.businessRoleName}}</a>
                 </b>
               </p>
               <p class="box">
@@ -31,12 +31,16 @@
             </div>
           </div>
           <div *ngIf="currentAccount && currentAccount.id !== resume?.account.id">
-            <!--button  class="fav"><img mat-card-lg-image="" class="img"
-                                                                        src="/src/assets/images/favorite.png"></button-->
-<div ></div>
-            <i (click)="onClick(resume?.account)" class="material-icons">
-              star_border
-            </i>
+            <div *ngIf="isAddedToFavorite(resume?.account); else notAddes">
+              <mat-icon (click)="onClick(resume?.account, true)" class="material-icons">
+                star
+              </mat-icon>
+            </div>
+            <ng-template #notAddes>
+              <mat-icon (click)="onClick(resume?.account, false)" class="material-icons">
+                star_border
+              </mat-icon>
+            </ng-template>
           </div>
           <h6>Skills: </h6>
           <mat-card-subtitle>

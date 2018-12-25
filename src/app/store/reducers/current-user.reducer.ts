@@ -1,4 +1,4 @@
-import {Reducer} from 'redux';
+import { Reducer } from 'redux';
 import {
   CLEAR_USER_ERROR_MESSAGE,
   LOGIN_USER,

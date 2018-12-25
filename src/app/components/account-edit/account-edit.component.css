@@ -39,3 +39,15 @@ span{
 textarea{
 
 }
+
+.spinner{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: left;
+  height: 100%;
+  width: 100%;
+}
+.center-spinner{
+  margin: auto;
+}

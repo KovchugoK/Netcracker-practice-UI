@@ -15,7 +15,7 @@ export class ContactsService {
 
   getUserContacts(id: string): Observable<Contact[]> {
     return this.http.get<Contact[]>(`${this.contactUrl}/${id}`)
-      .pipe(catchError((error: any) => throwError(error.error)));
+      .pipe(catchError((error: any) => throwError(error)));
   }
 
   deleteUserContact(yourId: string, otherId: string): Observable<any> {
@@ -26,7 +26,7 @@ export class ContactsService {
       }
     }).pipe(catchError((error: any) => {
       console.log(error);
-      return throwError(error.error);
+      return throwError(error);
     }));
   }
 
@@ -37,7 +37,12 @@ export class ContactsService {
         'otherId': otherId
       }).pipe(catchError((error: any) => {
       console.log(error);
-      return throwError(error.error);
+      return throwError(error);
     }));
+  }
+
+  searchInContacts(yourId: string, name: string): Observable<any> {
+    return this.http.get(`${this.contactUrl}/${yourId}/search`, {params: {name}})
+      .pipe(catchError((error: any) => throwError(error)));
   }
 }

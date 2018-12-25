@@ -7,6 +7,7 @@ import {SignInComponent} from './sign-in/sign-in.component';
 import {MaterialModule} from '../../material';
 import {DeleteStartupComponent} from './delete-startup/delete-startup.component';
 import {DeleteResumeComponent} from './delete-resume/delete-resume.component';
+import {EnterEmailComponent} from "./enter-email/enter-email.component";
 import {MakeInvestmentsComponent} from './make-investments/make-investments.component';
 import {DeleteFavoriteComponent} from './delete-favorite/delete-favorite.component';
 import {JoinStartupComponent} from './join-startup/join-startup.component';
@@ -26,7 +27,7 @@ import {DeleteResumeFromStartupComponent } from './delete-resume-from-startup/de
     ReactiveFormsModule,
     MaterialModule
   ],
-  declarations: [DialogsComponent, SignUpComponent,
+   declarations: [DialogsComponent, SignUpComponent,
     SignInComponent, DeleteStartupComponent,
     DeleteResumeComponent, MakeInvestmentsComponent,
     DeleteFavoriteComponent, JoinStartupComponent,

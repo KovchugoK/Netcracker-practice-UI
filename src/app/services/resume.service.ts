@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Resume} from '../model/Resume';
-import {Skill} from '../model/Skill';
+import {Skill} from "../model/Skill"
 import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
+import {BusinessRole} from "../model/BusinessRole";
 import {catchError} from 'rxjs/operators';
-import {BusinessRole} from '../model/BusinessRole';
 
 
 @Injectable({

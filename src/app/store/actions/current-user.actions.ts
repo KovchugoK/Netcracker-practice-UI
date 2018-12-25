@@ -8,6 +8,7 @@ export const LOGOUT_USER = '[Current user] Logout user';
 export const CLEAR_USER_ERROR_MESSAGE = '[Current user] Error message cleared';
 export const UPDATE_BALANCE = '[Current user] Update balance';
 export const UPDATE_BALANCE_SUCCESS = '[Current user] Update balance success';
+export const VERIFY_USER_EMAIL = '[Current user] Error message cleared';
 
 export function loginUserAction(credential: Credential) {
   return {

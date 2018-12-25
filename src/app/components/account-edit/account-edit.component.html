@@ -1,90 +1,108 @@
 <main>
-<div class="spinner">
-  <mat-spinner *ngIf="isSelected | async; else aForm" mode="indeterminate" color="primary" class="spinner-item">
-  </mat-spinner>
-</div>
+  <div class="spinner">
+    <mat-spinner class="center-spinner" *ngIf="isSelected | async; else aForm" mode="indeterminate" color="primary">
+    </mat-spinner>
+  </div>
 
-<ng-template #aForm>
- <form novalidate [formGroup]="accountForm" class="form-group" >
-    <div class="form-group">
-      <app-image-upload (valueChange)='getImageAsString($event)'></app-image-upload>
-      <legend>Name</legend>
-      <mat-form-field appearance="legacy">
-      <input matInput type="text" formControlName="firstName" placeholder="First name">
-        <mat-error *ngIf="accountForm.get('firstName').hasError('required') && accountForm.get('firstName').touched">This field is required</mat-error>
-        <mat-error *ngIf="accountForm.get('firstName').hasError('maxlength')">First name must be less than 35 characters</mat-error>
-        <mat-error *ngIf="accountForm.get('firstName').hasError('pattern')">Invalid symbol</mat-error>
-      </mat-form-field>
-      <mat-form-field appearance="legacy">
-        <input matInput type="text" formControlName="lastName" placeholder="Last name">
-        <mat-error *ngIf="accountForm.get('lastName').hasError('maxlength')">Last name must be less than 35 characters</mat-error>
-        <mat-error *ngIf="accountForm.get('lastName').hasError('pattern')">Invalid symbol</mat-error>
-      </mat-form-field>
-   </div>
-   <mat-form-field appearance="legacy">
-     <input matInput [matDatepicker]="birthday" [matDatepickerFilter]="dateFilter" formControlName="birthday" placeholder="Birthday">
-     <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
-     <mat-datepicker #birthday ></mat-datepicker>
-   </mat-form-field>
-   <br>
-   <mat-form-field class="form-group" appearance="legacy" style="width: 40%;">
-     <textarea matInput mat-autosize="" placeholder="About me" formControlName="aboutMe" class="textarea-wrapper" matAutosizeMinRows=1 matAutosizeMaxRows=5></textarea>
-   </mat-form-field>
-   <div class="form-group">
-      <legend>Work experience</legend>
-      <div formArrayName="workExperience" class="work-experience-item" *ngFor="let workExperience of accountForm.get('workExperience')['controls']; let workExpIndex = index;">
-        <div [formGroupName]="workExpIndex">
-          <span>{{workExpIndex+1}}</span>
-          <mat-form-field appearance="legacy">
-          <input matInput type="text" formControlName="workPlace" placeholder="Company name">
-          </mat-form-field>
-          <mat-form-field appearance="legacy">
-          <input matInput type="text" formControlName="position" placeholder="Position">
-          </mat-form-field>
-          <mat-form-field appearance="legacy">
-            <input matInput [matDatepicker]="start" [matDatepickerFilter]="dateFilter" formControlName="start" placeholder="Choose a start date">
-            <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
-            <mat-datepicker #start ></mat-datepicker>
-          </mat-form-field>
-          <mat-form-field appearance="legacy">
-            <input matInput [matDatepicker]="finish" [matDatepickerFilter]="dateFilter" formControlName="finish" placeholder="Choose a finish date">
-            <mat-datepicker-toggle matSuffix [for]="finish"></mat-datepicker-toggle>
-            <mat-datepicker #finish></mat-datepicker>
-          </mat-form-field>
-          <button mat-icon-button color="primary" (click)="deleteWorkExperience(workExpIndex);">
-            <mat-icon>clear</mat-icon>
-          </button>
-        </div>
+  <ng-template #aForm>
+    <form novalidate [formGroup]="accountForm" class="form-group">
+      <div class="form-group">
+        <app-image-upload (valueChange)='getImageAsString($event)' [defaultImage]="updatedAccount.compressedImageId" [imageHeight]="175" [imageWidth]="175"></app-image-upload>
+        <legend>Name</legend>
+        <mat-form-field appearance="legacy">
+          <input matInput type="text" formControlName="firstName" placeholder="First name">
+          <mat-error *ngIf="accountForm.get('firstName').hasError('required') && accountForm.get('firstName').touched">
+            This field is required
+          </mat-error>
+          <mat-error *ngIf="accountForm.get('firstName').hasError('maxlength')">First name must be less than 35
+            characters
+          </mat-error>
+          <mat-error *ngIf="accountForm.get('firstName').hasError('pattern')">Invalid symbol</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+          <input matInput type="text" formControlName="lastName" placeholder="Last name">
+          <mat-error *ngIf="accountForm.get('lastName').hasError('maxlength')">Last name must be less than 35
+            characters
+          </mat-error>
+          <mat-error *ngIf="accountForm.get('lastName').hasError('pattern')">Invalid symbol</mat-error>
+        </mat-form-field>
       </div>
-     <mat-error *ngIf="isCompareDateError">Start date should be less than finish date</mat-error>
-     <mat-error *ngIf="accountForm.get('workExperience').hasError('maxlength')">Quantity limit exceeded</mat-error>
-     <button mat-raised-button color="primary" [disabled]="accountForm.get('workExperience').hasError('maxlength')" (click)="addWorkExperience()">Add</button>
-     </div>
+      <mat-form-field appearance="legacy">
+        <input matInput [matDatepicker]="birthday" [matDatepickerFilter]="dateFilter" formControlName="birthday"
+               placeholder="Birthday" value="updatedAccount.birthday">
+        <mat-datepicker-toggle matSuffix [for]="birthday"></mat-datepicker-toggle>
+        <mat-datepicker #birthday></mat-datepicker>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="form-group" appearance="legacy" style="width: 40%;">
+        <textarea matInput mat-autosize="" placeholder="About me" formControlName="aboutMe" class="textarea-wrapper"
+                  matAutosizeMinRows=1 matAutosizeMaxRows=5></textarea>
+      </mat-form-field>
+      <div class="form-group">
+        <legend>Work experience</legend>
+        <div formArrayName="workExperience" class="work-experience-item"
+             *ngFor="let workExperience of accountForm.get('workExperience')['controls']; let workExpIndex = index;">
+          <div [formGroupName]="workExpIndex">
+            <span>{{workExpIndex+1}}</span>
+            <mat-form-field appearance="legacy">
+              <input matInput type="text" formControlName="workPlace" placeholder="Company name">
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <input matInput type="text" formControlName="position" placeholder="Position">
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <input matInput [matDatepicker]="start" [matDatepickerFilter]="dateFilter" formControlName="start"
+                     placeholder="Choose a start date">
+              <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+              <mat-datepicker #start></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <input matInput [matDatepicker]="finish" [matDatepickerFilter]="dateFilter" formControlName="finish"
+                     placeholder="Choose a finish date">
+              <mat-datepicker-toggle matSuffix [for]="finish"></mat-datepicker-toggle>
+              <mat-datepicker #finish></mat-datepicker>
+            </mat-form-field>
+            <button mat-icon-button color="primary" (click)="deleteWorkExperience(workExpIndex);">
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+        </div>
+        <mat-error *ngIf="isCompareDateError">Start date should be less than finish date</mat-error>
+        <mat-error *ngIf="accountForm.get('workExperience').hasError('maxlength')">Quantity limit exceeded</mat-error>
+        <button mat-raised-button color="primary" [disabled]="accountForm.get('workExperience').hasError('maxlength')"
+                (click)="addWorkExperience()">Add
+        </button>
+      </div>
 
-   <div class="form-group">
-     <legend>Education</legend>
-     <div formArrayName="education" class="education-item" *ngFor="let education of accountForm.get('education')['controls']; let educationIndex = index;">
-       <div [formGroupName]="educationIndex">
-         <span>{{educationIndex+1}}</span>
-         <mat-form-field appearance="legacy">
-           <input matInput type="text" formControlName="institution" placeholder="University name">
-         </mat-form-field>
-         <mat-form-field appearance="legacy">
-           <input matInput type="number" formControlName="completionYear" placeholder="Completion year">
-         </mat-form-field>
-         <button mat-icon-button color="primary" (click)="deleteEducation(educationIndex)">
-           <mat-icon>clear</mat-icon>
-         </button>
-       </div>
-     </div>
-     <mat-error *ngIf="accountForm.get('education').hasError('maxlength')">Quantity limit exceeded</mat-error>
-     <button mat-raised-button color="primary" [disabled]="accountForm.get('education').hasError('maxlength')" (click)="addEducation()">Add</button>
-   </div>
-   <mat-divider></mat-divider>
-   <div class="button-edit">
-   <button mat-raised-button color="primary" type="submit" [disabled]="accountForm.invalid" (click)="updateAccount(accountForm)">Save</button>
-   <button mat-raised-button color="primary" routerLink="/account/{{accountId}}">Cancel</button>
-   </div>
-  </form>
-</ng-template>
+      <div class="form-group">
+        <legend>Education</legend>
+        <div formArrayName="education" class="education-item"
+             *ngFor="let education of accountForm.get('education')['controls']; let educationIndex = index;">
+          <div [formGroupName]="educationIndex">
+            <span>{{educationIndex+1}}</span>
+            <mat-form-field appearance="legacy">
+              <input matInput type="text" formControlName="institution" placeholder="University name">
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <input matInput type="number" formControlName="completionYear" placeholder="Completion year">
+            </mat-form-field>
+            <button mat-icon-button color="primary" (click)="deleteEducation(educationIndex)">
+              <mat-icon>clear</mat-icon>
+            </button>
+          </div>
+        </div>
+        <mat-error *ngIf="accountForm.get('education').hasError('maxlength')">Quantity limit exceeded</mat-error>
+        <button mat-raised-button color="primary" [disabled]="accountForm.get('education').hasError('maxlength')"
+                (click)="addEducation()">Add
+        </button>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="button-edit">
+        <button mat-raised-button color="primary" type="submit" [disabled]="accountForm.invalid"
+                (click)="updateAccount(accountForm)">Save
+        </button>
+        <button mat-raised-button color="primary" routerLink="/account/{{accountId}}">Cancel</button>
+      </div>
+    </form>
+  </ng-template>
 </main>

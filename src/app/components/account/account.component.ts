@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {AccountService} from '../../services/account.service';
 import {Account} from '../../model/Account';
 import {ActivatedRoute } from '@angular/router';
-import {NgRedux, select} from '@angular-redux/store';
-import {AppState} from '../../store';
-import {Observable} from 'rxjs/index';
-import {isSelected, selectAccountFromState} from '../../store/selectors/account.selector';
-import {selectAccount} from '../../store/actions/account-state.actions';
-import {deleteAccountAction} from '../../store/actions/accounts.actions';
-import {Startup} from '../../model/Startup';
-import {AdminService} from '../../services/admin.service';
-import {User} from '../../model/User';
+import {NgRedux, select} from "@angular-redux/store";
+import {AppState} from "../../store";
+import {Observable} from "rxjs/index";
+import {isSelected, selectAccountFromState} from "../../store/selectors/account.selector";
+import {selectAccount} from "../../store/actions/account-state.actions";
+import {deleteAccountAction} from "../../store/actions/accounts.actions";
+import {addContactAction} from "../../store/actions/contacts.actions";
+import {selectCurrentUser} from "../../store/selectors/current-user.selector";
+import {User} from "../../model/User";
 
 
 
@@ -22,6 +22,10 @@ import {User} from '../../model/User';
 export class AccountComponent implements OnInit {
 
   id: string;
+  currentUserId:string;
+  @select(selectCurrentUser)
+  user: Observable<User>;
+
   @select(isSelected)
   isSelected: Observable<boolean>;
 
@@ -37,10 +41,15 @@ export class AccountComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.ngRedux.dispatch(selectAccount(this.id));
+    this.user.subscribe(value => this.currentUserId=value.id);
   }
 
   deleteAccount() {
     this.ngRedux.dispatch(deleteAccountAction(this.id));
+  }
+
+  addContact(){
+    this.ngRedux.dispatch(addContactAction(this.id,this.currentUserId));
   }
   get currentPageUser(): User {
     console.log(this.ngRedux.getState().accountPageState.accountModel.user.nonBlock);

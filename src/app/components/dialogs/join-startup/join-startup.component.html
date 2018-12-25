@@ -11,11 +11,11 @@
         <mat-radio-button *ngFor="let resume of myResumeListNotInStartup" [value]="resume">
           <mat-card>
             <mat-card-content>
-              {{resume?.businessRole.businessRoleName}}
-              <a (click)="goToResume(resume?.id)"> (Click to view detailed)</a>
+              <span style="font-size: 17px;"> {{resume?.businessRole.businessRoleName}} </span>
+              <a (click)="goToResume(resume?.id)" style="font-size: 16px; color:#6e8dfa"> (Click to view detailed)</a>
               <br>
-              Skills:
-              <span *ngFor="let skill of resume?.resumeSkills"> {{skill.skillName}}</span>
+              <span style="font-size: 16px;"> Skills: </span>
+              <span *ngFor="let skill of resume?.resumeSkills" style="font-size: 16px;"> {{skill.skillName}}</span>
             </mat-card-content>
           </mat-card>
         </mat-radio-button>

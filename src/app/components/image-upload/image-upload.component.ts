@@ -1,4 +1,4 @@
-import {Component, EventEmitter, forwardRef, HostBinding, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 
 @Component({
@@ -12,12 +12,19 @@ export class ImageUploadComponent implements OnInit {
   base64textString: string;
   imageUrl: string;
   ishiddenImage: boolean;
-
+  @Input() defaultImage: string;
+  @Input() imageWidth: string;
+  @Input() imageHeight: string;
   constructor() {
   }
 
   ngOnInit() {
-    this.imageUrl = '/src/assets/images/default-image.png';
+    if(this.defaultImage){
+      this.imageUrl='https://drive.google.com/thumbnail?id='+this.defaultImage;
+    }
+    else {
+      this.imageUrl = '/src/assets/images/default-image.png';
+    }
     this.ishiddenImage = false;
   }
 
@@ -47,12 +54,8 @@ export class ImageUploadComponent implements OnInit {
     };
   }
 
-  upload() {
-    this.ishiddenImage = true;
-  }
-
-  _handleReaderLoaded(readerEvt) {
-    var binaryString = readerEvt.target.result;
+   _handleReaderLoaded(readerEvt) {
+    let binaryString = readerEvt.target.result;
     this.base64textString = btoa(binaryString);
     this.valueChange.emit(this.base64textString);
   }

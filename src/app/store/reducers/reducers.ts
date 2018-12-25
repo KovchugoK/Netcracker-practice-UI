@@ -12,7 +12,9 @@ import {contactsReducer} from './contacts.reducer';
 import {specialistsSearchToolbarReducer} from './specialists-search-toolbar.reducer';
 import {favoriteReducer} from './favorite.reducer';
 import {conversationsReducer} from './conversation.reducer';
-import {accountPageReducer} from "./account-page.reducer";
+import {accountPageReducer} from './account-page.reducer';
+import {resetPasswordReducer} from './reset-password.reducer';
+import {contactsSearchToolbarReducer} from './contacts-search-toolbar.reducer';
 
 
 export const reducers: Reducer = combineReducers({
@@ -30,4 +32,6 @@ export const reducers: Reducer = combineReducers({
   favoritesState: favoriteReducer,
   conversationsState: conversationsReducer,
   accountPageState: accountPageReducer,
+  resetPasswordState: resetPasswordReducer,
+  contactsSearchToolbarState: contactsSearchToolbarReducer
 });

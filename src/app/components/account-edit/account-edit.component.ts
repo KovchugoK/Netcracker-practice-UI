@@ -1,18 +1,19 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AccountService} from '../../services/account.service';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {updateRouterState} from '../../store/actions/router.actions';
-import {skipWhile, take} from 'rxjs/internal/operators';
-import {NgRedux, select} from '@angular-redux/store';
-import {AppState} from '../../store';
-import {Subscription} from 'rxjs/internal/Subscription';
-import {Account} from '../../model/Account';
-import {Observable} from 'rxjs/index';
-import {isLoading, isSelected, selectAccountForEdit} from '../../store/selectors/account.selector';
-import {selectAccount} from '../../store/actions/account-state.actions';
-import {updateAccountAction} from '../../store/actions/accounts.actions';
+import {AccountService} from "../../services/account.service";
+import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ActivatedRoute} from "@angular/router";
+import {updateRouterState} from "../../store/actions/router.actions";
+import {skipWhile, take} from "rxjs/internal/operators";
+import {NgRedux, select} from "@angular-redux/store";
+import {AppState} from "../../store";
+import {Subscription} from "rxjs/internal/Subscription";
+import {Account} from "../../model/Account";
+import {Observable} from "rxjs/index";
+import {isLoading, isSelected, selectAccountForEdit} from "../../store/selectors/account.selector";
+import {selectAccount} from "../../store/actions/account-state.actions";
+import {updateAccountAction} from "../../store/actions/accounts.actions";
 import * as moment from 'moment';
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-account-edit',
@@ -27,11 +28,11 @@ export class AccountEditComponent implements OnInit, OnDestroy {
   workExperience: FormArray;
   education: FormArray;
 
-  subscription: Subscription;
+  subscription :Subscription;
   base64textString: string;
 
   updatedAccount: Account;
-  isCompareDateError: boolean;
+  isCompareDateError:boolean;
 
   @select(isLoading)
   isLoading: Observable<boolean>;
@@ -45,13 +46,13 @@ export class AccountEditComponent implements OnInit, OnDestroy {
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.isCompareDateError = false;
+    this.isCompareDateError=false;
     this.accountId = this.route.snapshot.paramMap.get('id');
     this.ngRedux.dispatch(selectAccount(this.accountId));
     this.isSelected.pipe(skipWhile(result => result), take(1))
       .subscribe(() => this.ngRedux.select(state => selectAccountForEdit(state))
         .subscribe(account => {
-          this.updatedAccount = account;
+          this.updatedAccount=account;
           this.initializeForm(account);
           this.getWorkExperienceAsFormGroup(account);
           this.getEducationAsFormGroup(account);
@@ -59,32 +60,34 @@ export class AccountEditComponent implements OnInit, OnDestroy {
 
   }
 
-  private initializeForm(account: Account) {
+  private initializeForm(account:Account) {
     this.accountForm = this.formBuilder.group({
-        firstName: [account.firstName, [Validators.required, Validators.maxLength(35), Validators.pattern(/^[A-z0-9]*$/)]],
-        lastName: [account.lastName, [Validators.maxLength(35), Validators.pattern(/^[A-z0-9]*$/)]],
-        birthday: [account.birthday],
-        aboutMe: [account.aboutMe, Validators.maxLength(255)],
+        firstName: [account.firstName, [Validators.required,Validators.maxLength(35),Validators.pattern(/^[A-z0-9]*$/)]],
+        lastName: [account.lastName,[Validators.maxLength(35),Validators.pattern(/^[A-z0-9]*$/)]],
+        birthday: [this.datepipe.transform(account.birthday,'MM/DD/YYYY')],
+        aboutMe: [account.aboutMe,Validators.maxLength(255)],
         workExperience: this.formBuilder.array([], Validators.maxLength(10)),
-        education: this.formBuilder.array([], Validators.maxLength(10))
+        education: this.formBuilder.array([],Validators.maxLength(10))
       }
     );
+
+    console.log(this.datepipe.transform(account.birthday,'MM/dd/yyyy'));
   }
 
-  changeAccount(form: FormGroup): Account {
+  changeAccount(form:FormGroup): Account{
     this.updatedAccount.firstName = form.getRawValue().firstName;
     this.updatedAccount.lastName = form.getRawValue().lastName;
     this.updatedAccount.birthday = form.getRawValue().birthday;
     this.updatedAccount.aboutMe = form.getRawValue().aboutMe;
     this.updatedAccount.workExperiences = form.getRawValue().workExperience;
     this.updatedAccount.educations = form.getRawValue().education;
-    this.updatedAccount.image = this.base64textString;
+    this.updatedAccount.image=this.base64textString;
     return this.updatedAccount;
   }
 
-  getWorkExperienceAsFormGroup(account: Account) {
+  getWorkExperienceAsFormGroup(account:Account){
     this.workExperience = this.accountForm.get('workExperience') as FormArray;
-     if (account.workExperiences != null) { account.workExperiences.forEach(value => {
+     if(account.workExperiences!=null) account.workExperiences.forEach(value => {
        this.workExperience.push(this.formBuilder.group({
         id: value.id,
         workPlace: value.workPlace,
@@ -93,18 +96,17 @@ export class AccountEditComponent implements OnInit, OnDestroy {
         finish: value.finish
       }));
     });
-     }
+     console.log(this.workExperience);
   }
-  getEducationAsFormGroup(account: Account) {
+  getEducationAsFormGroup(account:Account){
     this.education = this.accountForm.get('education') as FormArray;
-    if (account.educations != null) { account.educations.forEach(value => {
+    if(account.educations!=null) account.educations.forEach(value => {
       this.education.push(this.formBuilder.group({
         id: value.id,
         institution: value.institution,
         completionYear: value.completionYear
       }));
     });
-    }
   }
 
   createWorkExperienceItem(): FormGroup {
@@ -118,7 +120,7 @@ export class AccountEditComponent implements OnInit, OnDestroy {
 
   createEducationItem(): FormGroup {
     return this.formBuilder.group({
-      institution: ['', Validators.maxLength(35)],
+      institution: ['',Validators.maxLength(35)],
       completionYear: ['', Validators.pattern('\\d{4,4}')]
     });
   }
@@ -147,19 +149,19 @@ export class AccountEditComponent implements OnInit, OnDestroy {
     this.education.removeAt(index);
   }
 
-  getImageAsString(base64textString: string) {
-    this.base64textString = base64textString;
+  getImageAsString(base64textString: string){
+    this.base64textString=base64textString;
  }
 
    dateFilter = (d: Date): boolean => {
     const day = d;
-    const maxDate = moment().toDate();
-    const minDate = moment().subtract(100, 'years').toDate();
-    return day >= minDate && day <= maxDate;
+    const maxDate=moment().toDate();
+    const minDate=moment().subtract(100,'years').toDate();
+    return day>=minDate && day<=maxDate;
   }
 
    ngOnDestroy() {
-   if (this.subscription) {
+   if(this.subscription){
      this.subscription.unsubscribe();
    }
   }

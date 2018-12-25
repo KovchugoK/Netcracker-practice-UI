@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Account} from '../model/Account';
 import {SearchObject} from "../model/SearchObject";
 import {Favorite} from "../model/Favorite";
 
@@ -11,7 +10,7 @@ import {Favorite} from "../model/Favorite";
 export class SpecialistService {
   specialistListUrl = '/api/specialist-list';
   headers = new HttpHeaders({'Content-Type': 'application/json'});
-  params: HttpParams;
+
 
   investorListUrl = '/api/investor-list';
 
@@ -22,11 +21,9 @@ export class SpecialistService {
   getSpecialistList(searchObj: SearchObject): Observable<any> {
     let params = new HttpParams();
     for (const key in searchObj) {
-      console.log(key);
       const val = searchObj[key];
       if (val) {
         params = params.set(key, val);
-        console.log(val);
       }
     }
     return this.http.get(`${this.specialistListUrl}`, {params: params});
