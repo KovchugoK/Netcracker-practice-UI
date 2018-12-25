@@ -2,10 +2,10 @@ import {NgRedux} from "@angular-redux/store";
 import {Injectable} from "@angular/core";
 import {AppState} from "../index";
 import {ActionsObservable} from "redux-observable";
-import {map, switchMap} from "rxjs/operators";
+import {catchError, map, switchMap} from "rxjs/operators";
 import {ResetPasswordService} from "../../services/reset-password.service";
 import {
-  SAVE_PASSWORD,
+  SAVE_PASSWORD, savePasswordFailedAction,
   savePasswordSuccessAction,
   SEND_EMAIL,
   sendResetPasswordEmailSuccessAction
@@ -14,11 +14,14 @@ import {AnyAction} from "redux";
 import {updateCurrentUserAction} from "../actions/current-user.actions";
 import {GlobalUserStorageService} from "../../services/global-storage.service";
 import {ChatServerService} from "../../services/chat-server.service";
+import {of} from "rxjs/index";
+import {NotifierService} from "angular-notifier";
 
 @Injectable()
 export class ResetPasswordEpic {
   constructor(private resetPasswordService: ResetPasswordService, private ngRedux: NgRedux<AppState>,
-              private localStorageService: GlobalUserStorageService,private chatService: ChatServerService) {
+              private localStorageService: GlobalUserStorageService,private chatService: ChatServerService,
+              private notifierService: NotifierService) {
   }
 
   sendEmail$ = (action$: ActionsObservable<AnyAction>) => {
@@ -47,7 +50,11 @@ export class ResetPasswordEpic {
               return updateCurrentUserAction(user);
               savePasswordSuccessAction();
             }
-            )
+            ),
+            catchError(error => {
+              this.notifierService.notify('error', 'Reset password failed');
+              return of(savePasswordFailedAction(error));
+            })
           );
       })
     );

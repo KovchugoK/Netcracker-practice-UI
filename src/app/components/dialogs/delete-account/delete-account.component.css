@@ -1,0 +1,16 @@
+.delete-account-dialog {
+  display: flex;
+  flex-direction: column;
+  font-size: 15pt;
+  justify-content: center;
+}
+
+.delete-account-dialog-controls {
+  margin-top: 10px;
+}
+
+button {
+  font-size: 17px;
+}
+
+

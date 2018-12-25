@@ -14,23 +14,32 @@ import {
 import {of} from "rxjs";
 import {SELECT_ACCOUNT, selectAccountSuccess} from "../actions/account-state.actions";
 import {defaultAccount} from "../../model/Account";
+import {NotifierService} from "angular-notifier";
 
 
 
 @Injectable()
 export class AccountEpic {
-  constructor(private accountService: AccountService, private ngRedux: NgRedux<AppState>) {
+  constructor(private accountService: AccountService, private ngRedux: NgRedux<AppState>,
+              private notifierService: NotifierService) {
   }
 
   updateAccount$ = (action$: ActionsObservable<AnyAction>) => {
     return action$.ofType(UPDATE_ACCOUNT).pipe(
       switchMap(({payload}) => {
         console.log("update epic");
-        console.log(payload.account);
         return this.accountService
           .updateAccount(payload.account)
           .pipe(
-            map(account => updateAccountSuccessAction(account))
+            map(account => {
+              this.notifierService.notify('success', 'Account was updated successful');
+              updateAccountSuccessAction(account);
+            },
+              catchError(error => {
+                this.notifierService.notify('error', 'Account was not updated');
+                return of(fetchAccountFailedAction(error));
+              })
+            )
           );
       })
     );
@@ -42,8 +51,15 @@ export class AccountEpic {
         return this.accountService
           .deleteAccount(payload.accountId)
           .pipe(
-            map(() => deleteAccountSuccessAction(payload.accountId))
-          );
+            map(() => {
+              this.notifierService.notify('success', 'Account was deleted successful');
+              deleteAccountSuccessAction(payload.accountId);
+            },
+              catchError(error => {
+                this.notifierService.notify('error', 'Account was not deleted');
+                return of(fetchAccountFailedAction(error));
+              })
+          ));
       })
     );
   };

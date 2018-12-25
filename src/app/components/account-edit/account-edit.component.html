@@ -1,6 +1,6 @@
 <main>
   <div class="spinner">
-    <mat-spinner class="center-spinner" *ngIf="isSelected | async; else aForm" mode="indeterminate" color="primary">
+    <mat-spinner class="center-spinner" *ngIf="isLoading | async; else aForm" mode="indeterminate" color="primary">
     </mat-spinner>
   </div>
 
@@ -101,7 +101,7 @@
         <button mat-raised-button color="primary" type="submit" [disabled]="accountForm.invalid"
                 (click)="updateAccount(accountForm)">Save
         </button>
-        <button mat-raised-button color="primary" routerLink="/account/{{accountId}}">Cancel</button>
+        <button mat-raised-button color="primary" routerLink="/account/{{accountId}}" (click)="goBack()">Cancel</button>
       </div>
     </form>
   </ng-template>

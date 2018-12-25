@@ -5,12 +5,14 @@ import {ActivatedRoute } from '@angular/router';
 import {NgRedux, select} from "@angular-redux/store";
 import {AppState} from "../../store";
 import {Observable} from "rxjs/index";
-import {isSelected, selectAccountFromState} from "../../store/selectors/account.selector";
+import {isLoading, isSelected, selectAccountFromState} from "../../store/selectors/account.selector";
 import {selectAccount} from "../../store/actions/account-state.actions";
-import {deleteAccountAction} from "../../store/actions/accounts.actions";
 import {addContactAction} from "../../store/actions/contacts.actions";
 import {selectCurrentUser} from "../../store/selectors/current-user.selector";
 import {User} from "../../model/User";
+import {showDialogAction} from "../../store/actions/dialogs.actions";
+import {RechargeBalanceComponent} from "../dialogs/recharge-balance/recharge-balance.component";
+import {DeleteAccountComponent} from "../dialogs/delete-account/delete-account.component";
 
 
 
@@ -29,6 +31,9 @@ export class AccountComponent implements OnInit {
   @select(isSelected)
   isSelected: Observable<boolean>;
 
+  @select(isLoading)
+  isLoading: Observable<boolean>;
+
   @select(selectAccountFromState)
   account: Observable<Account>;
 
@@ -44,11 +49,24 @@ export class AccountComponent implements OnInit {
   }
 
   deleteAccount() {
-    this.ngRedux.dispatch(deleteAccountAction(this.id));
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: DeleteAccountComponent,
+      width: '210px',
+      data: {accountId: this.id}
+    }));
   }
+
 
   addContact(){
     this.ngRedux.dispatch(addContactAction(this.id,this.currentUserId));
+  }
+
+  rechargeBalance(){
+    this.ngRedux.dispatch(showDialogAction({
+      componentType: RechargeBalanceComponent,
+      width: '400px',
+      data: null
+    }));
   }
 }
 

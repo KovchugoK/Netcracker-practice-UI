@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable, throwError} from "rxjs/index";
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {ResetPassword} from "../model/ResetPassword";
-import {catchError} from "rxjs/internal/operators";
+import {catchError} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class ResetPasswordService {
     return this.http.post<any>(this.userUrl+'resetPassword',
       null, {
          params: new HttpParams().set('email', email)
-  });
+  }).pipe(catchError((error: any) => throwError(error.error)));
   }
 
   updatePassword(resetPassword: ResetPassword): Observable<any> {

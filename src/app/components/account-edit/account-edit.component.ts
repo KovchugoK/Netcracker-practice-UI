@@ -13,7 +13,7 @@ import {isLoading, isSelected, selectAccountForEdit} from "../../store/selectors
 import {selectAccount} from "../../store/actions/account-state.actions";
 import {updateAccountAction} from "../../store/actions/accounts.actions";
 import * as moment from 'moment';
-import {DatePipe} from "@angular/common";
+import {DatePipe, Location} from "@angular/common";
 
 @Component({
   selector: 'app-account-edit',
@@ -44,13 +44,14 @@ export class AccountEditComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private ngRedux: NgRedux<AppState>,
               private formBuilder: FormBuilder,
-             public datepipe: DatePipe) { }
+             public datepipe: DatePipe,
+             private location: Location,) { }
 
   ngOnInit() {
     this.isCompareDateError=false;
     this.accountId = this.route.snapshot.paramMap.get('id');
     this.ngRedux.dispatch(selectAccount(this.accountId));
-    this.isSelected.pipe(skipWhile(result => result), take(1))
+    this.isLoading.pipe(skipWhile(result => result), take(1))
       .subscribe(() => this.ngRedux.select(state => selectAccountForEdit(state))
         .subscribe(account => {
           this.updatedAccount=account;
@@ -165,5 +166,9 @@ export class AccountEditComponent implements OnInit, OnDestroy {
    if(this.subscription){
      this.subscription.unsubscribe();
    }
+  }
+
+  goBack(){
+    this.location.back();
   }
 }

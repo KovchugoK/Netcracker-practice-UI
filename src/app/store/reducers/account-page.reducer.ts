@@ -26,13 +26,13 @@ export const accountPageReducer: Reducer<AccountPageState> = (state: AccountPage
       return {...state, isLoading: true}
     }
     case UPDATE_ACCOUNT_SUCCESS: {
-      return {...state, accountModel: action.payload.account, isSelected: false, isLoading: false};
+      return {...state, accountModel: action.payload.account, isLoading: false};
     }
     case SELECT_ACCOUNT: {
-      return {...state, isSelected: true};
+      return {...state, isLoading: true};
     }
     case SELECT_ACCOUNT_SUCCESS: {
-      return {...state, accountModel: action.payload.account, isSelected: false};
+      return {...state, accountModel: action.payload.account, isLoading: false};
     }
     case DELETE_ACCOUNT: {
       return {...state, isLoading: true};

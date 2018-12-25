@@ -1,6 +1,6 @@
 <main>
   <div class="spinner">
-    <mat-spinner class="center-spinner" *ngIf="isSelected | async; else accountTemplate" mode="indeterminate" color="primary">
+    <mat-spinner class="center-spinner" *ngIf="isLoading | async; else accountTemplate" mode="indeterminate" color="primary">
     </mat-spinner>
   </div>
 
@@ -21,6 +21,7 @@
     </button>
       <button mat-button>Contact</button>
       <button mat-button (click)="addContact()">Add</button>
+    <button mat-button (click)="rechargeBalance()">Recharge balance</button>
   </mat-card-actions>
 </mat-card>
 <mat-divider></mat-divider>

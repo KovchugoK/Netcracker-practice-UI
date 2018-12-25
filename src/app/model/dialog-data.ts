@@ -10,3 +10,6 @@ export interface FavoriteDialogData {
   readonly favoriteId: string;
 }
 
+export interface AccountDialogData {
+  readonly accountId: string;
+}
