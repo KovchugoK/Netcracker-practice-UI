@@ -49,15 +49,16 @@ export class SpecialistListComponent implements OnInit {
   onClick(account: Account, isAdded: boolean) {
     if (isAdded) {
       this.favoriteService.deleteFavoriteByAccountId(account.id).subscribe();
-      this.reloadData();
+      this.reloadExtraData();
     } else {
       this.favorite.account = account;
       this.specialisService.post(this.favorite, this.ngRedux.getState().currentUserState.currentUser.account.id).subscribe();
-      this.reloadData();
+      this.reloadExtraData();
     }
   }
 
   reloadData() {
+    this.isLoading.pipe(skipWhile(result => result === true), take(2)).subscribe();
     this.favoriteService.getFavorites(this.ngRedux.getState().currentUserState.currentUser.account)
       .subscribe(favoriteList => this.favorites = favoriteList);
     for (let i of this.favorites) {
@@ -79,6 +80,13 @@ export class SpecialistListComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  reloadExtraData(){
+    this.reloadData();
+    this.reloadData();
+    this.reloadData();
+    this.reloadData();
   }
 
 }
