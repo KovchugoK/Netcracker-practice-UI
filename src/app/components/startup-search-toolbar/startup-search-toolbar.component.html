@@ -10,8 +10,8 @@
         <input matInput=""  [formControlName]="'creatorNameContains'">
       </mat-form-field>
       <mat-label style="margin-right: 20px"> Sort by:</mat-label>
-      <mat-form-field style="width: 270px; margin-right: 20px">
-        <select matNativeControl class="sortTypeSelect" [formControlName]="'sortType'">
+      <mat-form-field style="width: 250px; margin-right: 20px">
+        <select  style="width: 250px" matNativeControl class="sortTypeSelect" [formControlName]="'sortType'">
           <option *ngFor="let sortT of sortTypes" [ngValue]="sortT">
             {{sortT.viewValue}}
           </option>

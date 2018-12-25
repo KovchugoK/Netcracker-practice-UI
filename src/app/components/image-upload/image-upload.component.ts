@@ -15,6 +15,7 @@ export class ImageUploadComponent implements OnInit {
   @Input() defaultImage: string;
   @Input() imageWidth: string;
   @Input() imageHeight: string;
+  @Input() onErrorImage: string;
   constructor() {
   }
 
@@ -23,7 +24,7 @@ export class ImageUploadComponent implements OnInit {
       this.imageUrl='https://drive.google.com/thumbnail?id='+this.defaultImage;
     }
     else {
-      this.imageUrl = '/src/assets/images/default-image.png';
+      this.imageUrl = this.onErrorImage;
     }
     this.ishiddenImage = false;
   }

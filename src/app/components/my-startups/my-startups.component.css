@@ -8,7 +8,7 @@ mat-card {
   margin-bottom: 2%;
   margin-top: 2%;
   overflow-x:hidden;
-  height: 320px;
+  height: 330px;
 }
 .cut-long-text {
   white-space: nowrap;
@@ -43,7 +43,7 @@ main {
 .box {
   overflow: hidden;
   height: 50px;
-  width: 300px;
+  width: 400px;
   line-height: 25px;
 }
 
@@ -74,4 +74,11 @@ main {
   text-align: right;
   background-size: 100% 100%;
   background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+}
+
+span:focus {
+  outline:none;
+}
+button:focus{
+  outline:none;
 }

@@ -26,3 +26,11 @@ h1 {
   display: flex;
   justify-content: flex-end;
 }
+
+span:focus {
+  outline:none;
+}
+button:focus{
+  outline:none;
+}
+
