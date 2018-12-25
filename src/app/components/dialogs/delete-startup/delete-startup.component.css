@@ -14,3 +14,9 @@ button {
 }
 
 
+span:focus {
+  outline:none;
+}
+button:focus{
+  outline:none;
+}

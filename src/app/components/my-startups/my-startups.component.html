@@ -5,7 +5,7 @@
     </mat-spinner>
   </div>
   <ng-template #startupsTable>
-    <h3> Startup leader </h3>
+    <h2> Startup leader </h2>
     <mat-divider style="width: 95%"></mat-divider>
     <div style="width: 90%">
       <div style="width: 90%" *ngIf="(startupListLeader | async).length !==  0;else empty">
@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <h3> Startup member</h3>
+    <h2> Startup member</h2>
     <mat-divider style="width: 95%"></mat-divider>
 
     <div style="width: 90%">
@@ -34,7 +34,7 @@
     <img mat-card-lg-image="" class="full-size" src="https://drive.google.com/thumbnail?id={{startup.compressedImageId}}" onError="this.src='/src/assets/images/defaultImageForStartup.png';">
     <mat-card-content>
       <p align="center">
-        <a routerLink="/startup/{{startup.id}}">
+        <a style="font-size: 17px" routerLink="/startup/{{startup.id}}">
           {{startup.startupName}}
         </a>
       </p>
@@ -42,13 +42,14 @@
         {{startup.idea}}
       </p>
       <p>
-        {{startup.sumOfInvestment}}$ Created by: {{startup.account.user.login}}
+        <span style="font-size: 16px"> Needed: {{startup.sumOfInvestment}}$ </span>   &nbsp;<span style="font-size: 16px"> Created by: </span> <a routerLink="/account/{{startup.account.id}}" style="font-size: 16px">  {{startup.account.user.login}} </a>
       </p>
+
     </mat-card-content>
   </mat-card>
 </ng-template>
 
 <ng-template #empty>
-<h5> Such startups were not found </h5>
+<h4 align="center" style="margin-top: 20px"> Such startups were not found </h4>
 </ng-template>
 

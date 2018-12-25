@@ -11,7 +11,7 @@
           <img mat-card-lg-image="" class="full-size" src="https://drive.google.com/thumbnail?id={{startup.compressedImageId}}" onError="this.src='/src/assets/images/defaultImageForStartup.png';">
           <mat-card-content>
             <p align="center">
-              <a style="font-size: 18px" routerLink="/startup/{{startup.id}}">
+              <a style="font-size: 17px" routerLink="/startup/{{startup.id}}">
                 {{startup.startupName}}
               </a>
             </p>
@@ -19,7 +19,7 @@
               {{startup.idea}}
             </p>
             <p>
-              <b> {{startup.sumOfInvestment}}$ </b>  &nbsp;  Created by: <a routerLink="/account/{{startup.account.id}}"> {{startup.account.user.login}} </a>
+              <span style="font-size: 16px"> Needed: {{startup.sumOfInvestment}}$ </span>   &nbsp;<span style="font-size: 16px"> Created by: </span> <a routerLink="/account/{{startup.account.id}}" style="font-size: 16px">  {{startup.account.user.login}} </a>
             </p>
             <div *ngIf="!startup.nonBlock" style="color: red">
               <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="unBlockStartup(startup)"> Unblock Startup  </button></ng-template>

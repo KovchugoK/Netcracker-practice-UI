@@ -20,9 +20,9 @@
         </div>
 
 
-        <div class="rightFromImageBlock">
+        <div class="rightFromImageBlock" style="word-wrap: break-word;">
           <h3> {{(startup | async)?.startupName}} </h3>
-          <p style="text-align: justify"><br/> {{(startup | async)?.idea}} </p>
+          <p><br/> {{(startup | async)?.idea}} </p>
 
           <p>
             <b style="margin-right: 30px">Need investments:</b>
@@ -35,13 +35,13 @@
           </p>
         </div>
 
-        <div class="block">
+        <div class="block" style="word-wrap: break-word;">
           <h3><b> About project:</b></h3>
           <p> {{(startup | async)?.aboutProject}}</p>
           <mat-divider></mat-divider>
         </div>
 
-        <div class="block">
+        <div class="block" style="word-wrap: break-word;">
           <h3><b> Business plan:</b></h3>
           <p> {{(startup | async)?.businessPlan}}</p>
           <mat-divider></mat-divider>
@@ -52,13 +52,18 @@
           <h3><b> Members:</b></h3>
         </div>
         <div>
-          <mat-card style="width: 250px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px">
+          <mat-card
+            style="min-width: 250px; margin-right: 15px; margin-top: 15px; margin-bottom: 15px; min-height: 153px">
             <mat-card-header>
               <img mat-card-avatar
                    src="https://drive.google.com/thumbnail?id={{(startup | async)?.account.compressedImageId}}"
-                   onError="this.src='/src/assets/images/Person.jpg'">
-              <mat-card-title *ngIf="(startup | async)?.account!==null"> {{(startup | async)?.account.firstName}} <br/>
+                   onError="this.src='/src/assets/images/Person.jpg'" style="cursor: pointer"
+                   routerLink="/account/{{(startup | async)?.account.id}}">
+              <mat-card-title *ngIf="(startup | async)?.account!==null">
+                <span style="cursor: pointer" routerLink="/account/{{(startup | async)?.account.id}}">
+                {{(startup | async)?.account.firstName}} <br/>
                 {{(startup | async)?.account.lastName}}
+                   </span>
               </mat-card-title>
               <mat-card-title *ngIf="(startup | async)?.account===null"> UNKNOWN</mat-card-title>
               <mat-card-subtitle> LEADER</mat-card-subtitle>
@@ -67,13 +72,22 @@
         </div>
 
         <div *ngFor="let res of (startup | async)?.startupResumes">
-          <mat-card style="margin-right: 15px; margin-top: 15px; margin-bottom: 15px; width: 250px"
-                    *ngIf="res?.accepted === true ">
+          <mat-card
+            style="margin-right: 15px; margin-top: 15px; margin-bottom: 15px; min-width: 250px; min-height: 153px"
+            *ngIf="res?.accepted === true ">
             <mat-card-header>
               <img mat-card-avatar src="https://drive.google.com/thumbnail?id={{res.resume.account?.compressedImageId}}"
-                   onError="this.src='/src/assets/images/Person.jpg'">
-              <mat-card-title> {{res.resume.account?.firstName}}<br/> {{res.resume.account?.lastName}}</mat-card-title>
-              <mat-card-subtitle> {{res.resume.businessRole.businessRoleName}}
+                   onError="this.src='/src/assets/images/Person.jpg'" style="cursor: pointer"
+                   routerLink="/account/{{res.resume.account?.id}}">
+              <mat-card-title>
+                <span style="cursor: pointer" routerLink="/account/{{res.resume.account?.id}}">
+                  {{res.resume.account?.firstName}}<br/> {{res.resume.account.lastName}}
+                  </span>
+              </mat-card-title>
+              <mat-card-subtitle>
+                <span style="cursor: pointer" routerLink="/resume/{{res.resume?.id}}">
+                  {{res.resume.businessRole.businessRoleName}}
+                  </span>
                 {{getStartupRole(res.resume.account.id)}}
               </mat-card-subtitle>
               <i class="material-icons" *ngIf="(currentUser|async)?.account.id === res.resume.account.id"
@@ -92,14 +106,21 @@
             <h3><b> Your pending resumes: </b></h3>
           </div>
           <div *ngFor="let resume of myPendingResumes">
-            <mat-card style="margin-right: 15px; margin-top: 15px; margin-bottom: 15px; width: 250px">
+            <mat-card
+              style="margin-right: 15px; margin-top: 15px; margin-bottom: 15px; min-width: 250px; min-height: 153px">
               <mat-card-header>
                 <img mat-card-avatar
                      src="https://drive.google.com/thumbnail?id={{resume.resume.account?.compressedImageId}}"
-                     onError="this.src='/src/assets/images/Person.jpg'">
-                <mat-card-title> {{resume.resume.account?.firstName}}<br/> {{resume.resume.account.lastName}}
+                     onError="this.src='/src/assets/images/Person.jpg'" style="cursor: pointer"
+                     routerLink="/account/{{resume.resume.account?.id}}">
+                <mat-card-title>
+                  <span style="cursor: pointer" routerLink="/account/{{resume.resume.account?.id}}">
+                  {{resume.resume.account?.firstName}}<br/> {{resume.resume.account.lastName}}
+                  </span>
                 </mat-card-title>
-                <mat-card-subtitle> {{resume.resume.businessRole.businessRoleName}}</mat-card-subtitle>
+                <mat-card-subtitle>  <span style="cursor: pointer" routerLink="/resume/{{resume.resume?.id}}">
+                  {{resume.resume.businessRole.businessRoleName}}
+                  </span></mat-card-subtitle>
                 <i class="material-icons" (click)="cancelResume(resume.id)" style="cursor: pointer">
                   delete
                 </i>
@@ -109,18 +130,20 @@
           </div>
           <mat-divider style="width: 90%"></mat-divider>
         </div>
-        <div class="blockText">
+        <div class="blockText" *ngIf="(investments !== undefined) &&(investments.length > 0)">
           <h3><b> Top Investors: </b></h3>
         </div>
         <div *ngFor="let investment of investments">
-          <mat-card style="margin-right: 15px; margin-top: 15px; margin-bottom: 15px; width: 250px">
+          <mat-card
+            style="margin-right: 15px; margin-top: 15px; margin-bottom: 15px; min-width: 250px; min-height: 153px">
             <mat-card-header>
               <img mat-card-avatar
                    src="https://drive.google.com/thumbnail?id={{investment.investor?.compressedImageId}}"
-                   onError="this.src='/src/assets/images/Person.jpg'">
-              <mat-card-title> {{investment.investor?.firstName}}<br/> {{investment.investor?.lastName}}
+                   onError="this.src='/src/assets/images/Person.jpg'" style="cursor: pointer"
+                   routerLink="/account/{{investment.investor?.id}}">
+              <mat-card-title><span style="cursor: pointer" routerLink="/account/{{investment.investor?.id}}"> {{investment.investor?.firstName}}<br/> {{investment.investor?.lastName}} </span>
               </mat-card-title>
-              <mat-card-subtitle> {{investment.sumOfInvestment}}$</mat-card-subtitle>
+              <mat-card-subtitle> Donated: {{investment.sumOfInvestment}}$</mat-card-subtitle>
             </mat-card-header>
           </mat-card>
         </div>
@@ -351,3 +374,4 @@
 <ng-template #startupNotFound>
   <h2 align="center">Sorry. Such startup not found </h2>
 </ng-template>
+
