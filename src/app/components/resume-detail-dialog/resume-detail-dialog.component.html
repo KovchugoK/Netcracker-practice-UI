@@ -9,7 +9,7 @@
         <div class="rightFromImageBlock">
           <div class="img">
             <div *ngIf="(resume | async)?.account.compressedImageId !== null; else defaultImg">
-              <<img mat-card-lg-image="" class="full-size"
+              <img mat-card-lg-image="" class="full-size"
                     src="https://drive.google.com/thumbnail?id={{(resume | async)?.account.compressedImageId}}"
                     alt="resumeLogo">
             </div>
