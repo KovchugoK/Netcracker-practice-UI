@@ -31,14 +31,16 @@ import {defaultStartup} from '../../model/Startup';
 import {StartupResumeService} from '../../services/startup-resume.service';
 import {AppState} from '../index';
 import {NgRedux} from '@angular-redux/store';
-import {updateBalanceAction} from '../actions/current-user.actions';
+import {updateBalanceSuccessAction} from '../actions/current-user.actions';
 import {NotifierService} from 'angular-notifier';
+import {GlobalUserStorageService} from '../../services/global-storage.service';
 
 
 @Injectable()
 export class StartupEpic {
   constructor(private startupService: StartupService,
-              private startupResumeService: StartupResumeService, private ngRedux: NgRedux<AppState>, private notifierService: NotifierService) {
+              private startupResumeService: StartupResumeService, private ngRedux: NgRedux<AppState>,
+              private notifierService: NotifierService, private localStorageService: GlobalUserStorageService) {
   }
 
   fetchStartups$ = (action$: ActionsObservable<AnyAction>) => {
@@ -125,14 +127,16 @@ export class StartupEpic {
               map(startup => selectStartupSuccess(startup)),
               catchError(error => {
                 this.notifierService.notify('error', 'Select startup failed');
-                return of(selectStartupFailed(error)); } )
+                return of(selectStartupFailed(error));
+              })
             )
           : of(defaultStartup)
             .pipe(
               map(startup => selectStartupSuccess(startup)),
               catchError(error => {
                 this.notifierService.notify('error', 'Select startup failed');
-                return of(selectStartupFailed(error)); } )
+                return of(selectStartupFailed(error));
+              })
             );
       })
     );
@@ -196,8 +200,17 @@ export class StartupEpic {
           .makeInvestment(payload.investor, payload.startup, payload.sumOfInvestment)
           .pipe(
             map(investment => {
-              this.ngRedux.dispatch(updateBalanceAction(payload.investor.id,
-                this.ngRedux.getState().currentUserState.currentUser.account.balance - payload.sumOfInvestment));
+              this.localStorageService.currentUser = {
+                ...this.localStorageService.currentUser,
+                account: {
+                  ...this.localStorageService.currentUser.account,
+                  balance: this.ngRedux.getState().currentUserState.currentUser.account.balance - payload.sumOfInvestment
+                }
+              };
+              this.ngRedux.dispatch(updateBalanceSuccessAction
+              (this.ngRedux.getState().currentUserState.currentUser.account.balance - payload.sumOfInvestment));
+              // this.ngRedux.dispatch(updateBalanceAction(payload.investor.id,
+              //   this.ngRedux.getState().currentUserState.currentUser.account.balance - payload.sumOfInvestment));
               this.notifierService.notify('success', 'Investment was made successful');
               return makeInvestmentInStartupSuccessAction(investment);
             }),
