@@ -71,12 +71,12 @@ export class AccountEpic {
             .findAccountById(payload.accountId)
             .pipe(
               map(account => selectAccountSuccess(account)),
-              catchError(error => of(fetchAccountFailedAction(error.message)))
+              catchError(error => of(fetchAccountFailedAction(error)))
             )
           : of(defaultAccount)
             .pipe(
               map(account => selectAccountSuccess(account)),
-              catchError(error => of(fetchAccountFailedAction(error.message)))
+              catchError(error => of(fetchAccountFailedAction(error)))
             );
       })
     );

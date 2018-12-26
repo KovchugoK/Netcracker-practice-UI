@@ -1,7 +1,7 @@
 <h1 mat-dialog-title>Forgot your password?</h1>
 <form [formGroup]="emailForm">
   <mat-form-field>
-    <input matInput placeholder="Email" [formControlName]="'email'" maxLength="20" required/>
+    <input matInput placeholder="Email" [formControlName]="'email'" maxLength="40" required/>
     <mat-error *ngIf="login.invalid">{{getErrorText('email')}}</mat-error>
   </mat-form-field>
 

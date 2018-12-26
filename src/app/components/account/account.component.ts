@@ -25,7 +25,7 @@ import {AdminService} from "../../services/admin.service";
 export class AccountComponent implements OnInit {
 
   id: string;
-  currentUserId:string;
+  currentUserId: string;
   @select(selectCurrentUser)
   user: Observable<User>;
 
@@ -38,6 +38,7 @@ export class AccountComponent implements OnInit {
   @select(selectAccountFromState)
   account: Observable<Account>;
 
+  currentAccountId: string;
   constructor(private ngRedux: NgRedux<AppState>,
               private accountService: AccountService,
               private route: ActivatedRoute,
@@ -47,7 +48,7 @@ export class AccountComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.ngRedux.dispatch(selectAccount(this.id));
-    this.user.subscribe(value => this.currentUserId=value.id);
+    this.user.subscribe(value => {this.currentUserId = value.id;  this.currentAccountId = value.account.id;});
   }
 
   deleteAccount() {
@@ -60,7 +61,7 @@ export class AccountComponent implements OnInit {
 
 
   addContact(){
-    this.ngRedux.dispatch(addContactAction(this.id,this.currentUserId));
+    this.ngRedux.dispatch(addContactAction(this.currentAccountId, this.id));
   }
 
   rechargeBalance(){

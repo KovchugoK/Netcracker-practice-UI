@@ -7,6 +7,7 @@ import {DialogResult} from '../../../model/dialog-result';
 import {NgRedux} from '@angular-redux/store';
 import {AppState} from '../../../store';
 import {loginUserAction} from '../../../store/actions/current-user.actions';
+import {NotifierService} from 'angular-notifier';
 
 @Component({
   selector: 'app-sign-up',
@@ -24,6 +25,7 @@ export class SignUpComponent implements OnInit {
               public dialogRef: MatDialogRef<SignUpComponent>,
               private userService: UserService,
               private ngRedux: NgRedux<AppState>,
+              private notifier: NotifierService,
               @Inject(MAT_DIALOG_DATA) public data: any) {
   }
 
@@ -97,10 +99,11 @@ export class SignUpComponent implements OnInit {
       .pipe(first())
       .subscribe(
         () => {
-          this.ngRedux.dispatch(loginUserAction(
-            {login: this.registerForm.controls['login'].value,
-              password: this.registerForm.controls['password'].value}
-              ));
+          // this.ngRedux.dispatch(loginUserAction(
+          //   {login: this.registerForm.controls['login'].value,
+          //     password: this.registerForm.controls['password'].value}
+          //     ));
+          this.notifier.notify('success', 'Registration successful. Check your email to activate your account!');
           this.onCancelClick();
         },
         error => {

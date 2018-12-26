@@ -1,93 +1,99 @@
 <main>
   <div class="spinner">
-    <mat-spinner class="center-spinner" *ngIf="isLoading | async; else accountTemplate" mode="indeterminate" color="primary">
+    <mat-spinner class="center-spinner" *ngIf="isLoading | async; else accountTemplate" mode="indeterminate"
+                 color="primary">
     </mat-spinner>
   </div>
 
   <ng-template #accountTemplate>
-  <div *ngIf="currentPageUser.nonBlock; else blockUserView">
-    <mat-card fxLayout="row"  fxLayoutGap="10px" fxFlexAlign="space-between start">
-      <img mat-card-lg-image fxFlex="1 1 15%" src="https://drive.google.com/thumbnail?id={{(account|async)?.compressedImageId}}"  onError="this.src='/src/assets/images/Person.jpg';">
-      <mat-card-title-group fxFlex="1 1 70%">
-       <mat-card-title>{{(account| async)?.firstName}} {{(account| async)?.lastName}}</mat-card-title>
-       <mat-card-subtitle *ngIf="account | async as accountData">{{accountData|age}} years</mat-card-subtitle>
-       <mat-card-subtitle>{{(account| async)?.user.email}}</mat-card-subtitle>
-      </mat-card-title-group>
-      <mat-card-actions fxFlex="1 1 15%">
+    <div *ngIf="currentPageUser.nonBlock; else blockUserView">
+      <mat-card fxLayout="row" fxLayoutGap="10px" fxFlexAlign="space-between start">
+        <img mat-card-lg-image fxFlex="1 1 15%"
+             src="https://drive.google.com/thumbnail?id={{(account|async)?.compressedImageId}}"
+             onError="this.src='/src/assets/images/Person.jpg';">
+        <mat-card-title-group fxFlex="1 1 70%">
+          <mat-card-title>{{(account| async)?.firstName}} {{(account| async)?.lastName}}</mat-card-title>
+          <mat-card-subtitle *ngIf="(account | async)| age as accountData">{{accountData}} years</mat-card-subtitle>
+          <mat-card-subtitle>{{(account| async)?.user.login}}</mat-card-subtitle>
+          <mat-card-subtitle>{{(account| async)?.user.email}}</mat-card-subtitle>
+        </mat-card-title-group>
+        <mat-card-actions fxFlex="1 1 15%">
 
-        <div *ngIf="currentPageUser.nonBlock">
-          <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="blockUser(currentPageUser)"> Block User  </button></ng-template>
-        </div>
-        <div *ngIf="!currentPageUser.nonBlock">
-          <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="unBlockUser(currentPageUser)"> UnBlock User  </button></ng-template>
-        </div>
-    <button *ngIf="currentPageUser.id == currentUser.id" mat-icon-button color="primary" routerLink="/account-edit/{{id}}" >
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button *ngIf="currentPageUser.id == currentUser.id" mat-icon-button color="primary" (click)="deleteAccount()" >
-      <mat-icon>delete</mat-icon>
-    </button>
-      <button mat-button (click)="rechargeBalance()">Recharge balance</button>
-      <button *ngIf="currentPageUser.id !== currentUser.id" mat-button>Write</button>
-      <button *ngIf="currentPageUser.id !== currentUser.id" (click)="addContact()" mat-button>Add</button>
-  </mat-card-actions>
-</mat-card>
-<mat-divider></mat-divider>
-  <mat-card-title>Resume</mat-card-title>
-  <mat-card-actions>
-   <button mat-raised-button class="resume-button" *ngFor="let item of (account| async)?.resumes" routerLink="/resume/{{item.id}}">{{item.businessRole.businessRoleName}}</button>
-    <button *ngIf="currentPageUser.id == currentUser.id" mat-raised-button class="resume-button"  routerLink="/resume-edit">+</button>
-  </mat-card-actions>
-<mat-divider></mat-divider>
-  <mat-card-title>Skills</mat-card-title>
-<div fxLayout="row" fxLayoutGap="10px">
-  <mat-chip-list *ngFor="let skill of ((account| async)?.resumes|skills)">
-    <mat-chip>{{skill}}</mat-chip>
-  </mat-chip-list>
-</div>
-<mat-divider></mat-divider>
-<mat-card-title>About</mat-card-title>
-<mat-card-content>{{(account| async)?.aboutMe}}</mat-card-content>
-<mat-divider></mat-divider>
-<mat-card-title>Education</mat-card-title>
-<mat-card>
-  <mat-list *ngFor="let education of (account| async)?.educations">
-  <mat-list-item>
-    <h4>{{education.completionYear}}     {{education.institution}}</h4>
-  </mat-list-item>
-  </mat-list>
-</mat-card>
-<mat-divider></mat-divider>
-<mat-card-title>Startups</mat-card-title>
-<div class="project" fxLayout="row" fxLayoutGap="2%">
-<mat-card *ngFor="let project of ((account| async)|projects)"  class="project-item">
-<mat-card-content >
-  <img mat-card-md-image src="/src/assets/images/Logo.png">
-  <mat-card-title>{{project.startupName}}</mat-card-title>
-  <mat-card-subtitle>{{project.businessRoleName}}</mat-card-subtitle>
-</mat-card-content>
-</mat-card>
-</div>
-<mat-divider></mat-divider>
- <mat-card-title>Work experience</mat-card-title>
- <mat-card *ngFor="let workExp of (account| async)?.workExperiences"   fxLayoutGap="2%" fxFlexAlign="space-between start" class="work-experience" >
-   <img mat-card-sm-image src="/src/assets/images/Logo.png" >
-   <mat-card-title-group fxFlex="1 1 30%">
-      <mat-card-title>{{workExp.workPlace}}</mat-card-title>
-      <mat-card-subtitle>{{workExp.position}}</mat-card-subtitle>
-      <mat-card-subtitle>{{workExp.start|date: 'dd/MM/yyyy'}}-{{(workExp.finish|date: 'dd/MM/yyyy')||"now"}}</mat-card-subtitle>
-   </mat-card-title-group>
- </mat-card>
-</div>
+          <div *ngIf="currentPageUser.nonBlock">
+            <ng-template ngxPermissionsOnly="ADMIN">
+              <button (click)="blockUser(currentPageUser)"> Block User</button>
+            </ng-template>
+          </div>
+          <div *ngIf="!currentPageUser.nonBlock">
+            <ng-template ngxPermissionsOnly="ADMIN">
+              <button (click)="unBlockUser(currentPageUser)"> UnBlock User</button>
+            </ng-template>
+          </div>
+          <button *ngIf="currentPageUser.id == currentUser.id" mat-icon-button color="primary"
+                  routerLink="/account-edit/{{id}}">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button *ngIf="currentPageUser.id == currentUser.id" mat-icon-button color="primary"
+                  (click)="deleteAccount()">
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button mat-button (click)="rechargeBalance()">Recharge balance</button>
+          <button *ngIf="currentPageUser.id !== currentUser.id" mat-button>Write</button>
+          <button *ngIf="currentPageUser.id !== currentUser.id" (click)="addContact()" mat-button>Add</button>
+        </mat-card-actions>
+      </mat-card>
+      <mat-divider></mat-divider>
+      <mat-card-title>Resume</mat-card-title>
+      <mat-card-actions>
+        <button mat-raised-button class="resume-button" *ngFor="let item of (account| async)?.resumes"
+                routerLink="/resume/{{item.id}}">{{item.businessRole.businessRoleName}}
+        </button>
+        <button *ngIf="currentPageUser.id == currentUser.id" mat-raised-button class="resume-button"
+                routerLink="/resume-edit">+
+        </button>
+      </mat-card-actions>
+      <mat-divider></mat-divider>
+      <mat-card-title>Skills</mat-card-title>
+      <div fxLayout="row" fxLayoutGap="10px">
+        <mat-chip-list *ngFor="let skill of ((account| async)?.resumes|skills)">
+          <mat-chip>{{skill}}</mat-chip>
+        </mat-chip-list>
+      </div>
+      <mat-divider></mat-divider>
+      <mat-card-title>About</mat-card-title>
+      <mat-card-content>{{(account| async)?.aboutMe}}</mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-title>Education</mat-card-title>
+      <mat-card>
+        <mat-list *ngFor="let education of (account| async)?.educations">
+          <mat-list-item>
+            <h4>{{education.completionYear}} {{education.institution}}</h4>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+      <mat-divider></mat-divider>
+      <mat-card-title>Work experience</mat-card-title>
+      <mat-card *ngFor="let workExp of (account| async)?.workExperiences" fxLayoutGap="2%"
+                fxFlexAlign="space-between start" class="work-experience">
+        <img mat-card-sm-image src="/src/assets/images/Logo.png">
+        <mat-card-title-group fxFlex="1 1 30%">
+          <mat-card-title>{{workExp.workPlace}}</mat-card-title>
+          <mat-card-subtitle>{{workExp.position}}</mat-card-subtitle>
+          <mat-card-subtitle>{{workExp.start|date: 'dd/MM/yyyy'}}-{{(workExp.finish|date: 'dd/MM/yyyy')||"now"}}
+          </mat-card-subtitle>
+        </mat-card-title-group>
+      </mat-card>
+    </div>
   </ng-template>
 </main>
-
 
 
 <!--...................ЛИЗА НЕ ПУГАЙСЯ........................-->
 <!--!!!!!!!!!!!!!!Отображение страницы заблокированного юзера. Тут тебе ничего не надо!)!!!!!!!!!!!!!!!!-->
 <ng-template #blockUserView>
-    Данная страница заблокирована
-    <ng-template ngxPermissionsOnly="ADMIN">  <button (click)="unBlockUser(currentPageUser)"> UnBlock User  </button></ng-template>
-    </ng-template>
+  Данная страница заблокирована
+  <ng-template ngxPermissionsOnly="ADMIN">
+    <button (click)="unBlockUser(currentPageUser)"> UnBlock User</button>
+  </ng-template>
+</ng-template>
 

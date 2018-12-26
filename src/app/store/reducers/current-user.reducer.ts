@@ -1,4 +1,4 @@
-import { Reducer } from 'redux';
+import {Reducer} from 'redux';
 import {
   CLEAR_USER_ERROR_MESSAGE,
   LOGIN_USER,
@@ -7,6 +7,7 @@ import {
   UPDATE_CURRENT_USER
 } from '../actions/current-user.actions';
 import {User} from '../../model/User';
+import {UPDATE_ACCOUNT_SUCCESS} from '../actions/accounts.actions';
 
 
 export interface CurrentUserState {
@@ -41,6 +42,14 @@ export const currentUserReducer: Reducer<CurrentUserState> = (state: CurrentUser
         ...state, currentUser: {
           ...state.currentUser,
           account: {...state.currentUser.account, balance: action.payload.balance}
+        }
+      };
+    }
+    case UPDATE_ACCOUNT_SUCCESS: {
+      return {
+        ...state, currentUser: {
+          ...state.currentUser,
+          account: {...state.currentUser.account, firstName: action.payload.account.firstName, lastName: action.payload.account.lastName}
         }
       };
     }

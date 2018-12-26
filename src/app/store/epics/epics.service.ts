@@ -46,7 +46,6 @@ export class EpicService {
       this.resumeEpic.updateResume$,
       this.resumeEpic.fetchMyResumes$,
       this.contactsEpic.fetchContacts$,
-      this.contactsEpic.deleteContact$,
       this.contactsEpic.searchContacts$,
       this.favoriteEpic.deleteFavorite$,
       this.favoriteEpic.fetchFavorites$,
@@ -59,8 +58,7 @@ export class EpicService {
       this.accountEpic.selectAccount$,
       this.accountEpic.deleteAccount$,
       this.resetPasswordEpic.sendEmail$,
-      this.resetPasswordEpic.resetPassword$,
-      this.accountEpic.deleteAccount$
+      this.resetPasswordEpic.resetPassword$
     );
   }
 }

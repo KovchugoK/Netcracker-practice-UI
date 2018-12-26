@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'main-page', pathMatch: 'full'},
   {path: 'main-page', component: MainPageComponent},
   {path: 'startup-list', component: StartupListComponent},
-  {path: 'specialist-list/:id', component: AccountComponent},
+  {path: 'specialist-list/:id', component: AccountComponent, canActivate: [AuthGuard]},
   {path: 'specialist-list', component: SpecialistListComponent},
   {path: 'startup/:id', component: StartupComponent},
   {path: 'startup-edit/:id', component: StartupEditComponent, canActivate: [AuthGuard, StartupEditGuard]},

@@ -45,7 +45,7 @@ export class EnterEmailComponent implements OnInit {
 
   ngOnInit() {
     this.emailForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]]
+      email: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(40)]]
     });
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
